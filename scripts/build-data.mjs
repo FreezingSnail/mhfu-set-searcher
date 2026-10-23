@@ -163,12 +163,50 @@ for (const file of fs.readdirSync(path.join(vendor, "blacksmith/maps"))) {
   walk(read(`blacksmith/maps/${file}`).map);
   weaponOrder.set(type, order);
 }
+/* Blacksmith ammo/coating names -> readable labels (typos included). */
+const AMMO_LABEL = {
+  RecovS: "Recovery S",
+  "Recov S": "Recovery S",
+  PoisnS: "Poison S",
+  "Posion S": "Poison S",
+  "Para S": "Paralysis S",
+  SleepS: "Sleep S",
+  ThunderS: "Thunder S",
+  "Flaming S": "Flame S",
+  Flaming: "Flame S",
+};
+const ammoLabel = (raw) => {
+  const s = String(raw).trim().replace(/\s+/g, " ");
+  return AMMO_LABEL[s] ?? AMMO_LABEL[s.replace(/\s+/g, "")] ?? s;
+};
+const rapidLabel = (raw) =>
+  String(raw)
+    .split("|")
+    .map((part) => {
+      const s = part.trim().replace(/\s+/g, " ");
+      const m = s.match(/^(.*?)(?:\s*Lv\s*(\d+))?$/i);
+      const base = ammoLabel(m?.[1] ?? s);
+      return m?.[2] ? `${base} Lv${m[2]}` : base;
+    })
+    .filter(Boolean);
+
+const COATING_LABEL = {
+  closerng: "Close Range",
+  paralysis: "Paralysis",
+  poison: "Poison",
+  sleep: "Sleep",
+  power: "Power",
+  paint: "Paint",
+};
+const SHOT_LABEL = { Rapd: "Rapid", Sctr: "Scatter", Prce: "Pierce" };
+const AMMO_GROUP = { ammo: "normal", status_ammo: "status", element_ammo: "element", misc_ammo: "misc" };
+
 const weapons = [];
 for (const file of fs.readdirSync(path.join(vendor, "blacksmith/weapons"))) {
   if (!file.endsWith(".json")) continue;
   for (const w of read(`blacksmith/weapons/${file}`).weapons) {
     const from = w.improve_from ? (Array.isArray(w.improve_from) ? w.improve_from : [w.improve_from]) : [];
-    weapons.push({
+    const weapon = {
       id: w.name,
       name: w.name,
       type: w.type,
@@ -188,7 +226,27 @@ for (const file of fs.readdirSync(path.join(vendor, "blacksmith/weapons"))) {
       improveTo: w.improve_to ?? [],
       createMats: (w.create_mats ?? []).map((m) => [m.name, m.amount]),
       improveMats: (w.improve_mats ?? []).map((m) => [m.name, m.amount]),
-    });
+    };
+    if (w.type === "light-bowgun" || w.type === "heavy-bowgun") {
+      weapon.reload = w.reload?.trim() ?? null;
+      weapon.recoil = w.recoil?.trim() ?? null;
+      weapon.rapidFire = w.rapid_fire ? rapidLabel(w.rapid_fire) : null;
+      weapon.ammo = Object.entries(AMMO_GROUP).flatMap(([field, group]) =>
+        (w[field] ?? []).map((a) => ({
+          name: ammoLabel(a.name),
+          group,
+          caps: a.capacity ?? [],
+        })),
+      );
+    }
+    if (w.type === "bow") {
+      weapon.coatings = (w.coatings ?? []).map((c) => COATING_LABEL[c] ?? c);
+      weapon.shots = (w.shots ?? []).map((s) => ({
+        name: SHOT_LABEL[s.name] ?? s.name,
+        level: Number(s.level) || 1,
+      }));
+    }
+    weapons.push(weapon);
   }
 }
 weapons.sort((a, b) => a.type.localeCompare(b.type) || a.order - b.order || a.name.localeCompare(b.name));

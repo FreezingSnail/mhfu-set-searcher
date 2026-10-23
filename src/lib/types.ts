@@ -32,6 +32,16 @@ export type Deco = {
 export type SkillTier = { points: number; name: string };
 export type SkillTree = { ability: string; tags: string[]; tiers: SkillTier[] };
 
+export type AmmoGroup = "normal" | "status" | "element" | "misc";
+
+export type WeaponAmmo = {
+  name: string;
+  group: AmmoGroup;
+  caps: number[];
+};
+
+export type BowShot = { name: string; level: number };
+
 export type Weapon = {
   id: string;
   name: string;
@@ -52,6 +62,14 @@ export type Weapon = {
   improveTo: string[];
   createMats: [string, number][];
   improveMats: [string, number][];
+  /* Bowgun-only. */
+  reload?: string | null;
+  recoil?: string | null;
+  rapidFire?: string[] | null;
+  ammo?: WeaponAmmo[];
+  /* Bow-only. */
+  coatings?: string[];
+  shots?: BowShot[];
 };
 
 export type SolverInput = {

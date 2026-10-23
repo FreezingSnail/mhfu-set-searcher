@@ -8,7 +8,7 @@ A small, offline-friendly web tool for Monster Hunter Freedom Unite:
 - **Extend search** — groups extra active skills into class sections (Attack, Sharpness, Defense, etc.) as tuples; click a tuple to see matching sets, then add any tuple skill to the targets and rerun.
 - **Builder** — assemble a set manually, add jewels, see live skills/defense/materials.
 - **Sets** — save sets, compare 2–4 side by side, load or rename them.
-- **Weapons** — fully expanded upgrade trees with branch guides, global search across all types, an All Types browse mode, rank badges (LR/HR/G), element/sharpness filters, stats, and materials.
+- **Weapons** — fully expanded upgrade trees split into Blademaster and Ranged sub-pages, with branch guides, search, rank badges (LR/HR/G), element/sharpness filters, stats, and materials. Ranged adds physical ammo, element/status, rapid-fire, and bow shot-type filters. Bowguns show reload, recoil, rapid fire, and full ammo capacities; bows show coatings and charge levels. Ammo, coatings, recoil, reload, rapid fire, and charge data are all searchable.
 
 No backend. Static Vite + React app.
 

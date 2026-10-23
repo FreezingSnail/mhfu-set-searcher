@@ -1,14 +1,85 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { TYPE_LABEL, WEAPONS, WEAPON_BY_NAME, WEAPON_TYPES } from "../lib/data";
-import type { Weapon } from "../lib/types";
+import type { AmmoGroup, Weapon } from "../lib/types";
 
 const SHARP_COLORS = ["#c0392b", "#d35400", "#d4ac0d", "#27ae60", "#2980b9", "#ecf0f1", "#8e44ad"];
 const SHARP_NAMES = ["Red", "Orange", "Yellow", "Green", "Blue", "White", "Purple"];
 const ELEMENTS = ["Fire", "Water", "Thunder", "Ice", "Dragon", "Poison", "Paralysis", "Sleep"];
+const GUN_TYPES = new Set(["light-bowgun", "heavy-bowgun"]);
+const RANGED_TYPES = ["light-bowgun", "heavy-bowgun", "bow"];
+const BLADE_TYPES = WEAPON_TYPES.filter((t) => !RANGED_TYPES.includes(t));
+const AMMO_GROUPS: { key: AmmoGroup; label: string }[] = [
+  { key: "normal", label: "Normal" },
+  { key: "status", label: "Status" },
+  { key: "element", label: "Element" },
+  { key: "misc", label: "Misc" },
+];
+/* Physical ammo types offered by the ammo filter. */
+const PHYSICAL_AMMO = ["Normal S", "Pierce S", "Pellet S", "Crag S", "Clust S"];
+const isPhysicalAmmo = (value: string) => PHYSICAL_AMMO.includes(value);
+/* Element/status ammo -> the element filter value it satisfies. */
+const AMMO_ELEMENT: Record<string, string> = {
+  "Flame S": "Fire",
+  "Water S": "Water",
+  "Thunder S": "Thunder",
+  "Freeze S": "Ice",
+  "Dragon S": "Dragon",
+  "Poison S": "Poison",
+  "Paralysis S": "Paralysis",
+  "Sleep S": "Sleep",
+};
 const maxSharp = (w: Weapon) => {
   for (let i = w.sharpness.length - 1; i >= 0; i--) if (w.sharpness[i] > 0) return i;
   return -1;
 };
+const isBowgun = (w: Weapon) => GUN_TYPES.has(w.type);
+const supportsAmmo = (w: Weapon, predicate: (ammo: NonNullable<Weapon["ammo"]>[number]) => boolean) =>
+  (w.ammo ?? []).some((ammo) => ammo.caps.some((cap) => cap > 0) && predicate(ammo));
+const rapidFiresElement = (w: Weapon, element: string) =>
+  (w.rapidFire ?? []).some((rapid) => AMMO_ELEMENT[rapid.replace(/\s+Lv\d+$/i, "")] === element);
+const prettyCase = (s?: string | null) =>
+  s ? s.replace(/([a-z])([A-Z])/g, "$1 $2") : "—";
+const bonusLabel = (bonus: string) =>
+  /^\+?\d+$/.test(bonus) ? `Defense ${bonus.startsWith("+") ? bonus : `+${bonus}`}` : `Bonus: ${bonus}`;
+const matchesWord = (text: string, word: string) =>
+  word.length === 1 ? text.split(" ").includes(word) : text.includes(word);
+
+/* Full text index so ammo, coatings, recoil, reload and charge levels are searchable. */
+function weaponSearchText(w: Weapon) {
+  const parts: (string | null | undefined)[] = [
+    w.name,
+    TYPE_LABEL[w.type],
+    w.rank === "lr" ? "low rank" : w.rank === "hr" ? "high rank" : "g rank",
+    `rarity ${w.rarity}`,
+    `attack ${w.attack}`,
+    `affinity ${w.affinity}`,
+    `slots ${w.slots}`,
+    ...w.elements.flatMap(([name, attack]) => [name, `${name} ${attack}`]),
+  ];
+  for (const ammo of w.ammo ?? []) {
+    if (!ammo.caps.some((cap) => cap > 0)) continue;
+    parts.push(ammo.name, `${ammo.name} ammo`, `${ammo.group} ammo`);
+    const element = AMMO_ELEMENT[ammo.name];
+    if (element) parts.push(element, `${element} ammo`);
+    ammo.caps.forEach((cap, i) => {
+      if (cap > 0) parts.push(`${ammo.name} lv${i + 1}`, `${ammo.name} level ${i + 1}`, `${ammo.name} x${cap}`);
+    });
+  }
+  if (w.recoil) parts.push(`recoil ${w.recoil}`, `recoil ${prettyCase(w.recoil)}`);
+  if (w.reload) parts.push(`reload ${w.reload}`, `reload ${prettyCase(w.reload)}`);
+  if (w.rapidFire?.length) parts.push("rapid fire", "rf", ...w.rapidFire);
+  for (const coating of w.coatings ?? []) parts.push(coating, `${coating} coating`);
+  for (const [i, shot] of (w.shots ?? []).entries()) {
+    parts.push(
+      `charge ${i + 1}`,
+      `charge ${i + 1} ${shot.name}`,
+      `${shot.name} lv${shot.level}`,
+      `${shot.name} level ${shot.level}`,
+    );
+  }
+  if (w.bonus) parts.push(`defense ${w.bonus}`);
+  return parts.filter(Boolean).join(" ").toLowerCase();
+}
 const RANK_LABEL = { lr: "LR", hr: "HR", gr: "G" };
 const Rank = ({ rank }: { rank: Weapon["rank"] }) => (
   <span className={`rank-tag ${rank}`}>{RANK_LABEL[rank]}</span>
@@ -58,17 +129,133 @@ function Sharpness({ values, label }: { values: number[]; label: string }) {
   );
 }
 
+function WeaponMeta({ weapon }: { weapon: Weapon }) {
+  if (weapon.type === "bow") {
+    const coatings = weapon.coatings ?? [];
+    const charges = weapon.shots?.length ?? 0;
+    return (
+      <span className="dim small" title={coatings.map((c) => `${c} Coating`).join(" · ")}>
+        {" · "}{charges} charge{charges === 1 ? "" : "s"} · {coatings.length} coating{coatings.length === 1 ? "" : "s"}
+      </span>
+    );
+  }
+  if (!isBowgun(weapon)) return null;
+  const ammo = (weapon.ammo ?? []).filter((a) => a.caps.some((cap) => cap > 0)).length;
+  const rapid = weapon.rapidFire?.join(" / ");
+  return (
+    <span
+      className="dim small"
+      title={[
+        weapon.reload && `Reload: ${prettyCase(weapon.reload)}`,
+        weapon.recoil && `Recoil: ${prettyCase(weapon.recoil)}`,
+        rapid && `Rapid fire: ${rapid}`,
+      ].filter(Boolean).join(" · ")}
+    >
+      {" · "}{prettyCase(weapon.reload)} reload · {prettyCase(weapon.recoil)} recoil · {ammo} ammo types
+      {rapid && (
+        <span className="rf-badge" title={`Rapid fire: ${rapid}`}>RF</span>
+      )}
+    </span>
+  );
+}
+
+function BowgunInfo({ weapon }: { weapon: Weapon }) {
+  const rapid = new Set(weapon.rapidFire ?? []);
+  const groups = AMMO_GROUPS.map((group) => ({
+    ...group,
+    items: (weapon.ammo ?? []).filter(
+      (a) => a.group === group.key && a.caps.some((cap) => cap > 0),
+    ),
+  })).filter((group) => group.items.length);
+  return (
+    <div className="gunner-info">
+      <div className="stat-row gun-stats">
+        <span><strong>{prettyCase(weapon.reload)}</strong> reload</span>
+        <span><strong>{prettyCase(weapon.recoil)}</strong> recoil</span>
+      </div>
+      {weapon.rapidFire?.length ? (
+        <p className="small rapid-line">
+          <span className="dim">Rapid fire:</span>{" "}
+          {weapon.rapidFire.map((ammo) => (
+            <span className="chip rf-chip" key={ammo}>{ammo}</span>
+          ))}
+        </p>
+      ) : (
+        <p className="small dim">No rapid fire.</p>
+      )}
+      <h4>Ammo capacity</h4>
+      <div className="ammo-groups">
+        {groups.map((group) => (
+          <div className="ammo-group" key={group.key}>
+            <span className="ammo-group-name">{group.label}</span>
+            <div className="ammo-rows">
+              {group.items.map((ammo) => {
+                const rapidRow = ammo.caps.some(
+                  (cap, i) => cap > 0 && (rapid.has(ammo.name) || rapid.has(`${ammo.name} Lv${i + 1}`)),
+                );
+                return (
+                  <div className={`ammo-row${rapidRow ? " rapid" : ""}`} key={ammo.name}>
+                    <span>{ammo.name}</span>
+                    <span className="ammo-caps">
+                      {ammo.caps.map((cap, i) => cap > 0 ? (
+                        <span
+                          className={`ammo-cap${rapid.has(ammo.name) || rapid.has(`${ammo.name} Lv${i + 1}`) ? " rapid" : ""}`}
+                          key={i}
+                          title={rapid.has(ammo.name) || rapid.has(`${ammo.name} Lv${i + 1}`) ? "Rapid fire" : undefined}
+                        >
+                          Lv{i + 1} ×{cap}
+                        </span>
+                      ) : null)}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function BowInfo({ weapon }: { weapon: Weapon }) {
+  const coatings = weapon.coatings ?? [];
+  const shots = weapon.shots ?? [];
+  return (
+    <div className="gunner-info">
+      <h4>Coatings</h4>
+      {coatings.length ? (
+        <div className="chips">
+          {coatings.map((coating) => (
+            <span className="chip" key={coating}>{coating} Coating</span>
+          ))}
+        </div>
+      ) : <p className="dim small">No coatings.</p>}
+      <h4>Charge levels</h4>
+      {shots.length ? (
+        <div className="charge-rows">
+          {shots.map((shot, i) => (
+            <div className="charge-row" key={i}>
+              <span className="dim small">Charge {i + 1}</span>
+              <span className={`chip shot-${shot.name.toLowerCase()}`}>{shot.name} Lv{shot.level}</span>
+            </div>
+          ))}
+        </div>
+      ) : <p className="dim small">No charge data.</p>}
+    </div>
+  );
+}
+
 function Tree({
   weapons,
   onSelect,
-  query,
+  matches,
 }: {
   weapons: Weapon[];
   onSelect: (w: Weapon) => void;
-  query: string;
+  matches: Set<string>;
 }) {
   const names = new Set(weapons.map((w) => w.name));
-  const q = query.trim().toLowerCase();
   const children = new Map<string, Weapon[]>();
   for (const w of weapons) {
     for (const p of w.improveFrom) {
@@ -86,27 +273,46 @@ function Tree({
     setManual((prev) => ({ ...prev, [name]: open }));
   };
 
-  const render = (w: Weapon): React.ReactNode => (
-    <details
-      key={w.name}
-      className={q && w.name.toLowerCase().includes(q) ? "match" : ""}
-      open={isOpen(w.name)}
-      onToggle={(e) => toggle(w.name, e.currentTarget.open)}
-    >
-      <summary>
-        <Rank rank={w.rank} />
-        <button
-          className="link"
-          onClick={(e) => { e.preventDefault(); e.stopPropagation(); onSelect(w); }}
+  const crossParents = (w: Weapon) =>
+    w.improveFrom
+      .map((name) => WEAPON_BY_NAME.get(name))
+      .filter((p): p is Weapon => !!p && p.type !== w.type);
+
+  const render = (w: Weapon): React.ReactNode => {
+    const cross = crossParents(w);
+    return (
+      <Fragment key={w.name}>
+        {cross.length > 0 && (
+          <div className="tree-cross">
+            <span>↳ from</span>
+            {cross.map((p) => (
+              <button key={p.name} className="link" onClick={() => onSelect(p)}>{p.name}</button>
+            ))}
+            <span className="dim">({TYPE_LABEL[cross[0].type]})</span>
+          </div>
+        )}
+        <details
+          className={matches.has(w.name) ? "match" : ""}
+          open={isOpen(w.name)}
+          onToggle={(e) => toggle(w.name, e.currentTarget.open)}
         >
-          {w.name}
-        </button>
-        <Elements weapon={w} />
-        <span className="dim small"> · {w.attack} atk · r{w.rarity}</span>
-      </summary>
-      {(children.get(w.name) ?? []).map((c) => render(c))}
-    </details>
-  );
+          <summary>
+            <Rank rank={w.rank} />
+            <button
+              className="link"
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); onSelect(w); }}
+            >
+              {w.name}
+            </button>
+            <Elements weapon={w} />
+            <span className="dim small"> · {w.attack} atk · r{w.rarity}</span>
+            <WeaponMeta weapon={w} />
+          </summary>
+          {(children.get(w.name) ?? []).map((c) => render(c))}
+        </details>
+      </Fragment>
+    );
+  };
   if (!roots.length) return <p className="dim">No tree roots.</p>;
   return <div className="tree">{roots.map((w) => render(w))}</div>;
 }
@@ -132,13 +338,15 @@ function Detail({ weapon, onSelect }: { weapon: Weapon; onSelect: (w: Weapon) =>
       {weapon.elements.length > 0 && (
         <p className="elements-line"><Elements weapon={weapon} values /></p>
       )}
-      {weapon.bonus && <p className="dim">Bonus: {weapon.bonus}</p>}
+      {weapon.bonus && <p className="dim">{bonusLabel(weapon.bonus)}</p>}
+      {isBowgun(weapon) && <BowgunInfo weapon={weapon} />}
+      {weapon.type === "bow" && <BowInfo weapon={weapon} />}
       {weapon.sharpness.length > 0 && <Sharpness values={weapon.sharpness} label="Sharpness" />}
       {weapon.sharpnessPlus.length > 0 && <Sharpness values={weapon.sharpnessPlus} label="Sharpness +1" />}
 
       {chain.length > 0 && (
         <p className="small">
-          Path: {chain.map((w) => <button key={w.name} className="link" onClick={() => onSelect(w)}>{w.name}</button>).reduce((a, b) => <>{a} → {b}</>)}
+          Path: {chain.map((w) => <button key={w.name} className="link" onClick={() => onSelect(w)}>{w.name}</button>).reduce((a, b) => <>{a} → {b}</>)} → <span>{weapon.name}</span>
         </p>
       )}
 
@@ -173,30 +381,68 @@ function Detail({ weapon, onSelect }: { weapon: Weapon; onSelect: (w: Weapon) =>
 }
 
 export default function Weapons() {
+  const [scope, setScope] = useState<"blade" | "ranged">("blade");
   const [type, setType] = useState(WEAPON_TYPES[0]);
   const [query, setQuery] = useState("");
-  const [element, setElement] = useState("any");
+  const [ammoFilter, setAmmoFilter] = useState("any");
   const [rankFilter, setRankFilter] = useState<"all" | "lr" | "hr" | "gr">("all");
   const [minSharp, setMinSharp] = useState(0);
+  const [rapidFilter, setRapidFilter] = useState<"any" | "rf" | "none">("any");
+  const [shotFilter, setShotFilter] = useState("any");
   const [selected, setSelected] = useState<Weapon | null>(null);
 
+  const scopeTypes = useMemo(
+    () => scope === "ranged" ? RANGED_TYPES : BLADE_TYPES,
+    [scope],
+  );
+
+  const q = query.trim().toLowerCase();
+  const queryWords = useMemo(() => q.split(/\s+/).filter(Boolean), [q]);
+  const searchIndex = useMemo(
+    () => new Map(WEAPONS.map((w) => [w.name, weaponSearchText(w)])),
+    [],
+  );
+
   const filterMatch = useCallback((w: Weapon) => {
+    if (!scopeTypes.includes(w.type)) return false;
     if (rankFilter !== "all" && w.rank !== rankFilter) return false;
-    if (element !== "any") {
-      if (element === "none") {
+    if (ammoFilter !== "any") {
+      if (ammoFilter === "none") {
         if (w.elements.length) return false;
-      } else if (!w.elements.some(([e]) => e.toLowerCase() === element.toLowerCase())) {
+        if (supportsAmmo(w, (ammo) => !!AMMO_ELEMENT[ammo.name])) return false;
+      } else if (isPhysicalAmmo(ammoFilter)) {
+        if (!supportsAmmo(w, (ammo) => ammo.name === ammoFilter)) return false;
+      } else if (
+        !w.elements.some(([e]) => e.toLowerCase() === ammoFilter.toLowerCase()) &&
+        !supportsAmmo(w, (ammo) => AMMO_ELEMENT[ammo.name] === ammoFilter)
+      ) {
         return false;
       }
     }
-    if (minSharp > 0 && maxSharp(w) < minSharp) return false;
+    if (scope === "blade" && minSharp > 0 && maxSharp(w) < minSharp) return false;
+    if (rapidFilter !== "any") {
+      const hasRapid = (w.rapidFire?.length ?? 0) > 0;
+      if (rapidFilter === "rf" ? !hasRapid : hasRapid) return false;
+      if (rapidFilter === "rf" && ammoFilter !== "any" && ammoFilter !== "none") {
+        const rapidMatch = isPhysicalAmmo(ammoFilter)
+          ? (w.rapidFire ?? []).some((rapid) => rapid.replace(/\s+Lv\d+$/i, "") === ammoFilter)
+          : rapidFiresElement(w, ammoFilter);
+        if (!rapidMatch) return false;
+      }
+    }
+    if (shotFilter !== "any" && !(w.shots ?? []).some((shot) => shot.name === shotFilter)) {
+      return false;
+    }
+    if (queryWords.length) {
+      const text = searchIndex.get(w.name) ?? "";
+      if (!queryWords.every((word) => matchesWord(text, word))) return false;
+    }
     return true;
-  }, [element, minSharp, rankFilter]);
+  }, [ammoFilter, minSharp, queryWords, rankFilter, rapidFilter, scope, scopeTypes, searchIndex, shotFilter]);
 
-  const q = query.trim().toLowerCase();
   const treeByType = useMemo(() => {
     const out: Record<string, { weapons: Weapon[]; matches: Weapon[] }> = {};
-    for (const t of WEAPON_TYPES) {
+    for (const t of scopeTypes) {
       const base = WEAPONS.filter((w) => w.type === t);
       const matches = base.filter(filterMatch);
       if (matches.length === base.length) {
@@ -218,20 +464,24 @@ export default function Weapons() {
       out[t] = { weapons: base.filter((w) => visible.has(w.name)), matches };
     }
     return out;
-  }, [filterMatch]);
+  }, [filterMatch, scopeTypes]);
 
   const allMatches = useMemo(
-    () => q ? WEAPONS.filter((w) => filterMatch(w) && w.name.toLowerCase().includes(q)) : [],
+    () => q ? WEAPONS.filter(filterMatch) : [],
     [q, filterMatch],
   );
+  const matchingNames = useMemo(
+    () => new Set(allMatches.map((w) => w.name)),
+    [allMatches],
+  );
   const matchingTypes = useMemo(
-    () => q ? WEAPON_TYPES.filter((t) => allMatches.some((w) => w.type === t)) : [],
-    [q, allMatches],
+    () => q ? scopeTypes.filter((t) => allMatches.some((w) => w.type === t)) : [],
+    [q, allMatches, scopeTypes],
   );
   const displayTypes = q
     ? matchingTypes
-    : type === "all" ? WEAPON_TYPES : [type];
-  const totalFiltered = WEAPON_TYPES.reduce((n, t) => n + treeByType[t].matches.length, 0);
+    : type === "all" ? scopeTypes : [type];
+  const totalFiltered = scopeTypes.reduce((n, t) => n + treeByType[t].matches.length, 0);
 
   useEffect(() => {
     if (!q) return;
@@ -239,18 +489,55 @@ export default function Weapons() {
     if (el) el.scrollIntoView({ block: "center" });
   }, [q, type]);
 
+  const chooseType = (next: string) => {
+    setType(next);
+    setSelected(null);
+    if (next === "bow") setRapidFilter("any");
+    if (GUN_TYPES.has(next)) setShotFilter("any");
+  };
+
+  const switchScope = (next: "blade" | "ranged") => {
+    if (next === scope) return;
+    setScope(next);
+    setType("all");
+    setSelected(null);
+    setAmmoFilter("any");
+    setMinSharp(0);
+    setRapidFilter("any");
+    setShotFilter("any");
+  };
+
   const pick = (w: Weapon) => {
     setSelected(w);
+    setScope(RANGED_TYPES.includes(w.type) ? "ranged" : "blade");
     setType(w.type);
+    if (w.type === "bow") setRapidFilter("any");
+    if (GUN_TYPES.has(w.type)) setShotFilter("any");
   };
 
   return (
     <div className="weapon-layout">
       <section className="panel weapon-list">
+        <div className="subtabs">
+          <button
+            type="button"
+            className={scope === "blade" ? "active" : ""}
+            onClick={() => switchScope("blade")}
+          >
+            Blademaster
+          </button>
+          <button
+            type="button"
+            className={scope === "ranged" ? "active" : ""}
+            onClick={() => switchScope("ranged")}
+          >
+            Ranged
+          </button>
+        </div>
         <div className="row wrap">
-          <select value={type} onChange={(e) => { setType(e.target.value); setSelected(null); }}>
-            <option value="all">All types</option>
-            {WEAPON_TYPES.map((t) => <option key={t} value={t}>{TYPE_LABEL[t]}</option>)}
+          <select value={type} onChange={(e) => chooseType(e.target.value)}>
+            <option value="all">{scope === "ranged" ? "All ranged" : "All blademaster"}</option>
+            {scopeTypes.map((t) => <option key={t} value={t}>{TYPE_LABEL[t]}</option>)}
           </select>
           <select value={rankFilter} onChange={(e) => setRankFilter(e.target.value as "all" | "lr" | "hr" | "gr")}>
             <option value="all">Any rank</option>
@@ -258,21 +545,63 @@ export default function Weapons() {
             <option value="hr">High rank</option>
             <option value="gr">G rank</option>
           </select>
-          <select value={element} onChange={(e) => setElement(e.target.value)}>
-            <option value="any">Any element</option>
-            {ELEMENTS.map((e) => <option key={e} value={e}>{e}</option>)}
+          <select value={ammoFilter} onChange={(e) => setAmmoFilter(e.target.value)}>
+            <option value="any">{scope === "ranged" ? "Any element/ammo" : "Any element"}</option>
+            {scope === "ranged" && (
+              <optgroup label="Physical ammo">
+                {PHYSICAL_AMMO.map((ammo) => <option key={ammo} value={ammo}>{ammo}</option>)}
+              </optgroup>
+            )}
+            <optgroup label="Element / status">
+              {ELEMENTS.map((e) => <option key={e} value={e}>{e}</option>)}
+            </optgroup>
             <option value="none">No element</option>
           </select>
-          <select value={minSharp} onChange={(e) => setMinSharp(Number(e.target.value))}>
-            <option value={0}>Any sharpness</option>
-            <option value={3}>Green+</option>
-            <option value={4}>Blue+</option>
-            <option value={5}>White+</option>
-            <option value={6}>Purple+</option>
-          </select>
+          {scope === "ranged" && type !== "bow" && (
+            <select
+              value={rapidFilter}
+              onChange={(e) => {
+                const next = e.target.value as "any" | "rf" | "none";
+                setRapidFilter(next);
+                if (next !== "any") setShotFilter("any");
+              }}
+            >
+              <option value="any">Any rapid fire</option>
+              <option value="rf">Rapid fire</option>
+              <option value="none">No rapid fire</option>
+            </select>
+          )}
+          {scope === "ranged" && (type === "bow" || type === "all") && (
+            <select
+              value={shotFilter}
+              onChange={(e) => {
+                const next = e.target.value;
+                setShotFilter(next);
+                if (next !== "any") setRapidFilter("any");
+              }}
+            >
+              <option value="any">Any shot type</option>
+              {["Rapid", "Scatter", "Pierce"].map((shot) => (
+                <option key={shot} value={shot}>{shot} shot</option>
+              ))}
+            </select>
+          )}
+          {scope === "blade" && (
+            <select value={minSharp} onChange={(e) => setMinSharp(Number(e.target.value))}>
+              <option value={0}>Any sharpness</option>
+              <option value={3}>Green+</option>
+              <option value={4}>Blue+</option>
+              <option value={5}>White+</option>
+              <option value={6}>Purple+</option>
+            </select>
+          )}
         </div>
         <div className="row">
-          <input placeholder="Search weapon…" value={query} onChange={(e) => setQuery(e.target.value)} />
+          <input
+            placeholder={scope === "ranged" ? "Search name, ammo, coating, recoil…" : "Search weapon…"}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
         </div>
         <p className="dim small">
           {q
@@ -288,7 +617,7 @@ export default function Weapons() {
             return (
               <section key={t} className="weapon-type-section">
                 <h4>{TYPE_LABEL[t]} <span className="dim small">{count}</span></h4>
-                <Tree key={`${t}-${q}`} weapons={tree.weapons} onSelect={setSelected} query={query} />
+                <Tree key={`${t}-${q}`} weapons={tree.weapons} onSelect={setSelected} matches={matchingNames} />
               </section>
             );
           }) : (
