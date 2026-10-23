@@ -27,6 +27,10 @@ export default function Charms({ charms, onChange }: Props) {
     [charms, filter],
   );
 
+  const addSlot = (slotCount: number) => {
+    onChange([makeCharm({ slots: slotCount, table, skills: [] }), ...charms]);
+  };
+
   const add = () => {
     const skills: [string, number][] = [];
     if (skill1 && points1) skills.push([skill1, points1]);
@@ -81,6 +85,14 @@ export default function Charms({ charms, onChange }: Props) {
             <input type="number" min={-10} max={10} value={points2} onChange={(e) => setPoints2(Number(e.target.value))} />
           </label>
           <button className="primary" onClick={add}>Add charm</button>
+        </div>
+        <div className="row wrap charm-quick">
+          <span className="dim small">Quick add slot-only charm:</span>
+          {[1, 2, 3].map((n) => (
+            <button key={n} className="ghost" onClick={() => addSlot(n)}>
+              {n} slot{n > 1 ? "s" : ""}
+            </button>
+          ))}
         </div>
       </section>
 

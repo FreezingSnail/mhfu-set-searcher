@@ -112,7 +112,7 @@ export type SolverInput = {
   maxResults?: number;
   timeLimitMs?: number;
   shard?: { index: number; count: number };
-  charmMode?: "none" | "owned" | "best";
+  charmMode?: "none" | "owned" | "best" | "slots";
   charmTable?: number;
   charms?: Charm[];
 };

@@ -19,7 +19,7 @@ Switch games from the MHFU / MH3U control in the header (or open `#mh3u` / `#mhf
 Same solver, builder, sets, and weapon-tree bones, plus charms:
 
 - **Charms** — add your own charms (table, slots, up to two skills and point values). They are stored in the browser and can be used by the solver and builder.
-- **Solver charm modes** — no charm, my charms, or a best-possible single-skill charm derived from Athena's charm maxima.
+- **Solver charm modes** — no charm, my charms, a best-possible single-skill charm, or a slot-only charm (O / OO / OOO with no skills).
 - **Builder** — pick an owned charm alongside armor and jewels.
 - **Sets** — charm is saved and compared with the rest of the set.
 - **Weapons** — all 12 MH3U classes, including Switch Axe, Gunlance, Hunting Horn, bowguns, and bows. Weapon details cover phials, shelling, horn notes/songs, arc shots, coatings, deviation, crouching fire, and ammo capacities.

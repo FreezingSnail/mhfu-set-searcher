@@ -131,7 +131,7 @@ export default function Solver({
   const [elder, setElder] = useState(10);
   const [allowBad, setAllowBad] = useState(false);
   const [allowPiercings, setAllowPiercings] = useState(false);
-  const [charmMode, setCharmMode] = useState<"none" | "owned" | "best">(
+  const [charmMode, setCharmMode] = useState<"none" | "owned" | "best" | "slots">(
     data.charmSupport ? "owned" : "none",
   );
   const [charmTable, setCharmTable] = useState(0);
@@ -505,10 +505,11 @@ export default function Solver({
           </label>
           {data.charmSupport && (
             <label>Charms
-              <select value={charmMode} onChange={(e) => setCharmMode(e.target.value as "none" | "owned" | "best")}>
+              <select value={charmMode} onChange={(e) => setCharmMode(e.target.value as "none" | "owned" | "best" | "slots")}>
                 <option value="none">No charm</option>
                 <option value="owned">My charms ({charms.length})</option>
                 <option value="best">Best possible charm</option>
+                <option value="slots">Slot-only charm (O / OO / OOO)</option>
               </select>
             </label>
           )}

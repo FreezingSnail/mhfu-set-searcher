@@ -119,6 +119,10 @@ export function solve(
     for (let slots = 1; slots <= 3; slots++) {
       charmPool.push({ id: `best:slots:${slots}`, name: `${slots}-slot charm`, slots, table: 0, rarity: 0, skills: [] });
     }
+  } else if (charmMode === "slots") {
+    for (let slots = 1; slots <= 3; slots++) {
+      charmPool.push({ id: `slot:${slots}`, name: `${slots}-slot charm`, slots, table: 0, rarity: 0, skills: [] });
+    }
   }
 
   const abilities = [...new Set([
