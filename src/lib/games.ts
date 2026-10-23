@@ -9,6 +9,12 @@ import mh3uSkillJson from "../data/mh3u/skills.json";
 import mh3uWeaponJson from "../data/mh3u/weapons.json";
 import mh3uMetaJson from "../data/mh3u/meta.json";
 import mh3uCharmMaxJson from "../data/mh3u/charm-max.json";
+import mh4uArmorJson from "../data/mh4u/armor.json";
+import mh4uDecoJson from "../data/mh4u/decorations.json";
+import mh4uSkillJson from "../data/mh4u/skills.json";
+import mh4uWeaponJson from "../data/mh4u/weapons.json";
+import mh4uMetaJson from "../data/mh4u/meta.json";
+import mh4uCharmMaxJson from "../data/mh4u/charm-max.json";
 import type {
   Armor,
   Deco,
@@ -20,6 +26,7 @@ import type {
 import type { SkillGroup } from "./skillOrder";
 import { skillMeta, skillRank } from "./skillOrder";
 import { skillMetaMh3u, skillRankMh3u } from "./skillOrderMh3u";
+import { skillMetaMh4u, skillRankMh4u } from "./skillOrderMh4u";
 import { activeTier } from "./tiers";
 
 export type SkillOption = {
@@ -46,6 +53,11 @@ export type GameData = {
   storageKey: string;
   torsoSkill: string;
   charmSupport: boolean;
+  charmStorageKey: string;
+  availability: "and" | "or";
+  maxHub: number;
+  maxVillage: number;
+  charmTables: { value: number; label: string }[];
   armor: Armor[];
   decos: Deco[];
   weapons: Weapon[];
@@ -85,7 +97,7 @@ const RES_LABEL: Record<string, string> = {
 };
 
 const RANGED = ["light-bowgun", "heavy-bowgun", "bow"];
-const MH3U_TYPE_LABEL: Record<string, string> = {
+const MH4U_TYPE_LABEL: Record<string, string> = {
   "great-sword": "Great Sword",
   "long-sword": "Long Sword",
   "sword-and-shield": "Sword & Shield",
@@ -95,10 +107,15 @@ const MH3U_TYPE_LABEL: Record<string, string> = {
   lance: "Lance",
   gunlance: "Gunlance",
   "switch-axe": "Switch Axe",
+  "charge-blade": "Charge Blade",
+  "insect-glaive": "Insect Glaive",
   "light-bowgun": "Light Bowgun",
   "heavy-bowgun": "Heavy Bowgun",
   bow: "Bow",
 };
+const MH3U_TYPE_LABEL: Record<string, string> = Object.fromEntries(
+  Object.entries(MH4U_TYPE_LABEL).filter(([k]) => k !== "charge-blade" && k !== "insect-glaive"),
+);
 
 function makeGame(
   base: Omit<
@@ -159,6 +176,11 @@ export const MHFU: GameData = makeGame({
   storageKey: "mhfu-saved-sets",
   torsoSkill: "Torso Inc",
   charmSupport: false,
+  charmStorageKey: "",
+  availability: "and",
+  maxHub: 9,
+  maxVillage: 10,
+  charmTables: [],
   armor: mhfuArmorJson as unknown as Armor[],
   decos: mhfuDecoJson as unknown as Deco[],
   weapons: mhfuWeaponJson as unknown as Weapon[],
@@ -183,6 +205,11 @@ export const MH3U: GameData = makeGame({
   storageKey: "mh3u-saved-sets",
   torsoSkill: "Torso Up",
   charmSupport: true,
+  charmStorageKey: "mh3u-charms",
+  availability: "or",
+  maxHub: 9,
+  maxVillage: 10,
+  charmTables: Array.from({ length: 17 }, (_, i) => ({ value: i + 1, label: `Table ${i + 1}` })),
   armor: mh3uArmorJson as unknown as Armor[],
   decos: mh3uDecoJson as unknown as Deco[],
   weapons: mh3uWeaponJson as unknown as Weapon[],
@@ -199,4 +226,40 @@ export const MH3U: GameData = makeGame({
   skillRank: skillRankMh3u,
 });
 
-export const GAMES: Record<Game, GameData> = { mhfu: MHFU, mh3u: MH3U };
+export const MH4U: GameData = makeGame({
+  id: "mh4u",
+  label: "MH4U",
+  title: "MH4U Set Searcher",
+  blurb: "Ultimate 4 armor solver, builder, charms, and weapon trees",
+  storageKey: "mh4u-saved-sets",
+  torsoSkill: "Torso Up",
+  charmSupport: true,
+  charmStorageKey: "mh4u-charms",
+  availability: "or",
+  maxHub: 12,
+  maxVillage: 10,
+  charmTables: [
+    { value: 1, label: "Mystery" },
+    { value: 2, label: "Shining" },
+    { value: 3, label: "Ancient" },
+    { value: 4, label: "Enduring" },
+    { value: 5, label: "Graven" },
+    { value: 6, label: "Distorted" },
+  ],
+  armor: mh4uArmorJson as unknown as Armor[],
+  decos: mh4uDecoJson as unknown as Deco[],
+  weapons: mh4uWeaponJson as unknown as Weapon[],
+  skills: (mh4uSkillJson as unknown as SkillTree[]).filter((s) => s.tiers.length),
+  meta: mh4uMetaJson as Meta,
+  parts: PARTS,
+  partLabel: PART_LABEL,
+  resLabel: RES_LABEL,
+  typeLabel: MH4U_TYPE_LABEL,
+  weaponTypes: Object.keys(MH4U_TYPE_LABEL),
+  rangedTypes: new Set(RANGED),
+  charmMax: mh4uCharmMaxJson as Record<string, number>,
+  skillMeta: skillMetaMh4u,
+  skillRank: skillRankMh4u,
+});
+
+export const GAMES: Record<Game, GameData> = { mhfu: MHFU, mh3u: MH3U, mh4u: MH4U };

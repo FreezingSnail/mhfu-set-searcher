@@ -34,7 +34,7 @@ const filterCandidates = (
       // that source", so a piece is available if either source is unlocked.
       const hrOk = a.hr <= input.hr;
       const elderOk = a.elder <= input.elder;
-      if (data.id === "mh3u" ? !hrOk && !elderOk : !hrOk || !elderOk) return false;
+      if (data.availability === "or" ? !hrOk && !elderOk : !hrOk || !elderOk) return false;
       if (!input.allowPiercings && a.name.includes("Piercing")) return false;
       if (a.name.includes("(dummy)")) return false;
       return true;

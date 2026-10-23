@@ -50,7 +50,7 @@ export default function PieceDetail({ item, onClose }: { item: DetailItem | null
             <div className="detail-stats">
               <span><strong>{armor.defense}</strong> defense</span>
               <span><strong>{armor.slots}</strong> slots</span>
-              <span><strong>{armor.hr}</strong> {data.id === "mh3u" ? "port" : "HR"} / <strong>{armor.elder}</strong> {data.id === "mh3u" ? "village" : "elder"}</span>
+              <span><strong>{armor.hr}</strong> {data.id === "mh3u" ? "port" : data.id === "mh4u" ? "hub" : "HR"} / <strong>{armor.elder}</strong> {data.id === "mhfu" ? "elder" : "village"}</span>
               <span><strong>{armor.cost.toLocaleString()}z</strong></span>
             </div>
             <div className="detail-res">
@@ -62,7 +62,7 @@ export default function PieceDetail({ item, onClose }: { item: DetailItem | null
         ) : (
           <div className="detail-stats">
             <span><strong>{a.slots}</strong> slot{a.slots > 1 ? "s" : ""}</span>
-            <span><strong>{a.hr}</strong> {data.id === "mh3u" ? "port" : "HR"} / <strong>{a.elder}</strong> {data.id === "mh3u" ? "village" : "elder"}</span>
+            <span><strong>{a.hr}</strong> {data.id === "mh3u" ? "port" : data.id === "mh4u" ? "hub" : "HR"} / <strong>{a.elder}</strong> {data.id === "mhfu" ? "elder" : "village"}</span>
             <span><strong>{a.cost.toLocaleString()}z</strong></span>
           </div>
         )}

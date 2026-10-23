@@ -4,7 +4,7 @@ import type { AmmoGroup, Weapon } from "../lib/types";
 
 const SHARP_COLORS = ["#c0392b", "#d35400", "#d4ac0d", "#27ae60", "#2980b9", "#ecf0f1", "#8e44ad"];
 const SHARP_NAMES = ["Red", "Orange", "Yellow", "Green", "Blue", "White", "Purple"];
-const ELEMENTS = ["Fire", "Water", "Thunder", "Ice", "Dragon", "Poison", "Paralysis", "Sleep", "Slime"];
+const ELEMENTS = ["Fire", "Water", "Thunder", "Ice", "Dragon", "Poison", "Paralysis", "Sleep", "Slime", "Blast"];
 const GUN_TYPES = new Set(["light-bowgun", "heavy-bowgun"]);
 const AMMO_GROUPS: { key: AmmoGroup; label: string }[] = [
   { key: "normal", label: "Normal" },
@@ -28,6 +28,7 @@ const AMMO_ELEMENT: Record<string, string> = {
   "Poison S": "Poison",
   "Paralysis S": "Paralysis",
   "Sleep S": "Sleep",
+  "Blast S": "Blast",
 };
 const maxSharp = (w: Weapon) => {
   for (let i = w.sharpness.length - 1; i >= 0; i--) if (w.sharpness[i] > 0) return i;
@@ -81,6 +82,7 @@ function weaponSearchText(w: Weapon, typeLabel: Record<string, string>) {
   if (w.bonus) parts.push(`defense ${w.bonus}`);
   if (w.deviation) parts.push(`deviation ${w.deviation}`, `deviation ${prettyCase(w.deviation)}`);
   if (w.phial) parts.push(w.phial);
+  if (w.kinsect) parts.push(`kinsect ${w.kinsect}`, w.kinsect);
   if (w.shell) parts.push(`shelling ${w.shell}`, w.shell);
   if (w.arc) parts.push(`arc shot ${w.arc}`, w.arc);
   if (w.awaken) parts.push("awaken", "hidden element");
@@ -103,6 +105,7 @@ const ELEMENT_CLASS: Record<string, string> = {
   Paralysis: "paralysis",
   Sleep: "sleep",
   Slime: "slime",
+  Blast: "blast",
 };
 function Elements({ weapon, values = false }: { weapon: Weapon; values?: boolean }) {
   if (!weapon.elements.length) return null;
@@ -152,6 +155,9 @@ function WeaponMeta({ weapon }: { weapon: Weapon }) {
   }
   if (weapon.phial) {
     return <span className="dim small">{" · "}{weapon.phial}</span>;
+  }
+  if (weapon.kinsect) {
+    return <span className="dim small">{" · "}{weapon.kinsect} kinsect</span>;
   }
   if (weapon.shell) {
     return <span className="dim small">{" · "}{weapon.shell} shelling</span>;
@@ -372,6 +378,7 @@ function Detail({ weapon, onSelect }: { weapon: Weapon; onSelect: (w: Weapon) =>
       )}
       {weapon.bonus && <p className="dim">{bonusLabel(weapon.bonus)}</p>}
       {weapon.phial && <p className="small"><span className="dim">Phial:</span> <strong>{weapon.phial}</strong></p>}
+      {weapon.kinsect && <p className="small"><span className="dim">Kinsect:</span> <strong>{weapon.kinsect}</strong></p>}
       {weapon.shell && <p className="small"><span className="dim">Shelling:</span> <strong>{weapon.shell}</strong></p>}
       {weapon.notes?.length ? (
         <div>
@@ -664,7 +671,7 @@ export default function Weapons() {
           {q
             ? `${allMatches.length} matches across ${matchingTypes.length} types`
             : `${type === "all" ? totalFiltered : treeByType[type].matches.length} weapons`}
-          {" · "}rank from rarity: {data.id === "mh3u" ? "LR 1–3 / HR 4–6 / G 7–10" : "LR 1–3 / HR 4–7 / G 8–10"}
+          {" · "}rank from rarity: {data.id === "mhfu" ? "LR 1–3 / HR 4–7 / G 8–10" : "LR 1–3 / HR 4–6 / G 7–10"}
         </p>
         <div className="scroll">
           {displayTypes.length ? displayTypes.map((t) => {

@@ -1,10 +1,8 @@
 import type { Charm } from "./types";
 
-const KEY = "mh3u-charms";
-
-export function loadCharms(): Charm[] {
+export function loadCharms(key: string): Charm[] {
   try {
-    const raw = JSON.parse(localStorage.getItem(KEY) ?? "[]");
+    const raw = JSON.parse(localStorage.getItem(key) ?? "[]");
     if (!Array.isArray(raw)) return [];
     return raw
       .filter((c) => c && typeof c.id === "string" && Array.isArray(c.skills))
@@ -23,8 +21,8 @@ export function loadCharms(): Charm[] {
   }
 }
 
-export function persistCharms(charms: Charm[]) {
-  localStorage.setItem(KEY, JSON.stringify(charms));
+export function persistCharms(key: string, charms: Charm[]) {
+  localStorage.setItem(key, JSON.stringify(charms));
 }
 
 export function makeCharm(input: Omit<Charm, "id" | "name" | "rarity"> & { name?: string }): Charm {

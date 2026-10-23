@@ -58,11 +58,11 @@ export default function Charms({ charms, onChange }: Props) {
               {[0, 1, 2, 3].map((n) => <option key={n} value={n}>{n}</option>)}
             </select>
           </label>
-          <label>Table
+          <label>{data.id === "mh4u" ? "Charm type" : "Table"}
             <select value={table} onChange={(e) => setTable(Number(e.target.value))}>
               <option value={0}>Any / unknown</option>
-              {Array.from({ length: 17 }, (_, i) => i + 1).map((n) => (
-                <option key={n} value={n}>Table {n}</option>
+              {data.charmTables.map((t) => (
+                <option key={t.value} value={t.value}>{t.label}</option>
               ))}
             </select>
           </label>
@@ -99,11 +99,11 @@ export default function Charms({ charms, onChange }: Props) {
       <section className="panel">
         <div className="row wrap">
           <strong>My charms ({charms.length})</strong>
-          <label>Filter table
+          <label>{data.id === "mh4u" ? "Filter type" : "Filter table"}
             <select value={filter} onChange={(e) => setFilter(Number(e.target.value))}>
               <option value={0}>All</option>
-              {Array.from({ length: 17 }, (_, i) => i + 1).map((n) => (
-                <option key={n} value={n}>Table {n}</option>
+              {data.charmTables.map((t) => (
+                <option key={t.value} value={t.value}>{t.label}</option>
               ))}
             </select>
           </label>
@@ -123,7 +123,7 @@ export default function Charms({ charms, onChange }: Props) {
                     <span key={a} className={"badge " + (p < 0 ? "bad" : "")}>{a} <span className="dim">({p > 0 ? "+" : ""}{p})</span></span>
                   )) : <span className="dim">slot charm</span>}
                 </div>
-                <span className="dim small">{c.table ? `Table ${c.table}` : "Any table"}</span>
+                <span className="dim small">{c.table ? data.charmTables.find((t) => t.value === c.table)?.label ?? `Type ${c.table}` : data.id === "mh4u" ? "Any type" : "Any table"}</span>
                 <button className="ghost" onClick={() => onChange(charms.filter((x) => x.id !== c.id))}>Delete</button>
               </div>
             ))}

@@ -127,8 +127,8 @@ export default function Solver({
   const [rank, setRank] = useState<"all" | "low" | "high" | "g">("all");
   const [weaponSlots, setWeaponSlots] = useState(0);
   const [sort, setSort] = useState<"defense" | "defenseLow" | "jewels" | "spare" | "cost">("defense");
-  const [hr, setHr] = useState(9);
-  const [elder, setElder] = useState(10);
+  const [hr, setHr] = useState(data.maxHub);
+  const [elder, setElder] = useState(data.maxVillage);
   const [allowBad, setAllowBad] = useState(false);
   const [allowPiercings, setAllowPiercings] = useState(false);
   const [charmMode, setCharmMode] = useState<"none" | "owned" | "best" | "slots">(
@@ -514,11 +514,11 @@ export default function Solver({
             </label>
           )}
           {data.charmSupport && charmMode === "owned" && (
-            <label>Charm table
+            <label>{data.id === "mh4u" ? "Charm type" : "Charm table"}
               <select value={charmTable} onChange={(e) => setCharmTable(Number(e.target.value))}>
-                <option value={0}>All tables</option>
-                {Array.from({ length: 17 }, (_, i) => i + 1).map((n) => (
-                  <option key={n} value={n}>Table {n}</option>
+                <option value={0}>{data.id === "mh4u" ? "All types" : "All tables"}</option>
+                {data.charmTables.map((t) => (
+                  <option key={t.value} value={t.value}>{t.label}</option>
                 ))}
               </select>
             </label>
@@ -532,11 +532,11 @@ export default function Solver({
               <option value="cost">Lowest cost</option>
             </select>
           </label>
-          <label>{data.id === "mh3u" ? "Port ★" : "HR"}
-            <input type="number" min={1} max={9} value={hr} onChange={(e) => setHr(Number(e.target.value))} />
+          <label>{data.id === "mh3u" ? "Port ★" : data.id === "mh4u" ? "Hub ★" : "HR"}
+            <input type="number" min={1} max={data.maxHub} value={hr} onChange={(e) => setHr(Number(e.target.value))} />
           </label>
-          <label>{data.id === "mh3u" ? "Village ★" : "Elder"}
-            <input type="number" min={1} max={10} value={elder} onChange={(e) => setElder(Number(e.target.value))} />
+          <label>{data.id === "mhfu" ? "Elder" : "Village ★"}
+            <input type="number" min={1} max={data.maxVillage} value={elder} onChange={(e) => setElder(Number(e.target.value))} />
           </label>
         </div>
 

@@ -21,7 +21,10 @@ import "./styles.css";
 
 type Tab = "solver" | "builder" | "sets" | "weapons" | "charms";
 
-const hashGame = (): Game => (window.location.hash.replace("#", "") === "mh3u" ? "mh3u" : "mhfu");
+const hashGame = (): Game => {
+  const hash = window.location.hash.replace("#", "");
+  return hash === "mh3u" || hash === "mh4u" ? hash : "mhfu";
+};
 
 export default function App() {
   const [game, setGame] = useState<Game>(hashGame);
@@ -31,13 +34,22 @@ export default function App() {
   const [savedByGame, setSavedByGame] = useState<Record<Game, SavedSet[]>>(() => ({
     mhfu: loadSavedSets(GAMES.mhfu.storageKey),
     mh3u: loadSavedSets(GAMES.mh3u.storageKey),
+    mh4u: loadSavedSets(GAMES.mh4u.storageKey),
   }));
-  const [charms, setCharms] = useState<Charm[]>(loadCharms);
+  const [charmsByGame, setCharmsByGame] = useState<Record<Game, Charm[]>>(() => ({
+    mhfu: [],
+    mh3u: loadCharms("mh3u-charms"),
+    mh4u: loadCharms("mh4u-charms"),
+  }));
 
   const data = GAMES[game];
   const saved = savedByGame[game];
+  const charms = charmsByGame[game];
 
-  useEffect(() => persistCharms(charms), [charms]);
+  useEffect(() => {
+    persistCharms("mh3u-charms", charmsByGame.mh3u);
+    persistCharms("mh4u-charms", charmsByGame.mh4u);
+  }, [charmsByGame]);
 
   useEffect(() => {
     history.replaceState(null, "", `#${game}`);
@@ -85,6 +97,7 @@ export default function App() {
             <div className="game-switch">
               <button className={game === "mhfu" ? "active" : ""} onClick={() => switchGame("mhfu")}>MHFU</button>
               <button className={game === "mh3u" ? "active" : ""} onClick={() => switchGame("mh3u")}>MH3U</button>
+              <button className={game === "mh4u" ? "active" : ""} onClick={() => switchGame("mh4u")}>MH4U</button>
             </div>
             <h1>{data.title}</h1>
             <p className="dim small">
@@ -127,7 +140,10 @@ export default function App() {
           )}
           {tab === "weapons" && <Weapons key={game} />}
           {tab === "charms" && data.charmSupport && (
-            <Charms charms={charms} onChange={setCharms} />
+            <Charms
+              charms={charms}
+              onChange={(next) => setCharmsByGame((all) => ({ ...all, [game]: next }))}
+            />
           )}
         </main>
 
@@ -138,11 +154,17 @@ export default function App() {
               <a href="https://github.com/vallode/mhfu-blacksmith" target="_blank" rel="noreferrer">mhfu-blacksmith</a> (MIT) and{" "}
               <a href="https://github.com/AthenaADP/MHFU-ASS" target="_blank" rel="noreferrer">Athena's ASS</a> (MIT).
             </>
-          ) : (
+          ) : game === "mh3u" ? (
             <>
               Data:{" "}
               <a href="https://github.com/AthenaADP/MH3U-ASS" target="_blank" rel="noreferrer">Athena's ASS MH3U</a> (MIT) and{" "}
               <a href="https://github.com/ArmoredRaven17/mh3u-collection-tracker" target="_blank" rel="noreferrer">MH3U Collection Tracker</a>. Game data © Capcom.
+            </>
+          ) : (
+            <>
+              Data:{" "}
+              <a href="https://github.com/AthenaADP/MH4U-ASS" target="_blank" rel="noreferrer">Athena's ASS MH4U</a> (MIT) and{" "}
+              <a href="https://github.com/ArmoredRaven17/mh4u-collection-tracker" target="_blank" rel="noreferrer">MH4U Collection Tracker</a>. Game data © Capcom.
             </>
           )}{" "}
           Monster Hunter is a trademark of Capcom. Personal fan tool.

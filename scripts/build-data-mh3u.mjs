@@ -188,6 +188,10 @@ const AMMO_GROUP = (name) => {
   if (/^(Poison|Para|Sleep|Exhaust|Blast)/i.test(name)) return "status";
   return "misc";
 };
+const shotParts = (name) => {
+  const m = name.match(/^(.*?)\s*L(\d+)$/i);
+  return m ? { name: m[1], level: Number(m[2]) } : { name, level: 0 };
+};
 const weaponTypeLabel = {
   "great-sword": "Great Sword",
   "long-sword": "Long Sword",
@@ -268,7 +272,7 @@ for (const [key, type] of Object.entries(TYPE)) {
       })),
       crouch: (s.crouch ?? []).map(([aName]) => aName),
       coatings: (s.coatings ?? []).map(([c]) => c),
-      shots: (s.charges ?? []).map(([shot, level]) => ({ name: shot, level: Number(level) || 1 })),
+      shots: (s.charges ?? []).map(([shot]) => shotParts(shot)),
       notes: (s.notes ?? []).map(([note]) => note),
       songs: (s.songs ?? []).map(([notes, songName]) => ({ notes, name: songName })),
     };

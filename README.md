@@ -1,10 +1,10 @@
 # Monster Hunter Set Searcher
 
-A small, offline-friendly web tool for **Monster Hunter Freedom Unite** and **Monster Hunter 3 Ultimate**:
+A small, offline-friendly web tool for **Monster Hunter Freedom Unite**, **Monster Hunter 3 Ultimate**, and **Monster Hunter 4 Ultimate**:
 
 **Live:** https://freezingsnail.github.io/mhfu-set-searcher/
 
-Switch games from the MHFU / MH3U control in the header (or open `#mh3u` / `#mhfu` directly). Each game has its own saved sets.
+Switch games from the MHFU / MH3U / MH4U control in the header (or open `#mhfu`, `#mh3u`, or `#mh4u` directly). Each game has its own saved sets and, where supported, its own charm list.
 
 ## MHFU
 
@@ -24,7 +24,15 @@ Same solver, builder, sets, and weapon-tree bones, plus charms:
 - **Sets** — charm is saved and compared with the rest of the set.
 - **Weapons** — all 12 MH3U classes, including Switch Axe, Gunlance, Hunting Horn, bowguns, and bows. Weapon details cover phials, shelling, horn notes/songs, arc shots, coatings, deviation, crouching fire, and ammo capacities.
 
-MHFU and MH3U saved sets live under separate local-storage keys, so switching games never mixes them.
+## MH4U
+
+Same solver, builder, sets, charms, and weapon-tree bones, with MH4U's 14 weapon classes:
+
+- **Charms** — owned charms are stored separately from MH3U, with MH4U charm types (Mystery, Shining, Ancient, Enduring, Graven, Distorted).
+- **Solver charm modes** — no charm, my charms, best-possible single-skill charm, or slot-only charm. Charm-type filtering is available in “my charms” mode.
+- **Weapons** — Great Sword through Charge Blade, Insect Glaive, bowguns, and Bow. Details cover Charge Blade phials, Insect Glaive kinsects, Gunlance shelling, Hunting Horn notes/songs, bow arc shots/coatings, and bowgun deviation/rapid fire/crouching fire.
+
+MHFU, MH3U, and MH4U saved sets and charm lists live under separate local-storage keys, so switching games never mixes them.
 
 No backend. Static Vite + React app.
 
@@ -32,7 +40,7 @@ No backend. Static Vite + React app.
 
 ```bash
 npm install
-npm run data   # regenerate src/data/ and src/data/mh3u/ from vendor/
+npm run data   # regenerate src/data/, src/data/mh3u/, and src/data/mh4u/ from vendor/
 npm run dev
 ```
 
@@ -55,13 +63,16 @@ Vendored snapshots, pinned under `vendor/`:
 | [AthenaADP/MHFU-ASS](https://github.com/AthenaADP/MHFU-ASS) | MHFU skill trees, jewel values, solver reference | MIT |
 | [AthenaADP/MH3U-ASS](https://github.com/AthenaADP/MH3U-ASS) | MH3U armor, jewels, skills, charm table maxima | MIT |
 | [ArmoredRaven17/mh3u-collection-tracker](https://github.com/ArmoredRaven17/mh3u-collection-tracker) | MH3U weapon trees/stats, English armor + weapon materials | MIT code; game-derived data © Capcom |
+| [AthenaADP/MH4U-ASS](https://github.com/AthenaADP/MH4U-ASS) | MH4U armor, jewels, skills, charm generation maxima | MIT |
+| [ArmoredRaven17/mh4u-collection-tracker](https://github.com/ArmoredRaven17/mh4u-collection-tracker) | MH4U weapon trees/stats, English armor + weapon materials | MIT code; game-derived data © Capcom |
 
 `npm run data` normalizes them into `src/data/`:
 
 - MHFU: 2,081 armor pieces, 168 jewels, 1,500 weapons, 103 skill trees
 - MH3U: 1,651 armor pieces, 196 jewels, 1,395 weapons, 123 skill trees, 115 charm skill maxima
+- MH4U: 3,103 armor pieces, 202 jewels, 2,308 weapons, 144 skill trees, 135 charm skill maxima
 
-MH3U materials for a small number of DLC/collaboration pieces are absent from the tracker source and are left empty. Jewels have no cost/material data in the MH3U source.
+MH3U and MH4U materials for a small number of DLC/collaboration pieces are absent from the tracker source and are left empty. Jewels have no cost/material data in either source.
 
 Monster, quest, and item databases are intentionally out of scope.
 
@@ -69,17 +80,19 @@ Monster, quest, and item databases are intentionally out of scope.
 
 The search follows the Athena's ASS approach:
 
-1. Filter armor by gender, hunter type, HR, elder star, and piercings. Dummy pieces are excluded; Torso Inc / Torso Up pieces are always considered and repeat the body piece's skill points.
+1. Filter armor by gender, hunter type, hub rank, village rank, and piercings. Dummy pieces are excluded; Torso Inc / Torso Up pieces are always considered and repeat the body piece's skill points.
 2. Reduce each part to non-dominated pieces.
 3. Depth-first search over parts with suffix bounds and a decoration upper bound.
 4. At each leaf, assign jewels by slot size (1/2/3) until target gaps are closed.
 5. Reject sets that activate bad skills unless allowed.
 
-Jewels are assumed unlimited/craftable. Armor rank filters are cumulative: High includes Low, and G includes High + Low. MH3U treats port star and village star as alternative unlock sources (99 means “not from that source”), so village-only and port-only armor are both handled correctly.
+Jewels are assumed unlimited/craftable. Armor rank filters are cumulative: High includes Low, and G includes High + Low. MH3U and MH4U treat hub stars and village stars as alternative unlock sources (99 means “not from that source”), so village-only and hub-only armor are both handled correctly.
 
 Exhaustive searches are partitioned by head armor across a worker pool (up to 6 workers), and results stream progressively. Searches are capped at 3 seconds or 500 results to prevent runaway memory use. Results can be sorted by defense high/low, fewest jewels, most free slots, or lowest cost.
 
 Charms are treated as an optional sixth equipment piece: owned charms add their skills and slots, and the best-charm mode adds the maximum single-skill roll plus 0–3 slots for each target skill. The solver does not assume two-skill best charms, because the legal pair/value combinations depend on the charm table.
+
+MH4U composite skills (Honed Blade, Rock Steady, etc.) appear as the active tier of their own skill tree. The solver searches that tree directly; it does not automatically satisfy component-skill targets from a composite skill.
 
 ## Attribution
 

@@ -309,6 +309,7 @@ summary { cursor: pointer; color: var(--ink-dim); font-size: 12px; }
 .elem-tag.paralysis { color: #e8cf6a; border-color: #6e5d24; background: #332c16; }
 .elem-tag.sleep { color: #9bb8ea; border-color: #3a4f78; background: #1a2338; }
 .elem-tag.slime { color: #b7d98a; border-color: #4f6a2f; background: #26331a; }
+.elem-tag.blast { color: #e3b06b; border-color: #7a5224; background: #382713; }
 .elements-line .elem-tag { font-size: 11px; line-height: 17px; padding: 0 7px; }
 .tree { font-size: 13px; --tree-line: var(--line); }
 .tree details {
