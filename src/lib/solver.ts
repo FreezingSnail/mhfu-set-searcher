@@ -92,6 +92,7 @@ export function solve(
   if (charmMode === "owned") {
     const seen = new Set<string>();
     for (const charm of input.charms ?? []) {
+      if (input.charmTable && charm.table && charm.table !== input.charmTable) continue;
       if (seen.has(charm.id)) continue;
       seen.add(charm.id);
       charmPool.push(charm);

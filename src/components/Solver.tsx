@@ -134,6 +134,7 @@ export default function Solver({
   const [charmMode, setCharmMode] = useState<"none" | "owned" | "best">(
     data.charmSupport ? "owned" : "none",
   );
+  const [charmTable, setCharmTable] = useState(0);
 
   const [results, setResults] = useState<SolverResult[]>([]);
   const [stats, setStats] = useState<{ nodes: number; elapsed: number; truncated: boolean; timedOut: boolean } | null>(null);
@@ -349,6 +350,7 @@ export default function Solver({
       allowBad,
       allowPiercings,
       charmMode: data.charmSupport ? charmMode : "none",
+      charmTable,
       charms,
     };
     lastInput.current = input;
@@ -507,6 +509,16 @@ export default function Solver({
                 <option value="none">No charm</option>
                 <option value="owned">My charms ({charms.length})</option>
                 <option value="best">Best possible charm</option>
+              </select>
+            </label>
+          )}
+          {data.charmSupport && charmMode === "owned" && (
+            <label>Charm table
+              <select value={charmTable} onChange={(e) => setCharmTable(Number(e.target.value))}>
+                <option value={0}>All tables</option>
+                {Array.from({ length: 17 }, (_, i) => i + 1).map((n) => (
+                  <option key={n} value={n}>Table {n}</option>
+                ))}
               </select>
             </label>
           )}
