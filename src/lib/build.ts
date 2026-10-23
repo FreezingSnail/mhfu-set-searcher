@@ -1,11 +1,11 @@
-import { ARMOR_BY_ID, DECO_BY_ID, PARTS, SKILLS } from "./data";
-import { activeTier } from "./tiers";
-import type { SolverResult } from "./types";
+import type { GameData } from "./games";
+import type { Charm, SolverResult } from "./types";
 
 export type SetSelection = {
   picks: Record<string, string>;
   decoIds: string[];
   weaponSlots: number;
+  charmId?: string;
 };
 
 export type SavedSet = SetSelection & {
@@ -14,36 +14,53 @@ export type SavedSet = SetSelection & {
   createdAt: number;
 };
 
-const STORE = "mhfu-saved-sets";
-
-export function emptySelection(): SetSelection {
-  return { picks: Object.fromEntries(PARTS.map((p) => [p, ""])), decoIds: [], weaponSlots: 0 };
+export function emptySelection(data: GameData): SetSelection {
+  return {
+    picks: Object.fromEntries(data.parts.map((p) => [p, ""])),
+    decoIds: [],
+    weaponSlots: 0,
+    charmId: "",
+  };
 }
 
 export function selectionFromResult(r: SolverResult): SetSelection {
   return {
-    picks: Object.fromEntries(PARTS.map((p) => [p, r.armor.find((a) => a.part === p)?.id ?? ""])),
+    picks: Object.fromEntries(
+      (["head", "body", "arms", "waist", "legs"] as const).map((p) => [
+        p,
+        r.armor.find((a) => a.part === p)?.id ?? "",
+      ]),
+    ),
     decoIds: r.decos.map((d) => d.id),
     weaponSlots: r.weaponSlots,
+    charmId: r.charm?.id ?? "",
   };
 }
 
 export function selectionFromSaved(s: SavedSet): SetSelection {
-  return { picks: s.picks, decoIds: s.decoIds, weaponSlots: s.weaponSlots };
+  return {
+    picks: s.picks,
+    decoIds: s.decoIds,
+    weaponSlots: s.weaponSlots,
+    charmId: s.charmId ?? "",
+  };
 }
 
 export function makeSavedSet(name: string, sel: SetSelection): SavedSet {
   return {
     ...sel,
-    id: typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : Math.random().toString(36).slice(2),
+    id:
+      typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : Math.random().toString(36).slice(2),
     name,
     createdAt: Date.now(),
   };
 }
 
-export function loadSavedSets(): SavedSet[] {
+export function loadSavedSets(key: string): SavedSet[] {
   try {
-    const raw = JSON.parse(localStorage.getItem(STORE) ?? "[]");
+    const raw = JSON.parse(localStorage.getItem(key) ?? "[]");
     if (!Array.isArray(raw)) return [];
     return raw
       .filter((x) => x && typeof x.name === "string" && x.picks)
@@ -53,6 +70,7 @@ export function loadSavedSets(): SavedSet[] {
         picks: x.picks,
         decoIds: Array.isArray(x.decoIds) ? x.decoIds : [],
         weaponSlots: Number(x.weaponSlots) || 0,
+        charmId: typeof x.charmId === "string" ? x.charmId : "",
         createdAt: Number(x.createdAt) || 0,
       }));
   } catch {
@@ -60,28 +78,37 @@ export function loadSavedSets(): SavedSet[] {
   }
 }
 
-export function persistSavedSets(sets: SavedSet[]) {
-  localStorage.setItem(STORE, JSON.stringify(sets));
+export function persistSavedSets(key: string, sets: SavedSet[]) {
+  localStorage.setItem(key, JSON.stringify(sets));
 }
 
-export function buildSet(sel: SetSelection) {
-  const armor = PARTS.map((p) => ARMOR_BY_ID.get(sel.picks[p])).filter((a): a is NonNullable<typeof a> => !!a);
-  const decos = sel.decoIds.map((id) => DECO_BY_ID.get(id)).filter((d): d is NonNullable<typeof d> => !!d);
+export function buildSet(data: GameData, sel: SetSelection, charms: Charm[] = []) {
+  const armor = data.parts
+    .map((p) => data.armorById.get(sel.picks[p]))
+    .filter((a): a is NonNullable<typeof a> => !!a);
+  const decos = sel.decoIds
+    .map((id) => data.decoById.get(id))
+    .filter((d): d is NonNullable<typeof d> => !!d);
+  const charm = sel.charmId ? charms.find((c) => c.id === sel.charmId) ?? null : null;
   const points = new Map<string, number>();
   const add = (s: string, p: number) => points.set(s, (points.get(s) ?? 0) + p);
   for (const a of armor) for (const [s, p] of a.skills) add(s, p);
-  const torso = armor.filter((a) => a.skills.some(([s]) => s === "Torso Inc")).length;
+  const torso = armor.filter((a) => a.skills.some(([s]) => s === data.torsoSkill)).length;
   const body = armor.find((a) => a.part === "body");
   if (torso && body) for (const [s, p] of body.skills) add(s, p * torso);
   for (const d of decos) for (const [s, p] of d.skills) add(s, p);
+  for (const [s, p] of charm?.skills ?? []) add(s, p);
 
-  const active = SKILLS.map((tree) => {
-    const p = points.get(tree.ability) ?? 0;
-    const tier = activeTier(tree.ability, p);
-    return tier ? { ability: tree.ability, points: p, name: tier.name } : null;
-  }).filter((x): x is { ability: string; points: number; name: string } => !!x);
+  const active = data.skills
+    .map((tree) => {
+      const p = points.get(tree.ability) ?? 0;
+      const tier = data.activeTier(tree.ability, p);
+      return tier ? { ability: tree.ability, points: p, name: tier.name } : null;
+    })
+    .filter((x): x is { ability: string; points: number; name: string } => !!x);
 
-  const totalSlots = armor.reduce((n, a) => n + a.slots, 0) + sel.weaponSlots;
+  const totalSlots =
+    armor.reduce((n, a) => n + a.slots, 0) + sel.weaponSlots + (charm?.slots ?? 0);
   const usedSlots = decos.reduce((n, d) => n + d.slots, 0);
   const mats = new Map<string, number>();
   for (const a of armor) for (const [m, n] of a.mats) mats.set(m, (mats.get(m) ?? 0) + n);
@@ -90,6 +117,7 @@ export function buildSet(sel: SetSelection) {
   return {
     armor,
     decos,
+    charm,
     points,
     active,
     totalSlots,

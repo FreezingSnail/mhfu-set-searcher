@@ -3,8 +3,10 @@ import Solver from "./components/Solver";
 import Builder from "./components/Builder";
 import Weapons from "./components/Weapons";
 import Sets from "./components/Sets";
-import { META } from "./lib/data";
-import type { SolverResult } from "./lib/types";
+import Charms from "./components/Charms";
+import { GameProvider } from "./lib/game";
+import { GAMES } from "./lib/games";
+import type { Charm, Game, SolverResult } from "./lib/types";
 import {
   loadSavedSets,
   makeSavedSet,
@@ -14,17 +16,48 @@ import {
   type SavedSet,
   type SetSelection,
 } from "./lib/build";
+import { loadCharms, persistCharms } from "./lib/charms";
 import "./styles.css";
 
-type Tab = "solver" | "builder" | "sets" | "weapons";
+type Tab = "solver" | "builder" | "sets" | "weapons" | "charms";
+
+const hashGame = (): Game => (window.location.hash.replace("#", "") === "mh3u" ? "mh3u" : "mhfu");
 
 export default function App() {
+  const [game, setGame] = useState<Game>(hashGame);
   const [tab, setTab] = useState<Tab>("solver");
   const [seed, setSeed] = useState<SetSelection | null>(null);
   const [seedKey, setSeedKey] = useState(0);
-  const [saved, setSaved] = useState<SavedSet[]>(loadSavedSets);
+  const [savedByGame, setSavedByGame] = useState<Record<Game, SavedSet[]>>(() => ({
+    mhfu: loadSavedSets(GAMES.mhfu.storageKey),
+    mh3u: loadSavedSets(GAMES.mh3u.storageKey),
+  }));
+  const [charms, setCharms] = useState<Charm[]>(loadCharms);
 
-  useEffect(() => persistSavedSets(saved), [saved]);
+  const data = GAMES[game];
+  const saved = savedByGame[game];
+
+  useEffect(() => persistCharms(charms), [charms]);
+
+  useEffect(() => {
+    history.replaceState(null, "", `#${game}`);
+    document.title = data.title;
+  }, [game, data.title]);
+
+  const updateSaved = (fn: (old: SavedSet[]) => SavedSet[]) => {
+    setSavedByGame((all) => {
+      const next = fn(all[game]);
+      persistSavedSets(data.storageKey, next);
+      return { ...all, [game]: next };
+    });
+  };
+
+  const switchGame = (next: Game) => {
+    if (next === game) return;
+    setGame(next);
+    setTab("solver");
+    setSeed(null);
+  };
 
   const openSelection = (sel: SetSelection) => {
     setSeed(sel);
@@ -33,7 +66,7 @@ export default function App() {
   };
 
   const saveSet = (name: string, sel: SetSelection) => {
-    setSaved((old) => [makeSavedSet(name, sel), ...old]);
+    updateSaved((old) => [makeSavedSet(name, sel), ...old]);
   };
 
   const saveResult = (r: SolverResult) => {
@@ -45,46 +78,76 @@ export default function App() {
   };
 
   return (
-    <div className="app">
-      <header className="top">
-        <div>
-          <h1>MHFU Set Searcher</h1>
-          <p className="dim small">
-            Freedom Unite armor solver, builder, and weapon trees · {META.armor} armor · {META.decorations} jewels · {META.weapons} weapons
-          </p>
-        </div>
-        <nav className="tabs">
-          <button className={tab === "solver" ? "active" : ""} onClick={() => setTab("solver")}>Solver</button>
-          <button className={tab === "builder" ? "active" : ""} onClick={() => setTab("builder")}>Builder</button>
-          <button className={tab === "sets" ? "active" : ""} onClick={() => setTab("sets")}>Sets{saved.length ? ` (${saved.length})` : ""}</button>
-          <button className={tab === "weapons" ? "active" : ""} onClick={() => setTab("weapons")}>Weapons</button>
-        </nav>
-      </header>
+    <GameProvider game={game} data={data}>
+      <div className="app">
+        <header className="top">
+          <div>
+            <div className="game-switch">
+              <button className={game === "mhfu" ? "active" : ""} onClick={() => switchGame("mhfu")}>MHFU</button>
+              <button className={game === "mh3u" ? "active" : ""} onClick={() => switchGame("mh3u")}>MH3U</button>
+            </div>
+            <h1>{data.title}</h1>
+            <p className="dim small">
+              {data.blurb} · {data.meta.armor} armor · {data.meta.decorations} jewels · {data.meta.weapons} weapons
+              {data.charmSupport ? " · charms" : ""}
+            </p>
+          </div>
+          <nav className="tabs">
+            <button className={tab === "solver" ? "active" : ""} onClick={() => setTab("solver")}>Solver</button>
+            <button className={tab === "builder" ? "active" : ""} onClick={() => setTab("builder")}>Builder</button>
+            <button className={tab === "sets" ? "active" : ""} onClick={() => setTab("sets")}>Sets{saved.length ? ` (${saved.length})` : ""}</button>
+            <button className={tab === "weapons" ? "active" : ""} onClick={() => setTab("weapons")}>Weapons</button>
+            {data.charmSupport && (
+              <button className={tab === "charms" ? "active" : ""} onClick={() => setTab("charms")}>Charms{charms.length ? ` (${charms.length})` : ""}</button>
+            )}
+          </nav>
+        </header>
 
-      <main>
-        {tab === "solver" && (
-          <Solver
-            onOpen={(r) => openSelection(selectionFromResult(r))}
-            onSave={saveResult}
-          />
-        )}
-        {tab === "builder" && <Builder key={seedKey} initial={seed} onSave={saveSet} />}
-        {tab === "sets" && (
-          <Sets
-            saved={saved}
-            onLoad={(s) => openSelection(selectionFromSaved(s))}
-            onDelete={(id) => setSaved((old) => old.filter((s) => s.id !== id))}
-            onRename={(id, name) => setSaved((old) => old.map((s) => (s.id === id ? { ...s, name } : s)))}
-          />
-        )}
-        {tab === "weapons" && <Weapons />}
-      </main>
+        <main>
+          {tab === "solver" && (
+            <Solver
+              key={game}
+              charms={charms}
+              onOpen={(r) => openSelection(selectionFromResult(r))}
+              onSave={saveResult}
+            />
+          )}
+          {tab === "builder" && (
+            <Builder key={`${game}-${seedKey}`} initial={seed} charms={charms} onSave={saveSet} />
+          )}
+          {tab === "sets" && (
+            <Sets
+              key={game}
+              saved={saved}
+              charms={charms}
+              onLoad={(s) => openSelection(selectionFromSaved(s))}
+              onDelete={(id) => updateSaved((old) => old.filter((s) => s.id !== id))}
+              onRename={(id, name) => updateSaved((old) => old.map((s) => (s.id === id ? { ...s, name } : s)))}
+            />
+          )}
+          {tab === "weapons" && <Weapons key={game} />}
+          {tab === "charms" && data.charmSupport && (
+            <Charms charms={charms} onChange={setCharms} />
+          )}
+        </main>
 
-      <footer className="foot dim small">
-        Data: <a href="https://github.com/vallode/mhfu-blacksmith" target="_blank" rel="noreferrer">mhfu-blacksmith</a> (MIT) and{" "}
-        <a href="https://github.com/AthenaADP/MHFU-ASS" target="_blank" rel="noreferrer">Athena's ASS</a> (MIT).
-        Monster Hunter is a trademark of Capcom. Personal fan tool.
-      </footer>
-    </div>
+        <footer className="foot dim small">
+          {game === "mhfu" ? (
+            <>
+              Data:{" "}
+              <a href="https://github.com/vallode/mhfu-blacksmith" target="_blank" rel="noreferrer">mhfu-blacksmith</a> (MIT) and{" "}
+              <a href="https://github.com/AthenaADP/MHFU-ASS" target="_blank" rel="noreferrer">Athena's ASS</a> (MIT).
+            </>
+          ) : (
+            <>
+              Data:{" "}
+              <a href="https://github.com/AthenaADP/MH3U-ASS" target="_blank" rel="noreferrer">Athena's ASS MH3U</a> (MIT) and{" "}
+              <a href="https://github.com/ArmoredRaven17/mh3u-collection-tracker" target="_blank" rel="noreferrer">MH3U Collection Tracker</a>. Game data © Capcom.
+            </>
+          )}{" "}
+          Monster Hunter is a trademark of Capcom. Personal fan tool.
+        </footer>
+      </div>
+    </GameProvider>
   );
 }

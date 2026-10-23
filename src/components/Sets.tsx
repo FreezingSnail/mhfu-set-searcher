@@ -1,9 +1,11 @@
 import { useMemo, useState } from "react";
-import { PARTS, PART_LABEL, RES_LABEL } from "../lib/data";
+import { useGame } from "../lib/gameContext";
 import { buildSet, selectionFromSaved, type SavedSet } from "../lib/build";
+import type { Charm } from "../lib/types";
 
 type Props = {
   saved: SavedSet[];
+  charms: Charm[];
   onLoad: (s: SavedSet) => void;
   onDelete: (id: string) => void;
   onRename: (id: string, name: string) => void;
@@ -15,12 +17,13 @@ const statRows = [
   ["Cost", (s: ReturnType<typeof buildSet>) => `${s.cost.toLocaleString()}z`],
 ] as const;
 
-export default function Sets({ saved, onLoad, onDelete, onRename }: Props) {
+export default function Sets({ saved, charms, onLoad, onDelete, onRename }: Props) {
+  const { data: gameData } = useGame();
   const [selected, setSelected] = useState<string[]>([]);
 
   const summaries = useMemo(
-    () => new Map(saved.map((s) => [s.id, buildSet(selectionFromSaved(s))])),
-    [saved],
+    () => new Map(saved.map((s) => [s.id, buildSet(gameData, selectionFromSaved(s), charms)])),
+    [saved, charms, gameData],
   );
   const selectedSets = saved.filter((s) => selected.includes(s.id)).slice(0, 4);
   const compared = selectedSets.map((s) => ({ set: s, data: summaries.get(s.id)! }));
@@ -50,7 +53,7 @@ export default function Sets({ saved, onLoad, onDelete, onRename }: Props) {
         {saved.length ? (
           <div className="saved-list">
             {saved.map((set) => {
-              const data = summaries.get(set.id)!;
+              const summary = summaries.get(set.id)!;
               const isSelected = selected.includes(set.id);
               return (
                 <div key={set.id} className={"saved-row " + (isSelected ? "picked" : "")}>
@@ -62,7 +65,7 @@ export default function Sets({ saved, onLoad, onDelete, onRename }: Props) {
                   />
                   <button className="link" onClick={() => onLoad(set)}>{set.name}</button>
                   <span className="dim small">
-                    {data.defense} def · {data.active.map((a) => a.name).join(", ") || "no skills"} · {data.spare} slots
+                    {summary.defense} def · {summary.active.map((a) => a.name).join(", ") || "no skills"} · {summary.spare} slots
                   </span>
                   <div className="row">
                     <button className="ghost" onClick={() => onLoad(set)}>Open</button>
@@ -102,12 +105,20 @@ export default function Sets({ saved, onLoad, onDelete, onRename }: Props) {
                     {compared.map((c) => <td key={c.set.id}>{get(c.data)}</td>)}
                   </tr>
                 ))}
-                {PARTS.map((part) => (
+                {gameData.parts.map((part) => (
                   <tr key={part}>
-                    <th>{PART_LABEL[part]}</th>
+                    <th>{gameData.partLabel[part]}</th>
                     {compared.map((c) => <td key={c.set.id}>{c.data.armor.find((a) => a.part === part)?.name ?? "—"}</td>)}
                   </tr>
                 ))}
+                {gameData.charmSupport && (
+                  <tr>
+                    <th>Charm</th>
+                    {compared.map((c) => (
+                      <td key={c.set.id}>{c.data.charm?.name ?? "—"}</td>
+                    ))}
+                  </tr>
+                )}
                 <tr>
                   <th>Jewels</th>
                   {compared.map((c) => (
@@ -116,7 +127,7 @@ export default function Sets({ saved, onLoad, onDelete, onRename }: Props) {
                 </tr>
                 {(["fire", "water", "thunder", "ice", "dragon"] as const).map((k) => (
                   <tr key={k}>
-                    <th>{RES_LABEL[k]}</th>
+                    <th>{gameData.resLabel[k]}</th>
                     {compared.map((c) => {
                       const v = c.data.res[k];
                       return <td key={c.set.id}>{v >= 0 ? "+" : ""}{v}</td>;

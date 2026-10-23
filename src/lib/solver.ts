@@ -5,16 +5,11 @@
  * - negative skills are rejected at -10 unless "allow bad skills" is on.
  * Unlike ASS this uses a pruned DFS instead of per-part equivalence classes.
  */
-import armorJson from "../data/armor.json";
-import decoJson from "../data/decorations.json";
-import type { Armor, Deco, SolverInput, SolverResult } from "./types";
-import { SKILL_TREE, activeTier } from "./tiers";
+import type { Armor, Charm, Deco, SolverInput, SolverResult } from "./types";
+import type { GameData } from "./games";
 import { sortSets } from "./sort";
 import { RESULT_CAP } from "./constants";
 
-const ARMOR = armorJson as unknown as Armor[];
-const DECOS = decoJson as unknown as Deco[];
-const TREE = SKILL_TREE;
 const PARTS = ["head", "body", "arms", "waist", "legs"] as const;
 const RANK_ORDER: Record<string, number> = { "low-rank": 0, "high-rank": 1, "g-rank": 2 };
 const RANK_LIMIT: Record<string, number> = { low: 0, high: 1, g: 2 };
@@ -22,15 +17,24 @@ const RANK_LIMIT: Record<string, number> = { low: 0, high: 1, g: 2 };
 type Cand = { a: Armor; points: number[]; vec: [number, number][]; torso: boolean };
 type Counts = [number, number, number, number];
 
-const filterCandidates = (input: SolverInput, abilities: string[], ai: Map<string, number>): Record<string, Cand[]> => {
+const filterCandidates = (
+  data: GameData,
+  input: SolverInput,
+  abilities: string[],
+  ai: Map<string, number>,
+): Record<string, Cand[]> => {
   const filtered: Record<string, Armor[]> = {};
   for (const part of PARTS) {
-    filtered[part] = ARMOR.filter((a) => {
+    filtered[part] = data.armor.filter((a) => {
       if (a.part !== part) return false;
       if (a.sex !== "both" && a.sex !== input.gender) return false;
       if (a.hunter !== "both" && a.hunter !== input.hunter) return false;
       if (input.rank !== "all" && (RANK_ORDER[a.rank] ?? 99) > RANK_LIMIT[input.rank]) return false;
-      if (a.hr > input.hr || a.elder > input.elder) return false;
+      // MH3U records port star and village star separately; 99 means "not from
+      // that source", so a piece is available if either source is unlocked.
+      const hrOk = a.hr <= input.hr;
+      const elderOk = a.elder <= input.elder;
+      if (data.id === "mh3u" ? !hrOk && !elderOk : !hrOk || !elderOk) return false;
       if (!input.allowPiercings && a.name.includes("Piercing")) return false;
       if (a.name.includes("(dummy)")) return false;
       return true;
@@ -43,7 +47,7 @@ const filterCandidates = (input: SolverInput, abilities: string[], ai: Map<strin
     for (const a of filtered[part]) {
       const points = new Array(abilities.length).fill(0);
       for (const [s, p] of a.skills) points[ai.get(s)!] += p;
-      const torso = a.skills.some(([s]) => s === "Torso Inc");
+      const torso = a.skills.some(([s]) => s === data.torsoSkill);
       const vec = points
         .map((p, i) => [i, p] as [number, number])
         .filter(([, p]) => p !== 0);
@@ -75,21 +79,58 @@ const filterCandidates = (input: SolverInput, abilities: string[], ai: Map<strin
 const slotsLeft = (free: Counts) => free[1] + free[2] * 2 + free[3] * 3;
 
 export function solve(
+  data: GameData,
   input: SolverInput,
   onResult?: (result: SolverResult) => void,
 ): { results: SolverResult[]; nodes: number; elapsed: number; truncated: boolean } {
   const started = performance.now();
-  const target = input.skills.filter((s) => TREE.has(s.ability) && s.points > 0);
+  const target = input.skills.filter((s) => data.skillTree.has(s.ability) && s.points > 0);
+  const targetAbilities = new Set(target.map((s) => s.ability));
+
+  const charmMode = input.charmMode ?? "none";
+  const charmPool: (Charm | null)[] = [null];
+  if (charmMode === "owned") {
+    const seen = new Set<string>();
+    for (const charm of input.charms ?? []) {
+      if (seen.has(charm.id)) continue;
+      seen.add(charm.id);
+      charmPool.push(charm);
+    }
+  } else if (charmMode === "best") {
+    const seen = new Set<string>();
+    for (const ability of targetAbilities) {
+      const max = data.charmMax[ability] ?? 0;
+      if (max <= 0) continue;
+      for (let slots = 0; slots <= 3; slots++) {
+        const id = `best:${ability}:${slots}`;
+        if (seen.has(id)) continue;
+        seen.add(id);
+        charmPool.push({
+          id,
+          name: `${ability} +${max}${slots ? ` (${slots} slot${slots > 1 ? "s" : ""})` : ""}`,
+          slots,
+          table: 0,
+          rarity: 0,
+          skills: [[ability, max]],
+        });
+      }
+    }
+    for (let slots = 1; slots <= 3; slots++) {
+      charmPool.push({ id: `best:slots:${slots}`, name: `${slots}-slot charm`, slots, table: 0, rarity: 0, skills: [] });
+    }
+  }
+
   const abilities = [...new Set([
     ...target.map((s) => s.ability),
-    ...ARMOR.flatMap((a) => a.skills.map(([s]) => s)),
-    ...DECOS.flatMap((d) => d.skills.map(([s]) => s)),
+    ...data.armor.flatMap((a) => a.skills.map(([s]) => s)),
+    ...data.decos.flatMap((d) => d.skills.map(([s]) => s)),
+    ...charmPool.flatMap((c) => (c?.skills ?? []).map(([s]) => s)),
   ])];
   const ai = new Map(abilities.map((s, i) => [s, i]));
   const ti = new Map(target.map((s, i) => [s.ability, i]));
 
   const targetIdx = target.map((s) => ai.get(s.ability)!);
-  const candidates = filterCandidates(input, abilities, ai);
+  const candidates = filterCandidates(data, input, abilities, ai);
   for (const part of PARTS) {
     candidates[part] = candidates[part].filter(
       (c) => c.a.slots > 0 || c.torso || targetIdx.some((i) => c.points[i] > 0),
@@ -130,7 +171,7 @@ export function solve(
   for (const a of new Set(targetIdx)) {
     const dp = new Array(19).fill(0);
     for (let s = 1; s <= 18; s++) {
-      for (const d of DECOS) {
+      for (const d of data.decos) {
         if (d.slots > s) continue;
         const p = d.skills.find(([x]) => x === abilities[a])?.[1] ?? 0;
         if (p > 0) dp[s] = Math.max(dp[s], dp[s - d.slots] + p);
@@ -140,10 +181,9 @@ export function solve(
     bestDeco.set(a, dp);
   }
 
-  const usableDecos = DECOS.filter(
+  const usableDecos = data.decos.filter(
     (d) => d.hr <= input.hr && d.elder <= input.elder,
   ).filter((d) => d.skills.some(([, p]) => p > 0));
-
 
   const decoByAbility = new Map<string, Deco[]>();
   for (const ability of target.map((s) => s.ability)) {
@@ -157,6 +197,18 @@ export function solve(
           return sy - sx;
         }),
     );
+  }
+
+  // Best possible charm contribution per ability, used for DFS bounds.
+  const charmMaxPoints = new Array(abilities.length).fill(0);
+  let charmMaxSlots = 0;
+  for (const charm of charmPool) {
+    if (!charm) continue;
+    charmMaxSlots = Math.max(charmMaxSlots, charm.slots);
+    for (const [s, p] of charm.skills) {
+      const idx = ai.get(s);
+      if (idx !== undefined && p > 0) charmMaxPoints[idx] = Math.max(charmMaxPoints[idx], p);
+    }
   }
 
   let nodes = 0;
@@ -232,63 +284,88 @@ export function solve(
     // Torso Inc repeats the body piece's skill points.
     const torsoCount = chosen.filter((c) => c.torso).length;
     const body = chosen.find((c) => c.a.part === "body");
-    const effective = [...points];
+    const basePoints = [...points];
     if (torsoCount && body) {
-      for (let a = 0; a < abilities.length; a++) effective[a] += body.points[a] * torsoCount;
+      for (let a = 0; a < abilities.length; a++) basePoints[a] += body.points[a] * torsoCount;
     }
-    const totalFree = slotsLeft(free);
-    for (let i = 0; i < target.length; i++) {
-      const a = ai.get(target[i].ability)!;
-      if (target[i].points - effective[a] > (bestDeco.get(a)?.[Math.min(18, totalFree)] ?? 0)) return;
-    }
-    const d = decoSolve(effective, [...free] as Counts);
-    if (!d) return;
-
     const all = chosen.map((c) => c.a);
-    const key = all.map((a) => a.id).join("|") + "|" + d.decos.map((x) => x.id).join("|");
-    if (seenResults.has(key)) return;
-    seenResults.add(key);
 
-    const totals = [...effective];
-    for (const deco of d.decos) for (const [s, p] of deco.skills) totals[ai.get(s)!] += p;
-    if (!input.allowBad) {
-      for (let a = 0; a < abilities.length; a++) if (totals[a] <= -10) return;
+    for (const charm of charmPool) {
+      const effective = [...basePoints];
+      if (charm) for (const [s, p] of charm.skills) effective[ai.get(s)!] += p;
+      if (!input.allowBad) {
+        let bad = false;
+        for (let a = 0; a < abilities.length; a++) if (effective[a] <= -10) bad = true;
+        if (bad) continue;
+      }
+
+      const charmFree = [...free] as Counts;
+      if (charm?.slots) charmFree[charm.slots]++;
+      const totalFree = slotsLeft(charmFree);
+      let canReach = true;
+      for (let i = 0; i < target.length; i++) {
+        const a = ai.get(target[i].ability)!;
+        if (target[i].points - effective[a] > (bestDeco.get(a)?.[Math.min(18, totalFree)] ?? 0)) {
+          canReach = false;
+          break;
+        }
+      }
+      if (!canReach) continue;
+
+      const d = decoSolve(effective, charmFree);
+      if (!d) continue;
+
+      const key =
+        all.map((a) => a.id).join("|") +
+        "|" + (charm?.id ?? "nocharm") +
+        "|" + d.decos.map((x) => x.id).join("|");
+      if (seenResults.has(key)) continue;
+
+      const totals = [...effective];
+      for (const deco of d.decos) for (const [s, p] of deco.skills) totals[ai.get(s)!] += p;
+      if (!input.allowBad) {
+        let bad = false;
+        for (let a = 0; a < abilities.length; a++) if (totals[a] <= -10) bad = true;
+        if (bad) continue;
+      }
+
+      seenResults.add(key);
+      const active = abilities
+        .map((ability) => {
+          const tier = data.activeTier(ability, totals[ai.get(ability)!]);
+          return tier ? { ability, points: totals[ai.get(ability)!], name: tier.name } : null;
+        })
+        .filter((x): x is { ability: string; points: number; name: string } => !!x);
+      const extra = active.filter((s) => !targetAbilities.has(s.ability));
+      const mats = new Map<string, number>();
+      for (const a of all) for (const [m, n] of a.mats) mats.set(m, (mats.get(m) ?? 0) + n);
+      for (const deco of d.decos) for (const [m, n] of deco.mats) mats.set(m, (mats.get(m) ?? 0) + n);
+      const res: SolverResult = {
+        armor: all,
+        decos: d.decos,
+        charm,
+        points: Object.fromEntries(abilities.map((a) => [a, totals[ai.get(a)!]])),
+        active,
+        extra,
+        defense: all.reduce((n, a) => n + a.defense, 0),
+        res: all.reduce(
+          (r, a) => ({
+            fire: r.fire + a.res.fire,
+            thunder: r.thunder + a.res.thunder,
+            dragon: r.dragon + a.res.dragon,
+            water: r.water + a.res.water,
+            ice: r.ice + a.res.ice,
+          }),
+          { fire: 0, thunder: 0, dragon: 0, water: 0, ice: 0 },
+        ),
+        cost: all.reduce((n, a) => n + a.cost, 0) + d.decos.reduce((n, x) => n + x.cost, 0),
+        mats: [...mats.entries()].sort((a, b) => b[1] - a[1]),
+        spare: slotsLeft(d.free),
+        weaponSlots: input.weaponSlots,
+      };
+      results.push(res);
+      onResult?.(res);
     }
-    const active = abilities
-      .map((ability) => {
-        const tier = activeTier(ability, totals[ai.get(ability)!]);
-        return tier ? { ability, points: totals[ai.get(ability)!], name: tier.name } : null;
-      })
-      .filter((x): x is { ability: string; points: number; name: string } => !!x);
-    const targetSet = new Set(target.map((s) => s.ability));
-    const extra = active.filter((s) => !targetSet.has(s.ability));
-    const mats = new Map<string, number>();
-    for (const a of all) for (const [m, n] of a.mats) mats.set(m, (mats.get(m) ?? 0) + n);
-    for (const deco of d.decos) for (const [m, n] of deco.mats) mats.set(m, (mats.get(m) ?? 0) + n);
-    const res: SolverResult = {
-      armor: all,
-      decos: d.decos,
-      points: Object.fromEntries(abilities.map((a) => [a, totals[ai.get(a)!]])),
-      active,
-      extra,
-      defense: all.reduce((n, a) => n + a.defense, 0),
-      res: all.reduce(
-        (r, a) => ({
-          fire: r.fire + a.res.fire,
-          thunder: r.thunder + a.res.thunder,
-          dragon: r.dragon + a.res.dragon,
-          water: r.water + a.res.water,
-          ice: r.ice + a.res.ice,
-        }),
-        { fire: 0, thunder: 0, dragon: 0, water: 0, ice: 0 },
-      ),
-      cost: all.reduce((n, a) => n + a.cost, 0) + d.decos.reduce((n, x) => n + x.cost, 0),
-      mats: [...mats.entries()].sort((a, b) => b[1] - a[1]),
-      spare: slotsLeft(d.free),
-      weaponSlots: input.weaponSlots,
-    };
-    results.push(res);
-    onResult?.(res);
   };
 
   const dfs = (depth: number) => {
@@ -316,13 +393,18 @@ export function solve(
       free[c.a.slots]++;
       chosen.push(c);
 
-      // Bound: remaining armor + best possible decorations.
-      const totalSlots = slotsLeft(free) + suffixSlots[depth + 1] + input.weaponSlots;
+      // Bound: remaining armor + best possible decorations + best charm.
+      const totalSlots = slotsLeft(free) + suffixSlots[depth + 1] + input.weaponSlots + charmMaxSlots;
       let possible = true;
       for (let i = 0; i < target.length; i++) {
         const a = ai.get(target[i].ability)!;
         const torsoBonus = 4 * Math.max(0, bodyMax[a]);
-        const best = points[a] + suffix[depth + 1][a] + (bestDeco.get(a)?.[Math.min(18, totalSlots)] ?? 0) + torsoBonus;
+        const best =
+          points[a] +
+          suffix[depth + 1][a] +
+          (bestDeco.get(a)?.[Math.min(18, totalSlots)] ?? 0) +
+          torsoBonus +
+          charmMaxPoints[a];
         if (best < target[i].points) {
           possible = false;
           break;

@@ -1,17 +1,20 @@
 import { solve } from "./lib/solver";
-import { SKILL_TREE } from "./lib/tiers";
-import type { SolverInput, SolverResult } from "./lib/types";
+import { GAMES } from "./lib/games";
+import type { Game, SolverInput, SolverResult } from "./lib/types";
 
 type Request = {
   id: number;
+  game: Game;
   input: SolverInput;
   candidates?: string[];
 };
 
 const setKey = (r: SolverResult) =>
-  r.armor.map((a) => a.id).join("|") + "|" + r.decos.map((d) => d.id).join("|");
+  r.armor.map((a) => a.id).join("|") +
+  "|" + (r.charm?.id ?? "") +
+  "|" + r.decos.map((d) => d.id).join("|");
 
-function extend(input: SolverInput, candidates: string[]) {
+function extend(data: (typeof GAMES)[Game], input: SolverInput, candidates: string[]) {
   const original = new Set(input.skills.map((s) => s.ability));
   const found: SolverResult[] = [];
   const seen = new Set<string>();
@@ -20,10 +23,10 @@ function extend(input: SolverInput, candidates: string[]) {
   for (const ability of candidates) {
     if (Date.now() - started > 12_000) break;
     if (original.has(ability)) continue;
-    const tree = SKILL_TREE.get(ability);
+    const tree = data.skillTree.get(ability);
     const tier = tree?.tiers.filter((t) => t.points > 0).sort((a, b) => a.points - b.points)[0];
     if (!tier) continue;
-    const out = solve({
+    const out = solve(data, {
       ...input,
       skills: [...input.skills, { ability, points: tier.points }],
       limit: 5,
@@ -48,10 +51,11 @@ function extend(input: SolverInput, candidates: string[]) {
 }
 
 self.onmessage = (event: MessageEvent<Request>) => {
-  const { id, input, candidates } = event.data;
+  const { id, game, input, candidates } = event.data;
+  const data = GAMES[game] ?? GAMES.mhfu;
   try {
     if (candidates) {
-      self.postMessage({ id, ...extend(input, candidates) });
+      self.postMessage({ id, ...extend(data, input, candidates) });
       return;
     }
 
@@ -62,7 +66,7 @@ self.onmessage = (event: MessageEvent<Request>) => {
       self.postMessage({ id, batch: pending.splice(0) });
       lastPost = performance.now();
     };
-    const out = solve(input, (result) => {
+    const out = solve(data, input, (result) => {
       pending.push(result);
       if (pending.length >= 40 || performance.now() - lastPost > 100) flush();
     });

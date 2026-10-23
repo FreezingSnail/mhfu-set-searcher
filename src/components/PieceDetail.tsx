@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { PART_LABEL, RES_LABEL } from "../lib/data";
+import { useGame } from "../lib/gameContext";
 import type { Armor, Deco } from "../lib/types";
 
 export type DetailItem =
@@ -15,6 +15,7 @@ const SEX_LABEL: Record<string, string> = { both: "Male/Female", male: "Male", f
 const HUNTER_LABEL: Record<string, string> = { both: "Blade/Gunner", blade: "Blademaster", gunner: "Gunner" };
 
 export default function PieceDetail({ item, onClose }: { item: DetailItem | null; onClose: () => void }) {
+  const { data } = useGame();
   useEffect(() => {
     if (!item) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
@@ -37,7 +38,7 @@ export default function PieceDetail({ item, onClose }: { item: DetailItem | null
             <h3>{armor ? armor.name : `${a.name} (jewel)`}</h3>
             <p className="dim small">
               {armor
-                ? `${PART_LABEL[armor.part]} · ${RANK_LABEL[armor.rank] ?? armor.rank} · rarity ${armor.rarity} · ${SEX_LABEL[armor.sex]} · ${HUNTER_LABEL[armor.hunter]}`
+                ? `${data.partLabel[armor.part]} · ${RANK_LABEL[armor.rank] ?? armor.rank} · rarity ${armor.rarity} · ${SEX_LABEL[armor.sex]} · ${HUNTER_LABEL[armor.hunter]}`
                 : `Requires ${slots} slot${slots > 1 ? "s" : ""}`}
             </p>
           </div>
@@ -49,19 +50,19 @@ export default function PieceDetail({ item, onClose }: { item: DetailItem | null
             <div className="detail-stats">
               <span><strong>{armor.defense}</strong> defense</span>
               <span><strong>{armor.slots}</strong> slots</span>
-              <span><strong>{armor.hr}</strong> HR / <strong>{armor.elder}</strong> elder</span>
+              <span><strong>{armor.hr}</strong> {data.id === "mh3u" ? "port" : "HR"} / <strong>{armor.elder}</strong> {data.id === "mh3u" ? "village" : "elder"}</span>
               <span><strong>{armor.cost.toLocaleString()}z</strong></span>
             </div>
             <div className="detail-res">
               {Object.entries(armor.res).map(([k, v]) => (
-                <span key={k}>{RES_LABEL[k]} {v >= 0 ? "+" : ""}{v}</span>
+                <span key={k}>{data.resLabel[k]} {v >= 0 ? "+" : ""}{v}</span>
               ))}
             </div>
           </>
         ) : (
           <div className="detail-stats">
             <span><strong>{a.slots}</strong> slot{a.slots > 1 ? "s" : ""}</span>
-            <span><strong>{a.hr}</strong> HR / <strong>{a.elder}</strong> elder</span>
+            <span><strong>{a.hr}</strong> {data.id === "mh3u" ? "port" : "HR"} / <strong>{a.elder}</strong> {data.id === "mh3u" ? "village" : "elder"}</span>
             <span><strong>{a.cost.toLocaleString()}z</strong></span>
           </div>
         )}

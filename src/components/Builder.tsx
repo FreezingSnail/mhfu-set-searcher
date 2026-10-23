@@ -1,24 +1,31 @@
 import { useMemo, useState } from "react";
-import { ARMOR, DECOS, PARTS, PART_LABEL, RES_LABEL } from "../lib/data";
+import { useGame } from "../lib/gameContext";
 import { buildSet, emptySelection, type SetSelection } from "../lib/build";
+import type { Charm } from "../lib/types";
 
 type Props = {
   initial: SetSelection | null;
+  charms: Charm[];
   onSave: (name: string, sel: SetSelection) => void;
 };
 
-export default function Builder({ initial, onSave }: Props) {
-  const start = initial ?? emptySelection();
+export default function Builder({ initial, charms, onSave }: Props) {
+  const { data } = useGame();
+  const start = initial ?? emptySelection(data);
   const [picks, setPicks] = useState<Record<string, string>>(start.picks);
   const [decoIds, setDecoIds] = useState<string[]>(start.decoIds);
   const [weaponSlots, setWeaponSlots] = useState(start.weaponSlots);
+  const [charmId, setCharmId] = useState(start.charmId ?? "");
 
-  const build = useMemo(() => buildSet({ picks, decoIds, weaponSlots }), [picks, decoIds, weaponSlots]);
+  const build = useMemo(
+    () => buildSet(data, { picks, decoIds, weaponSlots, charmId }, charms),
+    [data, picks, decoIds, weaponSlots, charmId, charms],
+  );
 
   const save = () => {
     const name = window.prompt("Set name", "Untitled set");
     if (!name) return;
-    onSave(name, { picks, decoIds, weaponSlots });
+    onSave(name, { picks, decoIds, weaponSlots, charmId });
   };
 
   return (
@@ -30,23 +37,50 @@ export default function Builder({ initial, onSave }: Props) {
               {[0, 1, 2, 3].map((n) => <option key={n} value={n}>{n}</option>)}
             </select>
           </label>
+          {data.charmSupport && (
+            <label>Charm
+              <select value={charmId} onChange={(e) => setCharmId(e.target.value)}>
+                <option value="">— none —</option>
+                {charms.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.slots ? `${c.slots}-slot` : "0-slot"} · {c.skills.map(([a, p]) => `${a} ${p > 0 ? "+" : ""}${p}`).join(", ") || "no skills"}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
           <button className="primary" onClick={save}>Save set</button>
-          <button className="ghost" onClick={() => { setPicks(emptySelection().picks); setDecoIds([]); setWeaponSlots(0); }}>Clear</button>
+          <button
+            className="ghost"
+            onClick={() => {
+              setPicks(emptySelection(data).picks);
+              setDecoIds([]);
+              setWeaponSlots(0);
+              setCharmId("");
+            }}
+          >
+            Clear
+          </button>
           <span className="dim small">Saved sets live in the Sets tab.</span>
         </div>
         <div className="build-parts">
-          {PARTS.map((part) => (
+          {data.parts.map((part) => (
             <label key={part} className="build-row">
-              <span className="slot-tag">{PART_LABEL[part]}</span>
-              <select value={picks[part]} onChange={(e) => setPicks((old) => ({ ...old, [part]: e.target.value }))}>
+              <span className="slot-tag">{data.partLabel[part]}</span>
+              <select value={picks[part] ?? ""} onChange={(e) => setPicks((old) => ({ ...old, [part]: e.target.value }))}>
                 <option value="">— none —</option>
-                {ARMOR.filter((a) => a.part === part).map((a) => (
+                {data.armor.filter((a) => a.part === part).map((a) => (
                   <option key={a.id} value={a.id}>{a.name} · {a.defense} def · {a.slots ? "O".repeat(a.slots) : "—"}</option>
                 ))}
               </select>
             </label>
           ))}
         </div>
+        {build.charm && (
+          <p className="dim small">
+            Charm: {build.charm.name} · {build.charm.slots ? "O".repeat(build.charm.slots) : "no slots"}
+          </p>
+        )}
       </section>
 
       <section className="panel">
@@ -62,7 +96,7 @@ export default function Builder({ initial, onSave }: Props) {
             }}
           >
             <option value="">Add jewel…</option>
-            {DECOS.map((d) => (
+            {data.decos.map((d) => (
               <option key={d.id} value={d.id}>{d.name} · {d.slots} slot{d.slots > 1 ? "s" : ""} · {d.skills.map(([s, p]) => `${s} ${p > 0 ? "+" : ""}${p}`).join(", ")}</option>
             ))}
           </select>
@@ -85,7 +119,7 @@ export default function Builder({ initial, onSave }: Props) {
           <span><strong>{build.cost.toLocaleString()}z</strong></span>
         </div>
         <div className="res-line dim">
-          {Object.entries(build.res).map(([k, v]) => `${RES_LABEL[k]} ${v >= 0 ? "+" : ""}${v}`).join("  ·  ")}
+          {Object.entries(build.res).map(([k, v]) => `${data.resLabel[k]} ${v >= 0 ? "+" : ""}${v}`).join("  ·  ")}
         </div>
         <div className="badges">
           {build.active.length ? build.active.map((s) => (

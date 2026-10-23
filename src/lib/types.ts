@@ -1,3 +1,5 @@
+export type Game = "mhfu" | "mh3u";
+
 export type Part = "head" | "body" | "arms" | "waist" | "legs";
 
 export type Armor = {
@@ -7,6 +9,7 @@ export type Armor = {
   rank: string;
   rarity: number;
   defense: number;
+  defenseBase?: number;
   res: { fire: number; thunder: number; dragon: number; water: number; ice: number };
   sex: "both" | "male" | "female";
   hunter: "both" | "blade" | "gunner";
@@ -42,6 +45,17 @@ export type WeaponAmmo = {
 
 export type BowShot = { name: string; level: number };
 
+export type Song = { notes: number[]; name: string };
+
+export type Charm = {
+  id: string;
+  name: string;
+  slots: number;
+  table: number;
+  rarity: number;
+  skills: [string, number][];
+};
+
 export type Weapon = {
   id: string;
   name: string;
@@ -53,7 +67,9 @@ export type Weapon = {
   slots: number;
   rarity: number;
   elements: [string, number][];
+  awaken?: boolean;
   bonus: string | null;
+  defense?: number;
   sharpness: number[];
   sharpnessPlus: number[];
   createCost: number;
@@ -70,6 +86,14 @@ export type Weapon = {
   /* Bow-only. */
   coatings?: string[];
   shots?: BowShot[];
+  arc?: string | null;
+  /* MH3U extras. */
+  deviation?: string | null;
+  crouch?: string[];
+  phial?: string | null;
+  shell?: string | null;
+  notes?: string[];
+  songs?: Song[];
 };
 
 export type SolverInput = {
@@ -88,11 +112,14 @@ export type SolverInput = {
   maxResults?: number;
   timeLimitMs?: number;
   shard?: { index: number; count: number };
+  charmMode?: "none" | "owned" | "best";
+  charms?: Charm[];
 };
 
 export type SolverResult = {
   armor: Armor[];
   decos: Deco[];
+  charm?: Charm | null;
   points: Record<string, number>;
   active: { ability: string; points: number; name: string }[];
   extra: { ability: string; points: number; name: string }[];

@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { PARTS, PART_LABEL, RES_LABEL, SKILL_OPTIONS } from "../lib/data";
-import type { SolverInput, SolverResult } from "../lib/types";
-import { SKILL_TREE } from "../lib/tiers";
-import { GROUP_ORDER, skillMeta, skillRank } from "../lib/skillOrder";
+import { useGame } from "../lib/gameContext";
+import type { Charm, SolverInput, SolverResult } from "../lib/types";
+import type { GameData } from "../lib/games";
+import { GROUP_ORDER } from "../lib/skillOrder";
 import { sortSets } from "../lib/sort";
 import { RESULT_CAP } from "../lib/constants";
 import PieceDetail, { type DetailItem } from "./PieceDetail";
@@ -29,8 +29,9 @@ type ExtensionGroup = {
   group: string;
 };
 
-const rankOf = (ability: string) => skillRank(ability, SKILL_TREE.get(ability)?.tags ?? []);
 const clock = () => performance.now();
+const rankOf = (data: GameData, ability: string) =>
+  data.skillRank(ability, data.skillTree.get(ability)?.tags ?? []);
 
 const EMPTY: Target[] = [null, null, null, null, null];
 
@@ -45,7 +46,10 @@ function SetCard({
   onSave: (r: SolverResult) => void;
   onDetail: (item: DetailItem) => void;
 }) {
-  const armor = [...result.armor].sort((a, b) => PARTS.indexOf(a.part) - PARTS.indexOf(b.part));
+  const { data } = useGame();
+  const armor = [...result.armor].sort(
+    (a, b) => data.parts.indexOf(a.part) - data.parts.indexOf(b.part),
+  );
   return (
     <article className="set-card">
       <div className="set-head">
@@ -61,12 +65,20 @@ function SetCard({
       <div className="pieces">
         {armor.map((a) => (
           <button key={a.part} className="piece piece-btn" onClick={() => onDetail({ kind: "armor", data: a })}>
-            <span className="slot-tag">{PART_LABEL[a.part]}</span>
+            <span className="slot-tag">{data.partLabel[a.part]}</span>
             <span>{a.name}</span>
             <span className="dim">{a.defense} def · {a.slots ? "O".repeat(a.slots) : "—"}</span>
           </button>
         ))}
       </div>
+      {result.charm && (
+        <div className="deco-line">
+          <span className="slot-tag">Charm</span>
+          <span className="chips">
+            <span className="chip">{result.charm.name}</span>
+          </span>
+        </div>
+      )}
       <div className="deco-line">
         <span className="slot-tag">Jewels ({result.decos.length})</span>
         {result.decos.length ? (
@@ -87,7 +99,7 @@ function SetCard({
         ))}
       </div>
       <div className="res-line dim">
-        {Object.entries(result.res).map(([k, v]) => `${RES_LABEL[k]} ${v >= 0 ? "+" : ""}${v}`).join("  ·  ")}
+        {Object.entries(result.res).map(([k, v]) => `${data.resLabel[k]} ${v >= 0 ? "+" : ""}${v}`).join("  ·  ")}
       </div>
       <details>
         <summary>Materials</summary>
@@ -99,7 +111,16 @@ function SetCard({
   );
 }
 
-export default function Solver({ onOpen, onSave }: { onOpen: (r: SolverResult) => void; onSave: (r: SolverResult) => void }) {
+export default function Solver({
+  charms,
+  onOpen,
+  onSave,
+}: {
+  charms: Charm[];
+  onOpen: (r: SolverResult) => void;
+  onSave: (r: SolverResult) => void;
+}) {
+  const { game, data } = useGame();
   const [targets, setTargets] = useState<Target[]>(EMPTY);
   const [gender, setGender] = useState<"male" | "female">("male");
   const [hunter, setHunter] = useState<"blade" | "gunner">("blade");
@@ -110,6 +131,9 @@ export default function Solver({ onOpen, onSave }: { onOpen: (r: SolverResult) =
   const [elder, setElder] = useState(10);
   const [allowBad, setAllowBad] = useState(false);
   const [allowPiercings, setAllowPiercings] = useState(false);
+  const [charmMode, setCharmMode] = useState<"none" | "owned" | "best">(
+    data.charmSupport ? "owned" : "none",
+  );
 
   const [results, setResults] = useState<SolverResult[]>([]);
   const [stats, setStats] = useState<{ nodes: number; elapsed: number; truncated: boolean; timedOut: boolean } | null>(null);
@@ -140,7 +164,7 @@ export default function Solver({ onOpen, onSave }: { onOpen: (r: SolverResult) =
       for (const e of set.extra.filter((s) => s.points > 0)) {
         byAbility.set(e.ability, { ability: e.ability, points: e.points, name: e.name });
       }
-      const skills = [...byAbility.values()].sort((a, b) => rankOf(a.ability) - rankOf(b.ability));
+      const skills = [...byAbility.values()].sort((a, b) => rankOf(data, a.ability) - rankOf(data, b.ability));
       if (!skills.length) continue;
       const key = JSON.stringify(skills.map((s) => s.ability));
       const group = groups.get(key);
@@ -151,8 +175,8 @@ export default function Solver({ onOpen, onSave }: { onOpen: (r: SolverResult) =
           key,
           skills,
           sets: [set],
-          rank: rankOf(primary.ability),
-          group: skillMeta(primary.ability, SKILL_TREE.get(primary.ability)?.tags ?? []).group,
+          rank: rankOf(data, primary.ability),
+          group: data.skillMeta(primary.ability, data.skillTree.get(primary.ability)?.tags ?? []).group,
         });
       }
     }
@@ -160,7 +184,7 @@ export default function Solver({ onOpen, onSave }: { onOpen: (r: SolverResult) =
       (a, b) => a.rank - b.rank || b.sets.length - a.sets.length
         || a.skills.map((s) => s.name).join(" ").localeCompare(b.skills.map((s) => s.name).join(" ")),
     );
-  }, [results, extended, extendResults]);
+  }, [results, extended, extendResults, data]);
   const groupedExtensions = useMemo(
     () => GROUP_ORDER
       .map((group) => ({ group, items: extensions.filter((e) => e.group === group) }))
@@ -197,7 +221,7 @@ export default function Solver({ onOpen, onSave }: { onOpen: (r: SolverResult) =
       if (worker.current === w) worker.current = null;
       handlers.onFinal({ id, error: "Solver worker failed." });
     };
-    w.postMessage({ id, input, candidates });
+    w.postMessage({ id, game, input, candidates });
   };
 
   const runPool = (
@@ -284,7 +308,7 @@ export default function Solver({ onOpen, onSave }: { onOpen: (r: SolverResult) =
         active--;
         if (active === 0) finish();
       };
-      w.postMessage({ id, input: { ...input, shard: { index, count } } });
+      w.postMessage({ id, game, input: { ...input, shard: { index, count } } });
     };
 
     poolTimer.current = window.setTimeout(() => {
@@ -324,6 +348,8 @@ export default function Solver({ onOpen, onSave }: { onOpen: (r: SolverResult) =
       elder,
       allowBad,
       allowPiercings,
+      charmMode: data.charmSupport ? charmMode : "none",
+      charms,
     };
     lastInput.current = input;
     setError("");
@@ -366,7 +392,7 @@ export default function Solver({ onOpen, onSave }: { onOpen: (r: SolverResult) =
       setError("All 5 skill slots are used. Clear one first.");
       return;
     }
-    const threshold = SKILL_TREE.get(skill.ability)?.tiers.find((t) => t.name === skill.name)?.points ?? skill.points;
+    const threshold = data.skillTree.get(skill.ability)?.tiers.find((t) => t.name === skill.name)?.points ?? skill.points;
     const next = targets.map((t, i) => (i === slot ? { ability: skill.ability, points: threshold } : t));
     setTargets(next);
     setError("");
@@ -388,9 +414,12 @@ export default function Solver({ onOpen, onSave }: { onOpen: (r: SolverResult) =
           if (!target.has(s)) weight.set(s, (weight.get(s) ?? 0) + Math.max(0, p));
         }
       }
+      for (const [s, p] of r.charm?.skills ?? []) {
+        if (!target.has(s)) weight.set(s, (weight.get(s) ?? 0) + Math.max(0, p));
+      }
     }
     const candidates = [...weight.entries()]
-      .sort((a, b) => rankOf(a[0]) - rankOf(b[0]) || b[1] - a[1] || a[0].localeCompare(b[0]))
+      .sort((a, b) => rankOf(data, a[0]) - rankOf(data, b[0]) || b[1] - a[1] || a[0].localeCompare(b[0]))
       .map(([s]) => s);
     setExtended(true);
     setTupleKey(null);
@@ -472,6 +501,15 @@ export default function Solver({ onOpen, onSave }: { onOpen: (r: SolverResult) =
               {[0, 1, 2, 3].map((n) => <option key={n} value={n}>{n}</option>)}
             </select>
           </label>
+          {data.charmSupport && (
+            <label>Charms
+              <select value={charmMode} onChange={(e) => setCharmMode(e.target.value as "none" | "owned" | "best")}>
+                <option value="none">No charm</option>
+                <option value="owned">My charms ({charms.length})</option>
+                <option value="best">Best possible charm</option>
+              </select>
+            </label>
+          )}
           <label>Sort by
             <select value={sort} onChange={(e) => setSort(e.target.value as "defense" | "defenseLow" | "jewels" | "spare" | "cost")}>
               <option value="defense">Defense (high)</option>
@@ -481,29 +519,29 @@ export default function Solver({ onOpen, onSave }: { onOpen: (r: SolverResult) =
               <option value="cost">Lowest cost</option>
             </select>
           </label>
-          <label>HR
+          <label>{data.id === "mh3u" ? "Port ★" : "HR"}
             <input type="number" min={1} max={9} value={hr} onChange={(e) => setHr(Number(e.target.value))} />
           </label>
-          <label>Elder
+          <label>{data.id === "mh3u" ? "Village ★" : "Elder"}
             <input type="number" min={1} max={10} value={elder} onChange={(e) => setElder(Number(e.target.value))} />
           </label>
         </div>
 
         <div className="skills-grid">
           {targets.map((t, i) => {
-            const option = t ? SKILL_OPTIONS.find((s) => s.ability === t.ability) : null;
+            const option = t ? data.skillOptions.find((s) => s.ability === t.ability) : null;
             return (
               <div className="skill-row" key={i}>
                 <select
                   value={t?.ability ?? ""}
                   onChange={(e) => {
-                    const next = SKILL_OPTIONS.find((s) => s.ability === e.target.value);
+                    const next = data.skillOptions.find((s) => s.ability === e.target.value);
                     update(i, next ? { ability: next.ability, points: next.tiers[next.tiers.length - 1].points } : null);
                   }}
                 >
                   <option value="">— skill —</option>
                   {GROUP_ORDER.map((group) => {
-                    const options = SKILL_OPTIONS.filter((s) => s.group === group);
+                    const options = data.skillOptions.filter((s) => s.group === group);
                     return options.length ? (
                       <optgroup key={group} label={group}>
                         {options.map((s) => <option key={s.ability} value={s.ability}>{s.ability}</option>)}
@@ -528,11 +566,16 @@ export default function Solver({ onOpen, onSave }: { onOpen: (r: SolverResult) =
 
         <div className="row wrap">
           <label className="check"><input type="checkbox" checked={allowBad} onChange={(e) => setAllowBad(e.target.checked)} /> Allow bad skills</label>
-          <label className="check"><input type="checkbox" checked={allowPiercings} onChange={(e) => setAllowPiercings(e.target.checked)} /> Piercings</label>
+          {data.id === "mhfu" && (
+            <label className="check"><input type="checkbox" checked={allowPiercings} onChange={(e) => setAllowPiercings(e.target.checked)} /> Piercings</label>
+          )}
           <button className="primary" onClick={search}>{loading ? "Restart search" : "Search sets"}</button>
           {loading && <button className="ghost" onClick={cancel}>Cancel</button>}
           <button className="ghost" onClick={clear}>Clear</button>
         </div>
+        {data.charmSupport && charmMode === "owned" && charms.length === 0 && (
+          <p className="dim small">No owned charms yet. Add them in the Charms tab, or use “Best table charm”.</p>
+        )}
         {error && <p className="error">{error}</p>}
         {loading && <p className="dim small">{results.length} sets loaded… searching</p>}
         {cancelled && <p className="dim small">Search cancelled. Partial results shown.</p>}

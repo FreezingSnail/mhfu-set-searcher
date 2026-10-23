@@ -1,13 +1,11 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
-import { TYPE_LABEL, WEAPONS, WEAPON_BY_NAME, WEAPON_TYPES } from "../lib/data";
+import { useGame } from "../lib/gameContext";
 import type { AmmoGroup, Weapon } from "../lib/types";
 
 const SHARP_COLORS = ["#c0392b", "#d35400", "#d4ac0d", "#27ae60", "#2980b9", "#ecf0f1", "#8e44ad"];
 const SHARP_NAMES = ["Red", "Orange", "Yellow", "Green", "Blue", "White", "Purple"];
-const ELEMENTS = ["Fire", "Water", "Thunder", "Ice", "Dragon", "Poison", "Paralysis", "Sleep"];
+const ELEMENTS = ["Fire", "Water", "Thunder", "Ice", "Dragon", "Poison", "Paralysis", "Sleep", "Slime"];
 const GUN_TYPES = new Set(["light-bowgun", "heavy-bowgun"]);
-const RANGED_TYPES = ["light-bowgun", "heavy-bowgun", "bow"];
-const BLADE_TYPES = WEAPON_TYPES.filter((t) => !RANGED_TYPES.includes(t));
 const AMMO_GROUPS: { key: AmmoGroup; label: string }[] = [
   { key: "normal", label: "Normal" },
   { key: "status", label: "Status" },
@@ -17,9 +15,12 @@ const AMMO_GROUPS: { key: AmmoGroup; label: string }[] = [
 /* Physical ammo types offered by the ammo filter. */
 const PHYSICAL_AMMO = ["Normal S", "Pierce S", "Pellet S", "Crag S", "Clust S"];
 const isPhysicalAmmo = (value: string) => PHYSICAL_AMMO.includes(value);
+const ammoBase = (name: string) => name.replace(/\s*Lv\d+$/i, "");
+const shotBase = (name: string) => name.replace(/\s*L\d+$/i, "");
 /* Element/status ammo -> the element filter value it satisfies. */
 const AMMO_ELEMENT: Record<string, string> = {
   "Flame S": "Fire",
+  "Flaming S": "Fire",
   "Water S": "Water",
   "Thunder S": "Thunder",
   "Freeze S": "Ice",
@@ -45,10 +46,10 @@ const matchesWord = (text: string, word: string) =>
   word.length === 1 ? text.split(" ").includes(word) : text.includes(word);
 
 /* Full text index so ammo, coatings, recoil, reload and charge levels are searchable. */
-function weaponSearchText(w: Weapon) {
+function weaponSearchText(w: Weapon, typeLabel: Record<string, string>) {
   const parts: (string | null | undefined)[] = [
     w.name,
-    TYPE_LABEL[w.type],
+    typeLabel[w.type],
     w.rank === "lr" ? "low rank" : w.rank === "hr" ? "high rank" : "g rank",
     `rarity ${w.rarity}`,
     `attack ${w.attack}`,
@@ -78,6 +79,14 @@ function weaponSearchText(w: Weapon) {
     );
   }
   if (w.bonus) parts.push(`defense ${w.bonus}`);
+  if (w.deviation) parts.push(`deviation ${w.deviation}`, `deviation ${prettyCase(w.deviation)}`);
+  if (w.phial) parts.push(w.phial);
+  if (w.shell) parts.push(`shelling ${w.shell}`, w.shell);
+  if (w.arc) parts.push(`arc shot ${w.arc}`, w.arc);
+  if (w.awaken) parts.push("awaken", "hidden element");
+  for (const ammo of w.crouch ?? []) parts.push(`crouching fire ${ammo}`, ammo);
+  for (const note of w.notes ?? []) parts.push(`${note} note`, note);
+  for (const song of w.songs ?? []) parts.push(song.name);
   return parts.filter(Boolean).join(" ").toLowerCase();
 }
 const RANK_LABEL = { lr: "LR", hr: "HR", gr: "G" };
@@ -93,6 +102,7 @@ const ELEMENT_CLASS: Record<string, string> = {
   Poison: "poison",
   Paralysis: "paralysis",
   Sleep: "sleep",
+  Slime: "slime",
 };
 function Elements({ weapon, values = false }: { weapon: Weapon; values?: boolean }) {
   if (!weapon.elements.length) return null;
@@ -107,6 +117,7 @@ function Elements({ weapon, values = false }: { weapon: Weapon; values?: boolean
           {name}{values ? ` ${attack}` : ""}
         </span>
       ))}
+      {weapon.awaken && <span className="dim small" title="Needs Awaken skill"> (awaken)</span>}
     </span>
   );
 }
@@ -135,9 +146,18 @@ function WeaponMeta({ weapon }: { weapon: Weapon }) {
     const charges = weapon.shots?.length ?? 0;
     return (
       <span className="dim small" title={coatings.map((c) => `${c} Coating`).join(" · ")}>
-        {" · "}{charges} charge{charges === 1 ? "" : "s"} · {coatings.length} coating{coatings.length === 1 ? "" : "s"}
+        {" · "}{weapon.arc ? `${weapon.arc} arc · ` : ""}{charges} charge{charges === 1 ? "" : "s"} · {coatings.length} coating{coatings.length === 1 ? "" : "s"}
       </span>
     );
+  }
+  if (weapon.phial) {
+    return <span className="dim small">{" · "}{weapon.phial}</span>;
+  }
+  if (weapon.shell) {
+    return <span className="dim small">{" · "}{weapon.shell} shelling</span>;
+  }
+  if (weapon.notes?.length) {
+    return <span className="dim small">{" · "}{weapon.notes.join(" + ")} notes</span>;
   }
   if (!isBowgun(weapon)) return null;
   const ammo = (weapon.ammo ?? []).filter((a) => a.caps.some((cap) => cap > 0)).length;
@@ -172,6 +192,7 @@ function BowgunInfo({ weapon }: { weapon: Weapon }) {
       <div className="stat-row gun-stats">
         <span><strong>{prettyCase(weapon.reload)}</strong> reload</span>
         <span><strong>{prettyCase(weapon.recoil)}</strong> recoil</span>
+        {weapon.deviation && <span><strong>{prettyCase(weapon.deviation)}</strong> deviation</span>}
       </div>
       {weapon.rapidFire?.length ? (
         <p className="small rapid-line">
@@ -203,7 +224,7 @@ function BowgunInfo({ weapon }: { weapon: Weapon }) {
                           key={i}
                           title={rapid.has(ammo.name) || rapid.has(`${ammo.name} Lv${i + 1}`) ? "Rapid fire" : undefined}
                         >
-                          Lv{i + 1} ×{cap}
+                          {/Lv\d/.test(ammo.name) ? `×${cap}` : `Lv${i + 1} ×${cap}`}
                         </span>
                       ) : null)}
                     </span>
@@ -214,6 +235,14 @@ function BowgunInfo({ weapon }: { weapon: Weapon }) {
           </div>
         ))}
       </div>
+      {weapon.crouch?.length ? (
+        <>
+          <h4>Crouching fire</h4>
+          <div className="chips">
+            {weapon.crouch.map((ammo) => <span className="chip" key={ammo}>{ammo}</span>)}
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }
@@ -223,6 +252,7 @@ function BowInfo({ weapon }: { weapon: Weapon }) {
   const shots = weapon.shots ?? [];
   return (
     <div className="gunner-info">
+      {weapon.arc && <p className="small"><span className="dim">Arc shot:</span> <strong>{weapon.arc}</strong></p>}
       <h4>Coatings</h4>
       {coatings.length ? (
         <div className="chips">
@@ -255,6 +285,7 @@ function Tree({
   onSelect: (w: Weapon) => void;
   matches: Set<string>;
 }) {
+  const { data } = useGame();
   const names = new Set(weapons.map((w) => w.name));
   const children = new Map<string, Weapon[]>();
   for (const w of weapons) {
@@ -275,7 +306,7 @@ function Tree({
 
   const crossParents = (w: Weapon) =>
     w.improveFrom
-      .map((name) => WEAPON_BY_NAME.get(name))
+      .map((name) => data.weaponByName.get(name))
       .filter((p): p is Weapon => !!p && p.type !== w.type);
 
   const render = (w: Weapon): React.ReactNode => {
@@ -288,7 +319,7 @@ function Tree({
             {cross.map((p) => (
               <button key={p.name} className="link" onClick={() => onSelect(p)}>{p.name}</button>
             ))}
-            <span className="dim">({TYPE_LABEL[cross[0].type]})</span>
+            <span className="dim">({data.typeLabel[cross[0].type]})</span>
           </div>
         )}
         <details
@@ -318,10 +349,11 @@ function Tree({
 }
 
 function Detail({ weapon, onSelect }: { weapon: Weapon; onSelect: (w: Weapon) => void }) {
+  const { data } = useGame();
   const chain: Weapon[] = [];
   let cur = weapon;
   while (cur.improveFrom.length) {
-    const parent = WEAPON_BY_NAME.get(cur.improveFrom[0]);
+    const parent = data.weaponByName.get(cur.improveFrom[0]);
     if (!parent || chain.includes(parent)) break;
     chain.unshift(parent);
     cur = parent;
@@ -329,7 +361,7 @@ function Detail({ weapon, onSelect }: { weapon: Weapon; onSelect: (w: Weapon) =>
   return (
     <div className="weapon-detail">
       <h3>{weapon.name}</h3>
-      <p className="dim small"><Rank rank={weapon.rank} /> {TYPE_LABEL[weapon.type]} · rarity {weapon.rarity}</p>
+      <p className="dim small"><Rank rank={weapon.rank} /> {data.typeLabel[weapon.type]} · rarity {weapon.rarity}</p>
       <div className="stat-row">
         <span><strong>{weapon.attack}</strong> attack</span>
         <span><strong>{weapon.affinity > 0 ? "+" : ""}{weapon.affinity}%</strong> affinity</span>
@@ -339,6 +371,23 @@ function Detail({ weapon, onSelect }: { weapon: Weapon; onSelect: (w: Weapon) =>
         <p className="elements-line"><Elements weapon={weapon} values /></p>
       )}
       {weapon.bonus && <p className="dim">{bonusLabel(weapon.bonus)}</p>}
+      {weapon.phial && <p className="small"><span className="dim">Phial:</span> <strong>{weapon.phial}</strong></p>}
+      {weapon.shell && <p className="small"><span className="dim">Shelling:</span> <strong>{weapon.shell}</strong></p>}
+      {weapon.notes?.length ? (
+        <div>
+          <h4>Hunting Horn notes</h4>
+          <div className="chips">{weapon.notes.map((n) => <span className="chip" key={n}>{n}</span>)}</div>
+          <h4>Songs</h4>
+          <div className="song-list">
+            {weapon.songs?.map((song) => (
+              <div className="song-row" key={song.name}>
+                <span>{song.name}</span>
+                <span className="dim small">{song.notes.map((i) => weapon.notes?.[i] ?? "?").join(" · ")}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
       {isBowgun(weapon) && <BowgunInfo weapon={weapon} />}
       {weapon.type === "bow" && <BowInfo weapon={weapon} />}
       {weapon.sharpness.length > 0 && <Sharpness values={weapon.sharpness} label="Sharpness" />}
@@ -353,13 +402,13 @@ function Detail({ weapon, onSelect }: { weapon: Weapon; onSelect: (w: Weapon) =>
       <div className="two-col">
         <div>
           <h4>Create</h4>
-          <p className="dim small">{weapon.createCost.toLocaleString()}z</p>
-          <div className="mats">{weapon.createMats.map(([m, n]) => <span key={m}>{m} ×{n}</span>)}</div>
+          <p className="dim small">{weapon.createCost ? `${weapon.createCost.toLocaleString()}z` : "—"}</p>
+          <div className="mats">{weapon.createMats.length ? weapon.createMats.map(([m, n]) => <span key={m}>{m} ×{n}</span>) : <span className="dim">—</span>}</div>
         </div>
         <div>
           <h4>Improve</h4>
-          <p className="dim small">{weapon.improveCost.toLocaleString()}z</p>
-          <div className="mats">{weapon.improveMats.map(([m, n]) => <span key={m}>{m} ×{n}</span>)}</div>
+          <p className="dim small">{weapon.improveCost ? `${weapon.improveCost.toLocaleString()}z` : "—"}</p>
+          <div className="mats">{weapon.improveMats.length ? weapon.improveMats.map(([m, n]) => <span key={m}>{m} ×{n}</span>) : <span className="dim">—</span>}</div>
         </div>
       </div>
 
@@ -368,7 +417,7 @@ function Detail({ weapon, onSelect }: { weapon: Weapon; onSelect: (w: Weapon) =>
           <h4>Upgrades to</h4>
           <div className="chips">
             {weapon.improveTo.map((name) => {
-              const next = WEAPON_BY_NAME.get(name);
+              const next = data.weaponByName.get(name);
               return next
                 ? <button key={name} className="chip link" onClick={() => onSelect(next)}>{name}</button>
                 : <span key={name} className="dim">{name} (other tree)</span>;
@@ -381,8 +430,16 @@ function Detail({ weapon, onSelect }: { weapon: Weapon; onSelect: (w: Weapon) =>
 }
 
 export default function Weapons() {
+  const { data } = useGame();
+  const RANGED_TYPES = useMemo(() => [...data.rangedTypes], [data]);
+  const BLADE_TYPES = useMemo(() => data.weaponTypes.filter((t) => !data.rangedTypes.has(t)), [data]);
+  const hasRapidWeapons = useMemo(() => data.weapons.some((w) => (w.rapidFire?.length ?? 0) > 0), [data]);
+  const shotNames = useMemo(
+    () => [...new Set(data.weapons.flatMap((w) => (w.shots ?? []).map((s) => s.name.replace(/\s*L\d+$/, ""))))],
+    [data],
+  );
   const [scope, setScope] = useState<"blade" | "ranged">("blade");
-  const [type, setType] = useState(WEAPON_TYPES[0]);
+  const [type, setType] = useState(data.weaponTypes[0]);
   const [query, setQuery] = useState("");
   const [ammoFilter, setAmmoFilter] = useState("any");
   const [rankFilter, setRankFilter] = useState<"all" | "lr" | "hr" | "gr">("all");
@@ -393,14 +450,14 @@ export default function Weapons() {
 
   const scopeTypes = useMemo(
     () => scope === "ranged" ? RANGED_TYPES : BLADE_TYPES,
-    [scope],
+    [scope, RANGED_TYPES, BLADE_TYPES],
   );
 
   const q = query.trim().toLowerCase();
   const queryWords = useMemo(() => q.split(/\s+/).filter(Boolean), [q]);
   const searchIndex = useMemo(
-    () => new Map(WEAPONS.map((w) => [w.name, weaponSearchText(w)])),
-    [],
+    () => new Map(data.weapons.map((w) => [w.name, weaponSearchText(w, data.typeLabel)])),
+    [data],
   );
 
   const filterMatch = useCallback((w: Weapon) => {
@@ -409,12 +466,12 @@ export default function Weapons() {
     if (ammoFilter !== "any") {
       if (ammoFilter === "none") {
         if (w.elements.length) return false;
-        if (supportsAmmo(w, (ammo) => !!AMMO_ELEMENT[ammo.name])) return false;
+        if (supportsAmmo(w, (ammo) => !!AMMO_ELEMENT[ammoBase(ammo.name)])) return false;
       } else if (isPhysicalAmmo(ammoFilter)) {
-        if (!supportsAmmo(w, (ammo) => ammo.name === ammoFilter)) return false;
+        if (!supportsAmmo(w, (ammo) => ammoBase(ammo.name).startsWith(ammoFilter))) return false;
       } else if (
         !w.elements.some(([e]) => e.toLowerCase() === ammoFilter.toLowerCase()) &&
-        !supportsAmmo(w, (ammo) => AMMO_ELEMENT[ammo.name] === ammoFilter)
+        !supportsAmmo(w, (ammo) => AMMO_ELEMENT[ammoBase(ammo.name)] === ammoFilter)
       ) {
         return false;
       }
@@ -430,7 +487,7 @@ export default function Weapons() {
         if (!rapidMatch) return false;
       }
     }
-    if (shotFilter !== "any" && !(w.shots ?? []).some((shot) => shot.name === shotFilter)) {
+    if (shotFilter !== "any" && !(w.shots ?? []).some((shot) => shotBase(shot.name) === shotFilter)) {
       return false;
     }
     if (queryWords.length) {
@@ -443,7 +500,7 @@ export default function Weapons() {
   const treeByType = useMemo(() => {
     const out: Record<string, { weapons: Weapon[]; matches: Weapon[] }> = {};
     for (const t of scopeTypes) {
-      const base = WEAPONS.filter((w) => w.type === t);
+      const base = data.weapons.filter((w) => w.type === t);
       const matches = base.filter(filterMatch);
       if (matches.length === base.length) {
         out[t] = { weapons: base, matches };
@@ -464,11 +521,11 @@ export default function Weapons() {
       out[t] = { weapons: base.filter((w) => visible.has(w.name)), matches };
     }
     return out;
-  }, [filterMatch, scopeTypes]);
+  }, [filterMatch, scopeTypes, data]);
 
   const allMatches = useMemo(
-    () => q ? WEAPONS.filter(filterMatch) : [],
-    [q, filterMatch],
+    () => q ? data.weapons.filter(filterMatch) : [],
+    [q, filterMatch, data],
   );
   const matchingNames = useMemo(
     () => new Set(allMatches.map((w) => w.name)),
@@ -537,7 +594,7 @@ export default function Weapons() {
         <div className="row wrap">
           <select value={type} onChange={(e) => chooseType(e.target.value)}>
             <option value="all">{scope === "ranged" ? "All ranged" : "All blademaster"}</option>
-            {scopeTypes.map((t) => <option key={t} value={t}>{TYPE_LABEL[t]}</option>)}
+            {scopeTypes.map((t) => <option key={t} value={t}>{data.typeLabel[t]}</option>)}
           </select>
           <select value={rankFilter} onChange={(e) => setRankFilter(e.target.value as "all" | "lr" | "hr" | "gr")}>
             <option value="all">Any rank</option>
@@ -557,7 +614,7 @@ export default function Weapons() {
             </optgroup>
             <option value="none">No element</option>
           </select>
-          {scope === "ranged" && type !== "bow" && (
+          {scope === "ranged" && type !== "bow" && hasRapidWeapons && (
             <select
               value={rapidFilter}
               onChange={(e) => {
@@ -581,7 +638,7 @@ export default function Weapons() {
               }}
             >
               <option value="any">Any shot type</option>
-              {["Rapid", "Scatter", "Pierce"].map((shot) => (
+              {shotNames.map((shot) => (
                 <option key={shot} value={shot}>{shot} shot</option>
               ))}
             </select>
@@ -607,7 +664,7 @@ export default function Weapons() {
           {q
             ? `${allMatches.length} matches across ${matchingTypes.length} types`
             : `${type === "all" ? totalFiltered : treeByType[type].matches.length} weapons`}
-          {" · "}rank from rarity: LR 1–3 / HR 4–7 / G 8–10
+          {" · "}rank from rarity: {data.id === "mh3u" ? "LR 1–3 / HR 4–6 / G 7–10" : "LR 1–3 / HR 4–7 / G 8–10"}
         </p>
         <div className="scroll">
           {displayTypes.length ? displayTypes.map((t) => {
@@ -616,7 +673,7 @@ export default function Weapons() {
             const count = q ? allMatches.filter((w) => w.type === t).length : tree.matches.length;
             return (
               <section key={t} className="weapon-type-section">
-                <h4>{TYPE_LABEL[t]} <span className="dim small">{count}</span></h4>
+                <h4>{data.typeLabel[t]} <span className="dim small">{count}</span></h4>
                 <Tree key={`${t}-${q}`} weapons={tree.weapons} onSelect={setSelected} matches={matchingNames} />
               </section>
             );

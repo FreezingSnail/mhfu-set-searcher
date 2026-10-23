@@ -5,9 +5,9 @@
   "description": "MHFU armor set solver, builder, and weapon tree search",
   "type": "module",
   "scripts": {
-    "data": "node scripts/build-data.mjs",
+    "data": "node scripts/build-data.mjs && node scripts/build-data-mh3u.mjs",
     "dev": "vite",
-    "build": "node scripts/build-data.mjs && tsc -b && vite build",
+    "build": "npm run data && tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"
   },
