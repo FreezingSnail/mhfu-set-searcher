@@ -4,7 +4,6 @@ import type { AmmoGroup, Weapon } from "../lib/types";
 
 const SHARP_COLORS = ["#c0392b", "#d35400", "#d4ac0d", "#27ae60", "#2980b9", "#ecf0f1", "#8e44ad"];
 const SHARP_NAMES = ["Red", "Orange", "Yellow", "Green", "Blue", "White", "Purple"];
-const ELEMENTS = ["Fire", "Water", "Thunder", "Ice", "Dragon", "Poison", "Paralysis", "Sleep", "Slime", "Blast"];
 const GUN_TYPES = new Set(["light-bowgun", "heavy-bowgun"]);
 const AMMO_GROUPS: { key: AmmoGroup; label: string }[] = [
   { key: "normal", label: "Normal" },
@@ -114,7 +113,7 @@ function Elements({ weapon, values = false }: { weapon: Weapon; values?: boolean
       {weapon.elements.map(([name, attack]) => (
         <span
           key={name}
-          className={`elem-tag ${ELEMENT_CLASS[name] ?? ""}`}
+          className={`elem-tag ${ELEMENT_CLASS[name] ?? name.toLowerCase()}`}
           title={`${name} ${attack}`}
         >
           {name}{values ? ` ${attack}` : ""}
@@ -438,6 +437,17 @@ function Detail({ weapon, onSelect }: { weapon: Weapon; onSelect: (w: Weapon) =>
 
 export default function Weapons() {
   const { data } = useGame();
+  const elementNames = useMemo(() => {
+    const preferred = ["Fire", "Water", "Thunder", "Ice", "Dragon", "Poison", "Paralysis", "Sleep", "Slime", "Blast"];
+    const canonical = new Map(preferred.map((e) => [e.toLowerCase(), e]));
+    const present = new Set<string>();
+    for (const weapon of data.weapons) {
+      for (const [name] of weapon.elements) {
+        present.add(canonical.get(name.toLowerCase()) ?? name);
+      }
+    }
+    return preferred.filter((e) => present.has(e));
+  }, [data]);
   const RANGED_TYPES = useMemo(() => [...data.rangedTypes], [data]);
   const BLADE_TYPES = useMemo(() => data.weaponTypes.filter((t) => !data.rangedTypes.has(t)), [data]);
   const hasRapidWeapons = useMemo(() => data.weapons.some((w) => (w.rapidFire?.length ?? 0) > 0), [data]);
@@ -617,7 +627,7 @@ export default function Weapons() {
               </optgroup>
             )}
             <optgroup label="Element / status">
-              {ELEMENTS.map((e) => <option key={e} value={e}>{e}</option>)}
+              {elementNames.map((e) => <option key={e} value={e}>{e}</option>)}
             </optgroup>
             <option value="none">No element</option>
           </select>
