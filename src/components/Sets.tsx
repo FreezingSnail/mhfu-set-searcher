@@ -13,7 +13,7 @@ type Props = {
 
 const statRows = [
   ["Defense", (s: ReturnType<typeof buildSet>) => String(s.defense)],
-  ["Slots free", (s: ReturnType<typeof buildSet>) => String(s.spare)],
+  ["Slots free", (s: ReturnType<typeof buildSet>) => s.valid ? String(s.spare) : "Invalid"],
   ["Cost", (s: ReturnType<typeof buildSet>) => `${s.cost.toLocaleString()}z`],
 ] as const;
 
@@ -65,7 +65,7 @@ export default function Sets({ saved, charms, onLoad, onDelete, onRename }: Prop
                   />
                   <button className="link" onClick={() => onLoad(set)}>{set.name}</button>
                   <span className="dim small">
-                    {summary.defense} def · {summary.active.map((a) => a.name).join(", ") || "no skills"} · {summary.spare} slots
+                    {summary.defense} def · {summary.active.map((a) => a.name).join(", ") || "no skills"} · {summary.valid ? `${summary.spare} slots` : "invalid jewel layout"}
                   </span>
                   <div className="row">
                     <button className="ghost" onClick={() => onLoad(set)}>Open</button>
@@ -122,7 +122,10 @@ export default function Sets({ saved, charms, onLoad, onDelete, onRename }: Prop
                 <tr>
                   <th>Jewels</th>
                   {compared.map((c) => (
-                    <td key={c.set.id}>{c.data.decos.length ? c.data.decos.map((d) => d.name).join(", ") : "—"}</td>
+                    <td key={c.set.id}>
+                      {c.data.decos.length ? c.data.decos.map((d) => d.name).join(", ") : "—"}
+                      {!c.data.valid && <span className="error"> · invalid slot layout</span>}
+                    </td>
                   ))}
                 </tr>
                 {(["fire", "water", "thunder", "ice", "dragon"] as const).map((k) => (
