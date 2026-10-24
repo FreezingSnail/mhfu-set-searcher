@@ -82,6 +82,47 @@ export function persistSavedSets(key: string, sets: SavedSet[]) {
   localStorage.setItem(key, JSON.stringify(sets));
 }
 
+function fitJewels(groups: number[], decos: { slots: number }[]) {
+  let g1 = 0;
+  let g2 = 0;
+  let g3 = 0;
+  for (const slots of groups) {
+    if (slots === 1) g1++;
+    else if (slots === 2) g2++;
+    else if (slots === 3) g3++;
+  }
+
+  let d1 = 0;
+  let d2 = 0;
+  let d3 = 0;
+  for (const deco of decos) {
+    if (deco.slots === 1) d1++;
+    else if (deco.slots === 2) d2++;
+    else if (deco.slots === 3) d3++;
+  }
+
+  if (d3 > g3) {
+    return { valid: false, spare: 0, slotError: "A 3-slot jewel needs a 3-slot piece." };
+  }
+  g3 -= d3;
+
+  const useTwoSlotGroups = Math.min(d2, g2);
+  g2 -= useTwoSlotGroups;
+  d2 -= useTwoSlotGroups;
+  if (d2 > g3) {
+    return { valid: false, spare: 0, slotError: "A 2-slot jewel needs 2 slots on one piece." };
+  }
+  g3 -= d2;
+  // Each 2-slot jewel placed in a 3-slot group leaves one usable slot.
+  g1 += d2;
+
+  const free = g1 + g2 * 2 + g3 * 3;
+  if (d1 > free) {
+    return { valid: false, spare: 0, slotError: "Not enough open slots for 1-slot jewels." };
+  }
+  return { valid: true, spare: free - d1, slotError: "" };
+}
+
 export function buildSet(data: GameData, sel: SetSelection, charms: Charm[] = []) {
   const armor = data.parts
     .map((p) => data.armorById.get(sel.picks[p]))
@@ -107,9 +148,14 @@ export function buildSet(data: GameData, sel: SetSelection, charms: Charm[] = []
     })
     .filter((x): x is { ability: string; points: number; name: string } => !!x);
 
-  const totalSlots =
-    armor.reduce((n, a) => n + a.slots, 0) + sel.weaponSlots + (charm?.slots ?? 0);
+  const slotGroups = [
+    ...armor.map((a) => a.slots),
+    sel.weaponSlots,
+    charm?.slots ?? 0,
+  ].filter((slots) => slots > 0);
+  const totalSlots = slotGroups.reduce((n, slots) => n + slots, 0);
   const usedSlots = decos.reduce((n, d) => n + d.slots, 0);
+  const fit = fitJewels(slotGroups, decos);
   const mats = new Map<string, number>();
   for (const a of armor) for (const [m, n] of a.mats) mats.set(m, (mats.get(m) ?? 0) + n);
   for (const d of decos) for (const [m, n] of d.mats) mats.set(m, (mats.get(m) ?? 0) + n);
@@ -122,7 +168,9 @@ export function buildSet(data: GameData, sel: SetSelection, charms: Charm[] = []
     active,
     totalSlots,
     usedSlots,
-    spare: totalSlots - usedSlots,
+    valid: fit.valid,
+    slotError: fit.slotError,
+    spare: fit.spare,
     defense: armor.reduce((n, a) => n + a.defense, 0),
     res: armor.reduce(
       (r, a) => ({

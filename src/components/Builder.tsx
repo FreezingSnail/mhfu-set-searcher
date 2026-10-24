@@ -58,7 +58,7 @@ export default function Builder({ initial, charms, onSave }: Props) {
               </select>
             </label>
           )}
-          <button className="primary" onClick={save}>Save set</button>
+          <button className="primary" disabled={!build.valid} onClick={save}>Save set</button>
           <button
             className="ghost"
             onClick={() => {
@@ -95,7 +95,7 @@ export default function Builder({ initial, charms, onSave }: Props) {
       <section className="panel">
         <div className="row wrap">
           <strong>Jewels</strong>
-          <span className={"dim " + (build.usedSlots > build.totalSlots ? "over" : "")}>
+          <span className={"dim " + (build.valid ? "" : "over")}>
             {build.usedSlots}/{build.totalSlots} slots
           </span>
           <select
@@ -109,7 +109,7 @@ export default function Builder({ initial, charms, onSave }: Props) {
               <option key={d.id} value={d.id}>{d.name} · {d.slots} slot{d.slots > 1 ? "s" : ""} · {d.skills.map(([s, p]) => `${s} ${p > 0 ? "+" : ""}${p}`).join(", ")}</option>
             ))}
           </select>
-          {build.usedSlots > build.totalSlots && <span className="error">Too many jewels for slots.</span>}
+          {!build.valid && <span className="error">{build.slotError}</span>}
         </div>
         <div className="deco-list">
           {build.decos.length ? build.decos.map((d, i) => (
