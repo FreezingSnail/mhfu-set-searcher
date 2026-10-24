@@ -532,11 +532,11 @@ export default function Solver({
               <option value="cost">Lowest cost</option>
             </select>
           </label>
-          <label>{data.id === "mh3u" ? "Port ★" : data.id === "mh4u" ? "Hub ★" : "HR"}
-            <input type="number" min={1} max={data.maxHub} value={hr} onChange={(e) => setHr(Number(e.target.value))} />
+          <label title="0 ignores this source">{data.id === "mh3u" ? "Port ★" : data.id === "mh4u" ? "Hub ★" : "HR"}
+            <input type="number" min={0} max={data.maxHub} value={hr} onChange={(e) => setHr(Number(e.target.value))} />
           </label>
-          <label>{data.id === "mhfu" ? "Elder" : "Village ★"}
-            <input type="number" min={1} max={data.maxVillage} value={elder} onChange={(e) => setElder(Number(e.target.value))} />
+          <label title="0 ignores this source">{data.id === "mhfu" ? "Elder" : "Village ★"}
+            <input type="number" min={0} max={data.maxVillage} value={elder} onChange={(e) => setElder(Number(e.target.value))} />
           </label>
         </div>
 

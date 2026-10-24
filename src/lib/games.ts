@@ -177,7 +177,7 @@ export const MHFU: GameData = makeGame({
   torsoSkill: "Torso Inc",
   charmSupport: false,
   charmStorageKey: "",
-  availability: "and",
+  availability: "or",
   maxHub: 9,
   maxVillage: 10,
   charmTables: [],

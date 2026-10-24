@@ -31,8 +31,8 @@ const filterCandidates = (
       if (!rankAllowed(a.rank, input.rank)) return false;
       // MH3U records port star and village star separately; 99 means "not from
       // that source", so a piece is available if either source is unlocked.
-      const hrOk = a.hr <= input.hr;
-      const elderOk = a.elder <= input.elder;
+      const hrOk = a.hr > 0 && a.hr <= input.hr;
+      const elderOk = a.elder > 0 && a.elder <= input.elder;
       if (data.availability === "or" ? !hrOk && !elderOk : !hrOk || !elderOk) return false;
       if (!input.allowPiercings && a.name.includes("Piercing")) return false;
       if (a.name.includes("(dummy)")) return false;
