@@ -2,6 +2,8 @@ export type Game = "mhfu" | "mh3u" | "mh4u";
 
 export type Part = "head" | "body" | "arms" | "waist" | "legs";
 
+export type RankFilter = "all" | "low" | "high" | "high-below" | "g" | "g-below";
+
 export type Armor = {
   id: string;
   name: string;
@@ -103,7 +105,7 @@ export type SolverInput = {
   hunter: "blade" | "gunner";
   weaponSlots: number;
   sort: "defense" | "defenseLow" | "jewels" | "spare" | "cost" | "extras";
-  rank: "all" | "low" | "high" | "g";
+  rank: RankFilter;
   hr: number;
   elder: number;
   allowBad: boolean;

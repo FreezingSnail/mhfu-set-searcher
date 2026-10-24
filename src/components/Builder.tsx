@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import { useGame } from "../lib/gameContext";
 import { buildSet, emptySelection, type SetSelection } from "../lib/build";
-import type { Charm } from "../lib/types";
+import type { Charm, RankFilter } from "../lib/types";
+import { RANK_FILTERS, rankAllowed } from "../lib/ranks";
 
 type Props = {
   initial: SetSelection | null;
@@ -16,6 +17,7 @@ export default function Builder({ initial, charms, onSave }: Props) {
   const [decoIds, setDecoIds] = useState<string[]>(start.decoIds);
   const [weaponSlots, setWeaponSlots] = useState(start.weaponSlots);
   const [charmId, setCharmId] = useState(start.charmId ?? "");
+  const [rank, setRank] = useState<RankFilter>("all");
 
   const build = useMemo(
     () => buildSet(data, { picks, decoIds, weaponSlots, charmId }, charms),
@@ -35,6 +37,13 @@ export default function Builder({ initial, charms, onSave }: Props) {
           <label>Weapon slots
             <select value={weaponSlots} onChange={(e) => setWeaponSlots(Number(e.target.value))}>
               {[0, 1, 2, 3].map((n) => <option key={n} value={n}>{n}</option>)}
+            </select>
+          </label>
+          <label>Armor rank
+            <select value={rank} onChange={(e) => setRank(e.target.value as RankFilter)}>
+              {RANK_FILTERS.map((f) => (
+                <option key={f.value} value={f.value}>{f.label}</option>
+              ))}
             </select>
           </label>
           {data.charmSupport && (
@@ -69,7 +78,7 @@ export default function Builder({ initial, charms, onSave }: Props) {
               <span className="slot-tag">{data.partLabel[part]}</span>
               <select value={picks[part] ?? ""} onChange={(e) => setPicks((old) => ({ ...old, [part]: e.target.value }))}>
                 <option value="">— none —</option>
-                {data.armor.filter((a) => a.part === part).map((a) => (
+                {data.armor.filter((a) => a.part === part && (rankAllowed(a.rank, rank) || picks[part] === a.id)).map((a) => (
                   <option key={a.id} value={a.id}>{a.name} · {a.defense} def · {a.slots ? "O".repeat(a.slots) : "—"}</option>
                 ))}
               </select>

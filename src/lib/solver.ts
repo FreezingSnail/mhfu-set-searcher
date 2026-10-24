@@ -8,11 +8,10 @@
 import type { Armor, Charm, Deco, SolverInput, SolverResult } from "./types";
 import type { GameData } from "./games";
 import { sortSets } from "./sort";
+import { rankAllowed } from "./ranks";
 import { RESULT_CAP } from "./constants";
 
 const PARTS = ["head", "body", "arms", "waist", "legs"] as const;
-const RANK_ORDER: Record<string, number> = { "low-rank": 0, "high-rank": 1, "g-rank": 2 };
-const RANK_LIMIT: Record<string, number> = { low: 0, high: 1, g: 2 };
 
 type Cand = { a: Armor; points: number[]; vec: [number, number][]; torso: boolean };
 type Counts = [number, number, number, number];
@@ -29,7 +28,7 @@ const filterCandidates = (
       if (a.part !== part) return false;
       if (a.sex !== "both" && a.sex !== input.gender) return false;
       if (a.hunter !== "both" && a.hunter !== input.hunter) return false;
-      if (input.rank !== "all" && (RANK_ORDER[a.rank] ?? 99) > RANK_LIMIT[input.rank]) return false;
+      if (!rankAllowed(a.rank, input.rank)) return false;
       // MH3U records port star and village star separately; 99 means "not from
       // that source", so a piece is available if either source is unlocked.
       const hrOk = a.hr <= input.hr;

@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useGame } from "../lib/gameContext";
-import type { Charm, SolverInput, SolverResult } from "../lib/types";
+import type { Charm, RankFilter, SolverInput, SolverResult } from "../lib/types";
 import type { GameData } from "../lib/games";
 import { GROUP_ORDER } from "../lib/skillOrder";
 import { sortSets } from "../lib/sort";
+import { RANK_FILTERS } from "../lib/ranks";
 import { RESULT_CAP } from "../lib/constants";
 import PieceDetail, { type DetailItem } from "./PieceDetail";
 
@@ -124,7 +125,7 @@ export default function Solver({
   const [targets, setTargets] = useState<Target[]>(EMPTY);
   const [gender, setGender] = useState<"male" | "female">("male");
   const [hunter, setHunter] = useState<"blade" | "gunner">("blade");
-  const [rank, setRank] = useState<"all" | "low" | "high" | "g">("all");
+  const [rank, setRank] = useState<RankFilter>("all");
   const [weaponSlots, setWeaponSlots] = useState(0);
   const [sort, setSort] = useState<"defense" | "defenseLow" | "jewels" | "spare" | "cost">("defense");
   const [hr, setHr] = useState(data.maxHub);
@@ -490,12 +491,11 @@ export default function Solver({
               <option value="female">Female</option>
             </select>
           </label>
-          <label>Rank
-            <select value={rank} onChange={(e) => setRank(e.target.value as "all" | "low" | "high" | "g")}>
-              <option value="all">All</option>
-              <option value="low">Low</option>
-              <option value="high">High &amp; below</option>
-              <option value="g">G &amp; below</option>
+          <label>Armor rank
+            <select value={rank} onChange={(e) => setRank(e.target.value as RankFilter)}>
+              {RANK_FILTERS.map((f) => (
+                <option key={f.value} value={f.value}>{f.label}</option>
+              ))}
             </select>
           </label>
           <label>Weapon slots
