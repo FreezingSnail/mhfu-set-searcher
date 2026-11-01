@@ -6,11 +6,12 @@ import { RANK_FILTERS, rankAllowed } from "../lib/ranks";
 
 type Props = {
   initial: SetSelection | null;
+  initialName?: string;
   charms: Charm[];
   onSave: (name: string, sel: SetSelection) => void;
 };
 
-export default function Builder({ initial, charms, onSave }: Props) {
+export default function Builder({ initial, initialName = "", charms, onSave }: Props) {
   const { data } = useGame();
   const start = initial ?? emptySelection(data);
   const [picks, setPicks] = useState<Record<string, string>>(start.picks);
@@ -25,7 +26,7 @@ export default function Builder({ initial, charms, onSave }: Props) {
   );
 
   const save = () => {
-    const name = window.prompt("Set name", "Untitled set");
+    const name = window.prompt("Set name", initialName || "Untitled set");
     if (!name) return;
     onSave(name, { picks, decoIds, weaponSlots, charmId });
   };

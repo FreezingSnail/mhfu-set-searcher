@@ -17,19 +17,43 @@ import {
   type SetSelection,
 } from "./lib/build";
 import { loadCharms, persistCharms } from "./lib/charms";
+import { parseShareToken, resolveSharedSet } from "./lib/share";
 import "./styles.css";
 
 type Tab = "solver" | "builder" | "sets" | "weapons" | "charms";
+
+type IncomingSet = {
+  game: Game;
+  name: string;
+  selection: SetSelection;
+  charms: Charm[];
+};
 
 const hashGame = (): Game => {
   const hash = window.location.hash.replace("#", "");
   return hash === "mh3u" || hash === "mh4u" ? hash : "mhfu";
 };
 
+const readSharedLink = (): IncomingSet | null => {
+  const payload = parseShareToken(new URLSearchParams(window.location.search).get("share"));
+  if (!payload) return null;
+  const data = GAMES[payload.game];
+  const charms = data.charmSupport ? loadCharms(data.charmStorageKey) : [];
+  const resolved = resolveSharedSet(payload, data, charms);
+  return {
+    game: payload.game,
+    name: payload.name,
+    selection: resolved.selection,
+    charms: resolved.charms,
+  };
+};
+
 export default function App() {
-  const [game, setGame] = useState<Game>(hashGame);
-  const [tab, setTab] = useState<Tab>("solver");
-  const [seed, setSeed] = useState<SetSelection | null>(null);
+  const [incoming] = useState<IncomingSet | null>(readSharedLink);
+  const [game, setGame] = useState<Game>(() => incoming?.game ?? hashGame());
+  const [tab, setTab] = useState<Tab>(incoming ? "builder" : "solver");
+  const [seed, setSeed] = useState<SetSelection | null>(() => incoming?.selection ?? null);
+  const [seedName, setSeedName] = useState(incoming?.name ?? "");
   const [seedKey, setSeedKey] = useState(0);
   const [savedByGame, setSavedByGame] = useState<Record<Game, SavedSet[]>>(() => ({
     mhfu: loadSavedSets(GAMES.mhfu.storageKey),
@@ -37,9 +61,9 @@ export default function App() {
     mh4u: loadSavedSets(GAMES.mh4u.storageKey),
   }));
   const [charmsByGame, setCharmsByGame] = useState<Record<Game, Charm[]>>(() => ({
-    mhfu: [],
-    mh3u: loadCharms("mh3u-charms"),
-    mh4u: loadCharms("mh4u-charms"),
+    mhfu: incoming?.game === "mhfu" ? incoming.charms : [],
+    mh3u: incoming?.game === "mh3u" ? incoming.charms : loadCharms("mh3u-charms"),
+    mh4u: incoming?.game === "mh4u" ? incoming.charms : loadCharms("mh4u-charms"),
   }));
 
   const data = GAMES[game];
@@ -69,10 +93,12 @@ export default function App() {
     setGame(next);
     setTab("solver");
     setSeed(null);
+    setSeedName("");
   };
 
-  const openSelection = (sel: SetSelection) => {
+  const openSelection = (sel: SetSelection, name = "") => {
     setSeed(sel);
+    setSeedName(name);
     setSeedKey((k) => k + 1);
     setTab("builder");
   };
@@ -126,14 +152,20 @@ export default function App() {
             />
           )}
           {tab === "builder" && (
-            <Builder key={`${game}-${seedKey}`} initial={seed} charms={charms} onSave={saveSet} />
+            <Builder
+              key={`${game}-${seedKey}`}
+              initial={seed}
+              initialName={seedName}
+              charms={charms}
+              onSave={saveSet}
+            />
           )}
           {tab === "sets" && (
             <Sets
               key={game}
               saved={saved}
               charms={charms}
-              onLoad={(s) => openSelection(selectionFromSaved(s))}
+              onLoad={(s) => openSelection(selectionFromSaved(s), s.name)}
               onDelete={(id) => updateSaved((old) => old.filter((s) => s.id !== id))}
               onRename={(id, name) => updateSaved((old) => old.map((s) => (s.id === id ? { ...s, name } : s)))}
             />

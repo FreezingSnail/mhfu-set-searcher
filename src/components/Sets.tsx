@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { useGame } from "../lib/gameContext";
 import { buildSet, selectionFromSaved, type SavedSet } from "../lib/build";
+import { makeShareLink } from "../lib/share";
 import type { Charm } from "../lib/types";
 
 type Props = {
@@ -18,8 +19,28 @@ const statRows = [
 ] as const;
 
 export default function Sets({ saved, charms, onLoad, onDelete, onRename }: Props) {
-  const { data: gameData } = useGame();
+  const { game, data: gameData } = useGame();
   const [selected, setSelected] = useState<string[]>([]);
+  const [copied, setCopied] = useState("");
+
+  const copyShareLink = async (set: SavedSet) => {
+    const link = makeShareLink(
+      {
+        game,
+        name: set.name,
+        selection: selectionFromSaved(set),
+        charm: set.charmId ? charms.find((charm) => charm.id === set.charmId) ?? null : null,
+      },
+      window.location.href,
+    );
+    try {
+      await navigator.clipboard.writeText(link);
+      setCopied(set.id);
+      window.setTimeout(() => setCopied((id) => (id === set.id ? "" : id)), 2000);
+    } catch {
+      window.prompt("Copy this set link:", link);
+    }
+  };
 
   const summaries = useMemo(
     () => new Map(saved.map((s) => [s.id, buildSet(gameData, selectionFromSaved(s), charms)])),
@@ -67,8 +88,15 @@ export default function Sets({ saved, charms, onLoad, onDelete, onRename }: Prop
                   <span className="dim small">
                     {summary.defense} def · {summary.active.map((a) => a.name).join(", ") || "no skills"} · {summary.valid ? `${summary.spare} slots` : "invalid jewel layout"}
                   </span>
-                  <div className="row">
+                  <div className="row wrap">
                     <button className="ghost" onClick={() => onLoad(set)}>Open</button>
+                    <button
+                      className="ghost"
+                      title="Copy a link that opens this set in the Builder"
+                      onClick={() => void copyShareLink(set)}
+                    >
+                      {copied === set.id ? "Copied" : "Share"}
+                    </button>
                     <button className="ghost" onClick={() => {
                       const name = window.prompt("Rename set", set.name);
                       if (name) onRename(set.id, name);

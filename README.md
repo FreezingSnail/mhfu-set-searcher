@@ -11,7 +11,7 @@ Switch games from the MHFU / MH3U / MH4U control in the header (or open `#mhfu`,
 - **Solver** — pick target skills and constraints, get legal armor + jewel combinations; skills are grouped as Attack, Sharpness, Gunner, Defense, Evasion, Comfort, Resistance, Gathering, and Felyne. Click any piece or jewel to inspect stats, skills, and materials.
 - **Extend search** — groups extra active skills into class sections as tuples; click a tuple to see matching sets, then add any tuple skill to the targets and rerun.
 - **Builder** — assemble a set manually, add jewels, see live skills/defense/materials.
-- **Sets** — save sets, compare 2–4 side by side, load or rename them.
+- **Sets** — save sets, compare 2–4 side by side, load, rename, or share them.
 - **Weapons** — fully expanded upgrade trees split into Blademaster and Ranged sub-pages, with branch guides, search, rank badges (LR/HR/G), element/sharpness filters, stats, and materials. Ranged adds physical ammo, element/status, rapid-fire, and bow shot-type filters. Bowguns show reload, recoil, rapid fire, and full ammo capacities; bows show coatings and charge levels.
 
 ## MH3U
@@ -33,6 +33,10 @@ Same solver, builder, sets, charms, and weapon-tree bones, with MH4U's 14 weapon
 - **Weapons** — Great Sword through Charge Blade, Insect Glaive, bowguns, and Bow. Details cover Charge Blade phials, Insect Glaive kinsects, Gunlance shelling, Hunting Horn notes/songs, bow arc shots/coatings, and bowgun deviation/rapid fire/crouching fire.
 
 MHFU, MH3U, and MH4U saved sets and charm lists live under separate local-storage keys, so switching games never mixes them.
+
+## Sharing sets
+
+Save a set, open **Sets**, and press **Share** to copy a link. The armor, jewels, weapon slots, and (for MH3U/MH4U) charm are encoded in the URL, so opening the link switches to the right game and loads the set in the Builder. Links are self-contained; nothing is uploaded. A shared charm is added to the recipient's charm list so the build retains its skills.
 
 No backend. Static Vite + React app.
 
