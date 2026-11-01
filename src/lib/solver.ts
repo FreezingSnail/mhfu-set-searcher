@@ -134,13 +134,46 @@ export function solve(
   const ti = new Map(target.map((s, i) => [s.ability, i]));
 
   const targetIdx = target.map((s) => ai.get(s.ability)!);
+  const usableDecos = data.decos.filter(
+    (d) => (d.hr > 0 && d.hr <= input.hr) || (d.elder > 0 && d.elder <= input.elder),
+  ).filter((d) => d.skills.some(([, p]) => p > 0));
+  // Scarce skills (fewer positive points per jewel slot) should be explored
+  // first: raw point counts overvalue skills that are easy to gem.
+  const decoRate = new Array(abilities.length).fill(0);
+  for (const d of usableDecos) {
+    for (const [s, p] of d.skills) {
+      if (p <= 0) continue;
+      const i = ai.get(s)!;
+      decoRate[i] = Math.max(decoRate[i], p / d.slots);
+    }
+  }
+  const weights = new Array(abilities.length).fill(1);
+  for (const s of target) {
+    const rate = decoRate[ai.get(s.ability)!];
+    weights[ai.get(s.ability)!] = rate > 0 ? 1 / rate : 1;
+  }
   const candidates = filterCandidates(data, input, abilities, ai);
   for (const part of PARTS) {
     candidates[part] = candidates[part].filter(
       (c) => c.a.slots > 0 || c.torso || targetIdx.some((i) => c.points[i] > 0),
     );
-    const score = (c: Cand) => targetIdx.reduce((n, i) => n + Math.max(0, c.points[i]), 0);
-    candidates[part].sort((a, b) => score(b) - score(a) || b.a.slots - a.a.slots || b.a.defense - a.a.defense);
+  }
+  const bodyMax = new Array(abilities.length).fill(0);
+  for (const c of candidates.body ?? []) {
+    for (let a = 0; a < abilities.length; a++) if (c.points[a] > bodyMax[a]) bodyMax[a] = c.points[a];
+  }
+  for (const part of PARTS) {
+    const score = (c: Cand) =>
+      targetIdx.reduce(
+        (n, i) =>
+          n +
+          Math.max(0, c.points[i]) * weights[i] +
+          (c.torso ? Math.max(0, bodyMax[i]) * weights[i] : 0),
+        0,
+      );
+    candidates[part].sort(
+      (a, b) => score(b) - score(a) || b.a.slots - a.a.slots || b.a.defense - a.a.defense,
+    );
   }
   if (input.shard && input.shard.count > 1) {
     const { index, count } = input.shard;
@@ -150,10 +183,6 @@ export function solve(
     return { results: [], nodes: 0, elapsed: performance.now() - started, truncated: false };
   }
   const partOrder = [...PARTS].sort((a, b) => candidates[a].length - candidates[b].length);
-  const bodyMax = new Array(abilities.length).fill(0);
-  for (const c of candidates.body ?? []) {
-    for (let a = 0; a < abilities.length; a++) if (c.points[a] > bodyMax[a]) bodyMax[a] = c.points[a];
-  }
 
   // Max points per ability per remaining part, used for pruning.
   const suffix = Array.from({ length: partOrder.length + 1 }, () => new Array(abilities.length).fill(0));
@@ -184,10 +213,6 @@ export function solve(
     }
     bestDeco.set(a, dp);
   }
-
-  const usableDecos = data.decos.filter(
-    (d) => d.hr <= input.hr && d.elder <= input.elder,
-  ).filter((d) => d.skills.some(([, p]) => p > 0));
 
   const decoByAbility = new Map<string, Deco[]>();
   for (const ability of target.map((s) => s.ability)) {

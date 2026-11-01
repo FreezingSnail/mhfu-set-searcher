@@ -86,7 +86,7 @@ The search follows the Athena's ASS approach:
 4. At each leaf, assign jewels by slot size (1/2/3) until target gaps are closed.
 5. Reject sets that activate bad skills unless allowed.
 
-Jewels are assumed unlimited/craftable. The Solver and Builder offer explicit armor-rank filters: Low only, High only, High and below, G only, and G and below. All games treat hub stars and village stars as alternative unlock sources (0 means “not using that source”, 99 means “not obtainable from that source”), so village-only and hub-only armor are handled correctly.
+Jewels are assumed unlimited/craftable. The Solver and Builder offer explicit armor-rank filters: Low only, High only, High and below, G only, and G and below. All games treat hub stars and village stars as alternative unlock sources (0 means “not using that source”, 99 means “not obtainable from that source”), so village-only and hub-only armor and jewels are handled correctly. Candidate pieces are explored in scarcity order — skills that are harder to jewel first, with Torso Up pieces credited for the body piece they copy — so high-rank sets built around Torso Up and low-rank enabler pieces are found within the search budget.
 
 Exhaustive searches are partitioned by head armor across a worker pool (up to 6 workers), and results stream progressively. Searches are capped at 3 seconds or 500 results to prevent runaway memory use. Results can be sorted by defense high/low, fewest jewels, most free slots, or lowest cost.
 
