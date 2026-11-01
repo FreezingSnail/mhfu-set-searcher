@@ -115,6 +115,8 @@ export type SolverInput = {
   maxResults?: number;
   timeLimitMs?: number;
   shard?: { index: number; count: number };
+  /** Internal: avoids recursively splitting inclusive rank filters. */
+  splitRanks?: boolean;
   charmMode?: "none" | "owned" | "best" | "slots";
   charmTable?: number;
   charms?: Charm[];

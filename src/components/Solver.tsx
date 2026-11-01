@@ -4,7 +4,7 @@ import type { Charm, RankFilter, SolverInput, SolverResult } from "../lib/types"
 import type { GameData } from "../lib/games";
 import { GROUP_ORDER } from "../lib/skillOrder";
 import { sortSets } from "../lib/sort";
-import { RANK_FILTERS } from "../lib/ranks";
+import { RANK_FILTERS, mergeRankDiverse } from "../lib/ranks";
 import { RESULT_CAP } from "../lib/constants";
 import PieceDetail, { type DetailItem } from "./PieceDetail";
 
@@ -150,6 +150,7 @@ export default function Solver({
   const worker = useRef<Worker | null>(null);
   const pool = useRef<Worker[]>([]);
   const poolTimer = useRef<number | null>(null);
+  const phaseTimer = useRef<number | null>(null);
   const requestId = useRef(0);
   const lastInput = useRef<SolverInput | null>(null);
 
@@ -157,6 +158,7 @@ export default function Solver({
     worker.current?.terminate();
     pool.current.forEach((w) => w.terminate());
     if (poolTimer.current !== null) window.clearTimeout(poolTimer.current);
+    if (phaseTimer.current !== null) window.clearTimeout(phaseTimer.current);
   }, []);
 
   const extensions = useMemo<ExtensionGroup[]>(() => {
@@ -202,7 +204,7 @@ export default function Solver({
   const runWorker = (
     input: SolverInput,
     handlers: { onBatch?: (batch: SolverResult[]) => void; onFinal: (reply: Reply) => void },
-    candidates?: string[],
+    extend = false,
   ) => {
     worker.current?.terminate();
     const w = new Worker(new URL("../solver.worker.ts", import.meta.url), { type: "module" });
@@ -223,7 +225,7 @@ export default function Solver({
       if (worker.current === w) worker.current = null;
       handlers.onFinal({ id, error: "Solver worker failed." });
     };
-    w.postMessage({ id, game, input, candidates });
+    w.postMessage({ id, game, input, extend });
   };
 
   const runPool = (
@@ -238,6 +240,10 @@ export default function Solver({
       window.clearTimeout(poolTimer.current);
       poolTimer.current = null;
     }
+    if (phaseTimer.current !== null) {
+      window.clearTimeout(phaseTimer.current);
+      phaseTimer.current = null;
+    }
     const count = Math.max(1, Math.min(6, (navigator.hardwareConcurrency || 4) - 1));
     const id = ++requestId.current;
     const started = clock();
@@ -248,6 +254,12 @@ export default function Solver({
     let truncated = false;
     let stopped = false;
     const cap = RESULT_CAP;
+    const select = (results: SolverResult[]) =>
+      sortSets(mergeRankDiverse(results, input.rank, cap), input.sort);
+    const topRank: RankFilter | null =
+      input.rank === "high-below" ? "high" : input.rank === "g-below" ? "g" : null;
+    const splitPool = topRank !== null && count > 1;
+    const TOP_PHASE_MS = 800;
 
     const finish = (timedOut = false) => {
       if (stopped) return;
@@ -256,9 +268,13 @@ export default function Solver({
         window.clearTimeout(poolTimer.current);
         poolTimer.current = null;
       }
+      if (phaseTimer.current !== null) {
+        window.clearTimeout(phaseTimer.current);
+        phaseTimer.current = null;
+      }
       handlers.onFinal({
         id,
-        results: sortSets(all.slice(0, cap), input.sort),
+        results: select(all),
         nodes,
         elapsed: Math.max(elapsed, clock() - started),
         truncated: truncated || all.length >= cap || timedOut,
@@ -266,7 +282,13 @@ export default function Solver({
       });
     };
 
-    const spawn = (index: number) => {
+    const spawn = (
+      rank: RankFilter,
+      shardIndex: number,
+      shardCount: number,
+      timeLimitMs?: number,
+      skipSplit = false,
+    ) => {
       const w = new Worker(new URL("../solver.worker.ts", import.meta.url), { type: "module" });
       pool.current.push(w);
       w.onmessage = (event: MessageEvent<Reply>) => {
@@ -275,7 +297,7 @@ export default function Solver({
         if (data.batch) {
           all.push(...data.batch);
           handlers.onBatch(data.batch);
-          if (all.length >= cap) {
+          if (!splitPool && all.length >= cap) {
             stopped = true;
             if (poolTimer.current !== null) {
               window.clearTimeout(poolTimer.current);
@@ -285,7 +307,7 @@ export default function Solver({
             pool.current = [];
             handlers.onFinal({
               id,
-              results: sortSets(all.slice(0, cap), input.sort),
+              results: select(all),
               nodes,
               elapsed: Math.max(elapsed, clock() - started),
               truncated: true,
@@ -310,18 +332,32 @@ export default function Solver({
         active--;
         if (active === 0) finish();
       };
-      w.postMessage({ id, game, input: { ...input, shard: { index, count } } });
+      w.postMessage({
+        id,
+        game,
+        input: {
+          ...input,
+          rank,
+          shard: { index: shardIndex, count: shardCount },
+          ...(timeLimitMs !== undefined ? { timeLimitMs } : {}),
+          ...(skipSplit ? { splitRanks: true } : {}),
+        },
+      });
     };
 
     poolTimer.current = window.setTimeout(() => {
       if (stopped) return;
       stopped = true;
       poolTimer.current = null;
+      if (phaseTimer.current !== null) {
+        window.clearTimeout(phaseTimer.current);
+        phaseTimer.current = null;
+      }
       pool.current.forEach((x) => x.terminate());
       pool.current = [];
       handlers.onFinal({
         id,
-        results: sortSets(all.slice(0, cap), input.sort),
+        results: select(all),
         nodes,
         elapsed: clock() - started,
         truncated: true,
@@ -329,8 +365,20 @@ export default function Solver({
       });
     }, 3000);
 
-    if (count === 1) spawn(0);
-    else for (let i = 0; i < count; i++) spawn(i);
+    if (splitPool) {
+      // Let one worker collect top-tier sets with the CPU to itself, then fan
+      // the combined search across the rest of the pool.
+      spawn(topRank!, 0, 1, TOP_PHASE_MS);
+      phaseTimer.current = window.setTimeout(() => {
+        phaseTimer.current = null;
+        if (stopped) return;
+        for (let i = 0; i < count - 1; i++) {
+          spawn(input.rank, i, count - 1, undefined, true);
+        }
+      }, TOP_PHASE_MS);
+    } else {
+      for (let i = 0; i < count; i++) spawn(input.rank, i, count);
+    }
   };
 
   const runSearch = (rows: Target[]) => {
@@ -409,21 +457,6 @@ export default function Solver({
       setTupleKey(null);
       return;
     }
-    const target = new Set(lastInput.current.skills.map((s) => s.ability));
-    const weight = new Map<string, number>();
-    for (const r of results) {
-      for (const a of r.armor) {
-        for (const [s, p] of a.skills) {
-          if (!target.has(s)) weight.set(s, (weight.get(s) ?? 0) + Math.max(0, p));
-        }
-      }
-      for (const [s, p] of r.charm?.skills ?? []) {
-        if (!target.has(s)) weight.set(s, (weight.get(s) ?? 0) + Math.max(0, p));
-      }
-    }
-    const candidates = [...weight.entries()]
-      .sort((a, b) => rankOf(data, a[0]) - rankOf(data, b[0]) || b[1] - a[1] || a[0].localeCompare(b[0]))
-      .map(([s]) => s);
     setExtended(true);
     setTupleKey(null);
     setExtendLoading(true);
@@ -437,7 +470,7 @@ export default function Solver({
           else setExtendResults(data.results ?? []);
         },
       },
-      candidates,
+      true,
     );
   };
 
@@ -449,6 +482,10 @@ export default function Solver({
     if (poolTimer.current !== null) {
       window.clearTimeout(poolTimer.current);
       poolTimer.current = null;
+    }
+    if (phaseTimer.current !== null) {
+      window.clearTimeout(phaseTimer.current);
+      phaseTimer.current = null;
     }
     setLoading(false);
     setCancelled(true);
@@ -462,6 +499,10 @@ export default function Solver({
     if (poolTimer.current !== null) {
       window.clearTimeout(poolTimer.current);
       poolTimer.current = null;
+    }
+    if (phaseTimer.current !== null) {
+      window.clearTimeout(phaseTimer.current);
+      phaseTimer.current = null;
     }
     setTargets(EMPTY);
     setResults([]);

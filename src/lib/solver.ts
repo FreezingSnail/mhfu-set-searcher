@@ -5,16 +5,28 @@
  * - negative skills are rejected at -10 unless "allow bad skills" is on.
  * Unlike ASS this uses a pruned DFS instead of per-part equivalence classes.
  */
-import type { Armor, Charm, Deco, SolverInput, SolverResult } from "./types";
-import type { GameData } from "./games";
-import { sortSets } from "./sort";
-import { rankAllowed } from "./ranks";
-import { RESULT_CAP } from "./constants";
+import type { Armor, Charm, Deco, SolverInput, SolverResult } from "./types.ts";
+import type { GameData } from "./games.ts";
+import { sortSets } from "./sort.ts";
+import { mergeRankDiverse } from "./ranks.ts";
+import { armorAllowed } from "./candidates.ts";
+import { RESULT_CAP } from "./constants.ts";
 
 const PARTS = ["head", "body", "arms", "waist", "legs"] as const;
 
 type Cand = { a: Armor; points: number[]; vec: [number, number][]; torso: boolean };
 type Counts = [number, number, number, number];
+
+type ResultKeyParts = {
+  armor: Armor[];
+  decos: Deco[];
+  charm?: Charm | null;
+};
+
+const resultKey = (result: ResultKeyParts): string =>
+  result.armor.map((a) => a.id).join("|") +
+  "|" + (result.charm?.id ?? "") +
+  "|" + result.decos.map((d) => d.id).join("|");
 
 const filterCandidates = (
   data: GameData,
@@ -26,17 +38,7 @@ const filterCandidates = (
   for (const part of PARTS) {
     filtered[part] = data.armor.filter((a) => {
       if (a.part !== part) return false;
-      if (a.sex !== "both" && a.sex !== input.gender) return false;
-      if (a.hunter !== "both" && a.hunter !== input.hunter) return false;
-      if (!rankAllowed(a.rank, input.rank)) return false;
-      // MH3U records port star and village star separately; 99 means "not from
-      // that source", so a piece is available if either source is unlocked.
-      const hrOk = a.hr > 0 && a.hr <= input.hr;
-      const elderOk = a.elder > 0 && a.elder <= input.elder;
-      if (data.availability === "or" ? !hrOk && !elderOk : !hrOk || !elderOk) return false;
-      if (!input.allowPiercings && a.name.includes("Piercing")) return false;
-      if (a.name.includes("(dummy)")) return false;
-      return true;
+      return armorAllowed(data, input, a);
     });
   }
 
@@ -83,6 +85,66 @@ export function solve(
   onResult?: (result: SolverResult) => void,
 ): { results: SolverResult[]; nodes: number; elapsed: number; truncated: boolean } {
   const started = performance.now();
+
+  // Inclusive rank filters mean "the top tier and anything below it". Running
+  // only the combined search spends the result budget on mixed sets and can
+  // miss pure high/G sets, so run the top tier on its own as well and merge.
+  if (!input.splitRanks && (input.rank === "high-below" || input.rank === "g-below")) {
+    const topRank = input.rank === "high-below" ? "high" : "g";
+    const cap = input.stopAtLimit && input.limit !== undefined
+      ? input.limit
+      : input.maxResults ?? RESULT_CAP;
+    const shardCount = input.shard?.count ?? 1;
+    const topCap = Math.max(1, Math.ceil(cap / (2 * shardCount)));
+    const totalTime = input.timeLimitMs;
+    // The top-tier pass is cheap for common targets and fills its quota
+    // quickly. Give it enough of the budget for slow targets while leaving the
+    // combined pass room to find mixed sets.
+    const topTime = totalTime === undefined
+      ? 1000
+      : Math.min(1000, Math.max(1, Math.floor(totalTime * 0.4)));
+    const streamed = new Set<string>();
+    const stream = onResult
+      ? (result: SolverResult) => {
+          const key = resultKey(result);
+          if (streamed.has(key)) return;
+          streamed.add(key);
+          onResult(result);
+        }
+      : undefined;
+
+    const top = solve(
+      data,
+      {
+        ...input,
+        rank: topRank,
+        maxResults: topCap,
+        limit: input.stopAtLimit ? topCap : input.limit,
+        timeLimitMs: topTime,
+        splitRanks: true,
+      },
+      stream,
+    );
+    const spent = performance.now() - started;
+    const rest = solve(
+      data,
+      {
+        ...input,
+        maxResults: cap,
+        splitRanks: true,
+        timeLimitMs: totalTime === undefined ? undefined : Math.max(1, totalTime - spent),
+      },
+      stream,
+    );
+    const results = mergeRankDiverse([...top.results, ...rest.results], input.rank, cap);
+    return {
+      results: sortSets(results, input.sort),
+      nodes: top.nodes + rest.nodes,
+      elapsed: performance.now() - started,
+      truncated: top.truncated || rest.truncated || results.length >= cap,
+    };
+  }
+
   const target = input.skills.filter((s) => data.skillTree.has(s.ability) && s.points > 0);
   const targetAbilities = new Set(target.map((s) => s.ability));
 
@@ -344,10 +406,7 @@ export function solve(
       const d = decoSolve(effective, charmFree);
       if (!d) continue;
 
-      const key =
-        all.map((a) => a.id).join("|") +
-        "|" + (charm?.id ?? "nocharm") +
-        "|" + d.decos.map((x) => x.id).join("|");
+      const key = resultKey({ armor: all, charm, decos: d.decos });
       if (seenResults.has(key)) continue;
 
       const totals = [...effective];

@@ -1,12 +1,13 @@
-import { solve } from "./lib/solver";
-import { GAMES } from "./lib/games";
-import type { Game, SolverInput, SolverResult } from "./lib/types";
+import { solve } from "./lib/solver.ts";
+import { extraSkillCandidates } from "./lib/candidates.ts";
+import { GAMES } from "./lib/games.ts";
+import type { Game, SolverInput, SolverResult } from "./lib/types.ts";
 
 type Request = {
   id: number;
   game: Game;
   input: SolverInput;
-  candidates?: string[];
+  extend?: boolean;
 };
 
 const setKey = (r: SolverResult) =>
@@ -51,10 +52,11 @@ function extend(data: (typeof GAMES)[Game], input: SolverInput, candidates: stri
 }
 
 self.onmessage = (event: MessageEvent<Request>) => {
-  const { id, game, input, candidates } = event.data;
+  const { id, game, input, extend: extendRequest } = event.data;
   const data = GAMES[game] ?? GAMES.mhfu;
   try {
-    if (candidates) {
+    if (extendRequest) {
+      const candidates = extraSkillCandidates(data, input);
       self.postMessage({ id, ...extend(data, input, candidates) });
       return;
     }
