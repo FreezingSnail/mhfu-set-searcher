@@ -1,0 +1,21 @@
+{
+  "type": "gunlance",
+  "label": "Gunlance",
+  "metaLabel": "S+1 / Art God / Razor / Guard +2",
+  "note": "MH4U endgame Gunlance prioritizes Artillery God (+20, 30% shell/Wyvern Fire, 80s cooldown), Guard +2 (or Evasion +2/3 on evade sets), Razor Sharp for sharpness upkeep, and Sharpness +1 when the mix can fit it. Wide uses Load Up and charged shells, Long leans on Razor Sharp and Wyvern Fire, and Normal uses Full Burst. This preset models only Sharpness +1. Artillery God, Guard +2, Razor Sharp, Load Up, shelling type/level, and Felyne Bombardier are unmodeled; Attack Up and Crit Eye are low priority because shelling ignores raw and affinity, and Element Attack Up is only for niche elemental GLs. A Honed Blade (S+1 + AuL) hybrid is also common, but the artillery core is represented here with attackUp at 0.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 0,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.0
+  },
+  "sources": [
+    "https://www.reddit.com/r/MonsterHunter/comments/3ks2i4/mh4u_best_end_game_gunlance_sets/",
+    "https://gamefaqs.gamespot.com/boards/762804-monster-hunter-4-ultimate/71431091",
+    "https://gamefaqs.gamespot.com/boards/762804-monster-hunter-4-ultimate/72785994",
+    "https://gamefaqs.gamespot.com/boards/762804-monster-hunter-4-ultimate/71689978",
+    "https://youknowumsayin.wordpress.com/2015/04/09/mh4u-in-depth-gunlance-guide/",
+    "https://kiranico.com/en/mh4u/armor/skill/artillery"
+  ]
+}

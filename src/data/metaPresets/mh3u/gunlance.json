@@ -1,0 +1,20 @@
+{
+  "type": "gunlance",
+  "label": "Gunlance",
+  "metaLabel": "Honed Blade / Art Expert / Guard +1",
+  "note": "MH3U endgame Gunlance is built around Honed Blade (Sharpness +1 + Attack Up L), Artillery Expert, Guard +1/2, and Razor Sharp or Load Up, with Long/Wide level 4-5 shelling providing fixed damage. 3U caps Artillery at Expert (+15, 20% shell/Wyvern Fire, 90s cooldown); there is no Artillery God. This preset models only Honed Blade's Sharpness +1 and +20 true raw. Artillery Expert, Guard +1/2, Razor Sharp, Load Up, Stamina Recovery Up, shelling type/level, and Wyvern Fire are unmodeled; Honed Blade's Attack Up L still helps the substantial stab damage, but Crit Eye and element are not core GL skills.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 20,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.0
+  },
+  "sources": [
+    "https://gamefaqs.gamespot.com/boards/683294-monster-hunter-3-ultimate/66777041",
+    "https://gamefaqs.gamespot.com/boards/642342-monster-hunter-3-ultimate/66044145",
+    "https://gamefaqs.gamespot.com/3ds/642342-monster-hunter-3-ultimate/faqs/66949",
+    "https://kiranico.com/en/mh3u/armor/skill/artillery",
+    "https://kiranico.com/en/mh3u/armor/skill/edgemaster"
+  ]
+}
