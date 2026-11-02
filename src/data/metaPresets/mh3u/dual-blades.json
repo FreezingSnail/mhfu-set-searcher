@@ -1,0 +1,20 @@
+{
+  "type": "dual-blades",
+  "label": "Dual Blades",
+  "metaLabel": "S+1 / Razor / Elem / AuL",
+  "note": "MH3U endgame Dual Blades stack Sharpness +1, Razor Sharp, Element Atk Up (1.2x), and Attack Up (L) or Challenger +2. Hallowed Jhen/Yamato Prime provides S+1/Razor/AuL, Helios Z with the X waist is the common early-G base, and Abyssal Lagi is a similar S+1/Razor/AuL option. Elemental DBs match the monster's Fire/Water/Thunder/Ice/Dragon weakness; Slime is a status-like element, so Element Atk Up and Status Atk do not boost it (Bombardier does), and paralysis is mainly multiplayer utility. The model captures S+1, AuL (+20 true raw), and the 1.2x Element Atk Up; Razor Sharp, Honed Blade as a combined skill, Stamina/Mega Dash Juice, Focus, Evasion/Earplugs, Awaken, Bombardier, Challenger +2, and specific Element/Status Atk are not modeled.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 20,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.2
+  },
+  "sources": [
+    "https://gamefaqs.gamespot.com/3ds/642342-monster-hunter-3-ultimate/faqs/67126",
+    "https://gamefaqs.gamespot.com/boards/683294-monster-hunter-3-ultimate/65938456",
+    "https://gamefaqs.gamespot.com/boards/642342-monster-hunter-3-ultimate/65896933",
+    "https://kiranico.com/en/mh3u/armor/skill",
+    "https://kiranico.com/en/mh3u/armor/skill/edgemaster"
+  ]
+}

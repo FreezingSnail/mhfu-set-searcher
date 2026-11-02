@@ -1,0 +1,21 @@
+{
+  "type": "dual-blades",
+  "label": "Dual Blades",
+  "metaLabel": "Honed Blade / Razor / Elem",
+  "note": "MH4U endgame Dual Blades use Honed Blade (Sharpness +1 + Attack Up L), Razor Sharp, and an element boost. Star Knight with Handicraft gems is the common accessible base (S+1, Razor Sharp via Steady Hand, Challenger +2) but lacks AuL; top mixed sets run Honed Blade with Razor Sharp plus Challenger +2, Evasion, HG Earplugs, or Weakness Exploit. Solo DBs match the monster's Fire/Water/Thunder/Ice/Dragon weakness; Blast and Paralysis are status options (Blast for general part damage, Paralysis for multiplayer), and Element Atk Up does not boost them. The model captures Honed Blade's S+1/AuL components and the 1.1x generic Element Atk Up; Razor Sharp, Honed Blade as a combined skill, Stamina, [Element] Atk +3 (1.15x plus flat element, usually stronger), Elemental/Status Crit, Challenger, Status Atk, Weakness Exploit, and Evasion/Earplugs are not modeled.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 20,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.1
+  },
+  "sources": [
+    "https://gamefaqs.gamespot.com/boards/762804-monster-hunter-4-ultimate/72239247",
+    "https://gamefaqs.gamespot.com/boards/762804-monster-hunter-4-ultimate/71663233",
+    "https://gamefaqs.gamespot.com/boards/762804-monster-hunter-4-ultimate/71112068",
+    "https://gamefaqs.gamespot.com/3ds/762804-monster-hunter-4-ultimate/faqs/72685/recommended-skills",
+    "https://kiranico.com/en/mh4u/armor/skill",
+    "https://mhwiki.forumotion.net/t10788-mh4u-armor-set-compilation"
+  ]
+}
