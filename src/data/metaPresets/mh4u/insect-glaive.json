@@ -1,0 +1,19 @@
+{
+  "type": "insect-glaive",
+  "label": "Insect Glaive",
+  "metaLabel": "Honed Blade / Challenger +2",
+  "note": "MH4U endgame Insect Glaive is raw-first. Star Knight is the common full-set template (Sharpness +1, Challenger +2, Steady Hand/Razor Sharp, Rodeo God), while optimized mixed sets add Honed Blade (Sharpness +1 + Attack Up (L)), Weakness Exploit, and often HG Earplugs; Anubis, True Fatalis Dyaus, and Bounding Dalamadur are common glaives. This preset assumes Sharpness +1 and models Honed Blade's +20 true raw through attackUp; Honed Blade is not modeled as a composite skill, and Razor Sharp, Challenger +2's conditional +25 raw/+20% affinity, Weakness Exploit's +5 weak-zone hitzone, Rodeo God, HG Earplugs, and kinsect/extract buffs are unmodeled. Element Attack Up is not an IG priority. MH4U sharpness raw is 1.05 green / 1.20 blue / 1.32 white / 1.45 purple, not MHFU's values.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 20,
+    "affinityBonus": 0,
+    "elementAttackUp": 1
+  },
+  "sources": [
+    "https://gamefaqs.gamespot.com/3ds/762804-monster-hunter-4-ultimate/faqs/72685/recommended-skills",
+    "https://gamefaqs.gamespot.com/3ds/762804-monster-hunter-4-ultimate/faqs/72685/recommended-weapons",
+    "https://kiranico.com/en/mh4u/wiki/weapons",
+    "https://mhwiki.forumotion.net/t10788-mh4u-armor-set-compilation"
+  ]
+}
