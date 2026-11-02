@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Solver from "./components/Solver";
 import Builder from "./components/Builder";
 import Weapons from "./components/Weapons";
+import WeaponCompare from "./components/WeaponCompare";
 import Sets from "./components/Sets";
 import Charms from "./components/Charms";
 import { GameProvider } from "./lib/game";
@@ -20,7 +21,7 @@ import { loadCharms, persistCharms } from "./lib/charms";
 import { parseShareToken, resolveSharedSet } from "./lib/share";
 import "./styles.css";
 
-type Tab = "solver" | "builder" | "sets" | "weapons" | "charms";
+type Tab = "solver" | "builder" | "sets" | "weapons" | "compare" | "charms";
 
 type IncomingSet = {
   game: Game;
@@ -136,6 +137,9 @@ export default function App() {
             <button className={tab === "builder" ? "active" : ""} onClick={() => setTab("builder")}>Builder</button>
             <button className={tab === "sets" ? "active" : ""} onClick={() => setTab("sets")}>Sets{saved.length ? ` (${saved.length})` : ""}</button>
             <button className={tab === "weapons" ? "active" : ""} onClick={() => setTab("weapons")}>Weapons</button>
+            {game === "mhfu" && (
+              <button className={tab === "compare" ? "active" : ""} onClick={() => setTab("compare")}>Compare</button>
+            )}
             {data.charmSupport && (
               <button className={tab === "charms" ? "active" : ""} onClick={() => setTab("charms")}>Charms{charms.length ? ` (${charms.length})` : ""}</button>
             )}
@@ -171,6 +175,7 @@ export default function App() {
             />
           )}
           {tab === "weapons" && <Weapons key={game} />}
+          {tab === "compare" && game === "mhfu" && <WeaponCompare />}
           {tab === "charms" && data.charmSupport && (
             <Charms
               charms={charms}
@@ -183,8 +188,9 @@ export default function App() {
           {game === "mhfu" ? (
             <>
               Data:{" "}
-              <a href="https://github.com/vallode/mhfu-blacksmith" target="_blank" rel="noreferrer">mhfu-blacksmith</a> (MIT) and{" "}
-              <a href="https://github.com/AthenaADP/MHFU-ASS" target="_blank" rel="noreferrer">Athena's ASS</a> (MIT).
+              <a href="https://github.com/vallode/mhfu-blacksmith" target="_blank" rel="noreferrer">mhfu-blacksmith</a> (MIT),{" "}
+              <a href="https://github.com/AthenaADP/MHFU-ASS" target="_blank" rel="noreferrer">Athena's ASS</a> (MIT), and{" "}
+              <a href="https://github.com/Kolyn090/mhfu-db" target="_blank" rel="noreferrer">mhfu-db</a> hitzones.
             </>
           ) : game === "mh3u" ? (
             <>
