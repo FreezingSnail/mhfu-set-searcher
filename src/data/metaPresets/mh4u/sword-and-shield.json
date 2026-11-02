@@ -1,0 +1,22 @@
+{
+  "type": "sword-and-shield",
+  "label": "Sword & Shield",
+  "metaLabel": "Honed Blade / Razor / Elem",
+  "note": "MH4U endgame elemental SnS is built on Honed Blade (Sharpness +1 + Attack Up L), Razor Sharp, the matching [Element] Atk +3 (1.15x + 90), and Evasion +1/+2; Challenger +2 (+25 true raw/+20% affinity while enraged) is the usual conditional damage swap. Optimized sets often take [Element] Atk +3 instead of generic Element Atk Up (1.1x), but this model has only the generic multiplier, so elementAttackUp is 1.1 and the +3 skill's flat +90 is not represented. Status SnS instead runs Status Atk +2 (1.2x + 10) with Bombardier. The preset models Honed Blade's always-on components (sharpness 'best' = Sharpness +1, attackUp 20 = Attack Up L); Honed Blade as a combined skill, Razor Sharp, Evasion, Status Atk, [Element] Atk +3, Challenger +2's enraged effects, Weakness Exploit (+5 hitzone), Bombardier, and Elemental Crit are unmodeled. The shared sharpness table uses MHFU raw multipliers; MH4U uses 1.05 green / 1.20 blue / 1.32 white / 1.45 purple, so absolute scores are not directly comparable across games.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 20,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.1
+  },
+  "sources": [
+    "https://kiranico.com/en/mh4u/armor/skill/edgemaster",
+    "https://kiranico.com/en/mh4u/armor/skill/elemental",
+    "https://kiranico.com/en/mh4u/armor/skill/status",
+    "https://monsterhunter.fandom.com/wiki/MH4U:_Armor_Skill_List",
+    "https://www.reddit.com/r/MonsterHunter/comments/3mba96/today_i_completed_my_mh4u_goals_and_dreams_i_have/",
+    "https://gamefaqs.gamespot.com/boards/762804-monster-hunter-4-ultimate/72174142",
+    "https://gamefaqs.gamespot.com/boards/762804-monster-hunter-4-ultimate/71112068"
+  ]
+}
