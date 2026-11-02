@@ -88,7 +88,8 @@ function elementLabel(row: WeaponScore) {
   const parts = [...row.elementParts, ...row.statusParts].map(
     (part) => `${part.name} ${part.displayed}`,
   );
-  return parts.length ? parts.join(" / ") : "—";
+  if (parts.length) return parts.join(" / ");
+  return row.weapon.awaken ? "Hidden (Awaken off)" : "—";
 }
 
 function NoteChips({ notes }: { notes?: string[] }) {
@@ -207,6 +208,9 @@ function StrengthChart({
               ? `Bow ${row.bow.shotName} Lv${row.bow.shotLevel} · charge ${row.bow.charge} · ${row.bow.elementHits} element hit(s) · ${row.bow.powerCoating ? "Power Coating" : "no Power Coating"}`
               : "",
             `Element ${elementLabel(row)}${row.elementAttackUp !== 1 ? ` · Element Up ${row.elementAttackUp}x` : ""}`,
+            row.weapon.awaken && !row.hiddenElementActive
+              ? "Hidden element inactive (enable Awaken)"
+              : "",
             row.weapon.notes?.length ? `Notes ${row.weapon.notes.join(" · ")}` : "",
             row.songAttackUp !== 1 ? `HH song ${row.songAttackUp}x` : "",
             row.status > 0 ? `Status accumulation ${fmt(row.status)}` : "",
@@ -330,6 +334,11 @@ function CompareTable({
     },
     { label: "Element", value: elementLabel },
     { label: "Element Up", value: (row) => (row.elementAttackUp !== 1 ? `${row.elementAttackUp}x` : "—") },
+    {
+      label: "Awaken",
+      value: (row) =>
+        row.weapon.awaken ? (row.hiddenElementActive ? "Active" : "Needed") : "—",
+    },
     { label: "Notes", value: (row) => <NoteChips notes={row.weapon.notes} /> },
     { label: "HH song", value: (row) => (row.songAttackUp !== 1 ? `${row.songAttackUp}x` : "—") },
     {
@@ -408,6 +417,7 @@ export default function WeaponCompare({
   const [attackUp, setAttackUp] = useState(0);
   const [affinityBonus, setAffinityBonus] = useState(0);
   const [elementUp, setElementUp] = useState(1);
+  const [awaken, setAwaken] = useState(false);
   const [songAttackUp, setSongAttackUp] = useState(1);
   const [bowCharge, setBowCharge] = useState(3);
   const [bowPowerCoating, setBowPowerCoating] = useState(true);
@@ -428,6 +438,7 @@ export default function WeaponCompare({
       attackUp,
       affinityBonus: affinityBonusActive,
       elementAttackUp: elementUp,
+      awaken,
       songAttackUp: songAttackUpActive,
       bowCharge,
       bowPowerCoating,
@@ -440,6 +451,7 @@ export default function WeaponCompare({
       attackUp,
       affinityBonusActive,
       elementUp,
+      awaken,
       songAttackUpActive,
       bowCharge,
       bowPowerCoating,
@@ -511,6 +523,7 @@ export default function WeaponCompare({
     setAttackUp(0);
     setAffinityBonus(0);
     setElementUp(1);
+    setAwaken(false);
     setSongAttackUp(1);
     setBowCharge(3);
     setBowPowerCoating(true);
@@ -524,6 +537,7 @@ export default function WeaponCompare({
     setAttackUp(preset.skills.attackUp);
     setAffinityBonus(preset.skills.affinityBonus);
     setElementUp(preset.skills.elementAttackUp);
+    setAwaken(preset.skills.awaken ?? false);
     setSongAttackUp(preset.skills.songAttackUp ?? 1);
   };
 
@@ -552,7 +566,9 @@ export default function WeaponCompare({
                 the selected type. Crit Draw models draw attacks: 100% crit and negative affinity
                 ignored on that hit. Crit Eye adds flat affinity for sustained weapons such as Long
                 Sword. Hunting Horn shows note colours and can apply the Attack Up L / encore song.
-                Ranged weapons are excluded because ranged damage is not modeled for this game.
+                Hidden elements and hidden status only contribute when Awaken is enabled; Meta
+                presets include Awaken when the target set uses it. Ranged weapons are excluded
+                because ranged damage is not modeled for this game.
               </p>
             )}
           </div>
@@ -613,6 +629,16 @@ export default function WeaponCompare({
               ))}
             </select>
           </label>
+          {game !== "mhfu" && (
+            <label className="check">
+              <input
+                type="checkbox"
+                checked={awaken}
+                onChange={(event) => setAwaken(event.target.checked)}
+              />
+              Awaken (hidden element)
+            </label>
+          )}
           {type === "hunting-horn" && (
             <label>
               HH song

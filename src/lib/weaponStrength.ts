@@ -38,6 +38,8 @@ export type StrengthOptions = {
   elementHitzone: number;
   elementHitzones?: Record<string, number>;
   elementAttackUp: number;
+  /** Awaken skill: unlocks hidden elements (and hidden status) on awaken weapons. */
+  awaken: boolean;
   statusWeight: number;
   sharpness: SharpnessMode;
   classModifiers: boolean;
@@ -67,6 +69,7 @@ export const DEFAULT_STRENGTH_OPTIONS: StrengthOptions = {
   rawHitzone: 45,
   elementHitzone: 25,
   elementAttackUp: 1,
+  awaken: false,
   statusWeight: 0,
   sharpness: "best",
   classModifiers: true,
@@ -116,6 +119,8 @@ export type WeaponScore = {
   affinityBonus: number;
   elementAttackUp: number;
   elementHitzones: Record<string, number>;
+  /** True when a hidden element is actually active (no hidden element, or Awaken). */
+  hiddenElementActive: boolean;
   songAttackUp: number;
   bow?: BowProfile;
   sharpnessBase: SharpnessTier;
@@ -253,11 +258,13 @@ export function scoreWeapon(weapon: Weapon, options: Partial<StrengthOptions> = 
     rawDamage = effectiveRaw * (opts.motionValue / 100) * (opts.rawHitzone / 100);
   }
 
+  const hiddenElementActive = !weapon.awaken || opts.awaken;
   let elementDamage = 0;
   let status = 0;
   const elementParts: ElementPart[] = [];
   const statusParts: ElementPart[] = [];
   for (const [name, displayed] of weapon.elements ?? []) {
+    if (!hiddenElementActive) continue;
     const numeric = Number(displayed);
     const trueValue = Number.isFinite(numeric) ? numeric / 10 : 0;
     if (STATUS_ELEMENTS.has(name)) {
@@ -290,6 +297,7 @@ export function scoreWeapon(weapon: Weapon, options: Partial<StrengthOptions> = 
     affinityBonus: opts.affinityBonus,
     elementAttackUp: opts.elementAttackUp,
     elementHitzones: opts.elementHitzones ?? {},
+    hiddenElementActive,
     songAttackUp: opts.songAttackUp,
     bow,
     sharpnessBase,

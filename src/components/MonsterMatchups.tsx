@@ -60,6 +60,7 @@ function optionsFor(
     ...DEFAULT_STRENGTH_OPTIONS,
     ...(preset?.skills ?? {}),
     profile,
+    awaken: preset?.skills.awaken ?? false,
     songAttackUp: preset?.skills.songAttackUp ?? 1,
   };
 }

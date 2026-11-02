@@ -179,4 +179,6 @@ test("MH3U and MH4U meta registries cover their blademaster types", () => {
   assert.equal(META_PRESETS_MH4U["hunting-horn"].skills.attackUp, 25);
   assert.equal(META_PRESETS_MH3U["dual-blades"].skills.elementAttackUp, 1.2);
   assert.equal(META_PRESETS_MH4U["dual-blades"].skills.elementAttackUp, 1.1);
+  assert.equal(META_PRESETS_MH3U["hammer"].skills.awaken, true);
+  assert.equal(META_PRESETS_MH3U["dual-blades"].skills.awaken ?? false, false);
 });

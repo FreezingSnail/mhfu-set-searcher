@@ -243,6 +243,43 @@ test("status is separate from damage", () => {
   assert.equal(row.score, 0);
 });
 
+test("hidden element only counts when Awaken is enabled", () => {
+  const hidden = weapon({
+    type: "sword-and-shield",
+    attack: 280,
+    elements: [["Fire", 300]],
+    awaken: true,
+  });
+  const options = {
+    ...DEFAULT_STRENGTH_OPTIONS,
+    sharpness: "base" as const,
+    rawHitzone: 0,
+    elementHitzone: 100,
+    classModifiers: false,
+  };
+  const off = scoreWeapon(hidden, options);
+  const on = scoreWeapon(hidden, { ...options, awaken: true });
+
+  assert.equal(off.hiddenElementActive, false);
+  assert.equal(off.elementDamage, 0);
+  assert.deepEqual(off.elementParts, []);
+  assert.equal(on.hiddenElementActive, true);
+  assert.equal(on.elementDamage, 33.75);
+  assert.deepEqual(on.elementParts, [{ name: "Fire", displayed: 300, value: 33.75 }]);
+});
+
+test("hidden status only counts when Awaken is enabled", () => {
+  const hidden = weapon({ elements: [["Slime", 400]], awaken: true });
+  const options = {
+    ...DEFAULT_STRENGTH_OPTIONS,
+    sharpness: "base" as const,
+    rawHitzone: 0,
+    classModifiers: false,
+  };
+  assert.equal(scoreWeapon(hidden, options).status, 0);
+  assert.equal(scoreWeapon(hidden, { ...options, awaken: true }).status, 45);
+});
+
 test("sharpness plus falls back to base when missing", () => {
   const row = scoreWeapon(weapon({ sharpnessPlus: [] }), {
     ...DEFAULT_STRENGTH_OPTIONS,

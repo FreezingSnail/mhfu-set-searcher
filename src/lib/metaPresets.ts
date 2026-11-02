@@ -20,6 +20,8 @@ export type MetaPresetSkills = {
   attackUp: number;
   affinityBonus: number;
   elementAttackUp: number;
+  /** Meta set includes the Awaken skill, unlocking hidden elements. */
+  awaken?: boolean;
   songAttackUp?: number;
 };
 
