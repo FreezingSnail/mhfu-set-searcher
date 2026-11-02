@@ -1,0 +1,18 @@
+{
+  "type": "dual-blades",
+  "label": "Dual Blades",
+  "metaLabel": "S+1 / Razor / Elem",
+  "note": "Endgame Dual Blades are built around Sharpness +1, Razor Sharp, and Element Attack Up, with Attack Up or Evade/Earplugs as slot-dependent extras. The model captures Sharpness +1, Attack Up Large, and the 1.2x element boost; Razor Sharp, stamina upkeep (Mega Dash Juice/Runner), and status skills are not modeled.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 20,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.2
+  },
+  "sources": [
+    "https://gamefaqs.gamespot.com/psp/943356-monster-hunter-freedom-unite/faqs/60457",
+    "https://forums.neoseeker.com/38854/t1598697-dual-blades-armour-skill-advice/",
+    "http://blog.livedoor.jp/hyratanto/archives/42759175.html"
+  ]
+}

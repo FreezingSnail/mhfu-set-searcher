@@ -1,0 +1,17 @@
+{
+  "type": "bow",
+  "label": "Bow",
+  "metaLabel": "Focus + Shot Up",
+  "note": "Endgame bow meta centers on Focus, the matching shot-type skill (Rapid Up, Pierce Up, or Spread/Scatter Up), and Element Attack Up for elemental bows, with Attack Up and stamina skills as optional fillers. The model captures the 1.2x Element Attack Up only; Focus, shot-type up, Load Up, and stamina skills are not modeled.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 0,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.2
+  },
+  "sources": [
+    "https://gamefaqs.gamespot.com/psp/943356-monster-hunter-freedom-unite/faqs/65175",
+    "https://monsterhunter.fandom.com/wiki/MHFU:_Skill_List"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "type": "light-bowgun",
+  "label": "Light Bowgun",
+  "metaLabel": "Elemental Maniac",
+  "note": "MHFU's Elemental Maniac LBG set stacks Element Attack Up (1.2x) with Auto-Reload, Evade +2, and Bullet Limit, while Attack Up boosts both the raw and elemental portions of elemental shots. Recoil Reduction, Reload Speed, and rapid-fire shot count (Bonus Shot in later games) are unmodeled; Attack Up is optional and not assumed here.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 0,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.2
+  },
+  "sources": [
+    "https://gamefaqs.gamespot.com/psp/943356-monster-hunter-freedom-unite/faqs/56818",
+    "https://gamefaqs.gamespot.com/psp/943356-monster-hunter-freedom-unite/faqs/78652/armor-skills",
+    "https://w.atwiki.jp/mhp2g/pages/530.html"
+  ]
+}

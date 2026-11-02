@@ -1,0 +1,18 @@
+{
+  "type": "heavy-bowgun",
+  "label": "Heavy Bowgun",
+  "metaLabel": "Pierce / Auto-Reload",
+  "note": "Endgame HBG meta splits between the Lao-Shan Lung Cannon Auto-Reload set (Auto-Reload, Element Attack Up, Evade +2/Evade Distance) and raw Pierce sets (Pierce S Up, Recoil Reduction, Load Up, reload speed). The model captures Attack Up Large; Auto-Reload, Recoil, Pierce Up, Load Up, Evade Distance, and ammo-based Element Attack Up are not modeled.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 20,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.0
+  },
+  "sources": [
+    "https://gamefaqs.gamespot.com/psp/943356-monster-hunter-freedom-unite/faqs/56818",
+    "https://monsterhunter.fandom.com/wiki/Gunner_Skills",
+    "https://forums.neoseeker.com/38854/t1418333-heavy-bowgun-101/"
+  ]
+}

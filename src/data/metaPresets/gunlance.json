@@ -1,0 +1,19 @@
+{
+  "type": "gunlance",
+  "label": "Gunlance",
+  "metaLabel": "S+1 / Gunnery",
+  "note": "MHFU Gunlance meta is built around Sharpness +1, Razor Sharp (Sharp Sword), Gunnery King (the game's Artillery skill), and Guard +1/2, with shelling type and level (Long 4, Spread 4, etc.) doing much of the damage. This preset only represents Sharpness +1; Razor Sharp, Gunnery King/Artillery, Guard, ESP, and shelling level are unmodeled, and Attack Up/Crit Eye are low priority because shells ignore them.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 0,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.0
+  },
+  "sources": [
+    "https://gamefaqs.gamespot.com/boards/943356-monster-hunter-freedom-unite/53201141",
+    "https://gamefaqs.gamespot.com/boards/943356-monster-hunter-freedom-unite/53136879",
+    "https://gamefaqs.gamespot.com/psp/943356-monster-hunter-freedom-unite/faqs/78652/armor-skills",
+    "https://monsterhunter.fandom.com/wiki/MHFU:_Skill_List"
+  ]
+}

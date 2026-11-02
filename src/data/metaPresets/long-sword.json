@@ -1,0 +1,17 @@
+{
+  "type": "long-sword",
+  "label": "Long Sword",
+  "metaLabel": "LS 見切り3",
+  "note": "カイザミ-style set: Sharpness+1, Razor Sharp, Crit Eye+3. Razor Sharp is not modeled; Crit Eye+3 is. This is the setup that pushes C.Blango Destructor ahead of Last Gaelic Flame.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 0,
+    "affinityBonus": 30,
+    "elementAttackUp": 1.0
+  },
+  "sources": [
+    "https://wikiwiki.jp/nenaiko/%E6%AD%A6%E5%99%A8/%E7%99%BD%E7%8C%BF%E8%96%99",
+    "https://w.atwiki.jp/mhp2g/pages/325.html"
+  ]
+}

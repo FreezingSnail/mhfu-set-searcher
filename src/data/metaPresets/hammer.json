@@ -1,0 +1,19 @@
+{
+  "type": "hammer",
+  "label": "Hammer",
+  "metaLabel": "S+1 / HGE / AuL",
+  "note": "Endgame hammer sets stack Sharpness +1 with Earplugs/HGE, then add Attack Up (L) or, for negative-affinity hammers, Reckless Abandon (Crit Eye); Rath Soul Z/Diablos Z mixes are common. Focus is optional, KO comes only from the Felyne kitchen in MHFU, and Crit Draw is not a hammer staple.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 20,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.0
+  },
+  "sources": [
+    "https://gamefaqs.gamespot.com/boards/943356-monster-hunter-freedom-unite/54517046",
+    "https://gamefaqs.gamespot.com/boards/943356-monster-hunter-freedom-unite/61591572",
+    "https://gamefaqs.gamespot.com/boards/943356-monster-hunter-freedom-unite/66355383",
+    "https://monsterhunter.fandom.com/wiki/MHFU:_Skill_List"
+  ]
+}

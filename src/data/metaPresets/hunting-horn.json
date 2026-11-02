@@ -1,0 +1,19 @@
+{
+  "type": "hunting-horn",
+  "label": "Hunting Horn",
+  "metaLabel": "S+1 + AuL + Song",
+  "note": "MHFU Hunting Horn endgame sets center on Sharpness +1 and Maestro (Flute Expert), adding Attack Up (Large) for damage and Earplugs/High Grade Earplugs or Evade +2 to protect performances. The model captures S+1, AuL, and the Attack Up Large song with encore (1.2x); Maestro, Earplugs, Evade, and other horn songs/utilities are unmodeled.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 20,
+    "affinityBonus": 0,
+    "elementAttackUp": 1,
+    "songAttackUp": 1.2
+  },
+  "sources": [
+    "https://gamefaqs.gamespot.com/psp/943356-monster-hunter-freedom-unite/faqs/57283",
+    "http://shirasagiyukiji.cocolog-nifty.com/blog/2009/05/mhp2g-8db1.html",
+    "https://monsterhunter.fandom.com/wiki/MHFU:_Skill_List"
+  ]
+}

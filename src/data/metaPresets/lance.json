@@ -1,0 +1,18 @@
+{
+  "type": "lance",
+  "label": "Lance",
+  "metaLabel": "S+1 / Atk Up L",
+  "note": "Endgame Lance prioritizes Sharpness +1, Razor Sharp, Attack Up (L), and either Guard +2 for blocking or Evade +2 for hop-evading. Only Sharpness +1 and Attack Up (L) are modeled here; Razor Sharp, Guard/Evade, ESP, and Element Atk Up are not.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 20,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.0
+  },
+  "sources": [
+    "https://gamefaqs.gamespot.com/ps2/914914-monster-hunter/faqs/79123/lance",
+    "https://monsterhunter.fandom.com/wiki/MHFU:_Skill_List",
+    "https://monsterhunter.fandom.com/wiki/Lance"
+  ]
+}

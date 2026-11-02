@@ -1,0 +1,17 @@
+{
+  "type": "great-sword",
+  "label": "Great Sword",
+  "metaLabel": "GS draw",
+  "note": "Crit Draw + Sharpness+1 + Focus. Crit Draw forces draw attacks to crit and ignores negative affinity in MHFU. Focus is a DPS skill and is not modeled per-hit.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": true,
+    "attackUp": 0,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.0
+  },
+  "sources": [
+    "https://w.atwiki.jp/mhp2g/pages/512.html",
+    "http://shuraba.com/?p=game%2FMHP2G%2F%E5%A4%A7%E5%89%A3%2F"
+  ]
+}

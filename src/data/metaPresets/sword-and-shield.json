@@ -1,0 +1,18 @@
+{
+  "type": "sword-and-shield",
+  "label": "Sword & Shield",
+  "metaLabel": "S+1 / Elem Up",
+  "note": "Endgame elemental SnS runs Sharpness +1, Element Attack Up, and Evade +2, with Razor Sharp as the usual sharpness-upkeep option; status SnS instead takes Status Attack Up. The model captures Sharpness +1 and the 1.2x Element Attack Up, but not Razor Sharp, Evade, or status skills.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 0,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.2
+  },
+  "sources": [
+    "https://gamefaqs.gamespot.com/boards/943356-monster-hunter-freedom-unite/50954833",
+    "https://gamefaqs.gamespot.com/boards/943356-monster-hunter-freedom-unite/53710524",
+    "https://gamefaqs.gamespot.com/psp/943356-monster-hunter-freedom-unite/faqs/78652/armor-skills"
+  ]
+}
