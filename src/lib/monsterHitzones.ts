@@ -30,6 +30,8 @@ export type MonsterWeaponScore = WeaponScore & {
   damageType: DamageType;
 };
 
+export type MatchupState = "practical" | "enraged" | "all";
+
 const DAMAGE_TYPE: Record<string, DamageType> = {
   "great-sword": "slash",
   "long-sword": "slash",
@@ -79,6 +81,29 @@ export function bestPartFor(
   );
 }
 
+function partState(part: string) {
+  if (part.endsWith("-enraged")) return "enraged";
+  if (part.endsWith("-post-break") || part.endsWith("-brokenshell")) return "late";
+  if (part.endsWith("-guard") || part.endsWith("-harden")) return "conditional";
+  return "normal";
+}
+
+/**
+ * Practical = normal and pre-break parts only. Enraged = practical plus enraged.
+ * All = every recorded state.
+ */
+export function eligibleParts(monster: Monster, state: MatchupState): MonsterPart[] {
+  if (state === "all") return monster.parts;
+  const practical = monster.parts.filter((part) => {
+    const value = partState(part.part);
+    return value === "normal";
+  });
+  const base = practical.length ? practical : monster.parts;
+  if (state === "practical") return base;
+  const enraged = monster.parts.filter((part) => partState(part.part) === "enraged");
+  return [...base, ...enraged];
+}
+
 export function scoreWeaponAgainstMonster(
   weapon: Weapon,
   monster: Monster,
@@ -98,13 +123,31 @@ export function scoreWeaponAgainstMonster(
   return { ...score, monsterPart, damageType };
 }
 
+export function scoreWeaponAgainstMonsterAuto(
+  weapon: Weapon,
+  monster: Monster,
+  state: MatchupState,
+  options: Partial<StrengthOptions> = {},
+): MonsterWeaponScore {
+  const parts = eligibleParts(monster, state);
+  let best = scoreWeaponAgainstMonster(weapon, monster, parts[0], options);
+  for (const part of parts.slice(1)) {
+    const row = scoreWeaponAgainstMonster(weapon, monster, part, options);
+    if (row.score > best.score) best = row;
+  }
+  return best;
+}
+
 export function scoreWeaponsAgainstMonster(
   weapons: Weapon[],
   monster: Monster,
   part: MonsterPart | undefined,
   options: Partial<StrengthOptions> = {},
+  state: MatchupState = "practical",
 ): MonsterWeaponScore[] {
   return weapons.map((weapon) =>
-    scoreWeaponAgainstMonster(weapon, monster, part, options),
+    part
+      ? scoreWeaponAgainstMonster(weapon, monster, part, options)
+      : scoreWeaponAgainstMonsterAuto(weapon, monster, state, options),
   );
 }

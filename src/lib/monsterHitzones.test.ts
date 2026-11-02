@@ -2,9 +2,11 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
   bestPartFor,
+  eligibleParts,
   elementHitzone,
   rawHitzone,
   scoreWeaponAgainstMonster,
+  scoreWeaponAgainstMonsterAuto,
   type Monster,
 } from "./monsterHitzones.ts";
 import type { Weapon } from "./types.ts";
@@ -68,4 +70,37 @@ test("auto target picks the best raw part for the weapon", () => {
   const row = scoreWeaponAgainstMonster(weapon(), monster, undefined);
   assert.equal(row.monsterPart.part, "head");
   assert.equal(row.score, 200 * 1.5 * 0.75);
+});
+
+test("practical state excludes late and conditional parts", () => {
+  const withLate: Monster = {
+    ...monster,
+    parts: [
+      ...monster.parts,
+      { part: "stomach-post-break", slash: 90, strike: 90, shooting: 90, fire: 0, water: 90, thunder: 0, ice: 0, dragon: 0 },
+      { part: "head-guard", slash: 95, strike: 95, shooting: 95, fire: 0, water: 0, thunder: 0, ice: 0, dragon: 0 },
+    ],
+  };
+  assert.equal(eligibleParts(withLate, "practical").some((part) => part.part === "stomach-post-break"), false);
+  assert.equal(eligibleParts(withLate, "practical").some((part) => part.part === "head-guard"), false);
+  assert.equal(eligibleParts(withLate, "all").some((part) => part.part === "stomach-post-break"), true);
+  const row = scoreWeaponAgainstMonsterAuto(weapon(), withLate, "practical");
+  assert.equal(row.monsterPart.part, "head");
+});
+
+test("auto part scoring considers elemental hitzones", () => {
+  const elemental: Monster = {
+    ...monster,
+    parts: [
+      { part: "raw-part", slash: 30, strike: 30, shooting: 30, fire: 0, water: 0, thunder: 0, ice: 0, dragon: 0 },
+      { part: "water-part", slash: 20, strike: 20, shooting: 20, fire: 0, water: 100, thunder: 0, ice: 0, dragon: 0 },
+    ],
+  };
+  const row = scoreWeaponAgainstMonsterAuto(
+    weapon({ elements: [["Water", 300]] }),
+    elemental,
+    "practical",
+    { sharpness: "base", rawHitzone: 100, elementHitzone: 100, classModifiers: false },
+  );
+  assert.equal(row.monsterPart.part, "water-part");
 });
