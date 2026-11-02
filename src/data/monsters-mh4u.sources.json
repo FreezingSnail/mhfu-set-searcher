@@ -1,0 +1,78 @@
+{
+  "game": "Monster Hunter 4 Ultimate",
+  "dataFile": "src/data/monsters-mh4u.json",
+  "generated": "2026-11-02",
+  "schema": {
+    "topLevel": "array of { name, type, parts }",
+    "part": "{ part, slash, strike, shooting, fire, water, thunder, ice, dragon }",
+    "scale": "Hitzone percentages; most are 0-100, but some weak points exceed 100 (for example Shah Dalamadur's head weakness)."
+  },
+  "sources": [
+    {
+      "name": "The Calculating Palico monster data",
+      "url": "https://github.com/mrmin123/the-calculating-palico/blob/master/json/monster_data.json",
+      "license": "MIT",
+      "role": "Primary machine-readable MH4U hitzone tables, including explicit state labels and broken-part values.",
+      "upstream": [
+        "https://kiranico.com/en/mh4u",
+        "https://github.com/kamegami13/MonsterHunter4UDatabase",
+        "https://monsterhunter.fandom.com/wiki/MH4U:_Monsters",
+        "https://sites.google.com/site/pingsdex/pingsmh4gdex/en_us"
+      ]
+    },
+    {
+      "name": "MonsterHunter4UDatabase (mh4u.db)",
+      "url": "https://github.com/kamegami13/MonsterHunter4UDatabase",
+      "license": "MIT",
+      "role": "Cross-check source for state names and values; base database used by The Calculating Palico."
+    },
+    {
+      "name": "Kiranico MH4U",
+      "url": "https://kiranico.com/en/mh4u",
+      "role": "Canonical web reference used to validate normal and state-specific values."
+    }
+  ],
+  "coverage": {
+    "largeMonsterEntries": 83,
+    "baseLargeMonsters": 75,
+    "apexStateVariants": 8,
+    "parts": 840,
+    "partsByState": {
+      "normal": 526,
+      "enraged": 106,
+      "postBreak": 82,
+      "charged": 24,
+      "fatigued": 21,
+      "guard": 19,
+      "virused": 16,
+      "windwrap": 16,
+      "tailInflated": 10,
+      "iceShield": 7,
+      "hidden": 7,
+      "savaged": 6
+    },
+    "monstersWithoutHitzoneData": [
+      "Crimson Fatalis",
+      "White Fatalis"
+    ]
+  },
+  "stateSuffixes": {
+    "-enraged": "Enraged state.",
+    "-post-break": "Part after it has been broken.",
+    "-guard": "Guarded/guarding state.",
+    "-charged": "Zinogre charged state.",
+    "-fatigued": "Fatigued state.",
+    "-virused": "Gore Magala virused state.",
+    "-windwrap": "Kushala Daora wind barrier.",
+    "-tail-inflated": "Tetsucabra tail inflated.",
+    "-ice-shield": "Zamtrios ice shield.",
+    "-hidden": "Chameleos invisible state.",
+    "-savaged": "Savage Deviljho savaged state."
+  },
+  "notes": [
+    "Crimson Fatalis and White Fatalis have no damage/hitzone table on Kiranico or in the MH4U database. They are included with empty parts; no Fatalis values were copied or assumed.",
+    "Apex Rajang, Apex Tidal Najarala, Apex Deviljho, Apex Gravios, Apex Tigrex, Apex Diablos, Apex Seregios, and Apex Zinogre are kept as separate entries because the source provides separate rows for them.",
+    "Tigerstripe Zamtrios' source 'Enraged' table is an exact duplicate of Zamtrios' Ice Shield table and is absent from Kiranico's Tigerstripe Zamtrios page, so it was not included.",
+    "No MH3U data was used. All hitzone values come from MH4U sources."
+  ]
+}

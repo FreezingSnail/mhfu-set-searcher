@@ -1,9 +1,11 @@
 import { useMemo, useState } from "react";
 import { useGame } from "../lib/gameContext";
-import { META_PRESETS } from "../lib/metaPresets";
+import { DAMAGE_PROFILES, type DamageProfile } from "../lib/damageProfiles";
+import { META_PRESETS_BY_GAME, type MetaPreset } from "../lib/metaPresets";
 import {
   DEFAULT_STRENGTH_OPTIONS,
   isEndTreeG,
+  isObtainableWeapon,
   type StrengthOptions,
 } from "../lib/weaponStrength";
 import {
@@ -13,13 +15,24 @@ import {
   scoreWeaponAgainstMonsterAuto,
   type MatchupState,
   type Monster,
+  type MonsterPart,
   type MonsterWeaponScore,
 } from "../lib/monsterHitzones";
-import monstersJson from "../data/monsters.json";
+import type { Game, Weapon } from "../lib/types";
+import monstersMhfuJson from "../data/monsters.json";
+import monstersMh3uJson from "../data/monsters-mh3u.json";
+import monstersMh4uJson from "../data/monsters-mh4u.json";
 
-const MONSTERS = [...(monstersJson as unknown as Monster[])].sort((a, b) =>
-  a.name.localeCompare(b.name),
-);
+const sortMonsters = (monsters: Monster[]) =>
+  [...monsters].sort((a, b) => a.name.localeCompare(b.name));
+
+const MONSTERS_BY_GAME: Record<Game, Monster[]> = {
+  mhfu: sortMonsters(monstersMhfuJson as unknown as Monster[]),
+  mh3u: sortMonsters(monstersMh3uJson as unknown as Monster[]),
+  mh4u: sortMonsters(monstersMh4uJson as unknown as Monster[]),
+};
+
+const EMPTY_MONSTER: Monster = { name: "—", type: "Unknown", parts: [] };
 
 const STATE_OPTIONS: { value: MatchupState; label: string }[] = [
   { value: "practical", label: "Practical (normal / pre-break)" },
@@ -37,72 +50,125 @@ function elementHitzoneLabel(row: MonsterWeaponScore) {
   return parts.length ? parts.join(" / ") : "—";
 }
 
-function optionsFor(type: string): StrengthOptions {
-  const preset = META_PRESETS[type];
+function optionsFor(
+  presets: Record<string, MetaPreset>,
+  profile: DamageProfile,
+  type: string,
+): StrengthOptions {
+  const preset = presets[type];
   return {
     ...DEFAULT_STRENGTH_OPTIONS,
     ...(preset?.skills ?? {}),
+    profile,
     songAttackUp: preset?.skills.songAttackUp ?? 1,
   };
 }
 
 function scoreFor(
   monster: Monster,
-  type: string,
-  part: MonsterWeaponScore["monsterPart"] | undefined,
+  part: MonsterPart | undefined,
   state: MatchupState,
-  weapon: Parameters<typeof scoreWeaponAgainstMonster>[0],
+  weapon: Weapon,
+  presets: Record<string, MetaPreset>,
+  profile: DamageProfile,
 ) {
+  const options = optionsFor(presets, profile, weapon.type);
   return part
-    ? scoreWeaponAgainstMonster(weapon, monster, part, optionsFor(type))
-    : scoreWeaponAgainstMonsterAuto(weapon, monster, state, optionsFor(type));
+    ? scoreWeaponAgainstMonster(weapon, monster, part, options)
+    : scoreWeaponAgainstMonsterAuto(weapon, monster, state, options);
 }
 
 export default function MonsterMatchups() {
-  const { data } = useGame();
-  const [monsterName, setMonsterName] = useState("Black Gravios");
+  const { game, data } = useGame();
+  const profile = DAMAGE_PROFILES[game];
+  const presets = META_PRESETS_BY_GAME[game];
+  const monsters = MONSTERS_BY_GAME[game];
+  const weaponTypes = useMemo(
+    () =>
+      game === "mhfu"
+        ? data.weaponTypes
+        : data.weaponTypes.filter((weaponType) => !data.rangedTypes.has(weaponType)),
+    [game, data.weaponTypes, data.rangedTypes],
+  );
+  const [monsterName, setMonsterName] = useState(
+    () =>
+      monsters.find((entry) => entry.name === "Black Gravios")?.name ??
+      monsters[0]?.name ??
+      "",
+  );
   const [partName, setPartName] = useState("auto");
   const [state, setState] = useState<MatchupState>("practical");
   const [type, setType] = useState("great-sword");
+  const [includeUnavailable, setIncludeUnavailable] = useState(false);
 
   const monster = useMemo(
-    () => MONSTERS.find((entry) => entry.name === monsterName) ?? MONSTERS[0],
-    [monsterName],
+    () =>
+      monsters.find((entry) => entry.name === monsterName) ??
+      monsters[0] ??
+      EMPTY_MONSTER,
+    [monsterName, monsters],
   );
+  const activePartName =
+    partName !== "auto" && monster.parts.some((part) => part.part === partName)
+      ? partName
+      : "auto";
   const selectedPart = useMemo(
-    () => (partName === "auto" ? undefined : monster.parts.find((part) => part.part === partName)),
-    [monster, partName],
+    () =>
+      activePartName === "auto"
+        ? undefined
+        : monster.parts.find((part) => part.part === activePartName),
+    [activePartName, monster],
   );
   const parts = useMemo(
     () => (selectedPart ? [selectedPart] : eligibleParts(monster, state)),
     [monster, selectedPart, state],
   );
+  const activeType = weaponTypes.includes(type)
+    ? type
+    : (weaponTypes[0] ?? "great-sword");
+  const availableWeapons = useMemo(
+    () =>
+      data.weapons.filter(
+        (weapon) => includeUnavailable || isObtainableWeapon(weapon),
+      ),
+    [data.weapons, includeUnavailable],
+  );
 
   const bestByType = useMemo(
     () =>
-      data.weaponTypes
+      weaponTypes
         .map((weaponType) => {
-          const rows = data.weapons
+          const rows = availableWeapons
             .filter((weapon) => weapon.type === weaponType && isEndTreeG(weapon))
-            .map((weapon) => scoreFor(monster, weaponType, selectedPart, state, weapon))
+            .map((weapon) =>
+              scoreFor(monster, selectedPart, state, weapon, presets, profile),
+            )
             .sort((a, b) => b.score - a.score);
           return rows[0] ? { type: weaponType, row: rows[0] } : null;
         })
-        .filter((entry): entry is { type: string; row: MonsterWeaponScore } => !!entry),
-    [data.weaponTypes, data.weapons, monster, selectedPart, state],
+        .filter(
+          (entry): entry is { type: string; row: MonsterWeaponScore } => !!entry,
+        ),
+    [availableWeapons, monster, selectedPart, state, weaponTypes, presets, profile],
   );
 
   const ranked = useMemo(
     () =>
-      data.weapons
-        .filter((weapon) => weapon.type === type && isEndTreeG(weapon))
-        .map((weapon) => scoreFor(monster, type, selectedPart, state, weapon))
+      availableWeapons
+        .filter((weapon) => weapon.type === activeType && isEndTreeG(weapon))
+        .map((weapon) =>
+          scoreFor(monster, selectedPart, state, weapon, presets, profile),
+        )
         .sort((a, b) => b.score - a.score),
-    [data.weapons, monster, selectedPart, state, type],
+    [activeType, availableWeapons, monster, selectedPart, state, presets, profile],
   );
 
-  const preset = META_PRESETS[type];
-  const targetLabel = selectedPart?.part ?? `auto · ${parts.length} eligible parts`;
+  const preset = presets[activeType];
+  const targetLabel = selectedPart
+    ? selectedPart.part
+    : monster.parts.length
+      ? `auto · ${parts.length} eligible parts`
+      : "no recorded hitzones";
 
   return (
     <div className="stack monster-matchups">
@@ -111,11 +177,13 @@ export default function MonsterMatchups() {
           <div>
             <h2>Monster Matchup</h2>
             <p className="dim small">
-              Find the best end-tree G weapon for a monster. Practical mode excludes enraged,
-              guard, harden, post-break, and broken-shell parts, so late-fight hitzones do not
-              decide the result. Auto picks each weapon's best eligible part using both raw and
-              elemental hitzones. Bow uses charge 3, Power Coating when available, and critical
-              distance.
+              Find the best end-tree G weapon for a monster. Practical mode includes only normal
+              and pre-break hitzones, so enraged, charged, guard, harden, post-break, broken,
+              G-rank, and other conditional states do not decide the result. Auto picks each
+              weapon&apos;s best eligible part using both raw and elemental hitzones.{" "}
+              {game === "mhfu"
+                ? "Bow uses charge 3, Power Coating when available, and critical distance."
+                : "Ranged classes are omitted; only blademaster hitzones are scored."}
             </p>
           </div>
         </div>
@@ -129,14 +197,14 @@ export default function MonsterMatchups() {
                 setPartName("auto");
               }}
             >
-              {MONSTERS.map((entry) => (
+              {monsters.map((entry) => (
                 <option key={entry.name} value={entry.name}>{entry.name}</option>
               ))}
             </select>
           </label>
           <label>
             Part
-            <select value={partName} onChange={(event) => setPartName(event.target.value)}>
+            <select value={activePartName} onChange={(event) => setPartName(event.target.value)}>
               <option value="auto">Auto (best per weapon)</option>
               {monster.parts.map((part) => (
                 <option key={part.part} value={part.part}>{part.part}</option>
@@ -157,11 +225,19 @@ export default function MonsterMatchups() {
           </label>
           <label>
             Weapon class
-            <select value={type} onChange={(event) => setType(event.target.value)}>
-              {data.weaponTypes.map((weaponType) => (
+            <select value={activeType} onChange={(event) => setType(event.target.value)}>
+              {weaponTypes.map((weaponType) => (
                 <option key={weaponType} value={weaponType}>{data.typeLabel[weaponType]}</option>
               ))}
             </select>
+          </label>
+          <label className="check">
+            <input
+              type="checkbox"
+              checked={includeUnavailable}
+              onChange={(event) => setIncludeUnavailable(event.target.checked)}
+            />
+            Show non-obtainable
           </label>
         </div>
         <p className="dim small compare-preset-note">
@@ -185,7 +261,7 @@ export default function MonsterMatchups() {
             <button
               key={bestType}
               type="button"
-              className={`best-card${bestType === type ? " active" : ""}`}
+              className={`best-card${bestType === activeType ? " active" : ""}`}
               onClick={() => setType(bestType)}
             >
               <span className="dim small">{data.typeLabel[bestType]}</span>
@@ -203,7 +279,7 @@ export default function MonsterMatchups() {
       <section className="panel">
         <div className="compare-chart-head">
           <div>
-            <h3>{data.typeLabel[type]} ranking vs {monster.name}</h3>
+            <h3>{data.typeLabel[activeType]} ranking vs {monster.name}</h3>
             <p className="dim small">
               {preset ? `${preset.metaLabel}; ` : ""}
               top {Math.min(15, ranked.length)} of {ranked.length}. Target: {targetLabel}.

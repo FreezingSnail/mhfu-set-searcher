@@ -1,0 +1,227 @@
+{
+  "dataset": "Monster Hunter 3 Ultimate large-monster hitzones",
+  "game": "Monster Hunter 3 Ultimate (MH3U / MH3G)",
+  "generated": "2026-11-02",
+  "dataFile": "src/data/monsters-mh3u.json",
+  "schema": "Array of {name, type, parts:[{part, slash, strike, shooting, fire, water, thunder, ice, dragon}]}",
+  "roster": {
+    "source": "https://www.mhkita.com/mh3u/monster/big",
+    "largeMonsterCount": 51,
+    "note": "Roster is the 51 large monsters listed by the MH3U source. Small monsters are intentionally excluded. The source labels Purple Ludroth as 'Pink Ludroth'; the official English name is used here."
+  },
+  "hitzoneSources": [
+    {
+      "id": "mhkita",
+      "name": "MH3U/3G Monster Details (mhkita.com)",
+      "indexUrl": "https://www.mhkita.com/mh3u/monster/big",
+      "detailUrlPattern": "https://www.mhkita.com/mh3u/monster/{id}",
+      "usedFor": "Primary numeric damage charts and explicit condition labels for 49 monsters; also used for Alatreon because Kiranico has no numeric Alatreon table.",
+      "notes": "Each page has a Damage Chart with Condition labels (All Conditions, Normal/Rage, G rank, Hardened/Softened, Covered/Uncovered, Fish out, elemental states). Column order on these pages is Cut, Impact, Shooting, Fire, Water, Thunder, Ice, Dragon. Values were copied as integers. Faint/Stagger columns were not used."
+    },
+    {
+      "id": "kiranico",
+      "name": "Kiranico MH3U monster pages",
+      "indexUrl": "https://kiranico.com/en/mh3u/monster",
+      "detailUrlPattern": "https://kiranico.com/en/mh3u/monster/{slug}",
+      "usedFor": "Cross-check of part coverage and values; Hallowed Jhen Mohran values because the mhkita copy transposes Thunder/Ice and contains an uncorroborated negative Fire value on Neck.",
+      "notes": "Kiranico column order is Cut, Impact, Shot, Fire, Water, Ice, Thunder, Dragon, so Ice/Thunder were reordered when comparing. Kiranico has no numeric chart for Dire Miralis and no numeric chart for Alatreon; Alatreon therefore uses mhkita only."
+    },
+    {
+      "id": "monsterhunterwiki",
+      "name": "Monster Hunter Wiki - Dire Miralis (MH3U) / Outdated",
+      "url": "https://monsterhunterwiki.org/wiki/Dire_Miralis_(MH3U)/Outdated",
+      "usedFor": "Dire Miralis hitzones only, because the primary MH3U sources have no numeric table for it.",
+      "notes": "MH3U-specific numeric Hit Zone Values table: Cut, Impact, Bullet, Fire, Water, Thunder, Ice, Dragon. This is the archived/outdated version of the wiki page; the current page has an empty damage table. Values were not invented; they are copied from this published table."
+    }
+  ],
+  "conditionMapping": {
+    "All Conditions": "no suffix",
+    "Normal": "no suffix",
+    "Low / Hi rank": "no suffix",
+    "Rage": "-enraged",
+    "Super charged": "-enraged",
+    "G rank": "-g-rank",
+    "Hardened skin": "-harden",
+    "Softening by lava/ice or peeled off": "no suffix (softened/base state)",
+    "Covered by mud/ice": "no suffix (covered/base state)",
+    "Uncovered by mud/ice": "-post-break",
+    "Fish out": "-fished",
+    "Fire and Dragon state": "no suffix (base elemental state)",
+    "Ice and lightning state": "-ice-mode"
+  },
+  "partNameMapping": {
+    "Other than head": "body",
+    "Sound bag (when playing)": "sound-bag",
+    "Wing Bone": "wing-bone",
+    "Upper body": "upper-body",
+    "Lower body": "lower-body",
+    "Upper back": "upper-back",
+    "While rotation": "while-rotating",
+    "Front legs": "front-legs",
+    "Back legs": "back-legs",
+    "Front legs paw": "front-legs-paw",
+    "Back legs paw": "back-legs-paw",
+    "Tail tip": "tail-tip",
+    "Sharp wings": "sharp-wings",
+    "Abdominal": "abdomen",
+    "Tip of nose": "nose",
+    "Gill": "gills",
+    "Oral": "mouth",
+    "Side edge": "side-edge",
+    "Head before break": "head",
+    "Head after break": "head-post-break",
+    "Back before break": "back",
+    "Back after break": "back-post-break",
+    "Chest before beard break": "chest",
+    "Chest after beard break": "chest-post-break",
+    "Dorsal fin": "dorsal-fin",
+    "Cracked dorsal fin": "dorsal-fin-post-break",
+    "Fang": "tusk",
+    "Weakened Fin": "dorsal-fin-post-break"
+  },
+  "coverage": {
+    "largeMonsters": 51,
+    "withHitzones": 51,
+    "withoutHitzones": [],
+    "partRows": 495,
+    "enragedPartMonsters": [
+      "Gigginox",
+      "Baleful Gigginox",
+      "Nargacuga",
+      "Green Nargacuga",
+      "Lucent Nargacuga",
+      "Gobul",
+      "Zinogre",
+      "Stygian Zinogre",
+      "Deviljho",
+      "Savage Deviljho"
+    ],
+    "otherStatePartMonsters": [
+      "Arzuros",
+      "Royal Ludroth",
+      "Agnaktor",
+      "Glacial Agnaktor",
+      "Nibelsnarf",
+      "Barroth",
+      "Jade Barroth",
+      "Alatreon",
+      "Uragaan",
+      "Steel Uragaan",
+      "Duramboros",
+      "Rust Duramboros",
+      "Ceadeus",
+      "Goldbeard Ceadeus",
+      "Jhen Mohran",
+      "Hallowed Jhen Mohran"
+    ]
+  },
+  "knownGaps": [],
+  "crossCheck": {
+    "summary": "Kiranico values agree with mhkita for the large majority of parts after reordering Kiranico's Ice/Thunder columns. Where they disagree, mhkita was kept except Hallowed Jhen Mohran, which uses Kiranico. Differences are usually small and are recorded below for auditability.",
+    "discrepancies": [
+      {
+        "monster": "Pink Rathian",
+        "part": "head",
+        "field": "dragon",
+        "mhkita": 25,
+        "kiranico": 20,
+        "used": "mhkita"
+      },
+      {
+        "monster": "Gold Rathian",
+        "part": "back",
+        "field": "strike",
+        "mhkita": 50,
+        "kiranico": 55,
+        "used": "mhkita"
+      },
+      {
+        "monster": "Gigginox",
+        "part": "neck",
+        "field": "fire",
+        "mhkita": 25,
+        "kiranico": 20,
+        "used": "mhkita"
+      },
+      {
+        "monster": "Zinogre",
+        "part": "front-legs",
+        "field": "slash/strike/shooting",
+        "mhkita": [
+          30,
+          30,
+          30
+        ],
+        "kiranico": [
+          24,
+          30,
+          25
+        ],
+        "used": "mhkita"
+      },
+      {
+        "monster": "Zinogre",
+        "part": "back-legs",
+        "field": "slash/strike/shooting",
+        "mhkita": [
+          30,
+          30,
+          30
+        ],
+        "kiranico": [
+          36,
+          35,
+          35
+        ],
+        "used": "mhkita"
+      },
+      {
+        "monster": "Stygian Zinogre",
+        "part": "front-legs/back-legs",
+        "field": "slash/strike/shooting",
+        "mhkita": "normal 25/25/25, charged 25/25/30 (front and back legs)",
+        "kiranico": "normal front 25/25/20 and back 25/25/30; charged front 22/22/25 and back 25/25/25",
+        "used": "mhkita"
+      },
+      {
+        "monster": "Barroth",
+        "part": "head",
+        "field": "slash",
+        "mhkita": 22,
+        "kiranico": 20,
+        "used": "mhkita"
+      },
+      {
+        "monster": "Steel Uragaan",
+        "part": "back-legs",
+        "field": "slash",
+        "mhkita": 30,
+        "kiranico": 25,
+        "used": "mhkita"
+      },
+      {
+        "monster": "Duramboros",
+        "part": "back-legs",
+        "field": "dragon",
+        "mhkita": 5,
+        "kiranico": 15,
+        "used": "mhkita"
+      },
+      {
+        "monster": "Hallowed Jhen Mohran",
+        "part": "all",
+        "field": "thunder/ice",
+        "mhkita": "transposed",
+        "kiranico": "used",
+        "used": "kiranico"
+      }
+    ]
+  },
+  "notes": [
+    "No MH4U values or monsters are included; this file is MH3U-only.",
+    "Suffixes follow the existing MHFU data conventions so the current MonsterMatchups code can distinguish normal, -enraged, -post-break, -harden, -guard, and -brokenshell states. Additional descriptive suffixes (-g-rank, -fished, -ice-mode) are kept because the source distinguishes those states; unrecognized suffixes are treated as normal by the current code.",
+    "Trailing -enraged is used for both Rage and Zinogre 'Super charged' states because both represent the powered-up state used by the 'Include enraged' option.",
+    "Dire Miralis is the only monster whose hitzones come from the Monster Hunter Wiki outdated MH3U table; mhkita and Kiranico both lack a numeric chart for it. Its Back/Tail values are combined in the source and are stored as the single part back-tail.",
+    "Official English monster names were used; the only roster label corrected was mhkita's 'Pink Ludroth' -> 'Purple Ludroth'."
+  ]
+}

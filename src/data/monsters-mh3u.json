@@ -1,0 +1,5753 @@
+[
+  {
+    "name": "Abyssal Lagiacrus",
+    "type": "Leviathan",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 15,
+        "strike": 15,
+        "shooting": 18,
+        "fire": 20,
+        "water": 0,
+        "thunder": 0,
+        "ice": 5,
+        "dragon": 35
+      },
+      {
+        "part": "legs",
+        "slash": 27,
+        "strike": 25,
+        "shooting": 10,
+        "fire": 10,
+        "water": 0,
+        "thunder": 0,
+        "ice": 5,
+        "dragon": 15
+      },
+      {
+        "part": "tail",
+        "slash": 30,
+        "strike": 35,
+        "shooting": 15,
+        "fire": 10,
+        "water": 0,
+        "thunder": 0,
+        "ice": 5,
+        "dragon": 15
+      },
+      {
+        "part": "back",
+        "slash": 25,
+        "strike": 40,
+        "shooting": 15,
+        "fire": 20,
+        "water": 0,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 25
+      },
+      {
+        "part": "breast",
+        "slash": 45,
+        "strike": 40,
+        "shooting": 35,
+        "fire": 15,
+        "water": 0,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 20
+      },
+      {
+        "part": "body",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 20,
+        "fire": 10,
+        "water": 0,
+        "thunder": 0,
+        "ice": 5,
+        "dragon": 15
+      }
+    ]
+  },
+  {
+    "name": "Agnaktor",
+    "type": "Leviathan",
+    "parts": [
+      {
+        "part": "head-harden",
+        "slash": 15,
+        "strike": 15,
+        "shooting": 15,
+        "fire": 10,
+        "water": 30,
+        "thunder": 15,
+        "ice": 25,
+        "dragon": 0
+      },
+      {
+        "part": "torso-harden",
+        "slash": 15,
+        "strike": 15,
+        "shooting": 15,
+        "fire": 10,
+        "water": 20,
+        "thunder": 0,
+        "ice": 20,
+        "dragon": 0
+      },
+      {
+        "part": "tail-harden",
+        "slash": 15,
+        "strike": 15,
+        "shooting": 15,
+        "fire": 10,
+        "water": 20,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "front-legs-harden",
+        "slash": 15,
+        "strike": 15,
+        "shooting": 15,
+        "fire": 10,
+        "water": 20,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "neck-harden",
+        "slash": 15,
+        "strike": 15,
+        "shooting": 15,
+        "fire": 10,
+        "water": 15,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "back-legs-harden",
+        "slash": 15,
+        "strike": 15,
+        "shooting": 15,
+        "fire": 10,
+        "water": 20,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "breast-harden",
+        "slash": 15,
+        "strike": 15,
+        "shooting": 15,
+        "fire": 10,
+        "water": 25,
+        "thunder": 10,
+        "ice": 20,
+        "dragon": 0
+      },
+      {
+        "part": "fin-harden",
+        "slash": 20,
+        "strike": 24,
+        "shooting": 20,
+        "fire": 5,
+        "water": 15,
+        "thunder": 10,
+        "ice": 10,
+        "dragon": 20
+      },
+      {
+        "part": "head",
+        "slash": 55,
+        "strike": 60,
+        "shooting": 50,
+        "fire": 0,
+        "water": 30,
+        "thunder": 25,
+        "ice": 20,
+        "dragon": 35
+      },
+      {
+        "part": "torso",
+        "slash": 40,
+        "strike": 44,
+        "shooting": 35,
+        "fire": 0,
+        "water": 20,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 30
+      },
+      {
+        "part": "tail",
+        "slash": 35,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 0,
+        "water": 20,
+        "thunder": 15,
+        "ice": 15,
+        "dragon": 25
+      },
+      {
+        "part": "front-legs",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 25,
+        "fire": 0,
+        "water": 20,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 25
+      },
+      {
+        "part": "neck",
+        "slash": 40,
+        "strike": 35,
+        "shooting": 30,
+        "fire": 0,
+        "water": 15,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 20
+      },
+      {
+        "part": "back-legs",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 25,
+        "fire": 0,
+        "water": 20,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 25
+      },
+      {
+        "part": "breast",
+        "slash": 50,
+        "strike": 45,
+        "shooting": 45,
+        "fire": 0,
+        "water": 25,
+        "thunder": 20,
+        "ice": 20,
+        "dragon": 30
+      },
+      {
+        "part": "fin",
+        "slash": 20,
+        "strike": 24,
+        "shooting": 20,
+        "fire": 5,
+        "water": 15,
+        "thunder": 10,
+        "ice": 10,
+        "dragon": 20
+      }
+    ]
+  },
+  {
+    "name": "Alatreon",
+    "type": "Elder Dragon",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 45,
+        "strike": 50,
+        "shooting": 25,
+        "fire": 0,
+        "water": 15,
+        "thunder": 5,
+        "ice": 20,
+        "dragon": 5
+      },
+      {
+        "part": "torso",
+        "slash": 35,
+        "strike": 30,
+        "shooting": 15,
+        "fire": 0,
+        "water": 10,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 5
+      },
+      {
+        "part": "tail",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 20,
+        "fire": 0,
+        "water": 10,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 5
+      },
+      {
+        "part": "neck",
+        "slash": 40,
+        "strike": 35,
+        "shooting": 20,
+        "fire": 0,
+        "water": 10,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 5
+      },
+      {
+        "part": "wing",
+        "slash": 18,
+        "strike": 18,
+        "shooting": 10,
+        "fire": 0,
+        "water": 10,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 5
+      },
+      {
+        "part": "limb",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 15,
+        "fire": 0,
+        "water": 10,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 5
+      },
+      {
+        "part": "head-ice-mode",
+        "slash": 45,
+        "strike": 50,
+        "shooting": 25,
+        "fire": 20,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 25
+      },
+      {
+        "part": "torso-ice-mode",
+        "slash": 35,
+        "strike": 30,
+        "shooting": 15,
+        "fire": 15,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 20
+      },
+      {
+        "part": "tail-ice-mode",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 20,
+        "fire": 15,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 20
+      },
+      {
+        "part": "neck-ice-mode",
+        "slash": 40,
+        "strike": 35,
+        "shooting": 20,
+        "fire": 15,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 20
+      },
+      {
+        "part": "wing-ice-mode",
+        "slash": 18,
+        "strike": 18,
+        "shooting": 10,
+        "fire": 15,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 15
+      },
+      {
+        "part": "limb-ice-mode",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 15,
+        "fire": 15,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 20
+      }
+    ]
+  },
+  {
+    "name": "Arzuros",
+    "type": "Fanged Beast",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 60,
+        "strike": 60,
+        "shooting": 60,
+        "fire": 20,
+        "water": 5,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "upper-body",
+        "slash": 50,
+        "strike": 50,
+        "shooting": 80,
+        "fire": 25,
+        "water": 5,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "front-legs",
+        "slash": 33,
+        "strike": 35,
+        "shooting": 28,
+        "fire": 30,
+        "water": 5,
+        "thunder": 30,
+        "ice": 20,
+        "dragon": 0
+      },
+      {
+        "part": "lower-body",
+        "slash": 56,
+        "strike": 56,
+        "shooting": 40,
+        "fire": 15,
+        "water": 5,
+        "thunder": 10,
+        "ice": 20,
+        "dragon": 0
+      },
+      {
+        "part": "butt",
+        "slash": 85,
+        "strike": 85,
+        "shooting": 44,
+        "fire": 15,
+        "water": 5,
+        "thunder": 10,
+        "ice": 20,
+        "dragon": 0
+      },
+      {
+        "part": "head-g-rank",
+        "slash": 50,
+        "strike": 50,
+        "shooting": 50,
+        "fire": 20,
+        "water": 5,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "upper-body-g-rank",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 70,
+        "fire": 25,
+        "water": 5,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "front-legs-g-rank",
+        "slash": 22,
+        "strike": 22,
+        "shooting": 24,
+        "fire": 25,
+        "water": 5,
+        "thunder": 25,
+        "ice": 20,
+        "dragon": 0
+      },
+      {
+        "part": "lower-body-g-rank",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 30,
+        "fire": 15,
+        "water": 5,
+        "thunder": 10,
+        "ice": 20,
+        "dragon": 0
+      },
+      {
+        "part": "butt-g-rank",
+        "slash": 85,
+        "strike": 85,
+        "shooting": 44,
+        "fire": 15,
+        "water": 5,
+        "thunder": 10,
+        "ice": 20,
+        "dragon": 0
+      }
+    ]
+  },
+  {
+    "name": "Azure Rathalos",
+    "type": "Flying Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 70,
+        "strike": 65,
+        "shooting": 55,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 20
+      },
+      {
+        "part": "legs",
+        "slash": 28,
+        "strike": 25,
+        "shooting": 28,
+        "fire": 0,
+        "water": 15,
+        "thunder": 15,
+        "ice": 20,
+        "dragon": 30
+      },
+      {
+        "part": "tail",
+        "slash": 23,
+        "strike": 23,
+        "shooting": 20,
+        "fire": 0,
+        "water": 5,
+        "thunder": 5,
+        "ice": 5,
+        "dragon": 20
+      },
+      {
+        "part": "neck",
+        "slash": 45,
+        "strike": 40,
+        "shooting": 30,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 20
+      },
+      {
+        "part": "back",
+        "slash": 20,
+        "strike": 25,
+        "shooting": 30,
+        "fire": 10,
+        "water": 15,
+        "thunder": 15,
+        "ice": 20,
+        "dragon": 20
+      },
+      {
+        "part": "abdomen",
+        "slash": 45,
+        "strike": 40,
+        "shooting": 70,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "wing",
+        "slash": 25,
+        "strike": 20,
+        "shooting": 25,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 15
+      },
+      {
+        "part": "tail-tip",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 0,
+        "water": 5,
+        "thunder": 5,
+        "ice": 5,
+        "dragon": 20
+      }
+    ]
+  },
+  {
+    "name": "Baleful Gigginox",
+    "type": "Flying Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 45,
+        "strike": 55,
+        "shooting": 50,
+        "fire": 5,
+        "water": 30,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 20
+      },
+      {
+        "part": "tail",
+        "slash": 19,
+        "strike": 19,
+        "shooting": 19,
+        "fire": 5,
+        "water": 30,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "front-legs",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 15,
+        "fire": 5,
+        "water": 10,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "neck",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 40,
+        "fire": 5,
+        "water": 25,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "back",
+        "slash": 35,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 5,
+        "water": 20,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "belly",
+        "slash": 55,
+        "strike": 45,
+        "shooting": 50,
+        "fire": 5,
+        "water": 30,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 15
+      },
+      {
+        "part": "back-legs",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 35,
+        "fire": 5,
+        "water": 10,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "head-enraged",
+        "slash": 19,
+        "strike": 19,
+        "shooting": 10,
+        "fire": 5,
+        "water": 30,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 20
+      },
+      {
+        "part": "tail-enraged",
+        "slash": 50,
+        "strike": 55,
+        "shooting": 50,
+        "fire": 5,
+        "water": 30,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "front-legs-enraged",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 15,
+        "fire": 5,
+        "water": 10,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "neck-enraged",
+        "slash": 24,
+        "strike": 25,
+        "shooting": 15,
+        "fire": 5,
+        "water": 25,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "back-enraged",
+        "slash": 35,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 5,
+        "water": 20,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "belly-enraged",
+        "slash": 55,
+        "strike": 45,
+        "shooting": 50,
+        "fire": 5,
+        "water": 30,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 15
+      },
+      {
+        "part": "back-legs-enraged",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 35,
+        "fire": 5,
+        "water": 10,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 10
+      }
+    ]
+  },
+  {
+    "name": "Barioth",
+    "type": "Flying Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 60,
+        "strike": 65,
+        "shooting": 70,
+        "fire": 30,
+        "water": 10,
+        "thunder": 25,
+        "ice": 0,
+        "dragon": 15
+      },
+      {
+        "part": "tail",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 30,
+        "fire": 15,
+        "water": 0,
+        "thunder": 10,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "front-legs",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 30,
+        "fire": 15,
+        "water": 0,
+        "thunder": 10,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "neck",
+        "slash": 30,
+        "strike": 25,
+        "shooting": 30,
+        "fire": 5,
+        "water": 5,
+        "thunder": 5,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "back",
+        "slash": 30,
+        "strike": 25,
+        "shooting": 30,
+        "fire": 5,
+        "water": 5,
+        "thunder": 5,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "wing",
+        "slash": 25,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 30,
+        "water": 5,
+        "thunder": 25,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "belly",
+        "slash": 45,
+        "strike": 25,
+        "shooting": 40,
+        "fire": 10,
+        "water": 0,
+        "thunder": 5,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "back-legs",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 35,
+        "fire": 10,
+        "water": 5,
+        "thunder": 5,
+        "ice": 0,
+        "dragon": 0
+      }
+    ]
+  },
+  {
+    "name": "Barroth",
+    "type": "Brute Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 22,
+        "strike": 25,
+        "shooting": 15,
+        "fire": 0,
+        "water": 50,
+        "thunder": 0,
+        "ice": 20,
+        "dragon": 0
+      },
+      {
+        "part": "torso",
+        "slash": 36,
+        "strike": 45,
+        "shooting": 35,
+        "fire": 0,
+        "water": 30,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "tail",
+        "slash": 42,
+        "strike": 42,
+        "shooting": 45,
+        "fire": 0,
+        "water": 30,
+        "thunder": 0,
+        "ice": 20,
+        "dragon": 0
+      },
+      {
+        "part": "front-legs",
+        "slash": 45,
+        "strike": 50,
+        "shooting": 45,
+        "fire": 0,
+        "water": 25,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "back-legs",
+        "slash": 36,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 0,
+        "water": 25,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "head-post-break",
+        "slash": 22,
+        "strike": 25,
+        "shooting": 15,
+        "fire": 40,
+        "water": 0,
+        "thunder": 0,
+        "ice": 20,
+        "dragon": 10
+      },
+      {
+        "part": "torso-post-break",
+        "slash": 36,
+        "strike": 45,
+        "shooting": 35,
+        "fire": 25,
+        "water": 0,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "tail-post-break",
+        "slash": 42,
+        "strike": 42,
+        "shooting": 45,
+        "fire": 25,
+        "water": 0,
+        "thunder": 0,
+        "ice": 20,
+        "dragon": 10
+      },
+      {
+        "part": "front-legs-post-break",
+        "slash": 45,
+        "strike": 50,
+        "shooting": 45,
+        "fire": 20,
+        "water": 0,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "back-legs-post-break",
+        "slash": 36,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 20,
+        "water": 0,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 5
+      }
+    ]
+  },
+  {
+    "name": "Black Diablos",
+    "type": "Flying Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 24,
+        "strike": 15,
+        "shooting": 20,
+        "fire": 0,
+        "water": 15,
+        "thunder": 15,
+        "ice": 20,
+        "dragon": 15
+      },
+      {
+        "part": "webbing",
+        "slash": 40,
+        "strike": 30,
+        "shooting": 45,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 20,
+        "dragon": 10
+      },
+      {
+        "part": "wing-bone",
+        "slash": 23,
+        "strike": 42,
+        "shooting": 20,
+        "fire": 10,
+        "water": 15,
+        "thunder": 15,
+        "ice": 25,
+        "dragon": 15
+      },
+      {
+        "part": "legs",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 35,
+        "fire": 0,
+        "water": 5,
+        "thunder": 5,
+        "ice": 8,
+        "dragon": 5
+      },
+      {
+        "part": "tail",
+        "slash": 50,
+        "strike": 24,
+        "shooting": 60,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "neck",
+        "slash": 45,
+        "strike": 45,
+        "shooting": 30,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "back",
+        "slash": 23,
+        "strike": 42,
+        "shooting": 20,
+        "fire": 10,
+        "water": 15,
+        "thunder": 15,
+        "ice": 25,
+        "dragon": 15
+      },
+      {
+        "part": "tail-tip",
+        "slash": 22,
+        "strike": 35,
+        "shooting": 10,
+        "fire": 10,
+        "water": 15,
+        "thunder": 15,
+        "ice": 30,
+        "dragon": 15
+      },
+      {
+        "part": "belly",
+        "slash": 68,
+        "strike": 75,
+        "shooting": 40,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 10,
+        "dragon": 10
+      }
+    ]
+  },
+  {
+    "name": "Brachydios",
+    "type": "Brute Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 50,
+        "strike": 50,
+        "shooting": 45,
+        "fire": 0,
+        "water": 20,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 5
+      },
+      {
+        "part": "tail",
+        "slash": 35,
+        "strike": 25,
+        "shooting": 45,
+        "fire": 0,
+        "water": 15,
+        "thunder": 5,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "front-legs",
+        "slash": 30,
+        "strike": 35,
+        "shooting": 30,
+        "fire": 0,
+        "water": 10,
+        "thunder": 5,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "tail-tip",
+        "slash": 20,
+        "strike": 10,
+        "shooting": 10,
+        "fire": 0,
+        "water": 10,
+        "thunder": 0,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "back-legs",
+        "slash": 30,
+        "strike": 35,
+        "shooting": 35,
+        "fire": 0,
+        "water": 10,
+        "thunder": 5,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "body",
+        "slash": 44,
+        "strike": 40,
+        "shooting": 20,
+        "fire": 0,
+        "water": 15,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "horn",
+        "slash": 19,
+        "strike": 24,
+        "shooting": 15,
+        "fire": 0,
+        "water": 25,
+        "thunder": 5,
+        "ice": 20,
+        "dragon": 5
+      }
+    ]
+  },
+  {
+    "name": "Ceadeus",
+    "type": "Elder Dragon",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 26,
+        "strike": 30,
+        "shooting": 40,
+        "fire": 5,
+        "water": 0,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 25
+      },
+      {
+        "part": "tail",
+        "slash": 35,
+        "strike": 28,
+        "shooting": 25,
+        "fire": 10,
+        "water": 0,
+        "thunder": 25,
+        "ice": 5,
+        "dragon": 20
+      },
+      {
+        "part": "back",
+        "slash": 25,
+        "strike": 40,
+        "shooting": 25,
+        "fire": 5,
+        "water": 0,
+        "thunder": 15,
+        "ice": 5,
+        "dragon": 20
+      },
+      {
+        "part": "abdomen",
+        "slash": 32,
+        "strike": 20,
+        "shooting": 45,
+        "fire": 5,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 30
+      },
+      {
+        "part": "horn",
+        "slash": 18,
+        "strike": 33,
+        "shooting": 20,
+        "fire": 10,
+        "water": 0,
+        "thunder": 25,
+        "ice": 0,
+        "dragon": 35
+      },
+      {
+        "part": "arm",
+        "slash": 28,
+        "strike": 30,
+        "shooting": 20,
+        "fire": 5,
+        "water": 0,
+        "thunder": 20,
+        "ice": 0,
+        "dragon": 20
+      },
+      {
+        "part": "chest",
+        "slash": 60,
+        "strike": 55,
+        "shooting": 40,
+        "fire": 10,
+        "water": 0,
+        "thunder": 10,
+        "ice": 0,
+        "dragon": 20
+      },
+      {
+        "part": "chest-post-break",
+        "slash": 40,
+        "strike": 35,
+        "shooting": 40,
+        "fire": 15,
+        "water": 0,
+        "thunder": 5,
+        "ice": 0,
+        "dragon": 15
+      }
+    ]
+  },
+  {
+    "name": "Crimson Qurupeco",
+    "type": "Bird Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 60,
+        "strike": 70,
+        "shooting": 60,
+        "fire": 20,
+        "water": 10,
+        "thunder": 0,
+        "ice": 30,
+        "dragon": 5
+      },
+      {
+        "part": "sound-bag",
+        "slash": 50,
+        "strike": 40,
+        "shooting": 70,
+        "fire": 15,
+        "water": 5,
+        "thunder": 0,
+        "ice": 20,
+        "dragon": 0
+      },
+      {
+        "part": "torso",
+        "slash": 50,
+        "strike": 40,
+        "shooting": 40,
+        "fire": 10,
+        "water": 5,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "flint",
+        "slash": 21,
+        "strike": 21,
+        "shooting": 30,
+        "fire": 15,
+        "water": 15,
+        "thunder": 0,
+        "ice": 30,
+        "dragon": 0
+      },
+      {
+        "part": "webbing",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 30,
+        "fire": 10,
+        "water": 5,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "wing-bone",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 30,
+        "fire": 10,
+        "water": 5,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "legs",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 40,
+        "fire": 10,
+        "water": 5,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "tail",
+        "slash": 40,
+        "strike": 30,
+        "shooting": 30,
+        "fire": 15,
+        "water": 15,
+        "thunder": 0,
+        "ice": 20,
+        "dragon": 10
+      }
+    ]
+  },
+  {
+    "name": "Deviljho",
+    "type": "Brute Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 60,
+        "strike": 65,
+        "shooting": 60,
+        "fire": 10,
+        "water": 10,
+        "thunder": 15,
+        "ice": 5,
+        "dragon": 15
+      },
+      {
+        "part": "tail",
+        "slash": 35,
+        "strike": 32,
+        "shooting": 30,
+        "fire": 5,
+        "water": 5,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 20
+      },
+      {
+        "part": "front-legs",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 30,
+        "fire": 10,
+        "water": 10,
+        "thunder": 15,
+        "ice": 5,
+        "dragon": 15
+      },
+      {
+        "part": "back-legs",
+        "slash": 43,
+        "strike": 38,
+        "shooting": 35,
+        "fire": 5,
+        "water": 5,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 10
+      },
+      {
+        "part": "breast",
+        "slash": 37,
+        "strike": 37,
+        "shooting": 35,
+        "fire": 15,
+        "water": 15,
+        "thunder": 20,
+        "ice": 10,
+        "dragon": 20
+      },
+      {
+        "part": "body",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 25,
+        "fire": 5,
+        "water": 5,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 20
+      },
+      {
+        "part": "head-enraged",
+        "slash": 30,
+        "strike": 34,
+        "shooting": 30,
+        "fire": 15,
+        "water": 15,
+        "thunder": 20,
+        "ice": 10,
+        "dragon": 20
+      },
+      {
+        "part": "tail-enraged",
+        "slash": 38,
+        "strike": 35,
+        "shooting": 30,
+        "fire": 5,
+        "water": 5,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 20
+      },
+      {
+        "part": "front-legs-enraged",
+        "slash": 27,
+        "strike": 27,
+        "shooting": 30,
+        "fire": 15,
+        "water": 15,
+        "thunder": 20,
+        "ice": 10,
+        "dragon": 20
+      },
+      {
+        "part": "back-legs-enraged",
+        "slash": 35,
+        "strike": 32,
+        "shooting": 25,
+        "fire": 10,
+        "water": 10,
+        "thunder": 15,
+        "ice": 5,
+        "dragon": 15
+      },
+      {
+        "part": "breast-enraged",
+        "slash": 76,
+        "strike": 76,
+        "shooting": 60,
+        "fire": 10,
+        "water": 10,
+        "thunder": 15,
+        "ice": 15,
+        "dragon": 15
+      },
+      {
+        "part": "body-enraged",
+        "slash": 22,
+        "strike": 22,
+        "shooting": 20,
+        "fire": 5,
+        "water": 5,
+        "thunder": 25,
+        "ice": 5,
+        "dragon": 25
+      }
+    ]
+  },
+  {
+    "name": "Diablos",
+    "type": "Flying Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 24,
+        "strike": 15,
+        "shooting": 20,
+        "fire": 0,
+        "water": 15,
+        "thunder": 15,
+        "ice": 20,
+        "dragon": 15
+      },
+      {
+        "part": "webbing",
+        "slash": 40,
+        "strike": 30,
+        "shooting": 45,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 20,
+        "dragon": 10
+      },
+      {
+        "part": "wing-bone",
+        "slash": 23,
+        "strike": 42,
+        "shooting": 20,
+        "fire": 10,
+        "water": 15,
+        "thunder": 15,
+        "ice": 25,
+        "dragon": 15
+      },
+      {
+        "part": "legs",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 35,
+        "fire": 0,
+        "water": 5,
+        "thunder": 5,
+        "ice": 8,
+        "dragon": 5
+      },
+      {
+        "part": "tail",
+        "slash": 50,
+        "strike": 24,
+        "shooting": 60,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "neck",
+        "slash": 45,
+        "strike": 45,
+        "shooting": 30,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "back",
+        "slash": 23,
+        "strike": 42,
+        "shooting": 20,
+        "fire": 10,
+        "water": 15,
+        "thunder": 15,
+        "ice": 25,
+        "dragon": 15
+      },
+      {
+        "part": "tail-tip",
+        "slash": 22,
+        "strike": 35,
+        "shooting": 10,
+        "fire": 10,
+        "water": 15,
+        "thunder": 15,
+        "ice": 30,
+        "dragon": 15
+      },
+      {
+        "part": "belly",
+        "slash": 68,
+        "strike": 75,
+        "shooting": 40,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 10,
+        "dragon": 10
+      }
+    ]
+  },
+  {
+    "name": "Dire Miralis",
+    "type": "Elder Dragon",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 45,
+        "strike": 50,
+        "shooting": 45,
+        "fire": 5,
+        "water": 10,
+        "thunder": 10,
+        "ice": 20,
+        "dragon": 35
+      },
+      {
+        "part": "body",
+        "slash": 30,
+        "strike": 28,
+        "shooting": 25,
+        "fire": 0,
+        "water": 5,
+        "thunder": 5,
+        "ice": 5,
+        "dragon": 25
+      },
+      {
+        "part": "back-tail",
+        "slash": 18,
+        "strike": 21,
+        "shooting": 22,
+        "fire": 0,
+        "water": 5,
+        "thunder": 3,
+        "ice": 3,
+        "dragon": 5
+      },
+      {
+        "part": "wing",
+        "slash": 23,
+        "strike": 26,
+        "shooting": 25,
+        "fire": 5,
+        "water": 15,
+        "thunder": 10,
+        "ice": 10,
+        "dragon": 10
+      },
+      {
+        "part": "front-legs",
+        "slash": 32,
+        "strike": 35,
+        "shooting": 30,
+        "fire": 0,
+        "water": 3,
+        "thunder": 15,
+        "ice": 5,
+        "dragon": 10
+      },
+      {
+        "part": "back-legs",
+        "slash": 25,
+        "strike": 23,
+        "shooting": 30,
+        "fire": 0,
+        "water": 3,
+        "thunder": 5,
+        "ice": 3,
+        "dragon": 10
+      },
+      {
+        "part": "smelter",
+        "slash": 50,
+        "strike": 50,
+        "shooting": 44,
+        "fire": 0,
+        "water": 12,
+        "thunder": 10,
+        "ice": 25,
+        "dragon": 20
+      }
+    ]
+  },
+  {
+    "name": "Duramboros",
+    "type": "Brute Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 43,
+        "strike": 24,
+        "shooting": 35,
+        "fire": 10,
+        "water": 5,
+        "thunder": 15,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "torso",
+        "slash": 25,
+        "strike": 35,
+        "shooting": 25,
+        "fire": 15,
+        "water": 5,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "tail",
+        "slash": 32,
+        "strike": 40,
+        "shooting": 50,
+        "fire": 10,
+        "water": 5,
+        "thunder": 5,
+        "ice": 5,
+        "dragon": 10
+      },
+      {
+        "part": "front-legs",
+        "slash": 32,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 15,
+        "water": 0,
+        "thunder": 10,
+        "ice": 10,
+        "dragon": 10
+      },
+      {
+        "part": "tail-tip",
+        "slash": 24,
+        "strike": 43,
+        "shooting": 40,
+        "fire": 20,
+        "water": 5,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 20
+      },
+      {
+        "part": "back-legs",
+        "slash": 44,
+        "strike": 44,
+        "shooting": 35,
+        "fire": 10,
+        "water": 0,
+        "thunder": 5,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "horn",
+        "slash": 23,
+        "strike": 21,
+        "shooting": 20,
+        "fire": 35,
+        "water": 10,
+        "thunder": 35,
+        "ice": 20,
+        "dragon": 0
+      },
+      {
+        "part": "back",
+        "slash": 60,
+        "strike": 60,
+        "shooting": 35,
+        "fire": 20,
+        "water": 5,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "back-post-break",
+        "slash": 96,
+        "strike": 96,
+        "shooting": 60,
+        "fire": 30,
+        "water": 10,
+        "thunder": 5,
+        "ice": 20,
+        "dragon": 20
+      }
+    ]
+  },
+  {
+    "name": "Gigginox",
+    "type": "Flying Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 45,
+        "strike": 55,
+        "shooting": 50,
+        "fire": 30,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 20
+      },
+      {
+        "part": "tail",
+        "slash": 19,
+        "strike": 19,
+        "shooting": 19,
+        "fire": 30,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "front-legs",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 15,
+        "fire": 10,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "neck",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 40,
+        "fire": 25,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "back",
+        "slash": 35,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 20,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "belly",
+        "slash": 55,
+        "strike": 45,
+        "shooting": 50,
+        "fire": 30,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 15
+      },
+      {
+        "part": "back-legs",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 35,
+        "fire": 10,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "head-enraged",
+        "slash": 19,
+        "strike": 19,
+        "shooting": 10,
+        "fire": 30,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 20
+      },
+      {
+        "part": "tail-enraged",
+        "slash": 50,
+        "strike": 55,
+        "shooting": 50,
+        "fire": 30,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "front-legs-enraged",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 15,
+        "fire": 10,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "neck-enraged",
+        "slash": 24,
+        "strike": 25,
+        "shooting": 15,
+        "fire": 25,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "back-enraged",
+        "slash": 35,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 20,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "belly-enraged",
+        "slash": 55,
+        "strike": 45,
+        "shooting": 50,
+        "fire": 30,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 15
+      },
+      {
+        "part": "back-legs-enraged",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 35,
+        "fire": 10,
+        "water": 5,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 10
+      }
+    ]
+  },
+  {
+    "name": "Glacial Agnaktor",
+    "type": "Leviathan",
+    "parts": [
+      {
+        "part": "head-harden",
+        "slash": 15,
+        "strike": 15,
+        "shooting": 15,
+        "fire": 30,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "torso-harden",
+        "slash": 15,
+        "strike": 15,
+        "shooting": 15,
+        "fire": 25,
+        "water": 0,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "tail-harden",
+        "slash": 15,
+        "strike": 15,
+        "shooting": 15,
+        "fire": 20,
+        "water": 0,
+        "thunder": 5,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "front-legs-harden",
+        "slash": 15,
+        "strike": 15,
+        "shooting": 15,
+        "fire": 20,
+        "water": 0,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "neck-harden",
+        "slash": 15,
+        "strike": 15,
+        "shooting": 15,
+        "fire": 15,
+        "water": 0,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "back-legs-harden",
+        "slash": 15,
+        "strike": 15,
+        "shooting": 15,
+        "fire": 20,
+        "water": 0,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "breast-harden",
+        "slash": 50,
+        "strike": 45,
+        "shooting": 45,
+        "fire": 25,
+        "water": 0,
+        "thunder": 20,
+        "ice": 0,
+        "dragon": 30
+      },
+      {
+        "part": "fin-harden",
+        "slash": 20,
+        "strike": 24,
+        "shooting": 20,
+        "fire": 15,
+        "water": 0,
+        "thunder": 10,
+        "ice": 0,
+        "dragon": 20
+      },
+      {
+        "part": "head",
+        "slash": 55,
+        "strike": 60,
+        "shooting": 50,
+        "fire": 30,
+        "water": 0,
+        "thunder": 25,
+        "ice": 0,
+        "dragon": 35
+      },
+      {
+        "part": "torso",
+        "slash": 40,
+        "strike": 44,
+        "shooting": 35,
+        "fire": 25,
+        "water": 0,
+        "thunder": 10,
+        "ice": 0,
+        "dragon": 30
+      },
+      {
+        "part": "tail",
+        "slash": 35,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 20,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 25
+      },
+      {
+        "part": "front-legs",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 25,
+        "fire": 20,
+        "water": 0,
+        "thunder": 10,
+        "ice": 0,
+        "dragon": 25
+      },
+      {
+        "part": "neck",
+        "slash": 40,
+        "strike": 35,
+        "shooting": 30,
+        "fire": 15,
+        "water": 0,
+        "thunder": 10,
+        "ice": 0,
+        "dragon": 20
+      },
+      {
+        "part": "back-legs",
+        "slash": 35,
+        "strike": 40,
+        "shooting": 25,
+        "fire": 20,
+        "water": 0,
+        "thunder": 10,
+        "ice": 0,
+        "dragon": 25
+      },
+      {
+        "part": "breast",
+        "slash": 50,
+        "strike": 45,
+        "shooting": 45,
+        "fire": 25,
+        "water": 0,
+        "thunder": 20,
+        "ice": 0,
+        "dragon": 30
+      },
+      {
+        "part": "fin",
+        "slash": 20,
+        "strike": 24,
+        "shooting": 20,
+        "fire": 15,
+        "water": 0,
+        "thunder": 10,
+        "ice": 0,
+        "dragon": 20
+      }
+    ]
+  },
+  {
+    "name": "Gobul",
+    "type": "Leviathan",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 45,
+        "strike": 40,
+        "shooting": 40,
+        "fire": 15,
+        "water": 0,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "legs",
+        "slash": 25,
+        "strike": 35,
+        "shooting": 40,
+        "fire": 10,
+        "water": 0,
+        "thunder": 5,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "tail",
+        "slash": 35,
+        "strike": 40,
+        "shooting": 35,
+        "fire": 5,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "back",
+        "slash": 50,
+        "strike": 25,
+        "shooting": 35,
+        "fire": 0,
+        "water": 0,
+        "thunder": 20,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "belly",
+        "slash": 55,
+        "strike": 40,
+        "shooting": 60,
+        "fire": 0,
+        "water": 0,
+        "thunder": 5,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "lantern",
+        "slash": 65,
+        "strike": 70,
+        "shooting": 50,
+        "fire": 10,
+        "water": 0,
+        "thunder": 25,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "side-edge",
+        "slash": 40,
+        "strike": 35,
+        "shooting": 40,
+        "fire": 5,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "needle",
+        "slash": 20,
+        "strike": 50,
+        "shooting": 20,
+        "fire": 15,
+        "water": 0,
+        "thunder": 30,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "head-enraged",
+        "slash": 45,
+        "strike": 40,
+        "shooting": 40,
+        "fire": 15,
+        "water": 0,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "legs-enraged",
+        "slash": 25,
+        "strike": 35,
+        "shooting": 40,
+        "fire": 10,
+        "water": 0,
+        "thunder": 5,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "tail-enraged",
+        "slash": 35,
+        "strike": 40,
+        "shooting": 35,
+        "fire": 5,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "back-enraged",
+        "slash": 20,
+        "strike": 15,
+        "shooting": 20,
+        "fire": 0,
+        "water": 0,
+        "thunder": 20,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "belly-enraged",
+        "slash": 55,
+        "strike": 40,
+        "shooting": 60,
+        "fire": 0,
+        "water": 0,
+        "thunder": 5,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "lantern-enraged",
+        "slash": 65,
+        "strike": 70,
+        "shooting": 50,
+        "fire": 10,
+        "water": 0,
+        "thunder": 25,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "side-edge-enraged",
+        "slash": 20,
+        "strike": 20,
+        "shooting": 20,
+        "fire": 5,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "needle-enraged",
+        "slash": 15,
+        "strike": 20,
+        "shooting": 15,
+        "fire": 10,
+        "water": 0,
+        "thunder": 30,
+        "ice": 5,
+        "dragon": 0
+      }
+    ]
+  },
+  {
+    "name": "Gold Rathian",
+    "type": "Flying Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 12,
+        "strike": 19,
+        "shooting": 15,
+        "fire": 0,
+        "water": 20,
+        "thunder": 30,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "legs",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 45,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "tail",
+        "slash": 21,
+        "strike": 18,
+        "shooting": 15,
+        "fire": 0,
+        "water": 5,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "neck",
+        "slash": 24,
+        "strike": 24,
+        "shooting": 18,
+        "fire": 0,
+        "water": 15,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "back",
+        "slash": 55,
+        "strike": 50,
+        "shooting": 30,
+        "fire": 5,
+        "water": 15,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "abdomen",
+        "slash": 25,
+        "strike": 30,
+        "shooting": 30,
+        "fire": 5,
+        "water": 10,
+        "thunder": 15,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "wing",
+        "slash": 44,
+        "strike": 44,
+        "shooting": 25,
+        "fire": 0,
+        "water": 15,
+        "thunder": 25,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "tail-tip",
+        "slash": 24,
+        "strike": 24,
+        "shooting": 22,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 0
+      }
+    ]
+  },
+  {
+    "name": "Goldbeard Ceadeus",
+    "type": "Elder Dragon",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 26,
+        "strike": 30,
+        "shooting": 43,
+        "fire": 5,
+        "water": 0,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 25
+      },
+      {
+        "part": "tail",
+        "slash": 38,
+        "strike": 24,
+        "shooting": 25,
+        "fire": 10,
+        "water": 0,
+        "thunder": 25,
+        "ice": 5,
+        "dragon": 20
+      },
+      {
+        "part": "back",
+        "slash": 25,
+        "strike": 45,
+        "shooting": 25,
+        "fire": 5,
+        "water": 0,
+        "thunder": 18,
+        "ice": 5,
+        "dragon": 20
+      },
+      {
+        "part": "abdomen",
+        "slash": 32,
+        "strike": 20,
+        "shooting": 45,
+        "fire": 5,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 30
+      },
+      {
+        "part": "horn",
+        "slash": 22,
+        "strike": 33,
+        "shooting": 25,
+        "fire": 10,
+        "water": 0,
+        "thunder": 30,
+        "ice": 0,
+        "dragon": 35
+      },
+      {
+        "part": "arm",
+        "slash": 28,
+        "strike": 30,
+        "shooting": 20,
+        "fire": 5,
+        "water": 0,
+        "thunder": 20,
+        "ice": 0,
+        "dragon": 20
+      },
+      {
+        "part": "chest",
+        "slash": 60,
+        "strike": 55,
+        "shooting": 40,
+        "fire": 10,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 20
+      },
+      {
+        "part": "chest-post-break",
+        "slash": 45,
+        "strike": 38,
+        "shooting": 50,
+        "fire": 15,
+        "water": 0,
+        "thunder": 5,
+        "ice": 0,
+        "dragon": 15
+      }
+    ]
+  },
+  {
+    "name": "Great Baggi",
+    "type": "Bird Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 60,
+        "strike": 50,
+        "shooting": 55,
+        "fire": 40,
+        "water": 20,
+        "thunder": 20,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "body",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 35,
+        "fire": 40,
+        "water": 20,
+        "thunder": 20,
+        "ice": 0,
+        "dragon": 0
+      }
+    ]
+  },
+  {
+    "name": "Great Jaggi",
+    "type": "Bird Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 85,
+        "strike": 85,
+        "shooting": 65,
+        "fire": 30,
+        "water": 20,
+        "thunder": 20,
+        "ice": 20,
+        "dragon": 5
+      },
+      {
+        "part": "body",
+        "slash": 65,
+        "strike": 63,
+        "shooting": 58,
+        "fire": 30,
+        "water": 20,
+        "thunder": 20,
+        "ice": 20,
+        "dragon": 5
+      }
+    ]
+  },
+  {
+    "name": "Great Wroggi",
+    "type": "Bird Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 60,
+        "strike": 45,
+        "shooting": 50,
+        "fire": 0,
+        "water": 20,
+        "thunder": 5,
+        "ice": 40,
+        "dragon": 0
+      },
+      {
+        "part": "body",
+        "slash": 45,
+        "strike": 60,
+        "shooting": 40,
+        "fire": 0,
+        "water": 20,
+        "thunder": 5,
+        "ice": 40,
+        "dragon": 0
+      }
+    ]
+  },
+  {
+    "name": "Green Nargacuga",
+    "type": "Flying Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 60,
+        "strike": 60,
+        "shooting": 65,
+        "fire": 20,
+        "water": 10,
+        "thunder": 25,
+        "ice": 15,
+        "dragon": 15
+      },
+      {
+        "part": "torso",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 30,
+        "fire": 5,
+        "water": 0,
+        "thunder": 5,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "tail",
+        "slash": 35,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 5,
+        "water": 0,
+        "thunder": 10,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "front-legs",
+        "slash": 24,
+        "strike": 24,
+        "shooting": 25,
+        "fire": 5,
+        "water": 5,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 10
+      },
+      {
+        "part": "neck",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 30,
+        "fire": 15,
+        "water": 5,
+        "thunder": 15,
+        "ice": 5,
+        "dragon": 10
+      },
+      {
+        "part": "tail-tip",
+        "slash": 20,
+        "strike": 20,
+        "shooting": 20,
+        "fire": 25,
+        "water": 5,
+        "thunder": 30,
+        "ice": 10,
+        "dragon": 10
+      },
+      {
+        "part": "back-legs",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 35,
+        "fire": 10,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "sharp-wings",
+        "slash": 20,
+        "strike": 20,
+        "shooting": 20,
+        "fire": 25,
+        "water": 5,
+        "thunder": 35,
+        "ice": 10,
+        "dragon": 15
+      },
+      {
+        "part": "head-enraged",
+        "slash": 65,
+        "strike": 65,
+        "shooting": 70,
+        "fire": 20,
+        "water": 10,
+        "thunder": 30,
+        "ice": 15,
+        "dragon": 15
+      },
+      {
+        "part": "torso-enraged",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 30,
+        "fire": 5,
+        "water": 0,
+        "thunder": 5,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "tail-enraged",
+        "slash": 35,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 10,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "front-legs-enraged",
+        "slash": 24,
+        "strike": 24,
+        "shooting": 25,
+        "fire": 5,
+        "water": 5,
+        "thunder": 15,
+        "ice": 5,
+        "dragon": 10
+      },
+      {
+        "part": "neck-enraged",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 30,
+        "fire": 15,
+        "water": 5,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 10
+      },
+      {
+        "part": "tail-tip-enraged",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 30,
+        "fire": 25,
+        "water": 5,
+        "thunder": 30,
+        "ice": 10,
+        "dragon": 10
+      },
+      {
+        "part": "back-legs-enraged",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 35,
+        "fire": 15,
+        "water": 0,
+        "thunder": 20,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "sharp-wings-enraged",
+        "slash": 20,
+        "strike": 20,
+        "shooting": 20,
+        "fire": 25,
+        "water": 5,
+        "thunder": 35,
+        "ice": 10,
+        "dragon": 15
+      }
+    ]
+  },
+  {
+    "name": "Green Plesioth",
+    "type": "Piscine Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 40,
+        "strike": 45,
+        "shooting": 40,
+        "fire": 15,
+        "water": 0,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "legs",
+        "slash": 32,
+        "strike": 38,
+        "shooting": 35,
+        "fire": 15,
+        "water": 0,
+        "thunder": 15,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "tail",
+        "slash": 45,
+        "strike": 24,
+        "shooting": 35,
+        "fire": 20,
+        "water": 0,
+        "thunder": 25,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "neck",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 35,
+        "fire": 15,
+        "water": 0,
+        "thunder": 25,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "back",
+        "slash": 22,
+        "strike": 22,
+        "shooting": 25,
+        "fire": 20,
+        "water": 0,
+        "thunder": 25,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "wing",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 30,
+        "fire": 25,
+        "water": 0,
+        "thunder": 25,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "belly",
+        "slash": 45,
+        "strike": 50,
+        "shooting": 45,
+        "fire": 20,
+        "water": 0,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 5
+      }
+    ]
+  },
+  {
+    "name": "Hallowed Jhen Mohran",
+    "type": "Elder Dragon",
+    "parts": [
+      {
+        "part": "tusk",
+        "slash": 19,
+        "strike": 22,
+        "shooting": 19,
+        "fire": 15,
+        "water": 0,
+        "thunder": 10,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "mouth",
+        "slash": 84,
+        "strike": 84,
+        "shooting": 60,
+        "fire": 30,
+        "water": 0,
+        "thunder": 20,
+        "ice": 0,
+        "dragon": 20
+      },
+      {
+        "part": "body",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 25,
+        "fire": 8,
+        "water": 0,
+        "thunder": 6,
+        "ice": 0,
+        "dragon": 6
+      },
+      {
+        "part": "belly",
+        "slash": 55,
+        "strike": 50,
+        "shooting": 38,
+        "fire": 22,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 15
+      },
+      {
+        "part": "arm",
+        "slash": 35,
+        "strike": 38,
+        "shooting": 30,
+        "fire": 15,
+        "water": 0,
+        "thunder": 10,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "dorsal-fin",
+        "slash": 44,
+        "strike": 40,
+        "shooting": 40,
+        "fire": 15,
+        "water": 0,
+        "thunder": 10,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "dorsal-fin-post-break",
+        "slash": 76,
+        "strike": 76,
+        "shooting": 65,
+        "fire": 22,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 15
+      }
+    ]
+  },
+  {
+    "name": "Ivory Lagiacrus",
+    "type": "Leviathan",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 18,
+        "strike": 15,
+        "shooting": 18,
+        "fire": 10,
+        "water": 0,
+        "thunder": 0,
+        "ice": 8,
+        "dragon": 10
+      },
+      {
+        "part": "tail",
+        "slash": 38,
+        "strike": 43,
+        "shooting": 45,
+        "fire": 20,
+        "water": 0,
+        "thunder": 0,
+        "ice": 8,
+        "dragon": 20
+      },
+      {
+        "part": "front-legs",
+        "slash": 25,
+        "strike": 28,
+        "shooting": 25,
+        "fire": 18,
+        "water": 0,
+        "thunder": 0,
+        "ice": 5,
+        "dragon": 18
+      },
+      {
+        "part": "neck",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 30,
+        "fire": 20,
+        "water": 0,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 20
+      },
+      {
+        "part": "back",
+        "slash": 55,
+        "strike": 50,
+        "shooting": 40,
+        "fire": 30,
+        "water": 0,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 30
+      },
+      {
+        "part": "belly",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 30,
+        "fire": 20,
+        "water": 0,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 20
+      },
+      {
+        "part": "back-legs",
+        "slash": 28,
+        "strike": 32,
+        "shooting": 27,
+        "fire": 18,
+        "water": 0,
+        "thunder": 0,
+        "ice": 5,
+        "dragon": 18
+      },
+      {
+        "part": "breast",
+        "slash": 44,
+        "strike": 40,
+        "shooting": 35,
+        "fire": 22,
+        "water": 0,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 22
+      }
+    ]
+  },
+  {
+    "name": "Jade Barroth",
+    "type": "Brute Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 20,
+        "strike": 22,
+        "shooting": 13,
+        "fire": 35,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "torso",
+        "slash": 35,
+        "strike": 45,
+        "shooting": 35,
+        "fire": 25,
+        "water": 0,
+        "thunder": 10,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "tail",
+        "slash": 36,
+        "strike": 36,
+        "shooting": 45,
+        "fire": 25,
+        "water": 0,
+        "thunder": 10,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "front-legs",
+        "slash": 45,
+        "strike": 45,
+        "shooting": 40,
+        "fire": 20,
+        "water": 0,
+        "thunder": 10,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "back-legs",
+        "slash": 30,
+        "strike": 27,
+        "shooting": 20,
+        "fire": 20,
+        "water": 0,
+        "thunder": 5,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "head-post-break",
+        "slash": 20,
+        "strike": 22,
+        "shooting": 13,
+        "fire": 25,
+        "water": 0,
+        "thunder": 20,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "torso-post-break",
+        "slash": 35,
+        "strike": 45,
+        "shooting": 35,
+        "fire": 15,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "tail-post-break",
+        "slash": 36,
+        "strike": 36,
+        "shooting": 45,
+        "fire": 15,
+        "water": 0,
+        "thunder": 20,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "front-legs-post-break",
+        "slash": 45,
+        "strike": 45,
+        "shooting": 40,
+        "fire": 10,
+        "water": 5,
+        "thunder": 20,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "back-legs-post-break",
+        "slash": 30,
+        "strike": 27,
+        "shooting": 20,
+        "fire": 10,
+        "water": 5,
+        "thunder": 25,
+        "ice": 0,
+        "dragon": 5
+      }
+    ]
+  },
+  {
+    "name": "Jhen Mohran",
+    "type": "Elder Dragon",
+    "parts": [
+      {
+        "part": "torso",
+        "slash": 21,
+        "strike": 21,
+        "shooting": 20,
+        "fire": 0,
+        "water": 5,
+        "thunder": 5,
+        "ice": 8,
+        "dragon": 8
+      },
+      {
+        "part": "neck",
+        "slash": 60,
+        "strike": 55,
+        "shooting": 38,
+        "fire": 0,
+        "water": 12,
+        "thunder": 12,
+        "ice": 22,
+        "dragon": 22
+      },
+      {
+        "part": "mouth",
+        "slash": 90,
+        "strike": 80,
+        "shooting": 50,
+        "fire": 0,
+        "water": 20,
+        "thunder": 20,
+        "ice": 30,
+        "dragon": 25
+      },
+      {
+        "part": "arm",
+        "slash": 33,
+        "strike": 33,
+        "shooting": 25,
+        "fire": 0,
+        "water": 8,
+        "thunder": 8,
+        "ice": 15,
+        "dragon": 15
+      },
+      {
+        "part": "tusk",
+        "slash": 18,
+        "strike": 18,
+        "shooting": 18,
+        "fire": 0,
+        "water": 5,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 15
+      },
+      {
+        "part": "armpit",
+        "slash": 60,
+        "strike": 55,
+        "shooting": 38,
+        "fire": 0,
+        "water": 12,
+        "thunder": 12,
+        "ice": 22,
+        "dragon": 22
+      },
+      {
+        "part": "dorsal-fin",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 40,
+        "fire": 0,
+        "water": 10,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 15
+      },
+      {
+        "part": "dorsal-fin-post-break",
+        "slash": 68,
+        "strike": 78,
+        "shooting": 48,
+        "fire": 0,
+        "water": 15,
+        "thunder": 15,
+        "ice": 22,
+        "dragon": 22
+      }
+    ]
+  },
+  {
+    "name": "Lagiacrus",
+    "type": "Leviathan",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 40,
+        "fire": 15,
+        "water": 0,
+        "thunder": 0,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "legs",
+        "slash": 27,
+        "strike": 25,
+        "shooting": 10,
+        "fire": 15,
+        "water": 0,
+        "thunder": 0,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "tail",
+        "slash": 30,
+        "strike": 35,
+        "shooting": 15,
+        "fire": 15,
+        "water": 0,
+        "thunder": 0,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "neck",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 20,
+        "fire": 15,
+        "water": 0,
+        "thunder": 0,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "back",
+        "slash": 25,
+        "strike": 40,
+        "shooting": 15,
+        "fire": 25,
+        "water": 0,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 15
+      },
+      {
+        "part": "belly",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 20,
+        "fire": 15,
+        "water": 0,
+        "thunder": 0,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "breast",
+        "slash": 45,
+        "strike": 40,
+        "shooting": 35,
+        "fire": 20,
+        "water": 0,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 10
+      }
+    ]
+  },
+  {
+    "name": "Lagombi",
+    "type": "Fanged Beast",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 45,
+        "strike": 45,
+        "shooting": 50,
+        "fire": 40,
+        "water": 0,
+        "thunder": 20,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "upper-body",
+        "slash": 44,
+        "strike": 44,
+        "shooting": 40,
+        "fire": 30,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "front-legs",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 20,
+        "fire": 10,
+        "water": 0,
+        "thunder": 5,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "lower-body",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 20,
+        "fire": 10,
+        "water": 0,
+        "thunder": 5,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "butt",
+        "slash": 50,
+        "strike": 50,
+        "shooting": 35,
+        "fire": 20,
+        "water": 0,
+        "thunder": 10,
+        "ice": 0,
+        "dragon": 0
+      }
+    ]
+  },
+  {
+    "name": "Lucent Nargacuga",
+    "type": "Flying Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 20,
+        "strike": 20,
+        "shooting": 20,
+        "fire": 5,
+        "water": 10,
+        "thunder": 0,
+        "ice": 20,
+        "dragon": 15
+      },
+      {
+        "part": "torso",
+        "slash": 45,
+        "strike": 43,
+        "shooting": 30,
+        "fire": 5,
+        "water": 15,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "tail",
+        "slash": 43,
+        "strike": 45,
+        "shooting": 40,
+        "fire": 5,
+        "water": 10,
+        "thunder": 5,
+        "ice": 20,
+        "dragon": 10
+      },
+      {
+        "part": "front-legs",
+        "slash": 23,
+        "strike": 23,
+        "shooting": 23,
+        "fire": 5,
+        "water": 5,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "neck",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 25,
+        "fire": 5,
+        "water": 10,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "tail-tip",
+        "slash": 69,
+        "strike": 55,
+        "shooting": 60,
+        "fire": 5,
+        "water": 10,
+        "thunder": 5,
+        "ice": 10,
+        "dragon": 10
+      },
+      {
+        "part": "back-legs",
+        "slash": 38,
+        "strike": 38,
+        "shooting": 30,
+        "fire": 5,
+        "water": 10,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "sharp-wings",
+        "slash": 20,
+        "strike": 20,
+        "shooting": 20,
+        "fire": 10,
+        "water": 10,
+        "thunder": 0,
+        "ice": 20,
+        "dragon": 15
+      },
+      {
+        "part": "head-enraged",
+        "slash": 27,
+        "strike": 27,
+        "shooting": 27,
+        "fire": 5,
+        "water": 10,
+        "thunder": 0,
+        "ice": 20,
+        "dragon": 15
+      },
+      {
+        "part": "torso-enraged",
+        "slash": 45,
+        "strike": 43,
+        "shooting": 30,
+        "fire": 5,
+        "water": 15,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "tail-enraged",
+        "slash": 43,
+        "strike": 45,
+        "shooting": 40,
+        "fire": 5,
+        "water": 10,
+        "thunder": 5,
+        "ice": 20,
+        "dragon": 10
+      },
+      {
+        "part": "front-legs-enraged",
+        "slash": 23,
+        "strike": 23,
+        "shooting": 23,
+        "fire": 5,
+        "water": 5,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "neck-enraged",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 25,
+        "fire": 5,
+        "water": 10,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "tail-tip-enraged",
+        "slash": 76,
+        "strike": 69,
+        "shooting": 65,
+        "fire": 5,
+        "water": 10,
+        "thunder": 5,
+        "ice": 10,
+        "dragon": 10
+      },
+      {
+        "part": "back-legs-enraged",
+        "slash": 38,
+        "strike": 38,
+        "shooting": 30,
+        "fire": 5,
+        "water": 10,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "sharp-wings-enraged",
+        "slash": 20,
+        "strike": 20,
+        "shooting": 20,
+        "fire": 10,
+        "water": 10,
+        "thunder": 0,
+        "ice": 20,
+        "dragon": 15
+      }
+    ]
+  },
+  {
+    "name": "Nargacuga",
+    "type": "Flying Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 50,
+        "strike": 50,
+        "shooting": 55,
+        "fire": 20,
+        "water": 10,
+        "thunder": 25,
+        "ice": 15,
+        "dragon": 15
+      },
+      {
+        "part": "torso",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 30,
+        "fire": 5,
+        "water": 0,
+        "thunder": 5,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "tail",
+        "slash": 36,
+        "strike": 36,
+        "shooting": 25,
+        "fire": 5,
+        "water": 0,
+        "thunder": 10,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "front-legs",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 5,
+        "water": 5,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 10
+      },
+      {
+        "part": "neck",
+        "slash": 36,
+        "strike": 40,
+        "shooting": 30,
+        "fire": 15,
+        "water": 5,
+        "thunder": 15,
+        "ice": 5,
+        "dragon": 10
+      },
+      {
+        "part": "tail-tip",
+        "slash": 24,
+        "strike": 24,
+        "shooting": 30,
+        "fire": 25,
+        "water": 5,
+        "thunder": 30,
+        "ice": 10,
+        "dragon": 10
+      },
+      {
+        "part": "back-legs",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 35,
+        "fire": 10,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "sharp-wings",
+        "slash": 20,
+        "strike": 20,
+        "shooting": 20,
+        "fire": 25,
+        "water": 5,
+        "thunder": 35,
+        "ice": 10,
+        "dragon": 15
+      },
+      {
+        "part": "head-enraged",
+        "slash": 55,
+        "strike": 55,
+        "shooting": 60,
+        "fire": 20,
+        "water": 10,
+        "thunder": 30,
+        "ice": 15,
+        "dragon": 15
+      },
+      {
+        "part": "torso-enraged",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 30,
+        "fire": 5,
+        "water": 0,
+        "thunder": 5,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "tail-enraged",
+        "slash": 36,
+        "strike": 36,
+        "shooting": 25,
+        "fire": 5,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 10
+      },
+      {
+        "part": "front-legs-enraged",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 5,
+        "water": 5,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 10
+      },
+      {
+        "part": "neck-enraged",
+        "slash": 36,
+        "strike": 40,
+        "shooting": 30,
+        "fire": 15,
+        "water": 5,
+        "thunder": 15,
+        "ice": 5,
+        "dragon": 10
+      },
+      {
+        "part": "tail-tip-enraged",
+        "slash": 24,
+        "strike": 24,
+        "shooting": 30,
+        "fire": 25,
+        "water": 5,
+        "thunder": 30,
+        "ice": 10,
+        "dragon": 10
+      },
+      {
+        "part": "back-legs-enraged",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 35,
+        "fire": 10,
+        "water": 0,
+        "thunder": 15,
+        "ice": 0,
+        "dragon": 5
+      },
+      {
+        "part": "sharp-wings-enraged",
+        "slash": 20,
+        "strike": 20,
+        "shooting": 20,
+        "fire": 25,
+        "water": 5,
+        "thunder": 35,
+        "ice": 10,
+        "dragon": 15
+      }
+    ]
+  },
+  {
+    "name": "Nibelsnarf",
+    "type": "Leviathan",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 24,
+        "strike": 26,
+        "shooting": 20,
+        "fire": 0,
+        "water": 15,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 5
+      },
+      {
+        "part": "tail",
+        "slash": 26,
+        "strike": 24,
+        "shooting": 24,
+        "fire": 0,
+        "water": 10,
+        "thunder": 15,
+        "ice": 15,
+        "dragon": 5
+      },
+      {
+        "part": "front-legs",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 30,
+        "fire": 0,
+        "water": 5,
+        "thunder": 10,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "back",
+        "slash": 36,
+        "strike": 30,
+        "shooting": 40,
+        "fire": 0,
+        "water": 15,
+        "thunder": 15,
+        "ice": 20,
+        "dragon": 5
+      },
+      {
+        "part": "belly",
+        "slash": 36,
+        "strike": 30,
+        "shooting": 30,
+        "fire": 0,
+        "water": 10,
+        "thunder": 25,
+        "ice": 20,
+        "dragon": 5
+      },
+      {
+        "part": "back-legs",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 30,
+        "fire": 0,
+        "water": 5,
+        "thunder": 10,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "nose",
+        "slash": 45,
+        "strike": 45,
+        "shooting": 50,
+        "fire": 0,
+        "water": 10,
+        "thunder": 15,
+        "ice": 30,
+        "dragon": 5
+      },
+      {
+        "part": "mouth",
+        "slash": 60,
+        "strike": 60,
+        "shooting": 60,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "gills",
+        "slash": 45,
+        "strike": 45,
+        "shooting": 50,
+        "fire": 0,
+        "water": 10,
+        "thunder": 15,
+        "ice": 15,
+        "dragon": 5
+      },
+      {
+        "part": "head-fished",
+        "slash": 24,
+        "strike": 26,
+        "shooting": 20,
+        "fire": 0,
+        "water": 15,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 5
+      },
+      {
+        "part": "tail-fished",
+        "slash": 31,
+        "strike": 29,
+        "shooting": 29,
+        "fire": 0,
+        "water": 10,
+        "thunder": 15,
+        "ice": 15,
+        "dragon": 5
+      },
+      {
+        "part": "front-legs-fished",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 30,
+        "fire": 0,
+        "water": 5,
+        "thunder": 10,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "back-fished",
+        "slash": 41,
+        "strike": 35,
+        "shooting": 45,
+        "fire": 0,
+        "water": 15,
+        "thunder": 15,
+        "ice": 20,
+        "dragon": 5
+      },
+      {
+        "part": "belly-fished",
+        "slash": 50,
+        "strike": 50,
+        "shooting": 40,
+        "fire": 0,
+        "water": 10,
+        "thunder": 25,
+        "ice": 20,
+        "dragon": 5
+      },
+      {
+        "part": "back-legs-fished",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 30,
+        "fire": 0,
+        "water": 5,
+        "thunder": 10,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "nose-fished",
+        "slash": 45,
+        "strike": 45,
+        "shooting": 50,
+        "fire": 0,
+        "water": 10,
+        "thunder": 15,
+        "ice": 30,
+        "dragon": 5
+      },
+      {
+        "part": "mouth-fished",
+        "slash": 60,
+        "strike": 60,
+        "shooting": 60,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "gills-fished",
+        "slash": 45,
+        "strike": 45,
+        "shooting": 50,
+        "fire": 0,
+        "water": 10,
+        "thunder": 15,
+        "ice": 15,
+        "dragon": 5
+      }
+    ]
+  },
+  {
+    "name": "Pink Rathian",
+    "type": "Flying Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 55,
+        "strike": 50,
+        "shooting": 45,
+        "fire": 0,
+        "water": 10,
+        "thunder": 15,
+        "ice": 10,
+        "dragon": 25
+      },
+      {
+        "part": "legs",
+        "slash": 44,
+        "strike": 45,
+        "shooting": 40,
+        "fire": 0,
+        "water": 5,
+        "thunder": 5,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "tail",
+        "slash": 24,
+        "strike": 24,
+        "shooting": 20,
+        "fire": 0,
+        "water": 5,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 20
+      },
+      {
+        "part": "neck",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 20,
+        "fire": 0,
+        "water": 5,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 15
+      },
+      {
+        "part": "back",
+        "slash": 35,
+        "strike": 40,
+        "shooting": 40,
+        "fire": 5,
+        "water": 5,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 20
+      },
+      {
+        "part": "abdomen",
+        "slash": 70,
+        "strike": 60,
+        "shooting": 60,
+        "fire": 0,
+        "water": 5,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 10
+      },
+      {
+        "part": "wing",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 40,
+        "fire": 0,
+        "water": 10,
+        "thunder": 15,
+        "ice": 10,
+        "dragon": 20
+      },
+      {
+        "part": "tail-tip",
+        "slash": 28,
+        "strike": 28,
+        "shooting": 23,
+        "fire": 0,
+        "water": 5,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 20
+      }
+    ]
+  },
+  {
+    "name": "Plesioth",
+    "type": "Piscine Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 45,
+        "strike": 50,
+        "shooting": 30,
+        "fire": 15,
+        "water": 0,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "legs",
+        "slash": 32,
+        "strike": 38,
+        "shooting": 35,
+        "fire": 15,
+        "water": 0,
+        "thunder": 15,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "tail",
+        "slash": 30,
+        "strike": 24,
+        "shooting": 45,
+        "fire": 20,
+        "water": 0,
+        "thunder": 25,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "neck",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 35,
+        "fire": 15,
+        "water": 0,
+        "thunder": 25,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "back",
+        "slash": 22,
+        "strike": 22,
+        "shooting": 25,
+        "fire": 20,
+        "water": 0,
+        "thunder": 25,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "wing",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 30,
+        "fire": 25,
+        "water": 0,
+        "thunder": 25,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "belly",
+        "slash": 50,
+        "strike": 45,
+        "shooting": 50,
+        "fire": 20,
+        "water": 0,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 5
+      }
+    ]
+  },
+  {
+    "name": "Purple Ludroth",
+    "type": "Leviathan",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 36,
+        "strike": 45,
+        "shooting": 50,
+        "fire": 15,
+        "water": 0,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "tail",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 40,
+        "fire": 15,
+        "water": 0,
+        "thunder": 5,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "front-legs",
+        "slash": 24,
+        "strike": 30,
+        "shooting": 20,
+        "fire": 10,
+        "water": 0,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "neck",
+        "slash": 44,
+        "strike": 40,
+        "shooting": 35,
+        "fire": 15,
+        "water": 0,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "back",
+        "slash": 30,
+        "strike": 45,
+        "shooting": 25,
+        "fire": 30,
+        "water": 0,
+        "thunder": 15,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "abdomen",
+        "slash": 45,
+        "strike": 36,
+        "shooting": 35,
+        "fire": 20,
+        "water": 0,
+        "thunder": 15,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "back-legs",
+        "slash": 30,
+        "strike": 24,
+        "shooting": 20,
+        "fire": 10,
+        "water": 0,
+        "thunder": 5,
+        "ice": 5,
+        "dragon": 0
+      }
+    ]
+  },
+  {
+    "name": "Qurupeco",
+    "type": "Bird Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 70,
+        "strike": 90,
+        "shooting": 60,
+        "fire": 10,
+        "water": 25,
+        "thunder": 15,
+        "ice": 35,
+        "dragon": 5
+      },
+      {
+        "part": "sound-bag",
+        "slash": 60,
+        "strike": 55,
+        "shooting": 70,
+        "fire": 5,
+        "water": 15,
+        "thunder": 10,
+        "ice": 20,
+        "dragon": 0
+      },
+      {
+        "part": "torso",
+        "slash": 60,
+        "strike": 50,
+        "shooting": 50,
+        "fire": 5,
+        "water": 15,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "flint",
+        "slash": 24,
+        "strike": 24,
+        "shooting": 30,
+        "fire": 10,
+        "water": 25,
+        "thunder": 15,
+        "ice": 35,
+        "dragon": 0
+      },
+      {
+        "part": "webbing",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 30,
+        "fire": 5,
+        "water": 10,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "wing-bone",
+        "slash": 36,
+        "strike": 36,
+        "shooting": 30,
+        "fire": 5,
+        "water": 10,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "legs",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 40,
+        "fire": 5,
+        "water": 10,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "tail",
+        "slash": 40,
+        "strike": 30,
+        "shooting": 30,
+        "fire": 5,
+        "water": 15,
+        "thunder": 10,
+        "ice": 20,
+        "dragon": 10
+      }
+    ]
+  },
+  {
+    "name": "Rathalos",
+    "type": "Flying Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 75,
+        "strike": 70,
+        "shooting": 60,
+        "fire": 0,
+        "water": 15,
+        "thunder": 20,
+        "ice": 15,
+        "dragon": 35
+      },
+      {
+        "part": "legs",
+        "slash": 30,
+        "strike": 25,
+        "shooting": 45,
+        "fire": 0,
+        "water": 5,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 10
+      },
+      {
+        "part": "tail",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 0,
+        "water": 5,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 25
+      },
+      {
+        "part": "neck",
+        "slash": 44,
+        "strike": 40,
+        "shooting": 20,
+        "fire": 0,
+        "water": 10,
+        "thunder": 15,
+        "ice": 10,
+        "dragon": 20
+      },
+      {
+        "part": "back",
+        "slash": 25,
+        "strike": 30,
+        "shooting": 20,
+        "fire": 15,
+        "water": 10,
+        "thunder": 15,
+        "ice": 10,
+        "dragon": 25
+      },
+      {
+        "part": "abdomen",
+        "slash": 44,
+        "strike": 40,
+        "shooting": 15,
+        "fire": 0,
+        "water": 5,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 10
+      },
+      {
+        "part": "wing",
+        "slash": 25,
+        "strike": 20,
+        "shooting": 25,
+        "fire": 0,
+        "water": 10,
+        "thunder": 15,
+        "ice": 10,
+        "dragon": 20
+      }
+    ]
+  },
+  {
+    "name": "Rathian",
+    "type": "Flying Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 90,
+        "strike": 80,
+        "shooting": 70,
+        "fire": 0,
+        "water": 15,
+        "thunder": 20,
+        "ice": 15,
+        "dragon": 35
+      },
+      {
+        "part": "legs",
+        "slash": 44,
+        "strike": 40,
+        "shooting": 45,
+        "fire": 0,
+        "water": 5,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 10
+      },
+      {
+        "part": "tail",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 0,
+        "water": 5,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 25
+      },
+      {
+        "part": "neck",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 40,
+        "fire": 0,
+        "water": 10,
+        "thunder": 15,
+        "ice": 10,
+        "dragon": 20
+      },
+      {
+        "part": "back",
+        "slash": 24,
+        "strike": 30,
+        "shooting": 30,
+        "fire": 15,
+        "water": 10,
+        "thunder": 15,
+        "ice": 10,
+        "dragon": 25
+      },
+      {
+        "part": "abdomen",
+        "slash": 60,
+        "strike": 55,
+        "shooting": 45,
+        "fire": 0,
+        "water": 5,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 10
+      },
+      {
+        "part": "wing",
+        "slash": 24,
+        "strike": 20,
+        "shooting": 25,
+        "fire": 0,
+        "water": 10,
+        "thunder": 15,
+        "ice": 10,
+        "dragon": 20
+      }
+    ]
+  },
+  {
+    "name": "Royal Ludroth",
+    "type": "Leviathan",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 42,
+        "strike": 50,
+        "shooting": 50,
+        "fire": 20,
+        "water": 0,
+        "thunder": 15,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "tail",
+        "slash": 42,
+        "strike": 42,
+        "shooting": 40,
+        "fire": 20,
+        "water": 0,
+        "thunder": 5,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "front-legs",
+        "slash": 30,
+        "strike": 35,
+        "shooting": 25,
+        "fire": 15,
+        "water": 0,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "neck",
+        "slash": 45,
+        "strike": 42,
+        "shooting": 45,
+        "fire": 20,
+        "water": 0,
+        "thunder": 15,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "back",
+        "slash": 30,
+        "strike": 45,
+        "shooting": 30,
+        "fire": 30,
+        "water": 0,
+        "thunder": 10,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "abdomen",
+        "slash": 50,
+        "strike": 45,
+        "shooting": 40,
+        "fire": 25,
+        "water": 0,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "back-legs",
+        "slash": 35,
+        "strike": 30,
+        "shooting": 30,
+        "fire": 15,
+        "water": 0,
+        "thunder": 10,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "head-g-rank",
+        "slash": 42,
+        "strike": 50,
+        "shooting": 50,
+        "fire": 20,
+        "water": 0,
+        "thunder": 15,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "tail-g-rank",
+        "slash": 42,
+        "strike": 42,
+        "shooting": 40,
+        "fire": 20,
+        "water": 0,
+        "thunder": 5,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "front-legs-g-rank",
+        "slash": 23,
+        "strike": 27,
+        "shooting": 20,
+        "fire": 15,
+        "water": 0,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "neck-g-rank",
+        "slash": 45,
+        "strike": 42,
+        "shooting": 45,
+        "fire": 20,
+        "water": 0,
+        "thunder": 15,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "back-g-rank",
+        "slash": 30,
+        "strike": 45,
+        "shooting": 30,
+        "fire": 30,
+        "water": 0,
+        "thunder": 10,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "abdomen-g-rank",
+        "slash": 50,
+        "strike": 45,
+        "shooting": 40,
+        "fire": 25,
+        "water": 0,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "back-legs-g-rank",
+        "slash": 27,
+        "strike": 23,
+        "shooting": 25,
+        "fire": 15,
+        "water": 0,
+        "thunder": 10,
+        "ice": 10,
+        "dragon": 0
+      }
+    ]
+  },
+  {
+    "name": "Rust Duramboros",
+    "type": "Brute Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 38,
+        "strike": 25,
+        "shooting": 35,
+        "fire": 5,
+        "water": 10,
+        "thunder": 15,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "torso",
+        "slash": 25,
+        "strike": 28,
+        "shooting": 25,
+        "fire": 5,
+        "water": 15,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "tail",
+        "slash": 32,
+        "strike": 40,
+        "shooting": 50,
+        "fire": 5,
+        "water": 10,
+        "thunder": 5,
+        "ice": 10,
+        "dragon": 10
+      },
+      {
+        "part": "front-legs",
+        "slash": 32,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 0,
+        "water": 15,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 10
+      },
+      {
+        "part": "tail-tip",
+        "slash": 25,
+        "strike": 38,
+        "shooting": 40,
+        "fire": 5,
+        "water": 20,
+        "thunder": 5,
+        "ice": 20,
+        "dragon": 20
+      },
+      {
+        "part": "back-legs",
+        "slash": 38,
+        "strike": 38,
+        "shooting": 35,
+        "fire": 0,
+        "water": 15,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 5
+      },
+      {
+        "part": "horn",
+        "slash": 22,
+        "strike": 20,
+        "shooting": 20,
+        "fire": 10,
+        "water": 35,
+        "thunder": 10,
+        "ice": 35,
+        "dragon": 0
+      },
+      {
+        "part": "back",
+        "slash": 60,
+        "strike": 60,
+        "shooting": 35,
+        "fire": 10,
+        "water": 20,
+        "thunder": 0,
+        "ice": 20,
+        "dragon": 10
+      },
+      {
+        "part": "back-post-break",
+        "slash": 84,
+        "strike": 84,
+        "shooting": 52,
+        "fire": 20,
+        "water": 30,
+        "thunder": 5,
+        "ice": 30,
+        "dragon": 20
+      }
+    ]
+  },
+  {
+    "name": "Sand Barioth",
+    "type": "Flying Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 60,
+        "strike": 65,
+        "shooting": 70,
+        "fire": 0,
+        "water": 15,
+        "thunder": 25,
+        "ice": 30,
+        "dragon": 10
+      },
+      {
+        "part": "tail",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 25,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 5
+      },
+      {
+        "part": "front-legs",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 30,
+        "fire": 0,
+        "water": 5,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 5
+      },
+      {
+        "part": "neck",
+        "slash": 30,
+        "strike": 25,
+        "shooting": 30,
+        "fire": 0,
+        "water": 5,
+        "thunder": 5,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "back",
+        "slash": 30,
+        "strike": 25,
+        "shooting": 30,
+        "fire": 0,
+        "water": 5,
+        "thunder": 5,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "wing",
+        "slash": 25,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 0,
+        "water": 20,
+        "thunder": 25,
+        "ice": 30,
+        "dragon": 10
+      },
+      {
+        "part": "belly",
+        "slash": 45,
+        "strike": 25,
+        "shooting": 40,
+        "fire": 0,
+        "water": 5,
+        "thunder": 5,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "back-legs",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 35,
+        "fire": 0,
+        "water": 5,
+        "thunder": 5,
+        "ice": 10,
+        "dragon": 0
+      }
+    ]
+  },
+  {
+    "name": "Savage Deviljho",
+    "type": "Brute Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 28,
+        "strike": 31,
+        "shooting": 25,
+        "fire": 20,
+        "water": 20,
+        "thunder": 30,
+        "ice": 20,
+        "dragon": 20
+      },
+      {
+        "part": "tail",
+        "slash": 26,
+        "strike": 22,
+        "shooting": 25,
+        "fire": 20,
+        "water": 20,
+        "thunder": 35,
+        "ice": 20,
+        "dragon": 20
+      },
+      {
+        "part": "front-legs",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 30,
+        "fire": 15,
+        "water": 15,
+        "thunder": 25,
+        "ice": 15,
+        "dragon": 15
+      },
+      {
+        "part": "back-legs",
+        "slash": 28,
+        "strike": 28,
+        "shooting": 20,
+        "fire": 20,
+        "water": 20,
+        "thunder": 30,
+        "ice": 20,
+        "dragon": 20
+      },
+      {
+        "part": "breast",
+        "slash": 69,
+        "strike": 69,
+        "shooting": 55,
+        "fire": 15,
+        "water": 15,
+        "thunder": 25,
+        "ice": 15,
+        "dragon": 15
+      },
+      {
+        "part": "body",
+        "slash": 21,
+        "strike": 21,
+        "shooting": 21,
+        "fire": 20,
+        "water": 20,
+        "thunder": 30,
+        "ice": 20,
+        "dragon": 20
+      },
+      {
+        "part": "head-enraged",
+        "slash": 69,
+        "strike": 76,
+        "shooting": 55,
+        "fire": 0,
+        "water": 0,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "tail-enraged",
+        "slash": 24,
+        "strike": 21,
+        "shooting": 25,
+        "fire": 20,
+        "water": 20,
+        "thunder": 35,
+        "ice": 20,
+        "dragon": 20
+      },
+      {
+        "part": "front-legs-enraged",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 30,
+        "fire": 15,
+        "water": 15,
+        "thunder": 25,
+        "ice": 15,
+        "dragon": 15
+      },
+      {
+        "part": "back-legs-enraged",
+        "slash": 27,
+        "strike": 27,
+        "shooting": 20,
+        "fire": 20,
+        "water": 20,
+        "thunder": 30,
+        "ice": 20,
+        "dragon": 20
+      },
+      {
+        "part": "breast-enraged",
+        "slash": 48,
+        "strike": 45,
+        "shooting": 45,
+        "fire": 15,
+        "water": 15,
+        "thunder": 25,
+        "ice": 15,
+        "dragon": 15
+      },
+      {
+        "part": "body-enraged",
+        "slash": 20,
+        "strike": 20,
+        "shooting": 15,
+        "fire": 20,
+        "water": 20,
+        "thunder": 30,
+        "ice": 20,
+        "dragon": 20
+      }
+    ]
+  },
+  {
+    "name": "Silver Rathalos",
+    "type": "Flying Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 12,
+        "strike": 19,
+        "shooting": 15,
+        "fire": 0,
+        "water": 30,
+        "thunder": 20,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "legs",
+        "slash": 35,
+        "strike": 35,
+        "shooting": 45,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "tail",
+        "slash": 21,
+        "strike": 18,
+        "shooting": 15,
+        "fire": 0,
+        "water": 10,
+        "thunder": 5,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "neck",
+        "slash": 24,
+        "strike": 24,
+        "shooting": 18,
+        "fire": 0,
+        "water": 20,
+        "thunder": 15,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "back",
+        "slash": 55,
+        "strike": 50,
+        "shooting": 30,
+        "fire": 5,
+        "water": 20,
+        "thunder": 15,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "abdomen",
+        "slash": 25,
+        "strike": 30,
+        "shooting": 30,
+        "fire": 5,
+        "water": 15,
+        "thunder": 10,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "wing",
+        "slash": 44,
+        "strike": 44,
+        "shooting": 25,
+        "fire": 0,
+        "water": 25,
+        "thunder": 15,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "tail-tip",
+        "slash": 24,
+        "strike": 24,
+        "shooting": 22,
+        "fire": 0,
+        "water": 10,
+        "thunder": 10,
+        "ice": 5,
+        "dragon": 0
+      }
+    ]
+  },
+  {
+    "name": "Steel Uragaan",
+    "type": "Brute Wyvern",
+    "parts": [
+      {
+        "part": "tail",
+        "slash": 35,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 0,
+        "water": 25,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 20
+      },
+      {
+        "part": "front-legs",
+        "slash": 25,
+        "strike": 30,
+        "shooting": 15,
+        "fire": 0,
+        "water": 15,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 15
+      },
+      {
+        "part": "neck",
+        "slash": 25,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 0,
+        "water": 20,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 15
+      },
+      {
+        "part": "back",
+        "slash": 22,
+        "strike": 24,
+        "shooting": 10,
+        "fire": 0,
+        "water": 15,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 15
+      },
+      {
+        "part": "abdomen",
+        "slash": 55,
+        "strike": 45,
+        "shooting": 45,
+        "fire": 0,
+        "water": 30,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 30
+      },
+      {
+        "part": "tail-tip",
+        "slash": 22,
+        "strike": 24,
+        "shooting": 10,
+        "fire": 0,
+        "water": 35,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 25
+      },
+      {
+        "part": "back-legs",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 15,
+        "fire": 0,
+        "water": 15,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 15
+      },
+      {
+        "part": "head",
+        "slash": 19,
+        "strike": 20,
+        "shooting": 10,
+        "fire": 0,
+        "water": 40,
+        "thunder": 5,
+        "ice": 20,
+        "dragon": 30
+      },
+      {
+        "part": "head-post-break",
+        "slash": 55,
+        "strike": 50,
+        "shooting": 40,
+        "fire": 0,
+        "water": 20,
+        "thunder": 15,
+        "ice": 30,
+        "dragon": 35
+      }
+    ]
+  },
+  {
+    "name": "Stygian Zinogre",
+    "type": "Fanged Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 45,
+        "strike": 45,
+        "shooting": 50,
+        "fire": 10,
+        "water": 20,
+        "thunder": 10,
+        "ice": 20,
+        "dragon": 0
+      },
+      {
+        "part": "torso",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 25,
+        "fire": 5,
+        "water": 10,
+        "thunder": 15,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "tail",
+        "slash": 28,
+        "strike": 21,
+        "shooting": 20,
+        "fire": 5,
+        "water": 5,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "front-legs",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 25,
+        "fire": 5,
+        "water": 20,
+        "thunder": 25,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "back",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 30,
+        "fire": 15,
+        "water": 15,
+        "thunder": 20,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "tail-tip",
+        "slash": 21,
+        "strike": 21,
+        "shooting": 10,
+        "fire": 10,
+        "water": 10,
+        "thunder": 25,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "back-legs",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 25,
+        "fire": 5,
+        "water": 20,
+        "thunder": 25,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "front-legs-paw",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 20,
+        "fire": 5,
+        "water": 15,
+        "thunder": 20,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "back-legs-paw",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 30,
+        "fire": 5,
+        "water": 15,
+        "thunder": 20,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "head-enraged",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 50,
+        "fire": 15,
+        "water": 25,
+        "thunder": 30,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "torso-enraged",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 30,
+        "fire": 5,
+        "water": 5,
+        "thunder": 15,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "tail-enraged",
+        "slash": 28,
+        "strike": 21,
+        "shooting": 20,
+        "fire": 5,
+        "water": 5,
+        "thunder": 20,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "front-legs-enraged",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 30,
+        "fire": 5,
+        "water": 20,
+        "thunder": 25,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "back-enraged",
+        "slash": 45,
+        "strike": 45,
+        "shooting": 35,
+        "fire": 0,
+        "water": 0,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 0
+      },
+      {
+        "part": "tail-tip-enraged",
+        "slash": 21,
+        "strike": 21,
+        "shooting": 10,
+        "fire": 10,
+        "water": 10,
+        "thunder": 25,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "back-legs-enraged",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 30,
+        "fire": 5,
+        "water": 20,
+        "thunder": 25,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "front-legs-paw-enraged",
+        "slash": 22,
+        "strike": 22,
+        "shooting": 25,
+        "fire": 5,
+        "water": 20,
+        "thunder": 30,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "back-legs-paw-enraged",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 25,
+        "fire": 5,
+        "water": 20,
+        "thunder": 25,
+        "ice": 10,
+        "dragon": 0
+      }
+    ]
+  },
+  {
+    "name": "Uragaan",
+    "type": "Brute Wyvern",
+    "parts": [
+      {
+        "part": "tail",
+        "slash": 35,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 0,
+        "water": 25,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 20
+      },
+      {
+        "part": "front-legs",
+        "slash": 25,
+        "strike": 30,
+        "shooting": 20,
+        "fire": 0,
+        "water": 15,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 15
+      },
+      {
+        "part": "neck",
+        "slash": 25,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 0,
+        "water": 20,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 15
+      },
+      {
+        "part": "back",
+        "slash": 22,
+        "strike": 24,
+        "shooting": 10,
+        "fire": 0,
+        "water": 15,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 15
+      },
+      {
+        "part": "abdomen",
+        "slash": 55,
+        "strike": 45,
+        "shooting": 45,
+        "fire": 0,
+        "water": 30,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 30
+      },
+      {
+        "part": "tail-tip",
+        "slash": 22,
+        "strike": 24,
+        "shooting": 10,
+        "fire": 0,
+        "water": 35,
+        "thunder": 5,
+        "ice": 15,
+        "dragon": 25
+      },
+      {
+        "part": "back-legs",
+        "slash": 25,
+        "strike": 30,
+        "shooting": 20,
+        "fire": 0,
+        "water": 15,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 15
+      },
+      {
+        "part": "head",
+        "slash": 19,
+        "strike": 20,
+        "shooting": 10,
+        "fire": 0,
+        "water": 40,
+        "thunder": 5,
+        "ice": 20,
+        "dragon": 30
+      },
+      {
+        "part": "head-post-break",
+        "slash": 55,
+        "strike": 50,
+        "shooting": 40,
+        "fire": 0,
+        "water": 20,
+        "thunder": 15,
+        "ice": 30,
+        "dragon": 35
+      }
+    ]
+  },
+  {
+    "name": "Volvidon",
+    "type": "Fanged Beast",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 60,
+        "strike": 55,
+        "shooting": 50,
+        "fire": 0,
+        "water": 30,
+        "thunder": 15,
+        "ice": 20,
+        "dragon": 0
+      },
+      {
+        "part": "upper-body",
+        "slash": 45,
+        "strike": 45,
+        "shooting": 35,
+        "fire": 0,
+        "water": 20,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "front-legs",
+        "slash": 40,
+        "strike": 30,
+        "shooting": 30,
+        "fire": 0,
+        "water": 10,
+        "thunder": 5,
+        "ice": 5,
+        "dragon": 0
+      },
+      {
+        "part": "lower-body",
+        "slash": 36,
+        "strike": 36,
+        "shooting": 20,
+        "fire": 0,
+        "water": 10,
+        "thunder": 5,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "butt",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 0,
+        "water": 15,
+        "thunder": 10,
+        "ice": 10,
+        "dragon": 0
+      },
+      {
+        "part": "upper-back",
+        "slash": 45,
+        "strike": 45,
+        "shooting": 40,
+        "fire": 0,
+        "water": 20,
+        "thunder": 10,
+        "ice": 15,
+        "dragon": 0
+      },
+      {
+        "part": "while-rotating",
+        "slash": 80,
+        "strike": 80,
+        "shooting": 10,
+        "fire": 0,
+        "water": 0,
+        "thunder": 0,
+        "ice": 0,
+        "dragon": 0
+      }
+    ]
+  },
+  {
+    "name": "Zinogre",
+    "type": "Fanged Wyvern",
+    "parts": [
+      {
+        "part": "head",
+        "slash": 45,
+        "strike": 50,
+        "shooting": 60,
+        "fire": 15,
+        "water": 20,
+        "thunder": 0,
+        "ice": 20,
+        "dragon": 5
+      },
+      {
+        "part": "torso",
+        "slash": 25,
+        "strike": 25,
+        "shooting": 35,
+        "fire": 5,
+        "water": 5,
+        "thunder": 0,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "tail",
+        "slash": 27,
+        "strike": 24,
+        "shooting": 20,
+        "fire": 5,
+        "water": 5,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "front-legs",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 30,
+        "fire": 5,
+        "water": 5,
+        "thunder": 0,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "back",
+        "slash": 40,
+        "strike": 36,
+        "shooting": 30,
+        "fire": 10,
+        "water": 15,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 5
+      },
+      {
+        "part": "tail-tip",
+        "slash": 21,
+        "strike": 15,
+        "shooting": 10,
+        "fire": 10,
+        "water": 10,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 5
+      },
+      {
+        "part": "back-legs",
+        "slash": 30,
+        "strike": 30,
+        "shooting": 30,
+        "fire": 5,
+        "water": 5,
+        "thunder": 0,
+        "ice": 5,
+        "dragon": 5
+      },
+      {
+        "part": "front-legs-paw",
+        "slash": 24,
+        "strike": 30,
+        "shooting": 25,
+        "fire": 5,
+        "water": 5,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "back-legs-paw",
+        "slash": 36,
+        "strike": 35,
+        "shooting": 35,
+        "fire": 5,
+        "water": 5,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "head-enraged",
+        "slash": 60,
+        "strike": 65,
+        "shooting": 70,
+        "fire": 20,
+        "water": 25,
+        "thunder": 0,
+        "ice": 30,
+        "dragon": 15
+      },
+      {
+        "part": "torso-enraged",
+        "slash": 36,
+        "strike": 30,
+        "shooting": 40,
+        "fire": 5,
+        "water": 5,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "tail-enraged",
+        "slash": 27,
+        "strike": 24,
+        "shooting": 20,
+        "fire": 5,
+        "water": 5,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "front-legs-enraged",
+        "slash": 36,
+        "strike": 35,
+        "shooting": 40,
+        "fire": 5,
+        "water": 5,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "back-enraged",
+        "slash": 50,
+        "strike": 50,
+        "shooting": 35,
+        "fire": 15,
+        "water": 15,
+        "thunder": 0,
+        "ice": 20,
+        "dragon": 5
+      },
+      {
+        "part": "tail-tip-enraged",
+        "slash": 21,
+        "strike": 15,
+        "shooting": 15,
+        "fire": 10,
+        "water": 10,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 5
+      },
+      {
+        "part": "back-legs-enraged",
+        "slash": 36,
+        "strike": 35,
+        "shooting": 40,
+        "fire": 5,
+        "water": 5,
+        "thunder": 0,
+        "ice": 10,
+        "dragon": 5
+      },
+      {
+        "part": "front-legs-paw-enraged",
+        "slash": 36,
+        "strike": 36,
+        "shooting": 35,
+        "fire": 10,
+        "water": 10,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 5
+      },
+      {
+        "part": "back-legs-paw-enraged",
+        "slash": 40,
+        "strike": 40,
+        "shooting": 45,
+        "fire": 12,
+        "water": 10,
+        "thunder": 0,
+        "ice": 15,
+        "dragon": 5
+      }
+    ]
+  }
+]
