@@ -1,0 +1,21 @@
+{
+  "type": "switch-axe",
+  "label": "Switch Axe",
+  "metaLabel": "Mizar / AuL / CE+3",
+  "note": "MH3U endgame Switch Axe centers on Mizar's Asterism (1150 display / 250 true raw, +30% affinity, natural purple, Power Phial) in a Miralis set with Vangis Coil, giving Attack Up (L), Latent Power +1, Rock Steady, and Critical Eye +3 from an Expert talisman/gems. Sharpness +1 is intentionally omitted because Mizar already has natural purple; non-Mizar power-phial axes such as Ceadeed Axe, Brisant Demolisher, Nether Excellion, and Stygian Vanagloria need Sharpness +1 and usually Razor Sharp. The model captures AuL (+20 true raw), CE+3 (+30% affinity), and base sharpness. Power Phial's 1.2x sword-mode raw, Razor Sharp, Rock Steady, Latent Power, Evade Extender, Awaken/poison, and 3U's 1.44x purple (the shared table uses 1.5x) are not modeled. Element Attack Up is not used because the 3U meta is raw/power-phial.",
+  "skills": {
+    "sharpness": "base",
+    "critDraw": false,
+    "attackUp": 20,
+    "affinityBonus": 30,
+    "elementAttackUp": 1.0
+  },
+  "sources": [
+    "https://kiranico.com/en/mh3u/weapon/switchaxe/mizars-asterism",
+    "https://gamefaqs.gamespot.com/boards/642342-monster-hunter-3-ultimate/68756847",
+    "https://www.reddit.com/r/MonsterHunter/comments/2s1349/mh3u_end_game_switch_axe_armor_set/",
+    "https://www.reddit.com/r/MonsterHunter/comments/2gwjbm/mh3u_ideal_switch_axe_armor_sets/",
+    "https://kiranico.com/en/mh3u/armor/skill",
+    "http://wizeweb.net/mh3gcalc/"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "type": "switch-axe",
+  "label": "Switch Axe",
+  "metaLabel": "Honed / Razor / Challenger+2 / EE",
+  "note": "MH4U endgame Switch Axe uses the Honed Blade template: Honed Blade (Sharpness +1 + Attack Up L), Razor Sharp, Challenger +2, and Evade Extender. Typical power-phial carriers are Ceadeed Axe (1566 display / 290 true raw, +15% affinity, 330 water), which needs Sharpness +1 for purple, and Chameleos SA/Waxglare Wand (3 slots); Baraq Sedition (290 true raw, +10% affinity, natural purple) often runs Attack Up L / Weakness Exploit / Razor Sharp / Fleet Foot instead. The model captures Honed Blade's Sharpness +1 half as sharpness 'best' and its Attack Up L half as +20 true raw; the Honed Blade composite itself is not a model field. Razor Sharp, Challenger +2 (+25 true raw and +20% affinity while enraged), Evade Extender, Power Phial's 1.2x sword-mode raw, and 4U's 1.45x purple (the shared table uses 1.5x) are not modeled. Element Attack Up stays 1.0 because the 4U meta is raw/power-phial.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 20,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.0
+  },
+  "sources": [
+    "https://kiranico.com/en/mh4u/weapon/switchaxe/ceadeed-axe",
+    "https://www.reddit.com/r/MonsterHunter/comments/3myfj0/end_game_switch_axe_set/",
+    "https://www.reddit.com/r/MonsterHunter/comments/38vvb3/switch_axe_questions/",
+    "https://www.reddit.com/r/MonsterHunter/comments/390r6m/mh4u_switch_axe_sa_mega_thread/",
+    "https://kiranico.com/en/mh4u/wiki/weapons",
+    "https://www.reddit.com/r/MonsterHunter/comments/3vgncc/mh4u_switch_axe_questions/"
+  ]
+}
