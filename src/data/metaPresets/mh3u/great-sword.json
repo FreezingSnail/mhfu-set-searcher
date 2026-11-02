@@ -1,0 +1,20 @@
+{
+  "type": "great-sword",
+  "label": "Great Sword",
+  "metaLabel": "Honed Blade / CD / Focus",
+  "note": "MH3U G-rank Honed Blade mix (Diablos X + Nether + Torso Up): Honed Blade, Critical Draw and Focus, with spare slots for a utility skill. Focus is unmodeled; Honed Blade is modeled as Sharpness+1 plus Attack Up L (+20 true raw).",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": true,
+    "attackUp": 20,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.0,
+    "songAttackUp": 1.0
+  },
+  "sources": [
+    "https://kiranico.com/en/mh3u/armor/skill/edgemaster",
+    "https://kiranico.com/en/mh3u/armor/skill/crit-draw",
+    "https://kiranico.com/en/mh3u/armor/skill/attack",
+    "https://gamefaqs.gamespot.com/boards/683294-monster-hunter-3-ultimate/68206616"
+  ]
+}

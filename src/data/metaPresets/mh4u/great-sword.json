@@ -1,0 +1,21 @@
+{
+  "type": "great-sword",
+  "label": "Great Sword",
+  "metaLabel": "Honed Blade / CD / Focus",
+  "note": "MH4U G-rank Honed Blade draw set (Diablos X / Grand Divine Ire / Kujula / Miralis): Honed Blade (Sharpness+1 + Attack Up L), Critical Draw, Focus and Quick Sheath. Focus and Quick Sheath are unmodeled; Challenger+2 and Weakness Exploit are common conditional alternatives and are also unmodeled.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": true,
+    "attackUp": 20,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.0,
+    "songAttackUp": 1.0
+  },
+  "sources": [
+    "https://kiranico.com/en/mh4u/armor/skill/edgemaster",
+    "https://kiranico.com/en/mh4u/armor/skill/crit-draw",
+    "https://kiranico.com/en/mh4u/armor/skill/attack",
+    "https://kiranico.com/en/mh4u/armor/skill/spirit",
+    "https://www.reddit.com/r/MonsterHunter/comments/3jvdhj/armor_sets_for_black_fatalis_gs_mh4u/"
+  ]
+}
