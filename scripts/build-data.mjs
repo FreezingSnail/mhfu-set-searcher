@@ -190,6 +190,17 @@ const rapidLabel = (raw) =>
     })
     .filter(Boolean);
 
+const NOTE_LABEL = {
+  w: "White",
+  r: "Red",
+  b: "Blue",
+  g: "Green",
+  y: "Yellow",
+  p: "Purple",
+  a: "Aqua",
+  o: "Orange",
+  c: "Cyan",
+};
 const COATING_LABEL = {
   closerng: "Close Range",
   paralysis: "Paralysis",
@@ -238,6 +249,9 @@ for (const file of fs.readdirSync(path.join(vendor, "blacksmith/weapons"))) {
           caps: a.capacity ?? [],
         })),
       );
+    }
+    if (w.type === "hunting-horn") {
+      weapon.notes = (w.notes ?? []).map((n) => NOTE_LABEL[n] ?? n);
     }
     if (w.type === "bow") {
       weapon.coatings = (w.coatings ?? []).map((c) => COATING_LABEL[c] ?? c);

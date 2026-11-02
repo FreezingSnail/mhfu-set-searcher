@@ -383,15 +383,19 @@ function Detail({ weapon, onSelect }: { weapon: Weapon; onSelect: (w: Weapon) =>
         <div>
           <h4>Hunting Horn notes</h4>
           <div className="chips">{weapon.notes.map((n) => <span className="chip" key={n}>{n}</span>)}</div>
-          <h4>Songs</h4>
-          <div className="song-list">
-            {weapon.songs?.map((song) => (
-              <div className="song-row" key={song.name}>
-                <span>{song.name}</span>
-                <span className="dim small">{song.notes.map((i) => weapon.notes?.[i] ?? "?").join(" · ")}</span>
+          {weapon.songs?.length ? (
+            <>
+              <h4>Songs</h4>
+              <div className="song-list">
+                {weapon.songs.map((song) => (
+                  <div className="song-row" key={song.name}>
+                    <span>{song.name}</span>
+                    <span className="dim small">{song.notes.map((i) => weapon.notes?.[i] ?? "?").join(" · ")}</span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          ) : null}
         </div>
       ) : null}
       {isBowgun(weapon) && <BowgunInfo weapon={weapon} />}
