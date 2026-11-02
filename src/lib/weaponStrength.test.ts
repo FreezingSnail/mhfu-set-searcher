@@ -4,6 +4,7 @@ import {
   DEFAULT_STRENGTH_OPTIONS,
   SHARPNESS,
   isEndTreeG,
+  isObtainableWeapon,
   scoreWeapon,
   sharpnessTier,
 } from "./weaponStrength.ts";
@@ -268,4 +269,38 @@ test("end-tree G filter excludes upgrades and other ranks", () => {
   assert.equal(isEndTreeG(weapon()), true);
   assert.equal(isEndTreeG(weapon({ improveTo: ["Next"] })), false);
   assert.equal(isEndTreeG(weapon({ rank: "hr" })), false);
+});
+
+test("placeholder and no-path weapons are hidden, but tree-linked material-less weapons are not", () => {
+  assert.equal(isObtainableWeapon(weapon({ name: "dummy (Test Blade)" })), false);
+  assert.equal(isObtainableWeapon(weapon({ name: "Dummy/Hammer 2" })), false);
+  assert.equal(isObtainableWeapon(weapon({ name: "Buster Sword", createCost: 500 })), true);
+  assert.equal(
+    isObtainableWeapon(
+      weapon({
+        name: "Dancing Mad",
+        createCost: 0,
+        improveCost: 0,
+        createMats: [],
+        improveMats: [],
+        improveFrom: [],
+        improveTo: [],
+      }),
+    ),
+    false,
+  );
+  assert.equal(
+    isObtainableWeapon(
+      weapon({
+        name: "Worn Blades",
+        createCost: 0,
+        improveCost: 0,
+        createMats: [],
+        improveMats: [],
+        improveFrom: [],
+        improveTo: ["Weathered Blades"],
+      }),
+    ),
+    true,
+  );
 });

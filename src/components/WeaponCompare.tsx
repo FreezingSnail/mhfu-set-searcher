@@ -1,8 +1,10 @@
 import { useMemo, useState, type ReactNode } from "react";
 import { useGame } from "../lib/gameContext";
-import { META_PRESETS } from "../lib/metaPresets";
+import { META_PRESETS_BY_GAME } from "../lib/metaPresets";
+import { DAMAGE_PROFILES } from "../lib/damageProfiles";
 import {
   DEFAULT_STRENGTH_OPTIONS,
+  isObtainableWeapon,
   scoreEndTreeG,
   type SharpnessMode,
   type WeaponScore,
@@ -32,6 +34,11 @@ const ATTACK_UP_OPTIONS = [
   { value: 20, label: "Attack Up L (+20)" },
 ];
 
+const ATTACK_UP_XL_OPTIONS = [
+  ...ATTACK_UP_OPTIONS,
+  { value: 25, label: "Attack Up XL (+25 true raw)" },
+];
+
 const CRIT_EYE_OPTIONS = [
   { value: 0, label: "None" },
   { value: 10, label: "Crit Eye +1 (+10%)" },
@@ -39,9 +46,11 @@ const CRIT_EYE_OPTIONS = [
   { value: 30, label: "Crit Eye +3 (+30%)" },
 ];
 
-const ELEMENT_UP_OPTIONS = [
-  { value: 1, label: "None" },
-  { value: 1.2, label: "Element Attack Up (1.2x)" },
+const CRIT_EYE_OPTIONS_MH4U = [
+  { value: 0, label: "None" },
+  { value: 10, label: "Crit Eye +1 (+10%)" },
+  { value: 15, label: "Crit Eye +2 (+15%)" },
+  { value: 20, label: "Crit Eye +3 (+20%)" },
 ];
 
 const HH_SONG_OPTIONS = [
@@ -327,7 +336,22 @@ function CompareTable({ rows }: { rows: WeaponScore[] }) {
 }
 
 export default function WeaponCompare() {
-  const { data } = useGame();
+  const { game, data } = useGame();
+  const profile = DAMAGE_PROFILES[game];
+  const presets = META_PRESETS_BY_GAME[game];
+  const weaponTypes =
+    game === "mhfu"
+      ? data.weaponTypes
+      : data.weaponTypes.filter((value) => !data.rangedTypes.has(value));
+  const attackUpOptions = game === "mh4u" ? ATTACK_UP_XL_OPTIONS : ATTACK_UP_OPTIONS;
+  const critEyeOptions = game === "mh4u" ? CRIT_EYE_OPTIONS_MH4U : CRIT_EYE_OPTIONS;
+  const elementUpOptions = [
+    { value: 1, label: "None" },
+    {
+      value: profile.elementAttackUp,
+      label: `Element Attack Up (${profile.elementAttackUp}x)`,
+    },
+  ];
   const [type, setType] = useState("great-sword");
   const [sharpness, setSharpness] = useState<SharpnessMode>("best");
   const [sort, setSort] = useState<Sort>("score");
@@ -341,15 +365,17 @@ export default function WeaponCompare() {
   const [bowCharge, setBowCharge] = useState(3);
   const [bowPowerCoating, setBowPowerCoating] = useState(true);
   const [bowCriticalDistance, setBowCriticalDistance] = useState(true);
+  const [includeUnavailable, setIncludeUnavailable] = useState(false);
   const [selected, setSelected] = useState<string[] | null>(null);
   const blademaster = !data.rangedTypes.has(type);
   const critDrawActive = critDraw && blademaster;
   const affinityBonusActive = blademaster ? affinityBonus : 0;
   const songAttackUpActive = type === "hunting-horn" ? songAttackUp : 1;
-  const preset = META_PRESETS[type];
+  const preset = presets[type];
   const options = useMemo(
     () => ({
       ...DEFAULT_STRENGTH_OPTIONS,
+      profile,
       sharpness,
       critDraw: critDrawActive,
       attackUp,
@@ -361,6 +387,7 @@ export default function WeaponCompare() {
       bowCriticalDistance,
     }),
     [
+      profile,
       sharpness,
       critDrawActive,
       attackUp,
@@ -374,8 +401,11 @@ export default function WeaponCompare() {
   );
 
   const allScores = useMemo(
-    () => scoreEndTreeG(data.weapons, options),
-    [data.weapons, options],
+    () =>
+      scoreEndTreeG(data.weapons, options).filter(
+        (row) => includeUnavailable || isObtainableWeapon(row.weapon),
+      ),
+    [data.weapons, options, includeUnavailable],
   );
   const typeRows = useMemo(
     () => allScores.filter((row) => row.weapon.type === type),
@@ -456,16 +486,28 @@ export default function WeaponCompare() {
         <div className="compare-head">
           <div>
             <h2>Weapon Comparison</h2>
-            <p className="dim small">
-              MHFU end-tree G-rank weapons. Melee and bowguns use 100 MV against the dummy
-              45/25 hitzones; Bow uses the selected charge's real motion values and elemental
-              hit count. Compare within a type; click bars to add up to {MAX_COMPARE} weapons.
-              Base clears
-              skills; Meta applies the standard endgame skill package for the selected type.
-              Crit Draw models MHP2G draw attacks: 100% crit and negative affinity ignored on that
-              hit. Crit Eye adds flat affinity for sustained weapons such as Long Sword. Hunting
-              Horn shows note colours and can apply the Attack Up L / encore song.
-            </p>
+            {game === "mhfu" ? (
+              <p className="dim small">
+                MHFU end-tree G-rank weapons. Melee and bowguns use 100 MV against the dummy
+                45/25 hitzones; Bow uses the selected charge's real motion values and elemental
+                hit count. Compare within a type; click bars to add up to {MAX_COMPARE} weapons.
+                Base clears
+                skills; Meta applies the standard endgame skill package for the selected type.
+                Crit Draw models MHP2G draw attacks: 100% crit and negative affinity ignored on that
+                hit. Crit Eye adds flat affinity for sustained weapons such as Long Sword. Hunting
+                Horn shows note colours and can apply the Attack Up L / encore song.
+              </p>
+            ) : (
+              <p className="dim small">
+                {data.label} end-tree G-rank blademaster weapons. Melee uses 100 MV against the
+                dummy 45/25 hitzones. Compare within a type; click bars to add up to {MAX_COMPARE}{" "}
+                weapons. Base clears skills; Meta applies the standard endgame skill package for
+                the selected type. Crit Draw models draw attacks: 100% crit and negative affinity
+                ignored on that hit. Crit Eye adds flat affinity for sustained weapons such as Long
+                Sword. Hunting Horn shows note colours and can apply the Attack Up L / encore song.
+                Ranged weapons are excluded because ranged damage is not modeled for this game.
+              </p>
+            )}
           </div>
           <div className="compare-cards">
             <div><span className="dim small">Weapons</span><strong>{typeRows.length}</strong></div>
@@ -483,7 +525,7 @@ export default function WeaponCompare() {
                 setSelected(null);
               }}
             >
-              {data.weaponTypes.map((value) => (
+              {weaponTypes.map((value) => (
                 <option key={value} value={value}>{data.typeLabel[value]}</option>
               ))}
             </select>
@@ -499,7 +541,7 @@ export default function WeaponCompare() {
           <label>
             Attack Up
             <select value={attackUp} onChange={(event) => setAttackUp(Number(event.target.value))}>
-              {ATTACK_UP_OPTIONS.map((option) => (
+              {attackUpOptions.map((option) => (
                 <option key={option.value} value={option.value}>{option.label}</option>
               ))}
             </select>
@@ -511,7 +553,7 @@ export default function WeaponCompare() {
               disabled={!blademaster}
               onChange={(event) => setAffinityBonus(Number(event.target.value))}
             >
-              {CRIT_EYE_OPTIONS.map((option) => (
+              {critEyeOptions.map((option) => (
                 <option key={option.value} value={option.value}>{option.label}</option>
               ))}
             </select>
@@ -519,7 +561,7 @@ export default function WeaponCompare() {
           <label>
             Element Up
             <select value={elementUp} onChange={(event) => setElementUp(Number(event.target.value))}>
-              {ELEMENT_UP_OPTIONS.map((option) => (
+              {elementUpOptions.map((option) => (
                 <option key={option.value} value={option.value}>{option.label}</option>
               ))}
             </select>
@@ -534,7 +576,7 @@ export default function WeaponCompare() {
               </select>
             </label>
           )}
-          {type === "bow" && (
+          {game === "mhfu" && type === "bow" && (
             <>
               <label>
                 Charge
@@ -595,6 +637,14 @@ export default function WeaponCompare() {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
           />
+          <label className="check">
+            <input
+              type="checkbox"
+              checked={includeUnavailable}
+              onChange={(event) => setIncludeUnavailable(event.target.checked)}
+            />
+            Show non-obtainable
+          </label>
           <button className="ghost" type="button" onClick={resetSkills}>
             Base
           </button>

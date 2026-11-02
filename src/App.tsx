@@ -138,12 +138,8 @@ export default function App() {
             <button className={tab === "builder" ? "active" : ""} onClick={() => setTab("builder")}>Builder</button>
             <button className={tab === "sets" ? "active" : ""} onClick={() => setTab("sets")}>Sets{saved.length ? ` (${saved.length})` : ""}</button>
             <button className={tab === "weapons" ? "active" : ""} onClick={() => setTab("weapons")}>Weapons</button>
-            {game === "mhfu" && (
-              <>
-                <button className={tab === "compare" ? "active" : ""} onClick={() => setTab("compare")}>Compare</button>
-                <button className={tab === "monsters" ? "active" : ""} onClick={() => setTab("monsters")}>Monsters</button>
-              </>
-            )}
+            <button className={tab === "compare" ? "active" : ""} onClick={() => setTab("compare")}>Compare</button>
+            <button className={tab === "monsters" ? "active" : ""} onClick={() => setTab("monsters")}>Monsters</button>
             {data.charmSupport && (
               <button className={tab === "charms" ? "active" : ""} onClick={() => setTab("charms")}>Charms{charms.length ? ` (${charms.length})` : ""}</button>
             )}
@@ -179,8 +175,8 @@ export default function App() {
             />
           )}
           {tab === "weapons" && <Weapons key={game} />}
-          {tab === "compare" && game === "mhfu" && <WeaponCompare />}
-          {tab === "monsters" && game === "mhfu" && <MonsterMatchups />}
+          {tab === "compare" && <WeaponCompare key={game} />}
+          {tab === "monsters" && <MonsterMatchups key={game} />}
           {tab === "charms" && data.charmSupport && (
             <Charms
               charms={charms}

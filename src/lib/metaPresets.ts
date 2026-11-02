@@ -1,4 +1,7 @@
 import type { SharpnessMode } from "./weaponStrength";
+import type { Game } from "./types";
+import { META_PRESETS_MH3U } from "./metaPresetsMh3u.ts";
+import { META_PRESETS_MH4U } from "./metaPresetsMh4u.ts";
 import greatSword from "../data/metaPresets/great-sword.json";
 import longSword from "../data/metaPresets/long-sword.json";
 import swordAndShield from "../data/metaPresets/sword-and-shield.json";
@@ -46,3 +49,9 @@ const PRESETS = [
 export const META_PRESETS: Record<string, MetaPreset> = Object.fromEntries(
   PRESETS.map((preset) => [preset.type, preset]),
 );
+
+export const META_PRESETS_BY_GAME: Record<Game, Record<string, MetaPreset>> = {
+  mhfu: META_PRESETS,
+  mh3u: META_PRESETS_MH3U,
+  mh4u: META_PRESETS_MH4U,
+};

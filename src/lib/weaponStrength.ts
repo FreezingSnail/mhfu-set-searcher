@@ -1,25 +1,15 @@
 import type { Weapon } from "./types";
+import {
+  MHFU_DAMAGE_PROFILE,
+  type DamageProfile,
+  type SharpnessDefinition,
+} from "./damageProfiles.ts";
 
-export const CLASS_COEFFICIENT: Record<string, number> = {
-  "great-sword": 4.8,
-  "long-sword": 4.8,
-  "sword-and-shield": 1.4,
-  "dual-blades": 1.4,
-  hammer: 5.2,
-  "hunting-horn": 5.2,
-  lance: 2.3,
-  gunlance: 2.3,
-  "light-bowgun": 1.2,
-  "heavy-bowgun": 1.2,
-  bow: 1.2,
-};
-
-export const CLASS_RAW_MODIFIER: Record<string, number> = {
-  "sword-and-shield": 1.12,
-  gunlance: 0.97,
-  "light-bowgun": 1.15,
-  "heavy-bowgun": 1.15,
-};
+/** MHFU defaults retained for backwards compatibility. */
+export const CLASS_COEFFICIENT: Record<string, number> =
+  MHFU_DAMAGE_PROFILE.coefficients;
+export const CLASS_RAW_MODIFIER: Record<string, number> =
+  MHFU_DAMAGE_PROFILE.rawModifiers;
 
 const BOW_CHARGE_RAW = [0.4, 1.0, 1.5, 1.7];
 const BOW_CHARGE_ELEMENT = [0.5, 0.75, 1.0, 1.125];
@@ -34,20 +24,15 @@ const BOW_ELEMENT_HITS: Record<string, number[]> = {
   Pierce: [3, 4, 5, 5, 5],
 };
 
-export const SHARPNESS = [
-  { name: "Red", raw: 0.5, element: 0.25 },
-  { name: "Orange", raw: 0.75, element: 0.5 },
-  { name: "Yellow", raw: 1, element: 0.75 },
-  { name: "Green", raw: 1.125, element: 1 },
-  { name: "Blue", raw: 1.25, element: 1.0625 },
-  { name: "White", raw: 1.3, element: 1.125 },
-  { name: "Purple", raw: 1.5, element: 1.2 },
-] as const;
+/** MHFU defaults retained for backwards compatibility. */
+export const SHARPNESS = MHFU_DAMAGE_PROFILE.sharpness;
 
 export const STATUS_ELEMENTS = new Set(["Poison", "Paralysis", "Sleep", "Slime", "Blast"]);
 export type SharpnessMode = "base" | "plus" | "best";
 
 export type StrengthOptions = {
+  /** Game-specific coefficients, raw modifiers, and sharpness table. */
+  profile: DamageProfile;
   motionValue: number;
   rawHitzone: number;
   elementHitzone: number;
@@ -56,6 +41,10 @@ export type StrengthOptions = {
   statusWeight: number;
   sharpness: SharpnessMode;
   classModifiers: boolean;
+  /** Dual Blades Demon Mode: enables the profile's conditional 1.15x raw. */
+  demonMode: boolean;
+  /** Switch Axe sword mode with a Power Phial: enables the conditional 1.2x raw. */
+  powerPhial: boolean;
   /** MHP2G Crit Draw: draw attacks always crit, ignoring weapon affinity. */
   critDraw: boolean;
   /** Flat true raw from Attack Up skills. */
@@ -73,6 +62,7 @@ export type StrengthOptions = {
 };
 
 export const DEFAULT_STRENGTH_OPTIONS: StrengthOptions = {
+  profile: MHFU_DAMAGE_PROFILE,
   motionValue: 100,
   rawHitzone: 45,
   elementHitzone: 25,
@@ -80,6 +70,8 @@ export const DEFAULT_STRENGTH_OPTIONS: StrengthOptions = {
   statusWeight: 0,
   sharpness: "best",
   classModifiers: true,
+  demonMode: false,
+  powerPhial: false,
   critDraw: false,
   attackUp: 0,
   affinityBonus: 0,
@@ -139,7 +131,11 @@ export type WeaponScore = {
 };
 
 /** Sharpness arrays are positional from red, with trailing zero colours omitted. */
-export function sharpnessTier(weapon: Weapon, plus = false): SharpnessTier {
+export function sharpnessTier(
+  weapon: Weapon,
+  plus = false,
+  sharpnessTable: readonly SharpnessDefinition[] = SHARPNESS,
+): SharpnessTier {
   const values = plus ? weapon.sharpnessPlus : weapon.sharpness;
   if (!values?.length) {
     return { index: -1, name: "None", raw: 1, element: 1, units: 0, totalUnits: 0 };
@@ -151,7 +147,8 @@ export function sharpnessTier(weapon: Weapon, plus = false): SharpnessTier {
   if (index < 0) {
     return { index: -1, name: "None", raw: 1, element: 1, units: 0, totalUnits: 0 };
   }
-  const tier = SHARPNESS[index] ?? SHARPNESS[SHARPNESS.length - 1];
+  const tier =
+    sharpnessTable[index] ?? sharpnessTable[sharpnessTable.length - 1];
   return {
     ...tier,
     index,
@@ -166,35 +163,54 @@ function sharpnessAffinityBonus(tier: SharpnessTier) {
   return 0;
 }
 
-function bestSharpness(weapon: Weapon, mode: SharpnessMode): SharpnessTier {
-  const base = sharpnessTier(weapon, false);
-  const plus = sharpnessTier(weapon, true);
+function bestSharpness(
+  weapon: Weapon,
+  mode: SharpnessMode,
+  sharpnessTable: readonly SharpnessDefinition[],
+): SharpnessTier {
+  const base = sharpnessTier(weapon, false, sharpnessTable);
+  const plus = sharpnessTier(weapon, true, sharpnessTable);
   if (mode === "base") return base;
   if (mode === "plus") return plus.index >= 0 ? plus : base;
   return plus.index > base.index ? plus : base;
 }
 
+function rawClassModifier(
+  profile: DamageProfile,
+  type: string,
+  options: Pick<StrengthOptions, "demonMode" | "powerPhial">,
+): number {
+  const modifier = profile.rawModifiers[type] ?? 1;
+  if (!profile.conditionalRawModifiers.has(type)) return modifier;
+  if (type === "dual-blades") return options.demonMode ? modifier : 1;
+  if (type === "switch-axe") return options.powerPhial ? modifier : 1;
+  return 1;
+}
+
 /** Expected damage per hit against the configured hitzones. */
 export function scoreWeapon(weapon: Weapon, options: Partial<StrengthOptions> = {}): WeaponScore {
   const opts = { ...DEFAULT_STRENGTH_OPTIONS, ...options };
-  const coefficient = CLASS_COEFFICIENT[weapon.type] ?? 1;
+  const profile = opts.profile;
+  const coefficient = profile.coefficients[weapon.type] ?? 1;
   const trueRaw = weapon.attack / coefficient;
   const critChance = weapon.affinity ?? 0;
-  const sharpnessBase = sharpnessTier(weapon, false);
-  const sharpnessUsed = bestSharpness(weapon, opts.sharpness);
+  const sharpnessBase = sharpnessTier(weapon, false, profile.sharpness);
+  const sharpnessUsed = bestSharpness(weapon, opts.sharpness, profile.sharpness);
   const baseAffinity = critChance - (critChance > 0 ? sharpnessAffinityBonus(sharpnessBase) : 0);
   const affinityBeforeSharpness = baseAffinity + opts.affinityBonus;
   const affinityAfterSharpness =
     affinityBeforeSharpness > 0 ? affinityBeforeSharpness + sharpnessAffinityBonus(sharpnessUsed) : affinityBeforeSharpness;
   const effectiveCritChance = Math.max(-100, Math.min(100, affinityAfterSharpness));
   const critExpected = opts.critDraw ? 1.25 : 1 + (effectiveCritChance / 100) * 0.25;
-  const rawClassModifier = opts.classModifiers ? (CLASS_RAW_MODIFIER[weapon.type] ?? 1) : 1;
+  const rawModifier = opts.classModifiers
+    ? rawClassModifier(profile, weapon.type, opts)
+    : 1;
 
   const effectiveRaw =
     (trueRaw + opts.attackUp) *
     sharpnessUsed.raw *
     critExpected *
-    rawClassModifier *
+    rawModifier *
     opts.songAttackUp;
 
   let rawDamage: number;
@@ -277,7 +293,7 @@ export function scoreWeapon(weapon: Weapon, options: Partial<StrengthOptions> = 
     songAttackUp: opts.songAttackUp,
     bow,
     sharpnessBase,
-    sharpnessPlus: sharpnessTier(weapon, true),
+    sharpnessPlus: sharpnessTier(weapon, true, profile.sharpness),
     sharpnessUsed,
     effectiveRaw,
     rawDamage,
@@ -291,6 +307,27 @@ export function scoreWeapon(weapon: Weapon, options: Partial<StrengthOptions> = 
 
 export function isEndTreeG(weapon: Weapon) {
   return weapon.rank === "gr" && weapon.improveTo.length === 0;
+}
+
+/**
+ * Placeholder rows use names such as "dummy (...)" and are not obtainable.
+ * Event/relic weapons with missing material rows are still real weapons.
+ */
+const PLACEHOLDER_NAME = /\b(dummy|test|unused|nothing)\b/i;
+
+function hasAcquisitionPath(weapon: Weapon) {
+  return (
+    weapon.createCost > 0 ||
+    weapon.improveCost > 0 ||
+    weapon.createMats.length > 0 ||
+    weapon.improveMats.length > 0 ||
+    weapon.improveFrom.length > 0 ||
+    weapon.improveTo.length > 0
+  );
+}
+
+export function isObtainableWeapon(weapon: Weapon) {
+  return !PLACEHOLDER_NAME.test(weapon.name) && hasAcquisitionPath(weapon);
 }
 
 export function scoreEndTreeG(
