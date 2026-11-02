@@ -13,6 +13,7 @@ Switch games from the MHFU / MH3U / MH4U control in the header (or open `#mhfu`,
 - **Builder** — assemble a set manually, add jewels, see live skills/defense/materials.
 - **Sets** — save sets, compare 2–4 side by side, load, rename, or share them.
 - **Weapons** — fully expanded upgrade trees split into Blademaster and Ranged sub-pages, with branch guides, search, rank badges (LR/HR/G), element/sharpness filters, stats, and materials. Ranged adds physical ammo, element/status, rapid-fire, and bow shot-type filters. Bowguns show reload, recoil, rapid fire, and full ammo capacities; bows show coatings and charge levels.
+- **Compare** — effective-strength charts for every end-tree G-rank weapon type, with raw/element damage split, median markers, sharpness and affinity-based crit modeling, monster hitzone targeting with best-per-class ranking, Crit Draw / Crit Eye / Attack Up / Element Up / Hunting Horn song toggles, note-colour display, a Base reset and a per-type meta-set preset, and a side-by-side comparison table for up to four weapons.
 
 ## MH3U
 
@@ -63,7 +64,8 @@ Vendored snapshots, pinned under `vendor/`:
 
 | Source | Used for | License |
 |---|---|---|
-| [vallode/mhfu-blacksmith](https://github.com/vallode/mhfu-blacksmith) | MHFU armor, weapon trees, stats, materials | MIT |
+| [vallode/mhfu-blacksmith](https://github.com/vallode/mhfu-blacksmith) | MHFU armor, weapon trees, stats, materials, Horn note colours | MIT |
+| [Kolyn090/mhfu-db](https://github.com/Kolyn090/mhfu-db) | MHFU monster hitzones and element effectiveness | game-derived data © Capcom |
 | [AthenaADP/MHFU-ASS](https://github.com/AthenaADP/MHFU-ASS) | MHFU skill trees, jewel values, solver reference | MIT |
 | [AthenaADP/MH3U-ASS](https://github.com/AthenaADP/MH3U-ASS) | MH3U armor, jewels, skills, charm table maxima | MIT |
 | [ArmoredRaven17/mh3u-collection-tracker](https://github.com/ArmoredRaven17/mh3u-collection-tracker) | MH3U weapon trees/stats, English armor + weapon materials | MIT code; game-derived data © Capcom |
