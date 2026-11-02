@@ -1,0 +1,22 @@
+{
+  "type": "long-sword",
+  "label": "Long Sword",
+  "metaLabel": "Honed Blade / Razor / Challenger",
+  "note": "MH4U endgame LS core is Honed Blade (Sharpness+1 + Attack Up L), Razor Sharp and Challenger+2, usually with HGE plus Crit Eye+1 or Weakness Exploit on Star Knight/Edgemaster mixes. Only Honed Blade's static +20 true raw and Crit Eye+1's +10% affinity are modeled; Razor Sharp, Challenger+2 (+25 true raw/+20% affinity while enraged), Weakness Exploit and HGE are unmodeled.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 20,
+    "affinityBonus": 10,
+    "elementAttackUp": 1.0,
+    "songAttackUp": 1.0
+  },
+  "sources": [
+    "https://kiranico.com/en/mh4u/armor/skill/edgemaster",
+    "https://kiranico.com/en/mh4u/armor/skill/attack",
+    "https://kiranico.com/en/mh4u/armor/skill/expert",
+    "https://kiranico.com/en/mh4u/armor/skill/spirit",
+    "https://gamefaqs.gamespot.com/boards/762804-monster-hunter-4-ultimate/72482826",
+    "https://mhwiki.forumotion.net/t10788-mh4u-armor-set-compilation"
+  ]
+}

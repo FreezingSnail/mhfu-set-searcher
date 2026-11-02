@@ -1,0 +1,21 @@
+{
+  "type": "long-sword",
+  "label": "Long Sword",
+  "metaLabel": "Honed Blade / Razor / Evade",
+  "note": "MH3U's standard quick-blade G-rank mix (Narga Z / Silver Sol / Nether) runs Honed Blade (Sharpness+1 + Attack Up L), Razor Sharp and Evasion+1, with Challenger+2, Weakness Exploit or HGE as common swaps. Only Honed Blade's static Sharpness+1 and +20 true raw are modeled; Razor Sharp, Evasion+1, Challenger+2, Weakness Exploit and HGE are unmodeled.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 20,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.0,
+    "songAttackUp": 1.0
+  },
+  "sources": [
+    "https://kiranico.com/en/mh3u/armor/skill/edgemaster",
+    "https://kiranico.com/en/mh3u/armor/skill/attack",
+    "https://kiranico.com/en/mh3u/armor/skill/sharpness",
+    "https://gamefaqs.gamespot.com/boards/683294-monster-hunter-3-ultimate/66309756",
+    "https://mh3gnavi.blog.fc2.com/blog-entry-191.html"
+  ]
+}
