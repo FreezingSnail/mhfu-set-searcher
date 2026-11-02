@@ -13,8 +13,8 @@ Switch games from the MHFU / MH3U / MH4U control in the header (or open `#mhfu`,
 - **Builder** — assemble a set manually, add jewels, see live skills/defense/materials.
 - **Sets** — save sets, compare 2–4 side by side, load, rename, or share them.
 - **Weapons** — fully expanded upgrade trees split into Blademaster and Ranged sub-pages, with branch guides, search, rank badges (LR/HR/G), element/sharpness filters, stats, and materials. Ranged adds physical ammo, element/status, rapid-fire, and bow shot-type filters. Bowguns show reload, recoil, rapid fire, and full ammo capacities; bows show coatings and charge levels.
-- **Compare** — effective-strength charts for every end-tree G-rank weapon type, with raw/element damage split, median markers, sharpness and affinity-based crit modeling, Crit Draw / Crit Eye / Attack Up / Element Up / Hunting Horn song / Bow charge toggles, Bow motion values + elemental hit counts, note-colour display, a Base reset and a per-type meta-set preset, and a side-by-side comparison table for up to four weapons.
-- **Monsters** — monster hitzone matchup page. Pick a monster, part, and state; each class uses its meta preset, Auto chooses each weapon's best eligible part by combined raw + element score, and the page shows best-per-class plus a ranked weapon table.
+- **Compare** — effective-strength charts for every end-tree G-rank weapon type, with raw/element damage split, median markers, sharpness and affinity-based crit modeling, Crit Draw / Crit Eye / Attack Up / Element Up / Hunting Horn song / Bow charge toggles, Bow motion values + elemental hit counts, note-colour display, a Base reset and a per-type meta-set preset, and a side-by-side comparison table for up to four weapons. Placeholder / no-path weapons are hidden by default; “Show non-obtainable” reveals them.
+- **Monsters** — monster hitzone matchup page. Pick a monster, part, and state; each class uses its meta preset, Auto chooses each weapon's best eligible part by combined raw + element score, and the page shows best-per-class plus a ranked weapon table. Uses the same non-obtainable filter.
 
 ## MH3U
 
@@ -25,6 +25,7 @@ Same solver, builder, sets, and weapon-tree bones, plus charms:
 - **Builder** — pick an owned charm alongside armor and jewels.
 - **Sets** — charm is saved and compared with the rest of the set.
 - **Weapons** — all 12 MH3U classes, including Switch Axe, Gunlance, Hunting Horn, bowguns, and bows. Weapon details cover phials, shelling, horn notes/songs, arc shots, coatings, deviation, crouching fire, and ammo capacities.
+- **Compare / Monsters** — blademaster-only damage comparison and hitzone matchups for MH3U, using the MH3U sharpness table, class coefficients, per-weapon meta presets, and monster hitzones.
 
 ## MH4U
 
@@ -33,6 +34,7 @@ Same solver, builder, sets, charms, and weapon-tree bones, with MH4U's 14 weapon
 - **Charms** — owned charms are stored separately from MH3U, with MH4U charm types (Mystery, Shining, Ancient, Enduring, Graven, Distorted).
 - **Solver charm modes** — no charm, my charms, best-possible single-skill charm, or slot-only charm. Charm-type filtering is available in “my charms” mode.
 - **Weapons** — Great Sword through Charge Blade, Insect Glaive, bowguns, and Bow. Details cover Charge Blade phials, Insect Glaive kinsects, Gunlance shelling, Hunting Horn notes/songs, bow arc shots/coatings, and bowgun deviation/rapid fire/crouching fire.
+- **Compare / Monsters** — blademaster-only damage comparison and hitzone matchups for MH4U, including Charge Blade and Insect Glaive, with the MH4U sharpness table, class coefficients, per-weapon meta presets, and monster hitzones.
 
 MHFU, MH3U, and MH4U saved sets and charm lists live under separate local-storage keys, so switching games never mixes them.
 
@@ -67,6 +69,8 @@ Vendored snapshots, pinned under `vendor/`:
 |---|---|---|
 | [vallode/mhfu-blacksmith](https://github.com/vallode/mhfu-blacksmith) | MHFU armor, weapon trees, stats, materials, Horn note colours | MIT |
 | [Kolyn090/mhfu-db](https://github.com/Kolyn090/mhfu-db) | MHFU monster hitzones and element effectiveness | game-derived data © Capcom |
+| mhkita.com / Kiranico / Monster Hunter Wiki | MH3U monster hitzones | game-derived data © Capcom |
+| [mrmin123/the-calculating-palico](https://github.com/mrmin123/the-calculating-palico), [kamegami13/MonsterHunter4UDatabase](https://github.com/kamegami13/MonsterHunter4UDatabase) | MH4U monster hitzones | MIT code; game-derived data © Capcom |
 | [AthenaADP/MHFU-ASS](https://github.com/AthenaADP/MHFU-ASS) | MHFU skill trees, jewel values, solver reference | MIT |
 | [AthenaADP/MH3U-ASS](https://github.com/AthenaADP/MH3U-ASS) | MH3U armor, jewels, skills, charm table maxima | MIT |
 | [ArmoredRaven17/mh3u-collection-tracker](https://github.com/ArmoredRaven17/mh3u-collection-tracker) | MH3U weapon trees/stats, English armor + weapon materials | MIT code; game-derived data © Capcom |
