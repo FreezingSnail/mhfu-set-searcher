@@ -1,5 +1,7 @@
 import { useMemo, useState, type ReactNode } from "react";
 import { useGame } from "../lib/gameContext";
+import { WeaponDetail } from "./Weapons";
+import type { Weapon } from "../lib/types";
 import { META_PRESETS_BY_GAME } from "../lib/metaPresets";
 import { DAMAGE_PROFILES } from "../lib/damageProfiles";
 import {
@@ -119,6 +121,7 @@ function StrengthChart({
   onToggle: (name: string) => void;
 }) {
   const [tip, setTip] = useState<Tip | null>(null);
+  const [detail, setDetail] = useState<{ x: number; y: number; weapon: Weapon } | null>(null);
   if (!rows.length) return <p className="empty">No weapons match.</p>;
 
   const maxScore = Math.max(...rows.map((row) => row.score), 1);
@@ -135,9 +138,21 @@ function StrengthChart({
     setTip({ x: Math.max(8, x), y: Math.max(8, y), text });
   };
 
+  const showDetail = (event: React.MouseEvent<SVGTextElement>, weapon: Weapon) => {
+    event.stopPropagation();
+    const width = 420;
+    const x =
+      event.clientX + 18 + width > window.innerWidth
+        ? event.clientX - width - 18
+        : event.clientX + 18;
+    const y = Math.min(event.clientY + 18, window.innerHeight - 480);
+    setDetail({ x: Math.max(8, x), y: Math.max(8, y), weapon });
+  };
+
   return (
-    <div className="compare-chart-scroll">
-      <svg
+    <>
+      <div className="compare-chart-scroll">
+        <svg
         className="compare-chart"
         viewBox={`0 0 ${WIDTH} ${height}`}
         role="img"
@@ -219,6 +234,9 @@ function StrengthChart({
                 y={y + ROW_H / 2}
                 textAnchor="end"
                 dominantBaseline="middle"
+                onMouseEnter={(event) => showDetail(event, row.weapon)}
+                onMouseMove={(event) => showDetail(event, row.weapon)}
+                onMouseLeave={() => setDetail(null)}
               >
                 {truncate(row.weapon.name)}
               </text>
@@ -253,12 +271,22 @@ function StrengthChart({
           );
         })}
       </svg>
-      {tip && (
-        <div className="compare-tooltip" style={{ left: tip.x, top: tip.y }}>
-          {tip.text}
+        {tip && !detail && (
+          <div className="compare-tooltip" style={{ left: tip.x, top: tip.y }}>
+            {tip.text}
+          </div>
+        )}
+      </div>
+      {detail && (
+        <div
+          className="weapon-hover-panel"
+          style={{ left: detail.x, top: detail.y }}
+          aria-hidden="true"
+        >
+          <WeaponDetail weapon={detail.weapon} onSelect={() => {}} compact />
         </div>
       )}
-    </div>
+    </>
   );
 }
 

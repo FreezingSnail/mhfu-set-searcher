@@ -544,3 +544,19 @@ summary { cursor: pointer; color: var(--ink-dim); font-size: 12px; }
 .matchup-table td:nth-child(n + 3) { font-variant-numeric: tabular-nums; }
 .matchup-table td:nth-child(5),
 .matchup-table td:nth-child(6) { color: var(--ink-dim); font-size: 12px; }
+.weapon-hover-panel {
+  position: fixed;
+  z-index: 70;
+  width: 420px;
+  max-height: 72vh;
+  overflow: hidden;
+  padding: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, .55), inset 0 1px 0 rgba(255, 255, 255, .03);
+  pointer-events: none;
+}
+.weapon-hover-panel .weapon-detail { font-size: 12px; }
+.weapon-hover-panel .weapon-detail h3 { font-size: 16px; }
+.weapon-hover-panel .weapon-detail p { margin: 4px 0; }

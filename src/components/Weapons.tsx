@@ -353,7 +353,15 @@ function Tree({
   return <div className="tree">{roots.map((w) => render(w))}</div>;
 }
 
-function Detail({ weapon, onSelect }: { weapon: Weapon; onSelect: (w: Weapon) => void }) {
+export function WeaponDetail({
+  weapon,
+  onSelect,
+  compact = false,
+}: {
+  weapon: Weapon;
+  onSelect: (w: Weapon) => void;
+  compact?: boolean;
+}) {
   const { data } = useGame();
   const chain: Weapon[] = [];
   let cur = weapon;
@@ -383,7 +391,7 @@ function Detail({ weapon, onSelect }: { weapon: Weapon; onSelect: (w: Weapon) =>
         <div>
           <h4>Hunting Horn notes</h4>
           <div className="chips">{weapon.notes.map((n) => <span className="chip" key={n}>{n}</span>)}</div>
-          {weapon.songs?.length ? (
+          {!compact && weapon.songs?.length ? (
             <>
               <h4>Songs</h4>
               <div className="song-list">
@@ -398,31 +406,37 @@ function Detail({ weapon, onSelect }: { weapon: Weapon; onSelect: (w: Weapon) =>
           ) : null}
         </div>
       ) : null}
-      {isBowgun(weapon) && <BowgunInfo weapon={weapon} />}
-      {weapon.type === "bow" && <BowInfo weapon={weapon} />}
+      {!compact && isBowgun(weapon) && <BowgunInfo weapon={weapon} />}
+      {!compact && weapon.type === "bow" && <BowInfo weapon={weapon} />}
       {weapon.sharpness.length > 0 && <Sharpness values={weapon.sharpness} label="Sharpness" />}
       {weapon.sharpnessPlus.length > 0 && <Sharpness values={weapon.sharpnessPlus} label="Sharpness +1" />}
 
-      {chain.length > 0 && (
+      {compact && (
+        <p className="dim small">Hover preview · open Weapons for full details.</p>
+      )}
+
+      {!compact && chain.length > 0 && (
         <p className="small">
           Path: {chain.map((w) => <button key={w.name} className="link" onClick={() => onSelect(w)}>{w.name}</button>).reduce((a, b) => <>{a} → {b}</>)} → <span>{weapon.name}</span>
         </p>
       )}
 
-      <div className="two-col">
-        <div>
-          <h4>Create</h4>
-          <p className="dim small">{weapon.createCost ? `${weapon.createCost.toLocaleString()}z` : "—"}</p>
-          <div className="mats">{weapon.createMats.length ? weapon.createMats.map(([m, n]) => <span key={m}>{m} ×{n}</span>) : <span className="dim">—</span>}</div>
+      {!compact && (
+        <div className="two-col">
+          <div>
+            <h4>Create</h4>
+            <p className="dim small">{weapon.createCost ? `${weapon.createCost.toLocaleString()}z` : "—"}</p>
+            <div className="mats">{weapon.createMats.length ? weapon.createMats.map(([m, n]) => <span key={m}>{m} ×{n}</span>) : <span className="dim">—</span>}</div>
+          </div>
+          <div>
+            <h4>Improve</h4>
+            <p className="dim small">{weapon.improveCost ? `${weapon.improveCost.toLocaleString()}z` : "—"}</p>
+            <div className="mats">{weapon.improveMats.length ? weapon.improveMats.map(([m, n]) => <span key={m}>{m} ×{n}</span>) : <span className="dim">—</span>}</div>
+          </div>
         </div>
-        <div>
-          <h4>Improve</h4>
-          <p className="dim small">{weapon.improveCost ? `${weapon.improveCost.toLocaleString()}z` : "—"}</p>
-          <div className="mats">{weapon.improveMats.length ? weapon.improveMats.map(([m, n]) => <span key={m}>{m} ×{n}</span>) : <span className="dim">—</span>}</div>
-        </div>
-      </div>
+      )}
 
-      {weapon.improveTo.length > 0 && (
+      {!compact && weapon.improveTo.length > 0 && (
         <div>
           <h4>Upgrades to</h4>
           <div className="chips">
@@ -707,7 +721,7 @@ export default function Weapons({ focusWeapon = null }: { focusWeapon?: string |
         </div>
       </section>
       <section className="panel weapon-info">
-        {selected ? <Detail weapon={selected} onSelect={pick} /> : <p className="empty">Pick a weapon from the tree.</p>}
+        {selected ? <WeaponDetail weapon={selected} onSelect={pick} /> : <p className="empty">Pick a weapon from the tree.</p>}
       </section>
     </div>
   );
