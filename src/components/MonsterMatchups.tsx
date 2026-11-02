@@ -78,7 +78,11 @@ function scoreFor(
     : scoreWeaponAgainstMonsterAuto(weapon, monster, state, options);
 }
 
-export default function MonsterMatchups() {
+export default function MonsterMatchups({
+  onOpenWeapon,
+}: {
+  onOpenWeapon: (name: string) => void;
+}) {
   const { game, data } = useGame();
   const profile = DAMAGE_PROFILES[game];
   const presets = META_PRESETS_BY_GAME[game];
@@ -304,7 +308,16 @@ export default function MonsterMatchups() {
               {ranked.slice(0, 15).map((row, index) => (
                 <tr key={row.weapon.name}>
                   <td>{index + 1}</td>
-                  <td>{row.weapon.name}</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="link"
+                      title="Open weapon details"
+                      onClick={() => onOpenWeapon(row.weapon.name)}
+                    >
+                      {row.weapon.name}
+                    </button>
+                  </td>
                   <td>{fmt(row.score)}</td>
                   <td>{row.monsterPart.part}</td>
                   <td>{row.damageType} {rawHitzone(row.monsterPart, row.damageType)}%</td>

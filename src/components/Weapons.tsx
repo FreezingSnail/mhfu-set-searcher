@@ -439,8 +439,9 @@ function Detail({ weapon, onSelect }: { weapon: Weapon; onSelect: (w: Weapon) =>
   );
 }
 
-export default function Weapons() {
+export default function Weapons({ focusWeapon = null }: { focusWeapon?: string | null }) {
   const { data } = useGame();
+  const focus = focusWeapon ? data.weaponByName.get(focusWeapon) : undefined;
   const elementNames = useMemo(() => {
     const preferred = ["Fire", "Water", "Thunder", "Ice", "Dragon", "Poison", "Paralysis", "Sleep", "Slime", "Blast"];
     const canonical = new Map(preferred.map((e) => [e.toLowerCase(), e]));
@@ -459,15 +460,17 @@ export default function Weapons() {
     () => [...new Set(data.weapons.flatMap((w) => (w.shots ?? []).map((s) => s.name.replace(/\s*L\d+$/, ""))))],
     [data],
   );
-  const [scope, setScope] = useState<"blade" | "ranged">("blade");
-  const [type, setType] = useState(data.weaponTypes[0]);
+  const [scope, setScope] = useState<"blade" | "ranged">(
+    focus && data.rangedTypes.has(focus.type) ? "ranged" : "blade",
+  );
+  const [type, setType] = useState(focus?.type ?? data.weaponTypes[0]);
   const [query, setQuery] = useState("");
   const [ammoFilter, setAmmoFilter] = useState("any");
   const [rankFilter, setRankFilter] = useState<"all" | "lr" | "hr" | "gr">("all");
   const [minSharp, setMinSharp] = useState(0);
   const [rapidFilter, setRapidFilter] = useState<"any" | "rf" | "none">("any");
   const [shotFilter, setShotFilter] = useState("any");
-  const [selected, setSelected] = useState<Weapon | null>(null);
+  const [selected, setSelected] = useState<Weapon | null>(focus ?? null);
 
   const scopeTypes = useMemo(
     () => scope === "ranged" ? RANGED_TYPES : BLADE_TYPES,

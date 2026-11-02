@@ -262,7 +262,13 @@ function StrengthChart({
   );
 }
 
-function CompareTable({ rows }: { rows: WeaponScore[] }) {
+function CompareTable({
+  rows,
+  onOpenWeapon,
+}: {
+  rows: WeaponScore[];
+  onOpenWeapon: (name: string) => void;
+}) {
   if (!rows.length) {
     return <p className="empty">Pick weapons from the chart to compare up to four.</p>;
   }
@@ -316,7 +322,16 @@ function CompareTable({ rows }: { rows: WeaponScore[] }) {
           <tr>
             <th>Metric</th>
             {rows.map((row) => (
-              <th key={row.weapon.name}>{row.weapon.name}</th>
+              <th key={row.weapon.name}>
+                <button
+                  type="button"
+                  className="link"
+                  title="Open weapon details"
+                  onClick={() => onOpenWeapon(row.weapon.name)}
+                >
+                  {row.weapon.name}
+                </button>
+              </th>
             ))}
           </tr>
         </thead>
@@ -335,7 +350,11 @@ function CompareTable({ rows }: { rows: WeaponScore[] }) {
   );
 }
 
-export default function WeaponCompare() {
+export default function WeaponCompare({
+  onOpenWeapon,
+}: {
+  onOpenWeapon: (name: string) => void;
+}) {
   const { game, data } = useGame();
   const profile = DAMAGE_PROFILES[game];
   const presets = META_PRESETS_BY_GAME[game];
@@ -685,7 +704,7 @@ export default function WeaponCompare() {
             <p className="dim small">Side-by-side stats for the selected chart bars.</p>
           </div>
         </div>
-        <CompareTable rows={selectedRows} />
+        <CompareTable rows={selectedRows} onOpenWeapon={onOpenWeapon} />
       </section>
     </div>
   );

@@ -57,6 +57,7 @@ export default function App() {
   const [seed, setSeed] = useState<SetSelection | null>(() => incoming?.selection ?? null);
   const [seedName, setSeedName] = useState(incoming?.name ?? "");
   const [seedKey, setSeedKey] = useState(0);
+  const [weaponFocus, setWeaponFocus] = useState<{ name: string; key: number } | null>(null);
   const [savedByGame, setSavedByGame] = useState<Record<Game, SavedSet[]>>(() => ({
     mhfu: loadSavedSets(GAMES.mhfu.storageKey),
     mh3u: loadSavedSets(GAMES.mh3u.storageKey),
@@ -96,6 +97,7 @@ export default function App() {
     setTab("solver");
     setSeed(null);
     setSeedName("");
+    setWeaponFocus(null);
   };
 
   const openSelection = (sel: SetSelection, name = "") => {
@@ -103,6 +105,11 @@ export default function App() {
     setSeedName(name);
     setSeedKey((k) => k + 1);
     setTab("builder");
+  };
+
+  const openWeapon = (name: string) => {
+    setWeaponFocus({ name, key: Date.now() });
+    setTab("weapons");
   };
 
   const saveSet = (name: string, sel: SetSelection) => {
@@ -137,7 +144,7 @@ export default function App() {
             <button className={tab === "solver" ? "active" : ""} onClick={() => setTab("solver")}>Solver</button>
             <button className={tab === "builder" ? "active" : ""} onClick={() => setTab("builder")}>Builder</button>
             <button className={tab === "sets" ? "active" : ""} onClick={() => setTab("sets")}>Sets{saved.length ? ` (${saved.length})` : ""}</button>
-            <button className={tab === "weapons" ? "active" : ""} onClick={() => setTab("weapons")}>Weapons</button>
+            <button className={tab === "weapons" ? "active" : ""} onClick={() => { setWeaponFocus(null); setTab("weapons"); }}>Weapons</button>
             <button className={tab === "compare" ? "active" : ""} onClick={() => setTab("compare")}>Compare</button>
             <button className={tab === "monsters" ? "active" : ""} onClick={() => setTab("monsters")}>Monsters</button>
             {data.charmSupport && (
@@ -174,9 +181,14 @@ export default function App() {
               onRename={(id, name) => updateSaved((old) => old.map((s) => (s.id === id ? { ...s, name } : s)))}
             />
           )}
-          {tab === "weapons" && <Weapons key={game} />}
-          {tab === "compare" && <WeaponCompare key={game} />}
-          {tab === "monsters" && <MonsterMatchups key={game} />}
+          {tab === "weapons" && (
+            <Weapons
+              key={`${game}-${weaponFocus?.key ?? "default"}`}
+              focusWeapon={weaponFocus?.name ?? null}
+            />
+          )}
+          {tab === "compare" && <WeaponCompare key={game} onOpenWeapon={openWeapon} />}
+          {tab === "monsters" && <MonsterMatchups key={game} onOpenWeapon={openWeapon} />}
           {tab === "charms" && data.charmSupport && (
             <Charms
               charms={charms}
