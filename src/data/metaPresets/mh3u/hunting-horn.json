@@ -1,0 +1,21 @@
+{
+  "type": "hunting-horn",
+  "label": "Hunting Horn",
+  "metaLabel": "Honed Blade + Razor + Weakness Exploit + Maestro",
+  "note": "MH3U endgame HH play centers on Nether Sinphony (1196 display / 260 true raw, +5% affinity, 320 thunder, natural white, 30 purple with Sharpness +1) and the Honed Blade set: Sharpness +1 + Attack Up L, Razor Sharp, Weakness Exploit, and Horn Maestro, with Earplugs/Rock Steady or Evasion as flex. The model captures Sharpness +1 ('best'), Attack Up L (+20 true raw), and Nether's encored Attack & Defense Boost (S) song (1.15x); Razor Sharp, Weakness Exploit, Horn Maestro, Earplugs/Rock Steady, Evasion, the thunder element, and other songs are unmodeled. Sandsoother is the higher-raw Attack Boost (L) alternative (1.2x song) but has -25% affinity and hidden ice, so Nether remains the general-purpose pick.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 20,
+    "affinityBonus": 0,
+    "elementAttackUp": 1,
+    "songAttackUp": 1.15
+  },
+  "sources": [
+    "https://gamefaqs.gamespot.com/boards/683294-monster-hunter-3-ultimate/69498183",
+    "https://www.monsterhunterwiki.org/wiki/RefData:MH3UHHMelodies",
+    "https://kiranico.com/en/mh3u/weapon/huntinghorn/nether-sinphony",
+    "https://kiranico.com/en/mh3u/armor/skill/attack",
+    "https://www.reddit.com/r/MonsterHunter/comments/404fxs/mh3u_hunting_horns/"
+  ]
+}

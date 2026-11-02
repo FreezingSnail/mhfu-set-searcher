@@ -1,0 +1,21 @@
+{
+  "type": "hunting-horn",
+  "label": "Hunting Horn",
+  "metaLabel": "Razor + AuXL + Weakness Exploit + Maestro",
+  "note": "MH4U's general-purpose endgame HH is Maqam Sedition (1456 display / 280 true raw, +20% affinity, 2 slots, 10 units of natural purple), which rolls to sharpen and therefore pairs with Razor Sharp. The common damage set is Razor Sharp + Attack Up XL + Weakness Exploit + Horn Maestro, with Evasion +1, HG Earplugs, or Challenger +2 as flex. The model captures Attack Up XL (+25 true raw) and Maqam's encored Attack & Defense Boost (S) song (1.15x); Razor Sharp, Weakness Exploit, Horn Maestro, HG Earplugs, Challenger +2's conditional +25 true raw/+20% affinity, and the Seregios roll-sharpen are unmodeled. Akantor Dark Melody is the higher-raw Sharpness +1 alternative, but needs Honed Blade and lacks natural purple.",
+  "skills": {
+    "sharpness": "base",
+    "critDraw": false,
+    "attackUp": 25,
+    "affinityBonus": 0,
+    "elementAttackUp": 1,
+    "songAttackUp": 1.15
+  },
+  "sources": [
+    "https://www.reddit.com/r/MonsterHunter/comments/37bi4x/mh4u_hunting_horn_hh_megathread/",
+    "https://www.reddit.com/r/MonsterHunter/comments/4bzfmf/mh4u_hunting_horn_mixed_set_advice/",
+    "https://kiranico.com/en/mh4u/weapon/huntinghorn/maqam-sedition",
+    "https://monsterhunter.fandom.com/wiki/MH4U:_Horn_Melodies",
+    "https://kiranico.com/en/mh4u/armor/skill/attack"
+  ]
+}
