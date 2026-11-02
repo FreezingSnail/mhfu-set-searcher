@@ -3,6 +3,7 @@ import Solver from "./components/Solver";
 import Builder from "./components/Builder";
 import Weapons from "./components/Weapons";
 import WeaponCompare from "./components/WeaponCompare";
+import MonsterMatchups from "./components/MonsterMatchups";
 import Sets from "./components/Sets";
 import Charms from "./components/Charms";
 import { GameProvider } from "./lib/game";
@@ -21,7 +22,7 @@ import { loadCharms, persistCharms } from "./lib/charms";
 import { parseShareToken, resolveSharedSet } from "./lib/share";
 import "./styles.css";
 
-type Tab = "solver" | "builder" | "sets" | "weapons" | "compare" | "charms";
+type Tab = "solver" | "builder" | "sets" | "weapons" | "compare" | "monsters" | "charms";
 
 type IncomingSet = {
   game: Game;
@@ -138,7 +139,10 @@ export default function App() {
             <button className={tab === "sets" ? "active" : ""} onClick={() => setTab("sets")}>Sets{saved.length ? ` (${saved.length})` : ""}</button>
             <button className={tab === "weapons" ? "active" : ""} onClick={() => setTab("weapons")}>Weapons</button>
             {game === "mhfu" && (
-              <button className={tab === "compare" ? "active" : ""} onClick={() => setTab("compare")}>Compare</button>
+              <>
+                <button className={tab === "compare" ? "active" : ""} onClick={() => setTab("compare")}>Compare</button>
+                <button className={tab === "monsters" ? "active" : ""} onClick={() => setTab("monsters")}>Monsters</button>
+              </>
             )}
             {data.charmSupport && (
               <button className={tab === "charms" ? "active" : ""} onClick={() => setTab("charms")}>Charms{charms.length ? ` (${charms.length})` : ""}</button>
@@ -176,6 +180,7 @@ export default function App() {
           )}
           {tab === "weapons" && <Weapons key={game} />}
           {tab === "compare" && game === "mhfu" && <WeaponCompare />}
+          {tab === "monsters" && game === "mhfu" && <MonsterMatchups />}
           {tab === "charms" && data.charmSupport && (
             <Charms
               charms={charms}

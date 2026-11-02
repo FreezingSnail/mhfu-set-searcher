@@ -3,26 +3,12 @@ import { useGame } from "../lib/gameContext";
 import { META_PRESETS } from "../lib/metaPresets";
 import {
   DEFAULT_STRENGTH_OPTIONS,
-  isEndTreeG,
   scoreEndTreeG,
   type SharpnessMode,
   type WeaponScore,
   median,
   percentile,
 } from "../lib/weaponStrength";
-import monstersJson from "../data/monsters.json";
-import {
-  rawHitzone,
-  scoreWeaponAgainstMonster,
-  type Monster,
-  type MonsterWeaponScore,
-} from "../lib/monsterHitzones";
-
-type ScoredWeapon = WeaponScore &
-  Partial<Pick<MonsterWeaponScore, "monsterPart" | "damageType">>;
-
-const MONSTERS = monstersJson as unknown as Monster[];
-const MONSTER_OPTIONS = [...MONSTERS].sort((a, b) => a.name.localeCompare(b.name));
 
 const ROW_H = 21;
 const LABEL_W = 250;
@@ -94,14 +80,6 @@ function elementLabel(row: WeaponScore) {
   return parts.length ? parts.join(" / ") : "—";
 }
 
-function elementHitzoneLabel(row: ScoredWeapon) {
-  if (!row.monsterPart) return "—";
-  const parts = row.elementParts.map(
-    (part) => `${part.name} ${row.elementHitzones[part.name] ?? 0}%`,
-  );
-  return parts.length ? parts.join(" / ") : "—";
-}
-
 function NoteChips({ notes }: { notes?: string[] }) {
   if (!notes?.length) return <>—</>;
   return (
@@ -127,7 +105,7 @@ function StrengthChart({
   selected,
   onToggle,
 }: {
-  rows: ScoredWeapon[];
+  rows: WeaponScore[];
   selected: Set<string>;
   onToggle: (name: string) => void;
 }) {
@@ -201,10 +179,6 @@ function StrengthChart({
               ? "Crit Draw: 1.25x raw on draw attacks (affinity ignored)"
               : `Crit ${row.critChance >= 0 ? "+" : ""}${row.critChance}%${row.affinityBonus ? ` + Crit Eye ${row.affinityBonus}%` : ""} → ${row.effectiveCritChance >= 0 ? "+" : ""}${row.effectiveCritChance}% → ${fmt(row.critExpected, 3)}x raw`,
             `Sharpness ${row.sharpnessBase.name} → +1 ${row.sharpnessPlus.name}`,
-            row.monsterPart
-              ? `Target ${row.monsterPart.part} · ${row.damageType ?? "slash"} ${rawHitzone(row.monsterPart, row.damageType ?? "slash")}%`
-              : "",
-            row.monsterPart ? `Element HZ ${elementHitzoneLabel(row)}` : "",
             `Element ${elementLabel(row)}${row.elementAttackUp !== 1 ? ` · Element Up ${row.elementAttackUp}x` : ""}`,
             row.weapon.notes?.length ? `Notes ${row.weapon.notes.join(" · ")}` : "",
             row.songAttackUp !== 1 ? `HH song ${row.songAttackUp}x` : "",
@@ -276,21 +250,12 @@ function StrengthChart({
   );
 }
 
-function CompareTable({ rows }: { rows: ScoredWeapon[] }) {
+function CompareTable({ rows }: { rows: WeaponScore[] }) {
   if (!rows.length) {
     return <p className="empty">Pick weapons from the chart to compare up to four.</p>;
   }
-  const metrics: { label: string; value: (row: ScoredWeapon) => ReactNode }[] = [
+  const metrics: { label: string; value: (row: WeaponScore) => ReactNode }[] = [
     { label: "Score", value: (row) => fmt(row.score) },
-    { label: "Target part", value: (row) => row.monsterPart?.part ?? "—" },
-    {
-      label: "Raw hitzone",
-      value: (row) =>
-        row.monsterPart
-          ? `${rawHitzone(row.monsterPart, row.damageType ?? "slash")}% ${row.damageType ?? "slash"}`
-          : "—",
-    },
-    { label: "Element hitzone", value: elementHitzoneLabel },
     { label: "Effective raw", value: (row) => fmt(row.effectiveRaw) },
     { label: "Raw damage", value: (row) => fmt(row.rawDamage) },
     { label: "Element damage", value: (row) => fmt(row.elementDamage) },
@@ -364,26 +329,12 @@ export default function WeaponCompare() {
   const [affinityBonus, setAffinityBonus] = useState(0);
   const [elementUp, setElementUp] = useState(1);
   const [songAttackUp, setSongAttackUp] = useState(1);
-  const [monsterName, setMonsterName] = useState("none");
-  const [partName, setPartName] = useState("auto");
   const [selected, setSelected] = useState<string[] | null>(null);
   const blademaster = !data.rangedTypes.has(type);
   const critDrawActive = critDraw && blademaster;
   const affinityBonusActive = blademaster ? affinityBonus : 0;
   const songAttackUpActive = type === "hunting-horn" ? songAttackUp : 1;
   const preset = META_PRESETS[type];
-  const monsterByName = useMemo(
-    () => new Map(MONSTERS.map((monster) => [monster.name, monster])),
-    [],
-  );
-  const monster = monsterName === "none" ? null : (monsterByName.get(monsterName) ?? null);
-  const selectedPart = useMemo(
-    () =>
-      monster && partName !== "auto"
-        ? monster.parts.find((part) => part.part === partName)
-        : undefined,
-    [monster, partName],
-  );
   const options = useMemo(
     () => ({
       ...DEFAULT_STRENGTH_OPTIONS,
@@ -404,12 +355,10 @@ export default function WeaponCompare() {
     ],
   );
 
-  const allScores = useMemo<ScoredWeapon[]>(() => {
-    if (!monster) return scoreEndTreeG(data.weapons, options);
-    return data.weapons
-      .filter(isEndTreeG)
-      .map((weapon) => scoreWeaponAgainstMonster(weapon, monster, selectedPart, options));
-  }, [data.weapons, monster, options, selectedPart]);
+  const allScores = useMemo(
+    () => scoreEndTreeG(data.weapons, options),
+    [data.weapons, options],
+  );
   const typeRows = useMemo(
     () => allScores.filter((row) => row.weapon.type === type),
     [allScores, type],
@@ -444,31 +393,11 @@ export default function WeaponCompare() {
     () =>
       selectedNames
         .map((name) => typeRows.find((row) => row.weapon.name === name))
-        .filter((row): row is ScoredWeapon => !!row),
+        .filter((row): row is WeaponScore => !!row),
     [selectedNames, typeRows],
   );
   const selectedSet = useMemo(() => new Set(selectedNames), [selectedNames]);
   const scores = typeRows.map((row) => row.score);
-  const bestByType = useMemo(() => {
-    if (!monster) return [];
-    return data.weaponTypes
-      .map((weaponType) => {
-        const preset = META_PRESETS[weaponType];
-        const presetOptions = {
-          ...DEFAULT_STRENGTH_OPTIONS,
-          ...(preset?.skills ?? {}),
-          songAttackUp: preset?.skills.songAttackUp ?? 1,
-        };
-        const rows = data.weapons
-          .filter((weapon) => weapon.type === weaponType && isEndTreeG(weapon))
-          .map((weapon) =>
-            scoreWeaponAgainstMonster(weapon, monster, selectedPart, presetOptions),
-          )
-          .sort((a, b) => b.score - a.score);
-        return rows[0] ? { type: weaponType, row: rows[0] } : null;
-      })
-      .filter((entry): entry is { type: string; row: MonsterWeaponScore } => !!entry);
-  }, [data.weaponTypes, data.weapons, monster, selectedPart]);
 
   const toggle = (name: string) => {
     setSelected((old) => {
@@ -507,9 +436,9 @@ export default function WeaponCompare() {
           <div>
             <h2>Weapon Comparison</h2>
             <p className="dim small">
-              MHFU end-tree G-rank weapons. Damage per hit at 100 MV using either the dummy 45/25
-              hitzones or a selected monster's real hitzones. Compare within a type; click bars to
-              add up to {MAX_COMPARE} weapons. Base clears
+              MHFU end-tree G-rank weapons. Damage per hit at 100 MV using the dummy 45/25 raw
+              and element hitzones. Compare within a type; click bars to add up to {MAX_COMPARE}
+              weapons. Base clears
               skills; Meta applies the standard endgame skill package for the selected type.
               Crit Draw models MHP2G draw attacks: 100% crit and negative affinity ignored on that
               hit. Crit Eye adds flat affinity for sustained weapons such as Long Sword. Hunting
@@ -534,34 +463,6 @@ export default function WeaponCompare() {
             >
               {data.weaponTypes.map((value) => (
                 <option key={value} value={value}>{data.typeLabel[value]}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Monster
-            <select
-              value={monsterName}
-              onChange={(event) => {
-                setMonsterName(event.target.value);
-                setPartName("auto");
-              }}
-            >
-              <option value="none">None (dummy 45/25)</option>
-              {MONSTER_OPTIONS.map((monster) => (
-                <option key={monster.name} value={monster.name}>{monster.name}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Part
-            <select
-              value={partName}
-              disabled={!monster}
-              onChange={(event) => setPartName(event.target.value)}
-            >
-              <option value="auto">Auto (best per class)</option>
-              {monster?.parts.map((part) => (
-                <option key={part.part} value={part.part}>{part.part}</option>
               ))}
             </select>
           </label>
@@ -655,14 +556,6 @@ export default function WeaponCompare() {
             <strong>{preset.label} meta:</strong> {preset.note}
           </p>
         )}
-        {monster && (
-          <p className="dim small compare-preset-note">
-            <strong>{monster.name}:</strong>{" "}
-            {selectedPart
-              ? `${selectedPart.part} — slash ${selectedPart.slash} / strike ${selectedPart.strike} / shot ${selectedPart.shooting}; fire ${selectedPart.fire} / water ${selectedPart.water} / thunder ${selectedPart.thunder} / ice ${selectedPart.ice} / dragon ${selectedPart.dragon}`
-              : "auto uses each class's best normal raw hitzone; elements use the same part. Pick an enraged part explicitly if needed."}
-          </p>
-        )}
         <div className="compare-legend dim small">
           <span><i className="compare-swatch raw" /> Raw damage</span>
           <span><i className="compare-swatch element" /> Element damage</span>
@@ -672,44 +565,6 @@ export default function WeaponCompare() {
           {type === "hunting-horn" && <span>Note chips = horn note colours</span>}
         </div>
       </section>
-
-      {monster && bestByType.length > 0 && (
-        <section className="panel">
-          <div className="compare-chart-head">
-            <div>
-              <h3>Best per class vs {monster.name}</h3>
-              <p className="dim small">
-                Each class uses its own Meta preset. Same 100 MV per-hit metric; Auto picks each
-                class's best normal raw hitzone, elements use the same part. Cross-class ranking
-                is not a DPS model.
-              </p>
-            </div>
-            <span className="dim small">{partName === "auto" ? "Auto part" : partName}</span>
-          </div>
-          <div className="best-grid">
-            {bestByType.map(({ type: bestType, row }) => (
-              <button
-                key={bestType}
-                type="button"
-                className={`best-card${bestType === type ? " active" : ""}`}
-                onClick={() => {
-                  setType(bestType);
-                  setSelected(null);
-                }}
-              >
-                <span className="dim small">{data.typeLabel[bestType]}</span>
-                <strong>{row.weapon.name}</strong>
-                <span className="small">
-                  {fmt(row.score)} · {row.monsterPart?.part ?? "—"}
-                  {row.monsterPart && row.damageType
-                    ? ` · ${row.damageType} ${rawHitzone(row.monsterPart, row.damageType)}%`
-                    : ""}
-                </span>
-              </button>
-            ))}
-          </div>
-        </section>
-      )}
 
       <section className="panel">
         <div className="compare-chart-head">

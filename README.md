@@ -13,7 +13,8 @@ Switch games from the MHFU / MH3U / MH4U control in the header (or open `#mhfu`,
 - **Builder** — assemble a set manually, add jewels, see live skills/defense/materials.
 - **Sets** — save sets, compare 2–4 side by side, load, rename, or share them.
 - **Weapons** — fully expanded upgrade trees split into Blademaster and Ranged sub-pages, with branch guides, search, rank badges (LR/HR/G), element/sharpness filters, stats, and materials. Ranged adds physical ammo, element/status, rapid-fire, and bow shot-type filters. Bowguns show reload, recoil, rapid fire, and full ammo capacities; bows show coatings and charge levels.
-- **Compare** — effective-strength charts for every end-tree G-rank weapon type, with raw/element damage split, median markers, sharpness and affinity-based crit modeling, monster hitzone targeting with best-per-class ranking, Crit Draw / Crit Eye / Attack Up / Element Up / Hunting Horn song toggles, note-colour display, a Base reset and a per-type meta-set preset, and a side-by-side comparison table for up to four weapons.
+- **Compare** — effective-strength charts for every end-tree G-rank weapon type, with raw/element damage split, median markers, sharpness and affinity-based crit modeling, Crit Draw / Crit Eye / Attack Up / Element Up / Hunting Horn song toggles, note-colour display, a Base reset and a per-type meta-set preset, and a side-by-side comparison table for up to four weapons.
+- **Monsters** — monster hitzone matchup page. Pick a monster, part, and state; each class uses its meta preset, Auto chooses each weapon's best eligible part by combined raw + element score, and the page shows best-per-class plus a ranked weapon table.
 
 ## MH3U
 
