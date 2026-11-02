@@ -1,0 +1,20 @@
+{
+  "type": "charge-blade",
+  "label": "Charge Blade",
+  "metaLabel": "Honed Blade / Razor / Challenger",
+  "note": "MH4U endgame Impact Charge Blade core is Honed Blade (Sharpness +1 + Attack Up L), Razor Sharp, Challenger +2, and Artillery Novice, eating for Felyne Bombardier to cap the 40% impact-phial boost; Guard +2 is the common matchup swap for Challenger +2 or Razor Sharp when guard-point counters matter. Ceadeus Regalia is the standard general-purpose impact CB, with Akantor Severance as the high-raw option. Only Honed Blade's always-on components are modeled (sharpness 'best' = Sharpness +1, attackUp 20 = Attack Up L); Honed Blade as a combined skill, Razor Sharp, Challenger +2's enraged Attack Up XL/+20% affinity, Artillery/phial damage, Guard, impact vs element phial type, Load Up, and element-phial sets are unmodeled, and this preset targets impact-phial raw.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 20,
+    "affinityBonus": 0,
+    "elementAttackUp": 1
+  },
+  "sources": [
+    "https://www.reddit.com/r/mh4u/comments/137ze8a/beat_cb_endgame_builds/",
+    "https://www.reddit.com/r/MonsterHunter/comments/3c37y9/anyone_have_some_examples_of_endgame_chargeblade/",
+    "https://gamefaqs.gamespot.com/3ds/762804-monster-hunter-4-ultimate/faqs/73077",
+    "https://gamefaqs.gamespot.com/boards/762804-monster-hunter-4-ultimate/71897744",
+    "https://kiranico.com/en/mh4u/armor/skill"
+  ]
+}
