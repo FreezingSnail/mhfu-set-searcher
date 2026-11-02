@@ -1,0 +1,21 @@
+{
+  "type": "lance",
+  "label": "Lance",
+  "metaLabel": "Honed Blade / Razor Sharp / Guard +2",
+  "note": "MH3U G-rank guard Lance runs Honed Blade (Attack Up (L) + Sharpness +1), Razor Sharp, and Guard +2; the standard one-slot template fits all three, while zero-slot lances drop to Guard +1 and add Stamina Recovery Up. Guard +2 is the counter-lance priority; Evasion +2 (often with Evade Extender) is the hop-lance alternative. Honed Blade is represented by its components (+20 true raw, best sharpness); Razor Sharp, Guard +2, Guard Boost, Evasion +2, Evade Extender, and Element Atk Up are not modeled. The shared sharpness table uses MHFU multipliers; MH3U uses 1.05 green / 1.20 blue / 1.32 white / 1.44 purple, so absolute scores are not comparable across games.",
+  "skills": {
+    "sharpness": "best",
+    "critDraw": false,
+    "attackUp": 20,
+    "affinityBonus": 0,
+    "elementAttackUp": 1.0
+  },
+  "sources": [
+    "https://gamefaqs.gamespot.com/boards/683294-monster-hunter-3-ultimate/68646626",
+    "https://gamefaqs.gamespot.com/boards/683294-monster-hunter-3-ultimate/70254452",
+    "https://kiranico.com/en/mh3u/armor/skill/edgemaster",
+    "https://kiranico.com/en/mh3u/armor/skill/attack",
+    "https://kiranico.com/en/mh3u/armor/skill/guard",
+    "https://kiranico.com/en/mh3u/armor/skill/evasion"
+  ]
+}
