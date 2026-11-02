@@ -114,7 +114,8 @@ export default function MonsterMatchups() {
               Find the best end-tree G weapon for a monster. Practical mode excludes enraged,
               guard, harden, post-break, and broken-shell parts, so late-fight hitzones do not
               decide the result. Auto picks each weapon's best eligible part using both raw and
-              elemental hitzones.
+              elemental hitzones. Bow uses charge 3, Power Coating when available, and critical
+              distance.
             </p>
           </div>
         </div>

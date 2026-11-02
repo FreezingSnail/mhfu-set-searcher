@@ -157,6 +157,62 @@ test("Attack Up adds flat true raw before sharpness and crit", () => {
   assert.equal(row.score, 286);
 });
 
+test("bow element uses charge, shot hit count, and elemental hitzone", () => {
+  const row = scoreWeapon(
+    weapon({
+      type: "bow",
+      attack: 240,
+      elements: [["Fire", 300]],
+      sharpness: [],
+      sharpnessPlus: [],
+      shots: [{ name: "Rapid", level: 3 }],
+      coatings: ["Power"],
+    }),
+    {
+      ...DEFAULT_STRENGTH_OPTIONS,
+      sharpness: "base",
+      rawHitzone: 100,
+      elementHitzone: 100,
+      classModifiers: false,
+      bowCharge: 3,
+      bowPowerCoating: true,
+      bowCriticalDistance: true,
+    },
+  );
+  assert.equal(row.trueRaw, 200);
+  assert.equal(row.bow?.shotName, "Rapid");
+  assert.equal(row.bow?.elementHits, 3);
+  assert.equal(row.rawDamage, 128.25);
+  assert.equal(row.elementDamage, 90);
+  assert.equal(row.score, 218.25);
+});
+
+test("bow element ignores Power Coating and critical distance", () => {
+  const row = scoreWeapon(
+    weapon({
+      type: "bow",
+      attack: 240,
+      elements: [["Fire", 300]],
+      sharpness: [],
+      sharpnessPlus: [],
+      shots: [{ name: "Rapid", level: 3 }],
+      coatings: ["Power"],
+    }),
+    {
+      ...DEFAULT_STRENGTH_OPTIONS,
+      sharpness: "base",
+      rawHitzone: 100,
+      elementHitzone: 100,
+      classModifiers: false,
+      bowCharge: 3,
+      bowPowerCoating: false,
+      bowCriticalDistance: false,
+    },
+  );
+  assert.equal(row.rawDamage, 57);
+  assert.equal(row.elementDamage, 90);
+});
+
 test("element uses displayed / 10 and sharpness element modifier", () => {
   const row = scoreWeapon(
     weapon({ type: "sword-and-shield", attack: 280, elements: [["Fire", 300]] }),

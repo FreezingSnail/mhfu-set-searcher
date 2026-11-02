@@ -21,6 +21,19 @@ export const CLASS_RAW_MODIFIER: Record<string, number> = {
   "heavy-bowgun": 1.15,
 };
 
+const BOW_CHARGE_RAW = [0.4, 1.0, 1.5, 1.7];
+const BOW_CHARGE_ELEMENT = [0.5, 0.75, 1.0, 1.125];
+const BOW_MOTION: Record<string, number[]> = {
+  Rapid: [12, 16, 19, 21, 22],
+  Scatter: [13, 16, 23, 24, 26],
+  Pierce: [18, 24, 30, 30, 30],
+};
+const BOW_ELEMENT_HITS: Record<string, number[]> = {
+  Rapid: [1, 2, 3, 4, 4],
+  Scatter: [3, 3, 5, 5, 5],
+  Pierce: [3, 4, 5, 5, 5],
+};
+
 export const SHARPNESS = [
   { name: "Red", raw: 0.5, element: 0.25 },
   { name: "Orange", raw: 0.75, element: 0.5 },
@@ -51,6 +64,12 @@ export type StrengthOptions = {
   affinityBonus: number;
   /** Hunting Horn Attack Up song multiplier. */
   songAttackUp: number;
+  /** Bow charge level (1-4). */
+  bowCharge: number;
+  /** Apply Power Coating when the bow supports it. */
+  bowPowerCoating: boolean;
+  /** Assume shots land at critical distance. */
+  bowCriticalDistance: boolean;
 };
 
 export const DEFAULT_STRENGTH_OPTIONS: StrengthOptions = {
@@ -65,6 +84,9 @@ export const DEFAULT_STRENGTH_OPTIONS: StrengthOptions = {
   attackUp: 0,
   affinityBonus: 0,
   songAttackUp: 1,
+  bowCharge: 3,
+  bowPowerCoating: true,
+  bowCriticalDistance: true,
 };
 
 export type SharpnessTier = {
@@ -77,6 +99,18 @@ export type SharpnessTier = {
 };
 
 export type ElementPart = { name: string; displayed: number | string; value: number };
+
+export type BowProfile = {
+  charge: number;
+  shotName: string;
+  shotLevel: number;
+  rawMotion: number;
+  rawCharge: number;
+  elementHits: number;
+  elementCharge: number;
+  powerCoating: boolean;
+  criticalDistance: boolean;
+};
 
 export type WeaponScore = {
   weapon: Weapon;
@@ -91,6 +125,7 @@ export type WeaponScore = {
   elementAttackUp: number;
   elementHitzones: Record<string, number>;
   songAttackUp: number;
+  bow?: BowProfile;
   sharpnessBase: SharpnessTier;
   sharpnessPlus: SharpnessTier;
   sharpnessUsed: SharpnessTier;
@@ -161,7 +196,46 @@ export function scoreWeapon(weapon: Weapon, options: Partial<StrengthOptions> = 
     critExpected *
     rawClassModifier *
     opts.songAttackUp;
-  const rawDamage = effectiveRaw * (opts.motionValue / 100) * (opts.rawHitzone / 100);
+
+  let rawDamage: number;
+  let elementMultiplier = 1;
+  let bow: BowProfile | undefined;
+  if (weapon.type === "bow") {
+    const charge = Math.max(1, Math.min(4, Math.round(opts.bowCharge)));
+    const shots = weapon.shots ?? [];
+    const shot = shots[charge - 1] ?? shots[shots.length - 1];
+    const shotName = shot?.name ?? "Rapid";
+    const shotLevel = shot?.level ?? 1;
+    const rawCharge = BOW_CHARGE_RAW[charge - 1] ?? 1;
+    const elementCharge = BOW_CHARGE_ELEMENT[charge - 1] ?? 1;
+    const rawMotion = BOW_MOTION[shotName]?.[shotLevel - 1] ?? 100;
+    const elementHits = BOW_ELEMENT_HITS[shotName]?.[shotLevel - 1] ?? 1;
+    const powerCoating =
+      opts.bowPowerCoating && (weapon.coatings ?? []).includes("Power");
+    const powerMultiplier = powerCoating ? 1.5 : 1;
+    const rangeMultiplier = opts.bowCriticalDistance ? 1.5 : 1;
+    rawDamage =
+      effectiveRaw *
+      rawCharge *
+      (rawMotion / 100) *
+      powerMultiplier *
+      rangeMultiplier *
+      (opts.rawHitzone / 100);
+    elementMultiplier = elementCharge * elementHits;
+    bow = {
+      charge,
+      shotName,
+      shotLevel,
+      rawMotion,
+      rawCharge,
+      elementHits,
+      elementCharge,
+      powerCoating,
+      criticalDistance: opts.bowCriticalDistance,
+    };
+  } else {
+    rawDamage = effectiveRaw * (opts.motionValue / 100) * (opts.rawHitzone / 100);
+  }
 
   let elementDamage = 0;
   let status = 0;
@@ -175,7 +249,11 @@ export function scoreWeapon(weapon: Weapon, options: Partial<StrengthOptions> = 
       status += value;
       statusParts.push({ name, displayed, value });
     } else {
-      const value = trueValue * sharpnessUsed.element * opts.elementAttackUp;
+      const value =
+        trueValue *
+        sharpnessUsed.element *
+        opts.elementAttackUp *
+        elementMultiplier;
       const hitzone = opts.elementHitzones?.[name] ?? opts.elementHitzone;
       elementDamage += value * (hitzone / 100);
       elementParts.push({ name, displayed, value });
@@ -197,6 +275,7 @@ export function scoreWeapon(weapon: Weapon, options: Partial<StrengthOptions> = 
     elementAttackUp: opts.elementAttackUp,
     elementHitzones: opts.elementHitzones ?? {},
     songAttackUp: opts.songAttackUp,
+    bow,
     sharpnessBase,
     sharpnessPlus: sharpnessTier(weapon, true),
     sharpnessUsed,

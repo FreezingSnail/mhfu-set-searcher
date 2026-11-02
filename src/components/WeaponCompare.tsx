@@ -179,6 +179,9 @@ function StrengthChart({
               ? "Crit Draw: 1.25x raw on draw attacks (affinity ignored)"
               : `Crit ${row.critChance >= 0 ? "+" : ""}${row.critChance}%${row.affinityBonus ? ` + Crit Eye ${row.affinityBonus}%` : ""} → ${row.effectiveCritChance >= 0 ? "+" : ""}${row.effectiveCritChance}% → ${fmt(row.critExpected, 3)}x raw`,
             `Sharpness ${row.sharpnessBase.name} → +1 ${row.sharpnessPlus.name}`,
+            row.bow
+              ? `Bow ${row.bow.shotName} Lv${row.bow.shotLevel} · charge ${row.bow.charge} · ${row.bow.elementHits} element hit(s) · ${row.bow.powerCoating ? "Power Coating" : "no Power Coating"}`
+              : "",
             `Element ${elementLabel(row)}${row.elementAttackUp !== 1 ? ` · Element Up ${row.elementAttackUp}x` : ""}`,
             row.weapon.notes?.length ? `Notes ${row.weapon.notes.join(" · ")}` : "",
             row.songAttackUp !== 1 ? `HH song ${row.songAttackUp}x` : "",
@@ -286,6 +289,12 @@ function CompareTable({ rows }: { rows: WeaponScore[] }) {
     { label: "Element Up", value: (row) => (row.elementAttackUp !== 1 ? `${row.elementAttackUp}x` : "—") },
     { label: "Notes", value: (row) => <NoteChips notes={row.weapon.notes} /> },
     { label: "HH song", value: (row) => (row.songAttackUp !== 1 ? `${row.songAttackUp}x` : "—") },
+    {
+      label: "Bow shot",
+      value: (row) => (row.bow ? `${row.bow.shotName} Lv${row.bow.shotLevel}` : "—"),
+    },
+    { label: "Bow charge", value: (row) => (row.bow ? String(row.bow.charge) : "—") },
+    { label: "Element hits", value: (row) => (row.bow ? String(row.bow.elementHits) : "—") },
     { label: "Slots", value: (row) => String(row.weapon.slots) },
     { label: "Defense", value: (row) => String(row.weapon.defense ?? 0) },
     { label: "Rarity", value: (row) => String(row.weapon.rarity) },
@@ -329,6 +338,9 @@ export default function WeaponCompare() {
   const [affinityBonus, setAffinityBonus] = useState(0);
   const [elementUp, setElementUp] = useState(1);
   const [songAttackUp, setSongAttackUp] = useState(1);
+  const [bowCharge, setBowCharge] = useState(3);
+  const [bowPowerCoating, setBowPowerCoating] = useState(true);
+  const [bowCriticalDistance, setBowCriticalDistance] = useState(true);
   const [selected, setSelected] = useState<string[] | null>(null);
   const blademaster = !data.rangedTypes.has(type);
   const critDrawActive = critDraw && blademaster;
@@ -344,6 +356,9 @@ export default function WeaponCompare() {
       affinityBonus: affinityBonusActive,
       elementAttackUp: elementUp,
       songAttackUp: songAttackUpActive,
+      bowCharge,
+      bowPowerCoating,
+      bowCriticalDistance,
     }),
     [
       sharpness,
@@ -352,6 +367,9 @@ export default function WeaponCompare() {
       affinityBonusActive,
       elementUp,
       songAttackUpActive,
+      bowCharge,
+      bowPowerCoating,
+      bowCriticalDistance,
     ],
   );
 
@@ -417,6 +435,9 @@ export default function WeaponCompare() {
     setAffinityBonus(0);
     setElementUp(1);
     setSongAttackUp(1);
+    setBowCharge(3);
+    setBowPowerCoating(true);
+    setBowCriticalDistance(true);
   };
 
   const applyPreset = () => {
@@ -436,9 +457,10 @@ export default function WeaponCompare() {
           <div>
             <h2>Weapon Comparison</h2>
             <p className="dim small">
-              MHFU end-tree G-rank weapons. Damage per hit at 100 MV using the dummy 45/25 raw
-              and element hitzones. Compare within a type; click bars to add up to {MAX_COMPARE}
-              weapons. Base clears
+              MHFU end-tree G-rank weapons. Melee and bowguns use 100 MV against the dummy
+              45/25 hitzones; Bow uses the selected charge's real motion values and elemental
+              hit count. Compare within a type; click bars to add up to {MAX_COMPARE} weapons.
+              Base clears
               skills; Meta applies the standard endgame skill package for the selected type.
               Crit Draw models MHP2G draw attacks: 100% crit and negative affinity ignored on that
               hit. Crit Eye adds flat affinity for sustained weapons such as Long Sword. Hunting
@@ -511,6 +533,35 @@ export default function WeaponCompare() {
                 ))}
               </select>
             </label>
+          )}
+          {type === "bow" && (
+            <>
+              <label>
+                Charge
+                <select value={bowCharge} onChange={(event) => setBowCharge(Number(event.target.value))}>
+                  <option value={1}>Charge 1</option>
+                  <option value={2}>Charge 2</option>
+                  <option value={3}>Charge 3</option>
+                  <option value={4}>Charge 4 (Load Up)</option>
+                </select>
+              </label>
+              <label className="check">
+                <input
+                  type="checkbox"
+                  checked={bowPowerCoating}
+                  onChange={(event) => setBowPowerCoating(event.target.checked)}
+                />
+                Power Coating
+              </label>
+              <label className="check">
+                <input
+                  type="checkbox"
+                  checked={bowCriticalDistance}
+                  onChange={(event) => setBowCriticalDistance(event.target.checked)}
+                />
+                Critical Distance
+              </label>
+            </>
           )}
           <label className="check">
             <input
