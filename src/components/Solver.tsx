@@ -116,13 +116,24 @@ export default function Solver({
   charms,
   onOpen,
   onSave,
+  initialSkills,
+  initialNote,
 }: {
   charms: Charm[];
   onOpen: (r: SolverResult) => void;
   onSave: (r: SolverResult) => void;
+  initialSkills?: { ability: string; points: number }[];
+  initialNote?: string;
 }) {
   const { game, data } = useGame();
-  const [targets, setTargets] = useState<Target[]>(EMPTY);
+  const [targets, setTargets] = useState<Target[]>(() => {
+    const seeded: Target[] = [...EMPTY];
+    (initialSkills ?? []).slice(0, seeded.length).forEach((skill, index) => {
+      if (data.skillTree.has(skill.ability)) seeded[index] = { ...skill };
+    });
+    return seeded;
+  });
+  const [seedVisible, setSeedVisible] = useState(Boolean(initialSkills?.length));
   const [gender, setGender] = useState<"male" | "female">("male");
   const [hunter, setHunter] = useState<"blade" | "gunner">("blade");
   const [rank, setRank] = useState<RankFilter>("all");
@@ -580,6 +591,25 @@ export default function Solver({
             <input type="number" min={0} max={data.maxVillage} value={elder} onChange={(e) => setElder(Number(e.target.value))} />
           </label>
         </div>
+
+        {seedVisible && initialSkills?.length ? (
+          <div className="solver-seed">
+            <span className="slot-tag">Counter targets</span>
+            <span>
+              {initialNote ? `${initialNote}: ` : ""}
+              {initialSkills.map((skill) => `${skill.ability} ${skill.points}`).join(" · ")}
+            </span>
+            <button
+              className="link"
+              onClick={() => {
+                setTargets([...EMPTY]);
+                setSeedVisible(false);
+              }}
+            >
+              Clear
+            </button>
+          </div>
+        ) : null}
 
         <div className="skills-grid">
           {targets.map((t, i) => {

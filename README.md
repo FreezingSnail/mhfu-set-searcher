@@ -12,6 +12,8 @@ Switch games from the MHFU / MH3U / MH4U control in the header (or open `#mhfu`,
 - **Extend search** — groups extra active skills into class sections as tuples; click a tuple to see matching sets, then add any tuple skill to the targets and rerun.
 - **Builder** — assemble a set manually, add jewels, see live skills/defense/materials.
 - **Sets** — save sets, compare 2–4 side by side, load, rename, or share them.
+- **Progressions** — one card per village star and hub HR, with weapon tabs for every MHFU class, a DPS / comfort toggle, both unlock paths when they overlap, alternative sets (Garuga earplugs, evade, guard, etc.), next-upgrade hints, and one-click loading into the Builder.
+- **Counters** — large-monster effect matrix (HGE / Earplug roars, High / Dragon wind, quake, poison, sleep, paralysis, stun) with hub-HR and G-rank blademaster counter sets, one-click Builder loading, and “Search skills” to seed the Solver with the counter targets.
 - **Weapons** — fully expanded upgrade trees split into Blademaster and Ranged sub-pages, with branch guides, search, rank badges (LR/HR/G), element/sharpness filters, stats, and materials. Ranged adds physical ammo, element/status, rapid-fire, and bow shot-type filters. Bowguns show reload, recoil, rapid fire, and full ammo capacities; bows show coatings and charge levels.
 - **Compare** — effective-strength charts for every end-tree G-rank weapon type, with raw/element damage split, median markers, sharpness and affinity-based crit modeling, Crit Draw / Crit Eye / Attack Up / Element Up / Awaken / Hunting Horn song / Bow charge toggles, Bow motion values + elemental hit counts, note-colour display, a Base reset and a per-type meta-set preset, and a side-by-side comparison table for up to four weapons. Hidden elements only contribute damage when Awaken is enabled. Placeholder / no-path weapons are hidden by default; “Show non-obtainable” reveals them.
 - **Monsters** — monster hitzone matchup page. Pick a monster, part, and state; each class uses its meta preset, Auto chooses each weapon's best eligible part by combined raw + element score, and the page shows best-per-class plus a ranked weapon table. Uses the same non-obtainable filter.
@@ -84,6 +86,8 @@ Vendored snapshots, pinned under `vendor/`:
 - MH4U: 3,103 armor pieces, 202 jewels, 2,308 weapons, 144 skill trees, 135 charm skill maxima
 
 MH3U and MH4U materials for a small number of DLC/collaboration pieces are absent from the tracker source and are left empty. Jewels have no cost/material data in either source.
+
+The MHFU counter matrix in `src/data/counters/mhfu.json` maps each large monster to documented HGE / Earplug, wind, quake, and status requirements. `scripts/build-counters.mjs` regenerates it from the source list.
 
 Monster, quest, and item databases are intentionally out of scope.
 

@@ -1,0 +1,120 @@
+import { mkdirSync, writeFileSync } from "node:fs";
+
+/*
+ * MHFU large-monster effect matrix.
+ * Roar levels: roar-hge / roar-earplug.
+ * Wind levels: wind-high / wind-dragon.
+ * Other effects: quake / poison / sleep / paralysis / stun.
+ */
+const monsters = [
+  ["King Shakalaka", "Lynian", [], []],
+  ["Vespoid Queen", "Neopteron", ["paralysis"], ["paralysis"]],
+  ["Giadrome", "Bird Wyvern", [], []],
+  ["Velocidrome", "Bird Wyvern", [], []],
+  ["Gendrome", "Bird Wyvern", ["paralysis"], ["paralysis"]],
+  ["Iodrome", "Bird Wyvern", ["poison"], ["poison"]],
+  ["Yian Kut-Ku", "Bird Wyvern", [], []],
+  ["Blue Yian Kut-Ku", "Bird Wyvern", [], []],
+  ["Yian Garuga", "Bird Wyvern", ["roar-earplug", "stun"], ["earplug", "stun"]],
+  ["Scarred Yian Garuga", "Bird Wyvern", ["roar-earplug", "stun"], ["earplug", "stun"]],
+  ["Gypceros", "Bird Wyvern", ["poison", "stun"], ["poison", "stun"]],
+  ["Purple Gypceros", "Bird Wyvern", ["poison", "stun"], ["poison", "stun"]],
+  ["Hypnocatrice", "Bird Wyvern", ["sleep"], ["sleep"]],
+  ["Pink Rathian", "Flying Wyvern", ["roar-earplug", "wind-high", "poison"], ["hge-wind", "hge-poison"]],
+  ["Rathian", "Flying Wyvern", ["roar-earplug", "wind-high", "poison"], ["hge-wind", "hge-poison"]],
+  ["Gold Rathian", "Flying Wyvern", ["roar-hge", "wind-high", "poison"], ["hge-wind", "hge-poison"]],
+  ["Rathalos", "Flying Wyvern", ["roar-earplug", "wind-high", "poison"], ["hge-wind", "hge-poison"]],
+  ["Azure Rathalos", "Flying Wyvern", ["roar-earplug", "wind-high", "poison"], ["hge-wind", "hge-poison"]],
+  ["Silver Rathalos", "Flying Wyvern", ["roar-hge", "wind-high", "poison"], ["hge-wind", "hge-poison"]],
+  ["Khezu", "Flying Wyvern", ["roar-hge", "wind-high", "stun"], ["hge-wind", "stun"]],
+  ["Red Khezu", "Flying Wyvern", ["roar-hge", "wind-high", "stun"], ["hge-wind", "stun"]],
+  ["Basarios", "Flying Wyvern", ["roar-hge", "wind-high"], ["hge-wind"]],
+  ["Gravios", "Flying Wyvern", ["roar-hge", "wind-high", "quake"], ["hge-quake", "hge-wind"]],
+  ["Black Gravios", "Flying Wyvern", ["roar-hge", "wind-high", "quake"], ["hge-quake", "hge-wind"]],
+  ["Monoblos", "Flying Wyvern", ["roar-hge", "wind-high", "quake"], ["hge-quake", "hge-wind"]],
+  ["White Monoblos", "Flying Wyvern", ["roar-hge", "wind-high", "quake"], ["hge-quake", "hge-wind"]],
+  ["Diablos", "Flying Wyvern", ["roar-hge", "wind-high", "quake"], ["hge-quake", "hge-wind"]],
+  ["Black Diablos", "Flying Wyvern", ["roar-hge", "wind-high", "quake"], ["hge-quake", "hge-wind"]],
+  ["Tigrex", "Flying Wyvern", ["roar-hge", "wind-high", "quake", "stun"], ["hge-quake", "hge-wind", "stun"]],
+  ["Nargacuga", "Flying Wyvern", ["wind-high", "stun"], ["wind", "stun"]],
+  ["Akantor", "Flying Wyvern", ["roar-hge", "quake"], ["hge-quake"]],
+  ["Ukanlos", "Flying Wyvern", ["roar-hge", "quake"], ["hge-quake"]],
+  ["Cephalos", "Piscine Wyvern", [], []],
+  ["Cephadrome", "Piscine Wyvern", [], []],
+  ["Plesioth", "Piscine Wyvern", [], []],
+  ["Green Plesioth", "Piscine Wyvern", [], []],
+  ["Lavasioth", "Piscine Wyvern", ["quake"], ["quake"]],
+  ["Daimyo Hermitaur", "Carapaceon", ["wind-high"], ["wind"]],
+  ["Plum D.Hermitaur", "Carapaceon", ["wind-high"], ["wind"]],
+  ["Shogun Ceanataur", "Carapaceon", ["wind-high"], ["wind"]],
+  ["Terra S.Ceanataur", "Carapaceon", ["wind-high"], ["wind"]],
+  ["Shen Gaoren", "Carapaceon", ["wind-high", "quake"], ["wind", "quake"]],
+  ["Bulldrome", "Pelagus", [], []],
+  ["Congalala", "Pelagus", ["roar-earplug", "quake"], ["hge-quake"]],
+  ["Emerald Congalala", "Pelagus", ["roar-earplug", "quake"], ["hge-quake"]],
+  ["Blangonga", "Pelagus", ["roar-earplug", "quake"], ["hge-quake"]],
+  ["Copper Blangonga", "Pelagus", ["roar-earplug", "quake"], ["hge-quake"]],
+  ["Rajang", "Pelagus", ["roar-earplug", "quake", "stun"], ["hge-quake", "stun"]],
+  ["Furious Rajang", "Pelagus", ["roar-earplug", "quake", "stun"], ["hge-quake", "stun"]],
+  ["Kirin", "Elder Dragon", [], []],
+  ["Kushala Daora", "Elder Dragon", ["roar-earplug", "wind-dragon"], ["hge-dragon-wind"]],
+  ["Rusted Kushala Daora", "Elder Dragon", ["roar-earplug", "wind-dragon"], ["hge-dragon-wind"]],
+  ["Chameleos", "Elder Dragon", ["wind-dragon"], ["hge-dragon-wind"]],
+  ["Lunastra", "Elder Dragon", ["roar-earplug", "wind-dragon"], ["hge-dragon-wind"]],
+  ["Teostra", "Elder Dragon", ["roar-earplug", "wind-dragon"], ["hge-dragon-wind"]],
+  ["Lao-Shan Lung", "Elder Dragon", ["roar-hge", "wind-high"], ["hge-wind"]],
+  ["Ashen Lao-Shan Lung", "Elder Dragon", ["roar-hge", "wind-high"], ["hge-wind"]],
+  ["Yama Tsukami", "Elder Dragon", [], []],
+  ["Fatalis", "Elder Dragon", ["roar-hge", "wind-high"], ["hge-wind"]],
+  ["Crimson Fatalis", "Elder Dragon", ["roar-hge", "wind-high"], ["hge-wind"]],
+  ["White Fatalis", "Elder Dragon", ["roar-hge", "wind-high"], ["hge-wind"]],
+];
+
+const notes = {
+  Diablos: "Cannot fit HGE + High Wind + Quake in one set; pick the card for the attack giving you trouble.",
+  "Black Diablos": "Cannot fit HGE + High Wind + Quake in one set; pick the card for the attack giving you trouble.",
+  Monoblos: "Cannot fit HGE + High Wind + Quake in one set; pick the card for the attack giving you trouble.",
+  "White Monoblos": "Cannot fit HGE + High Wind + Quake in one set; pick the card for the attack giving you trouble.",
+  Gravios: "Cannot fit HGE + High Wind + Quake in one set; pick the card for the attack giving you trouble.",
+  "Black Gravios": "Cannot fit HGE + High Wind + Quake in one set; pick the card for the attack giving you trouble.",
+  Tigrex: "Cannot fit HGE + High Wind + Quake in one set; pick the card for the attack giving you trouble. Roar knockback/damage is not prevented.",
+  Rathian: "HGE + Wind and HGE + Poison are separate cards; poison can also be avoided by positioning.",
+  "Pink Rathian": "HGE + Wind and HGE + Poison are separate cards; poison can also be avoided by positioning.",
+  "Gold Rathian": "HGE + Wind and HGE + Poison are separate cards; Gold Rathian needs HGE for the roar.",
+  Rathalos: "HGE + Wind and HGE + Poison are separate cards; poison can also be avoided by positioning.",
+  "Azure Rathalos": "HGE + Wind and HGE + Poison are separate cards; poison can also be avoided by positioning.",
+  "Silver Rathalos": "HGE + Wind and HGE + Poison are separate cards; Silver Rathalos needs HGE for the roar.",
+  Akantor: "Roar knockback/damage is not prevented by Earplugs or HGE.",
+  Ukanlos: "Roar knockback/damage is not prevented by Earplugs or HGE.",
+  Rajang: "Roar knockback/damage is not prevented by Earplugs or HGE.",
+  "Furious Rajang": "Roar knockback/damage is not prevented by Earplugs or HGE.",
+  "Kushala Daora": "High rank uses Dragon Wind + Earplug as separate cards; G rank fits HGE + Dragon Wind in one set.",
+  "Rusted Kushala Daora": "High rank uses Dragon Wind + Earplug as separate cards; G rank fits HGE + Dragon Wind in one set.",
+  Chameleos: "High rank uses the Dragon Wind card; G rank fits HGE + Dragon Wind.",
+  Lunastra: "High rank uses Dragon Wind + Earplug as separate cards; G rank fits HGE + Dragon Wind in one set.",
+  Teostra: "High rank uses Dragon Wind + Earplug as separate cards; G rank fits HGE + Dragon Wind in one set.",
+  "Shen Gaoren": "Wind and Quake are separate cards; use the one matching the attack.",
+  Gypceros: "Poison and stun are separate cards; use both if the fight is going badly.",
+  "Purple Gypceros": "Poison and stun are separate cards; use both if the fight is going badly.",
+};
+
+const highCounters = {
+  "Kushala Daora": ["dragon-wind", "earplug"],
+  "Rusted Kushala Daora": ["dragon-wind", "earplug"],
+  Chameleos: ["dragon-wind"],
+  Lunastra: ["dragon-wind", "earplug"],
+  Teostra: ["dragon-wind", "earplug"],
+};
+
+const data = monsters.map(([name, type, effects, counters]) => ({
+  name,
+  type,
+  effects,
+  counters,
+  ...(highCounters[name] ? { countersHigh: highCounters[name] } : {}),
+  ...(notes[name] ? { note: notes[name] } : {}),
+}));
+
+mkdirSync("src/data/counters", { recursive: true });
+writeFileSync("src/data/counters/mhfu.json", `${JSON.stringify({ monsters: data }, null, 2)}\n`);
+console.log(`counters: ${data.length} large monsters`);

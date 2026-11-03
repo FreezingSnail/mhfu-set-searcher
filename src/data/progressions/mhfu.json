@@ -1,0 +1,2144 @@
+[
+  {
+    "id": "mhfu-low-blade-dps",
+    "rank": "low",
+    "hunter": "blade",
+    "style": "dps",
+    "name": "Rathalos / Ceanataur mix",
+    "summary": "Razor Sharp and enough raw to carry low rank until High rank opens.",
+    "skills": [
+      "Attack",
+      "Sharpness"
+    ],
+    "notes": [
+      "Starter: full Kut-Ku + 5 Attack Jewels gives Attack Up (Medium) + Health +20 for almost no farming.",
+      "Target: Rathalos / Ceanataur pieces plus five Razor Jewels. Razor Sharp keeps you in the high sharpness bracket; the lost attack tier is worth it on most blademaster weapons.",
+      "Razor Jewel is the limiting craft. If you cannot make five yet, full Rathalos (Attack Up Large) is the bridge."
+    ],
+    "weaponNote": "SnS, DB, LS, lance, and gunlance. Great Sword / Hammer can stay in full Rathalos until High rank.",
+    "picks": {
+      "head": "head:rathalos-helm",
+      "body": "body:ceanataur-mail",
+      "arms": "arms:rathalos-vambraces",
+      "waist": "waist:rathalos-tasset",
+      "legs": "legs:diablo-greaves-d"
+    },
+    "decoIds": [
+      "deco:razor-jewel",
+      "deco:razor-jewel",
+      "deco:razor-jewel",
+      "deco:razor-jewel",
+      "deco:razor-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 0,
+    "unlockVillage": 6
+  },
+  {
+    "id": "mhfu-low-blade-comfort",
+    "rank": "low",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "Rathalos Soul + HGE",
+    "summary": "High Grade Earplug with Attack Up (Medium): roar-safe without going full support.",
+    "skills": [
+      "Attack",
+      "HearProtct"
+    ],
+    "notes": [
+      "Starter: full Kut-Ku + 5 Strength Jewels gives Health +50 and Attack Up (Small) for early comfort.",
+      "Target: Rathalos Soul plus four Earplug Jewels. Two Protection Jewels keep the set's negative Protection skill from activating.",
+      "One spare slot. Add a weapon slot or an Evade / Health jewel if you have one."
+    ],
+    "weaponNote": "Hammer, Great Sword, Long Sword, and Hunting Horn. HGE lets you finish big attacks through roars.",
+    "picks": {
+      "head": "head:rathalos-soul-helm",
+      "body": "body:rathalos-soul-mail",
+      "arms": "arms:rathalos-soul-braces",
+      "waist": "waist:rathalos-soul-coil",
+      "legs": "legs:rathalos-soulgreaves"
+    },
+    "decoIds": [
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:protection-jewel",
+      "deco:protection-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 0,
+    "unlockVillage": 6
+  },
+  {
+    "id": "mhfu-high-blade-dps",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "dps",
+    "name": "Ceanataur / Rathalos S mix",
+    "summary": "Sharpness +1 and Attack Up (Large): the high-rank blademaster damage core.",
+    "skills": [
+      "Attack",
+      "Artisan"
+    ],
+    "notes": [
+      "Starter: full Kut-Ku S + 5 Defense Jewels + 2 Fierce Jewels gives Attack Up (Large) and Fire Resist +5. Gem out Kut-Ku S's Defence penalty.",
+      "Target: three Ceanataur S pieces and two Rathalos S pieces. Two Fierce and four Artisan Jewels finish both skills.",
+      "Hunt Ceanataur for the S pieces first; the Artisan Jewels are the main material gate."
+    ],
+    "weaponNote": "Every blademaster class. Sharpness +1 is the single biggest high-rank upgrade for most weapons.",
+    "picks": {
+      "head": "head:rathalos-helm-s",
+      "body": "body:ceanataur-mail-s",
+      "arms": "arms:ceanataur-braces-s",
+      "waist": "waist:rathalos-tasset-s",
+      "legs": "legs:ceanataur-greaves-s"
+    },
+    "decoIds": [
+      "deco:fierce-jewel",
+      "deco:fierce-jewel",
+      "deco:artisan-jewel",
+      "deco:artisan-jewel",
+      "deco:artisan-jewel",
+      "deco:artisan-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 0,
+    "unlockVillage": 9
+  },
+  {
+    "id": "mhfu-high-blade-comfort",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "Rathalos Soul U + HGE",
+    "summary": "High Grade Earplug plus Crit Eye: the standard roar-safe high-rank shell.",
+    "skills": [
+      "HearProtct",
+      "Expert"
+    ],
+    "notes": [
+      "Five Strength Jewels cancel the Rathalos Soul U set's Health -10 malus.",
+      "Four spare slots: add Guard / Evade for your weapon, or Attack if you already have HGE elsewhere.",
+      "Cheaper: full Tigrex S + 1 Protection Jewel gives Earplug and Quick Eating, but not HGE."
+    ],
+    "weaponNote": "Hammer, Great Sword, Long Sword, Hunting Horn. Lance / Gunlance can spend the spare slots on Guard.",
+    "picks": {
+      "head": "head:rathalos-soul-helm-u",
+      "body": "body:rathalos-soul-mail-u",
+      "arms": "arms:rthlos-soul-braces-u",
+      "waist": "waist:rathalos-soul-coil-u",
+      "legs": "legs:rathalossoulgreavesu"
+    },
+    "decoIds": [
+      "deco:strength-jewel",
+      "deco:strength-jewel",
+      "deco:strength-jewel",
+      "deco:strength-jewel",
+      "deco:strength-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 6,
+    "unlockVillage": 9
+  },
+  {
+    "id": "mhfu-g-blade-dps",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "dps",
+    "name": "Diablos Z crit",
+    "summary": "Crit Eye +3 and Razor Sharp behind an Earplug safety net.",
+    "skills": [
+      "Expert",
+      "Sharpness",
+      "HearProtct"
+    ],
+    "notes": [
+      "Three Protection Jewels drop the Diablos Z set's Demonic Protection below activation; Hermit + five Expert Jewels reach Crit Eye +3.",
+      "Starter: full Rathalos X + 6 QuickCharge + 5 Grinder gives Attack Up (Large), Crit Draw, and Sharpening Skill Inc. Use it if you need Crit Draw for Great Sword.",
+      "Swap to a Sharpness +1 mix if your weapon needs the extra sharpness tier more than Razor Sharp."
+    ],
+    "weaponNote": "Raw SnS, DB, LS, and Lance. Great Sword should use the Rathalos X starter for Crit Draw.",
+    "picks": {
+      "head": "head:diablo-helm-z",
+      "body": "body:diablo-mail-z",
+      "arms": "arms:diablo-vambraces-z",
+      "waist": "waist:diablo-coil-z",
+      "legs": "legs:diablo-greaves-z"
+    },
+    "decoIds": [
+      "deco:protection-jewel",
+      "deco:protection-jewel",
+      "deco:protection-jewel",
+      "deco:hermit-jewel",
+      "deco:expert-jewel",
+      "deco:expert-jewel",
+      "deco:expert-jewel",
+      "deco:expert-jewel",
+      "deco:expert-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 9,
+    "unlockVillage": 10
+  },
+  {
+    "id": "mhfu-g-blade-comfort",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "Narga X evade",
+    "summary": "Evade +2 and Evade Distance: the G-rank dodge shell.",
+    "skills": [
+      "Evade",
+      "Evade Inc"
+    ],
+    "notes": [
+      "Four Fierce Jewels offset Narga X's Attack -11; the set ends at Attack +1, so no Attack Down.",
+      "Three spare slots. Add Health, Guard, or weapon-specific jewels.",
+      "Blocking weapons should use Guard +2 instead; this set is for hop / dodge play."
+    ],
+    "weaponNote": "Lance / Gunlance hop, SnS, DB, LS. Narga X is also a fine base for mixed Evade sets.",
+    "picks": {
+      "head": "head:naruga-helm-x",
+      "body": "body:naruga-mail-x",
+      "arms": "arms:naruga-vambraces-x",
+      "waist": "waist:naruga-tasset-x",
+      "legs": "legs:naruga-greaves-x"
+    },
+    "decoIds": [
+      "deco:fierce-jewel",
+      "deco:fierce-jewel",
+      "deco:fierce-jewel",
+      "deco:fierce-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 8,
+    "unlockVillage": 10
+  },
+  {
+    "id": "mhfu-low-gunner-dps",
+    "rank": "low",
+    "hunter": "gunner",
+    "style": "dps",
+    "name": "Kut-Ku gunner",
+    "summary": "Early gunner attack shell with a health buffer.",
+    "skills": [
+      "Attack",
+      "Health"
+    ],
+    "notes": [
+      "Starter: full Kut-Ku gunner + 5 Attack Jewels reaches Attack Up (Medium) and Health +20.",
+      "No shot-type skill yet; use this until you can build Battle (Normal S Up / Load) or Ceanataur (Pierce S Up) pieces.",
+      "Gunner defence is low, so Health +20 matters more than it looks."
+    ],
+    "weaponNote": "LBG, HBG, and bow. Attack Up helps every shot type; add the matching shot-up skill next.",
+    "picks": {
+      "head": "head:kut-ku-cap",
+      "body": "body:kut-ku-vest",
+      "arms": "arms:kut-ku-guards",
+      "waist": "waist:kut-ku-coat",
+      "legs": "legs:kut-ku-leggings"
+    },
+    "decoIds": [
+      "deco:attack-jewel",
+      "deco:attack-jewel",
+      "deco:attack-jewel",
+      "deco:attack-jewel",
+      "deco:attack-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 1,
+    "unlockVillage": 3
+  },
+  {
+    "id": "mhfu-low-gunner-comfort",
+    "rank": "low",
+    "hunter": "gunner",
+    "style": "comfort",
+    "name": "Rathalos Soul gunner + HGE",
+    "summary": "High Grade Earplug for safe reloads and charge windows.",
+    "skills": [
+      "Attack",
+      "HearProtct"
+    ],
+    "notes": [
+      "Rathalos Soul gunner + four Earplug Jewels + two Protection Jewels gives Attack Up (Medium) + HGE.",
+      "One spare slot; use it for Health or a weapon gem.",
+      "Cheaper: full Kut-Ku gunner + 5 Strength Jewels gives Health +50 and Attack Up (Small)."
+    ],
+    "weaponNote": "Bow and bowgun. HGE is especially good on HBG and bow, where roars interrupt long animations.",
+    "picks": {
+      "head": "head:rathalos-soul-cap",
+      "body": "body:rathalos-soul-vest",
+      "arms": "arms:rathalos-soul-guards",
+      "waist": "waist:rathalos-soul-coat",
+      "legs": "legs:rathalossoulleggings"
+    },
+    "decoIds": [
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:protection-jewel",
+      "deco:protection-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 0,
+    "unlockVillage": 6
+  },
+  {
+    "id": "mhfu-high-gunner-dps",
+    "rank": "high",
+    "hunter": "gunner",
+    "style": "dps",
+    "name": "Silver Sol Pierce",
+    "summary": "Silver Sol's Pierce Up + Attack Up (Large) shell.",
+    "skills": [
+      "PierceS Up",
+      "Attack"
+    ],
+    "notes": [
+      "Full Silver Sol gunner naturally has Pierce Up and Attack Up (Small). Three Fierce + one Attack Jewel push it to Attack Up (Large).",
+      "Three Defense Jewels cancel the set's Defence -9 malus.",
+      "Use Pierce S on long monsters. For Normal S, mix Conga or Ioprey high-rank pieces for Normal S Up."
+    ],
+    "weaponNote": "Pierce LBG / HBG and Pierce bow. The set is slot-hungry but needs no rare charm.",
+    "picks": {
+      "head": "head:silver-sol-cap",
+      "body": "body:silver-sol-vest",
+      "arms": "arms:silver-sol-guards",
+      "waist": "waist:silver-sol-coat",
+      "legs": "legs:silver-sol-leggings"
+    },
+    "decoIds": [
+      "deco:fierce-jewel",
+      "deco:fierce-jewel",
+      "deco:fierce-jewel",
+      "deco:defense-jewel",
+      "deco:defense-jewel",
+      "deco:defense-jewel",
+      "deco:attack-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 6,
+    "unlockVillage": 9
+  },
+  {
+    "id": "mhfu-high-gunner-comfort",
+    "rank": "high",
+    "hunter": "gunner",
+    "style": "comfort",
+    "name": "Obituary evade",
+    "summary": "Evade +2, Status Attack Up, and Health +20 from Obituary gunner.",
+    "skills": [
+      "Evade",
+      "Spc Attack",
+      "Health"
+    ],
+    "notes": [
+      "Two Warm Breeze Jewels keep the set's Cold Res -11 below activation; five Strength Jewels add Health +20.",
+      "Status Atk Up makes para / sleep LBG noticeably better; Evade +2 covers reloads.",
+      "One spare slot for a weapon gem."
+    ],
+    "weaponNote": "Status LBG, or any gunner who wants Evade +2 while learning a monster.",
+    "picks": {
+      "head": "head:obituary-caput-s",
+      "body": "body:obituary-pectus-s",
+      "arms": "arms:obituary-brasso-s",
+      "waist": "waist:obituary-cocusa-s",
+      "legs": "legs:obituary-femur-s"
+    },
+    "decoIds": [
+      "deco:warm-breeze-jewel",
+      "deco:warm-breeze-jewel",
+      "deco:strength-jewel",
+      "deco:strength-jewel",
+      "deco:strength-jewel",
+      "deco:strength-jewel",
+      "deco:strength-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 4,
+    "unlockVillage": 9
+  },
+  {
+    "id": "mhfu-g-gunner-dps",
+    "rank": "g",
+    "hunter": "gunner",
+    "style": "dps",
+    "name": "Rathalos X Normal",
+    "summary": "Normal / Rapid Up + Attack Up (Large) + Health +20.",
+    "skills": [
+      "NormalS Up",
+      "Attack",
+      "Health"
+    ],
+    "notes": [
+      "Six QuickCharge Jewels cancel the Rathalos X gunner set's Fast Charge -11; five Strength Jewels add Health +20.",
+      "Normal S Up also boosts Rapid Bow, so this shell works for rapid bows.",
+      "Starter-friendly: all gems are 1-slot and the armor is core G-rank Rathalos."
+    ],
+    "weaponNote": "Rapid-fire Normal LBG, Normal HBG, and rapid bow.",
+    "picks": {
+      "head": "head:rathalos-cap-x",
+      "body": "body:rathalos-vest-x",
+      "arms": "arms:rathalos-guards-x",
+      "waist": "waist:rathalos-coat-x",
+      "legs": "legs:rathalos-leggings-x"
+    },
+    "decoIds": [
+      "deco:quickcharge-jewel",
+      "deco:quickcharge-jewel",
+      "deco:quickcharge-jewel",
+      "deco:quickcharge-jewel",
+      "deco:quickcharge-jewel",
+      "deco:quickcharge-jewel",
+      "deco:strength-jewel",
+      "deco:strength-jewel",
+      "deco:strength-jewel",
+      "deco:strength-jewel",
+      "deco:strength-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 8,
+    "unlockVillage": 10
+  },
+  {
+    "id": "mhfu-g-gunner-comfort",
+    "rank": "g",
+    "hunter": "gunner",
+    "style": "comfort",
+    "name": "Narga X gunner evade",
+    "summary": "Evade +2 and Evade Distance on the Narga X gunner shell.",
+    "skills": [
+      "Evade",
+      "Evade Inc"
+    ],
+    "notes": [
+      "Four Fierce Jewels offset Attack -11; the set ends at Attack +1, so no Attack Down.",
+      "Three spare slots for Health, reload, or recoil gems.",
+      "Same comfort core as the blademaster set, with gunner defence."
+    ],
+    "weaponNote": "Evade gunner set for LBG / HBG / bow. Add recoil / reload gems for your bowgun.",
+    "picks": {
+      "head": "head:naruga-cap-x",
+      "body": "body:naruga-vest-x",
+      "arms": "arms:naruga-guards-x",
+      "waist": "waist:naruga-coat-x",
+      "legs": "legs:naruga-leggings-x"
+    },
+    "decoIds": [
+      "deco:fierce-jewel",
+      "deco:fierce-jewel",
+      "deco:fierce-jewel",
+      "deco:fierce-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 8,
+    "unlockVillage": 10
+  },
+  {
+    "id": "mhfu-high-element",
+    "rank": "high",
+    "hunter": "gunner",
+    "style": "dps",
+    "name": "Kirin S element",
+    "summary": "Element Atk Up and All Resist: the high-rank elemental base.",
+    "skills": [
+      "ElementAtk",
+      "All Resist"
+    ],
+    "notes": [
+      "Full Kirin S gives Element Atk Up. Five StayingPwr Jewels keep the set's Everlastng penalty below activation.",
+      "One spare slot: add Load / Recoil for bowguns, or Attack for melee.",
+      "No Sharpness +1 here. Pair it with a weapon that already has good sharpness, or mix Ceanataur S."
+    ],
+    "weaponNote": "Elemental LBG and elemental bow. Swap jewels for shot-type skills on bowguns.",
+    "picks": {
+      "head": "head:kirin-horn-s",
+      "body": "body:kirin-cape-s",
+      "arms": "arms:kirin-gloves-s",
+      "waist": "waist:kirin-shorts-s",
+      "legs": "legs:kirin-boots-s"
+    },
+    "decoIds": [
+      "deco:stayingpwr-jewel",
+      "deco:stayingpwr-jewel",
+      "deco:stayingpwr-jewel",
+      "deco:stayingpwr-jewel",
+      "deco:stayingpwr-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 5,
+    "unlockVillage": 9
+  },
+  {
+    "id": "mhfu-high-bow-focus",
+    "rank": "high",
+    "hunter": "gunner",
+    "style": "dps",
+    "name": "Kushala / Conga bow",
+    "summary": "Focus and Normal / Rapid Up: the high-rank bow core.",
+    "skills": [
+      "Fast Chrge",
+      "NormalS Up"
+    ],
+    "notes": [
+      "Five QuickCharge and four StrongShot Jewels finish both skills.",
+      "No spare slots; use a weapon with a slot if you need Load.",
+      "For Pierce bows, replace StrongShot with Pierce jewels and a Pierce helm."
+    ],
+    "weaponNote": "Rapid / Normal bow. Focus cuts charge time, which is both damage and comfort.",
+    "picks": {
+      "head": "head:kushala-glare-s",
+      "body": "body:conga-vest-s",
+      "arms": "arms:ioprey-guards-s",
+      "waist": "waist:ioprey-coat-s",
+      "legs": "legs:kushala-shank-s"
+    },
+    "decoIds": [
+      "deco:quickcharge-jewel",
+      "deco:quickcharge-jewel",
+      "deco:quickcharge-jewel",
+      "deco:quickcharge-jewel",
+      "deco:quickcharge-jewel",
+      "deco:strongshot-jewel",
+      "deco:strongshot-jewel",
+      "deco:strongshot-jewel",
+      "deco:strongshot-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 6,
+    "unlockVillage": 8
+  },
+  {
+    "id": "mhfu-high-blade-guard",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "dps",
+    "name": "Steel / Gravios guard",
+    "summary": "Guard +1 and Defence +30: the high-rank blocking base.",
+    "skills": [
+      "Guard",
+      "Defence"
+    ],
+    "notes": [
+      "Two Turtle and one Defense Jewel reach Defence +30 and Guard +1.",
+      "One spare slot; add Guard Up or Health if you have it.",
+      "For Guard +2, solve for Guard 20 with the same pieces."
+    ],
+    "weaponNote": "Lance and Gunlance. Guard +1 is enough for most high-rank blocking.",
+    "picks": {
+      "head": "head:ultimate-indra-helm",
+      "body": "body:steel-mail-s",
+      "arms": "arms:gravios-vambraces-s",
+      "waist": "waist:gravios-tasset-s",
+      "legs": "legs:ioprey-greaves-s"
+    },
+    "decoIds": [
+      "deco:turtle-jewel",
+      "deco:turtle-jewel",
+      "deco:defense-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 6,
+    "unlockVillage": 9
+  },
+  {
+    "id": "mhfu-g-gs-draw",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "dps",
+    "name": "Rathalos X Crit Draw",
+    "summary": "Crit Draw + Attack Up (Large) + faster sharpening: the G-rank GS starter.",
+    "skills": [
+      "Drawn Crit",
+      "Attack",
+      "SwdShrpner"
+    ],
+    "notes": [
+      "Six QuickCharge Jewels cancel the set's Fast Charge -11; five Grinder Jewels add Sharpening Skill Inc.",
+      "No spare slots; use a weapon with a slot if you need Focus.",
+      "This is the starter. The Diablos Z crit set is the next step if you do not need Crit Draw."
+    ],
+    "weaponNote": "Great Sword. Draw attacks crit; Focus is the next upgrade.",
+    "picks": {
+      "head": "head:rathalos-helm-x",
+      "body": "body:rathalos-mail-x",
+      "arms": "arms:rathalos-vambraces-x",
+      "waist": "waist:rathalos-tasset-x",
+      "legs": "legs:rathalos-greaves-x"
+    },
+    "decoIds": [
+      "deco:quickcharge-jewel",
+      "deco:quickcharge-jewel",
+      "deco:quickcharge-jewel",
+      "deco:quickcharge-jewel",
+      "deco:quickcharge-jewel",
+      "deco:quickcharge-jewel",
+      "deco:grinder-jewel",
+      "deco:grinder-jewel",
+      "deco:grinder-jewel",
+      "deco:grinder-jewel",
+      "deco:grinder-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 8,
+    "unlockVillage": 10
+  },
+  {
+    "id": "mhfu-g-hbg-pierce",
+    "rank": "g",
+    "hunter": "gunner",
+    "style": "dps",
+    "name": "Silver Sol Z Pierce",
+    "summary": "Pierce Up + Attack Up (Large): the G-rank HBG raw shell.",
+    "skills": [
+      "PierceS Up",
+      "Attack"
+    ],
+    "notes": [
+      "Silver Sol Z body pieces plus high-rank Silver Sol Leggings. Two Fierce and four Defense Jewels reach AuL and cancel the Defence penalty.",
+      "No spare slots; add recoil / reload on the weapon or swap a jewel.",
+      "For Normal HBG, use the Rathalos X gunner set."
+    ],
+    "weaponNote": "Pierce HBG. Stay in critical distance; Recoil / Load are weapon-side.",
+    "picks": {
+      "head": "head:silver-sol-cap-z",
+      "body": "body:silver-sol-vestz",
+      "arms": "arms:silver-sol-guards-z",
+      "waist": "waist:silver-sol-coat-z",
+      "legs": "legs:silver-sol-leggings"
+    },
+    "decoIds": [
+      "deco:fierce-jewel",
+      "deco:fierce-jewel",
+      "deco:defense-jewel",
+      "deco:defense-jewel",
+      "deco:defense-jewel",
+      "deco:defense-jewel",
+      "deco:strength-jewel",
+      "deco:strength-jewel",
+      "deco:strength-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 9,
+    "unlockVillage": 10
+  },
+  {
+    "id": "mhfu-g-blade-guard",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "dps",
+    "name": "Gravios / Indra guard",
+    "summary": "Guard +1, Guard Up, and Health +30: the G-rank blocking shell.",
+    "skills": [
+      "Guard",
+      "Guard Up",
+      "Health"
+    ],
+    "notes": [
+      "Iron Curtain and Rigid Wall Jewels plus three Strength Jewels finish the set.",
+      "No spare slots; upgrade to Guard +2 with a dedicated Guard set if you need it.",
+      "Use this shell when blocking is the comfort skill you actually want."
+    ],
+    "weaponNote": "Lance and Gunlance. Evade sets are better for hop play.",
+    "picks": {
+      "head": "head:true-indra-helm",
+      "body": "body:gravios-mail-x",
+      "arms": "arms:black-belt-braces-x",
+      "waist": "waist:true-indra-wrap",
+      "legs": "legs:gravios-greaves-x"
+    },
+    "decoIds": [
+      "deco:iron-curtain-jewel",
+      "deco:rigid-wall-jewel",
+      "deco:strength-jewel",
+      "deco:strength-jewel",
+      "deco:strength-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 9,
+    "unlockVillage": 10
+  },
+  {
+    "id": "mhfu-village1-blade-dps",
+    "rank": "low",
+    "hunter": "blade",
+    "style": "dps",
+    "name": "Village 1 Battle / Hunter",
+    "summary": "Village 1 starter: Attack Up (Small) from four Attack Jewels.",
+    "skills": [
+      "Attack"
+    ],
+    "notes": [
+      "Battle Helm / Vambraces / Greaves plus Hunter's Mail and Tasset are all available at Village 1*.",
+      "Four Attack Jewels turn the Battle pieces' Attack +6 into Attack Up (Small).",
+      "No sharpness skill yet; upgrade to full Battle or Kut-Ku as soon as the next pieces unlock."
+    ],
+    "weaponNote": "Any blademaster. This is the first legal attack shell.",
+    "picks": {
+      "head": "head:battle-helm",
+      "body": "body:hunter-s-mail",
+      "arms": "arms:battle-vambraces",
+      "waist": "waist:hunter-tasset",
+      "legs": "legs:battle-greaves"
+    },
+    "decoIds": [
+      "deco:attack-jewel",
+      "deco:attack-jewel",
+      "deco:attack-jewel",
+      "deco:attack-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 1,
+    "unlockVillage": 1
+  },
+  {
+    "id": "mhfu-village1-gunner-dps",
+    "rank": "low",
+    "hunter": "gunner",
+    "style": "dps",
+    "name": "Village 1 Battle / Hunter gunner",
+    "summary": "Village 1 gunner starter: Normal / Rapid Up from StrongShot Jewels.",
+    "skills": [
+      "NormalS Up"
+    ],
+    "notes": [
+      "Battle Cap / Guards / Leggings plus Hunter's Vest and Coat are all available at Village 1*.",
+      "Three StrongShot Jewels push Normal S Up to activation; one Attack Jewel is a filler.",
+      "Upgrade to Kut-Ku gunner when you can reach Village 2*."
+    ],
+    "weaponNote": "Normal LBG and rapid bow. Not an element set.",
+    "picks": {
+      "head": "head:battle-cap",
+      "body": "body:hunter-s-vest",
+      "arms": "arms:battle-guards",
+      "waist": "waist:hunter-coat",
+      "legs": "legs:battle-leggings"
+    },
+    "decoIds": [
+      "deco:strongshot-jewel",
+      "deco:strongshot-jewel",
+      "deco:strongshot-jewel",
+      "deco:attack-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 1,
+    "unlockVillage": 1
+  },
+  {
+    "id": "mhfu-village1-comfort",
+    "rank": "low",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "Village 1 Mafumofu",
+    "summary": "Village 1 comfort: Divine Protection plus Cold Elimination.",
+    "skills": [
+      "Protection",
+      "Cold Res"
+    ],
+    "notes": [
+      "Full Mafumofu is available at Village 1* for both blademaster and gunner.",
+      "One CoolBreeze Jewel keeps the set's Heat Res penalty below activation.",
+      "Two spare slots; this is a survival shell, not a damage set."
+    ],
+    "weaponNote": "Any weapon. Good for learning the first monsters and cold maps.",
+    "picks": {
+      "head": "head:mafumofu-hood",
+      "body": "body:mafumofu-jacket",
+      "arms": "arms:mafumofu-mittens",
+      "waist": "waist:mafumofu-coat",
+      "legs": "legs:mafumofu-boots"
+    },
+    "decoIds": [
+      "deco:coolbreeze-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 1,
+    "unlockVillage": 1
+  },
+  {
+    "id": "mhfu-low-blade-raw",
+    "rank": "low",
+    "hunter": "blade",
+    "style": "dps",
+    "name": "Full Rathalos",
+    "summary": "Attack Up (Large) with three free slots: the simple low-rank raw bridge.",
+    "skills": [
+      "Attack"
+    ],
+    "notes": [
+      "Full low-rank Rathalos is available from HR1 and only needs Village 6* for the full village path.",
+      "One Paralysis Jewel cancels the set's Paralysis -10; three slots remain free.",
+      "Use this when you cannot craft the Razor Jewels for the Ceanataur mix."
+    ],
+    "weaponNote": "Great Sword, Hammer, and any raw weapon that wants AuL without jewel farming.",
+    "picks": {
+      "head": "head:rathalos-helm",
+      "body": "body:rathalos-mail",
+      "arms": "arms:rathalos-vambraces",
+      "waist": "waist:rathalos-tasset",
+      "legs": "legs:rathalos-greaves"
+    },
+    "decoIds": [
+      "deco:paralysis-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 1,
+    "unlockVillage": 6
+  },
+  {
+    "id": "mhfu-low-comfort-evade",
+    "rank": "low",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "Lobster evade",
+    "summary": "Evade +2 with five free slots: the low-rank dodge comfort shell.",
+    "skills": [
+      "Evade"
+    ],
+    "notes": [
+      "Full Lobster is available from HR1 and Village 3* for both blademaster and gunner.",
+      "One Stone Wall Jewel keeps the set's Guard penalty below activation.",
+      "Five spare slots; add Health, Attack, or weapon-specific jewels."
+    ],
+    "weaponNote": "SnS, DB, LS, and any weapon that wants Evade +2 before high rank.",
+    "picks": {
+      "head": "head:lobster-helm",
+      "body": "body:lobster-mail",
+      "arms": "arms:lobster-vambraces",
+      "waist": "waist:lobster-coil",
+      "legs": "legs:lobster-greaves"
+    },
+    "decoIds": [
+      "deco:stone-wall-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 2,
+    "unlockVillage": 4
+  },
+  {
+    "id": "mhfu-high-blade-starter",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "dps",
+    "name": "Kut-Ku S starter",
+    "summary": "Attack Up (Large) and Fire Resist +5 from the first high-rank Kut-Ku set.",
+    "skills": [
+      "Attack",
+      "Fire Res"
+    ],
+    "notes": [
+      "Full Kut-Ku S has Attack +15 and Defence -10. Five Defense Jewels cancel the penalty; two Fierce Jewels push Attack to AuL.",
+      "Available at HR4 and Village 7*; this is the bridge before Ceanataur / Rathalos S.",
+      "No sharpness skill; upgrade as soon as you can hunt Ceanataur."
+    ],
+    "weaponNote": "Any blademaster entering high rank. Fire Resist +5 is a free bonus.",
+    "picks": {
+      "head": "head:kut-ku-helm-s",
+      "body": "body:kut-ku-mail-s",
+      "arms": "arms:kut-ku-vambraces-s",
+      "waist": "waist:kut-ku-tasset-s",
+      "legs": "legs:kut-ku-greaves-s"
+    },
+    "decoIds": [
+      "deco:defense-jewel",
+      "deco:defense-jewel",
+      "deco:defense-jewel",
+      "deco:defense-jewel",
+      "deco:defense-jewel",
+      "deco:fierce-jewel",
+      "deco:fierce-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 4,
+    "unlockVillage": 7
+  },
+  {
+    "id": "mhfu-high-gunner-starter",
+    "rank": "high",
+    "hunter": "gunner",
+    "style": "dps",
+    "name": "Kut-Ku S gunner starter",
+    "summary": "Attack Up (Large) and Fire Resist +5 from the first high-rank gunner Kut-Ku set.",
+    "skills": [
+      "Attack",
+      "Fire Res"
+    ],
+    "notes": [
+      "Full Kut-Ku S gunner has the same Attack +15 / Defence -10 shell. Five Defense and two Fierce Jewels fix both.",
+      "Available at HR4 and Village 7*; use it until Silver Sol or a shot-type set is ready.",
+      "No shot-type skill; the next upgrade depends on your bowgun ammo."
+    ],
+    "weaponNote": "Any gunner entering high rank. Fire Resist +5 is a free bonus.",
+    "picks": {
+      "head": "head:kut-ku-cap-s",
+      "body": "body:kut-ku-vest-s",
+      "arms": "arms:kut-ku-guards-s",
+      "waist": "waist:kut-ku-coat-s",
+      "legs": "legs:kut-ku-leggings-s"
+    },
+    "decoIds": [
+      "deco:defense-jewel",
+      "deco:defense-jewel",
+      "deco:defense-jewel",
+      "deco:defense-jewel",
+      "deco:defense-jewel",
+      "deco:fierce-jewel",
+      "deco:fierce-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 4,
+    "unlockVillage": 7
+  },
+  {
+    "id": "mhfu-low-blade-battle",
+    "rank": "low",
+    "hunter": "blade",
+    "style": "dps",
+    "name": "Full Battle",
+    "summary": "Attack Up (Small) and Sharpening Skill Inc from the first full Battle set.",
+    "skills": [
+      "Attack",
+      "SwdShrpner"
+    ],
+    "notes": [
+      "Full Battle unlocks at Village 2*; four Attack Jewels reach Attack Up (Small).",
+      "Sharpening Skill Inc is already active from the Battle pieces.",
+      "This is the bridge to Kut-Ku at Village 3*."
+    ],
+    "weaponNote": "Any blademaster. Cheap and available before Kut-Ku.",
+    "picks": {
+      "head": "head:battle-helm",
+      "body": "body:battle-mail",
+      "arms": "arms:battle-vambraces",
+      "waist": "waist:battle-tasset",
+      "legs": "legs:battle-greaves"
+    },
+    "decoIds": [
+      "deco:attack-jewel",
+      "deco:attack-jewel",
+      "deco:attack-jewel",
+      "deco:attack-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 1,
+    "unlockVillage": 2
+  },
+  {
+    "id": "mhfu-low-blade-kutku",
+    "rank": "low",
+    "hunter": "blade",
+    "style": "dps",
+    "name": "Full Kut-Ku",
+    "summary": "Attack Up (Medium) and Health +20: the Village 3* all-rounder.",
+    "skills": [
+      "Attack",
+      "Health"
+    ],
+    "notes": [
+      "Full Kut-Ku unlocks at Village 3*; five Attack Jewels push Attack to AuM.",
+      "Health +20 and Fire Resist are free bonuses.",
+      "Use this until Rathalos / Ceanataur pieces are available."
+    ],
+    "weaponNote": "Any blademaster. The standard early low-rank set.",
+    "picks": {
+      "head": "head:kut-ku-helm",
+      "body": "body:kut-ku-mail",
+      "arms": "arms:kut-ku-vambraces",
+      "waist": "waist:kut-ku-tasset",
+      "legs": "legs:kut-ku-greaves"
+    },
+    "decoIds": [
+      "deco:attack-jewel",
+      "deco:attack-jewel",
+      "deco:attack-jewel",
+      "deco:attack-jewel",
+      "deco:attack-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 1,
+    "unlockVillage": 3
+  },
+  {
+    "id": "mhfu-low-gunner-comfort-evade",
+    "rank": "low",
+    "hunter": "gunner",
+    "style": "comfort",
+    "name": "Lobster gunner evade",
+    "summary": "Evade +2 with five free slots: the low-rank gunner dodge shell.",
+    "skills": [
+      "Evade"
+    ],
+    "notes": [
+      "Full Lobster gunner is available from HR1 and Village 3*.",
+      "One Sharpshootr Jewel keeps the set's Precision -10 below activation.",
+      "Five spare slots; add Health or weapon-specific gems."
+    ],
+    "weaponNote": "LBG, HBG, and bow. Evade +2 is the comfort core.",
+    "picks": {
+      "head": "head:lobster-cap",
+      "body": "body:lobster-vest",
+      "arms": "arms:lobster-guards",
+      "waist": "waist:lobster-coat",
+      "legs": "legs:lobster-leggings"
+    },
+    "decoIds": [
+      "deco:sharpshootrjewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 1,
+    "unlockVillage": 3
+  },
+  {
+    "id": "mhfu-high-blade-raw",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "dps",
+    "name": "Full Rathalos S",
+    "summary": "Attack Up (Large) + Sharpening Skill Inc: the hub-safe high-rank raw bridge.",
+    "skills": [
+      "Attack",
+      "SwdShrpner"
+    ],
+    "notes": [
+      "Full Rathalos S already has Attack Up (Large). Five Grinder Jewels add Sharpening Skill Inc; three slots remain free.",
+      "Available from HR5 and Village 9*. This is the hub bridge while the Artisan-jewel S+1 mix is village-gated.",
+      "Use the Ceanataur / Rathalos S mix once you can make Artisan Jewels."
+    ],
+    "weaponNote": "Any raw blademaster. Great Sword and Hammer can stay here until the G-rank Crit Draw set.",
+    "picks": {
+      "head": "head:rathalos-helm-s",
+      "body": "body:rathalos-mail-s",
+      "arms": "arms:rathalos-vambraces-s",
+      "waist": "waist:rathalos-tasset-s",
+      "legs": "legs:rathalos-greaves-s"
+    },
+    "decoIds": [
+      "deco:grinder-jewel",
+      "deco:grinder-jewel",
+      "deco:grinder-jewel",
+      "deco:grinder-jewel",
+      "deco:grinder-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 5,
+    "unlockVillage": 9
+  },
+  {
+    "id": "mhfu-high-blade-garuga",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "Garuga S earplug",
+    "summary": "Full Garuga S: Earplug + Crit Eye + Poison Duration Halved.",
+    "skills": [
+      "HearProtct",
+      "Expert",
+      "Poison"
+    ],
+    "notes": [
+      "Full Garuga S naturally gives Earplug and Poison Dur Halved. One Gathering Jewel cancels Gathering -10; three Expert Jewels add Crit Eye+1.",
+      "Four spare slots. Five Earplug Jewels upgrade this to HGE, but those jewels are village-gated.",
+      "Available from HR8 and Village 8*; the classic Garuga earplug shell."
+    ],
+    "weaponNote": "Hammer, Hunting Horn, Great Sword, and Long Sword. Earplug covers the roars; HGE needs the village jewel path.",
+    "picks": {
+      "head": "head:garuga-helm-s",
+      "body": "body:yian-garuga-mail-s",
+      "arms": "arms:garuga-vambraces-s",
+      "waist": "waist:garuga-tasset-s",
+      "legs": "legs:garuga-greaves-s"
+    },
+    "decoIds": [
+      "deco:gathering-jewel",
+      "deco:expert-jewel",
+      "deco:expert-jewel",
+      "deco:expert-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 8,
+    "unlockVillage": 8
+  },
+  {
+    "id": "mhfu-high-gunner-garuga",
+    "rank": "high",
+    "hunter": "gunner",
+    "style": "comfort",
+    "name": "Garuga S gunner earplug",
+    "summary": "Full Garuga S gunner: Earplug + Crit Eye + Poison Coat Add.",
+    "skills": [
+      "HearProtct",
+      "Expert",
+      "PoisnCtAdd"
+    ],
+    "notes": [
+      "Full Garuga S gunner naturally gives Earplug and Poison Coat Add. One Gathering Jewel cancels Gathering -10; three Expert Jewels add Crit Eye+1.",
+      "Four spare slots. Five Earplug Jewels upgrade to HGE, but they are village-gated.",
+      "Available from HR8 and Village 8*."
+    ],
+    "weaponNote": "Status LBG and bow. Earplug protects reload and charge windows.",
+    "picks": {
+      "head": "head:garuga-cap-s",
+      "body": "body:yian-garuga-vest-s",
+      "arms": "arms:garuga-guards-s",
+      "waist": "waist:garuga-coat-s",
+      "legs": "legs:garuga-leggings-s"
+    },
+    "decoIds": [
+      "deco:gathering-jewel",
+      "deco:expert-jewel",
+      "deco:expert-jewel",
+      "deco:expert-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 8,
+    "unlockVillage": 8
+  },
+  {
+    "id": "mhfu-g-blade-garuga",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "Garuga X earplug",
+    "summary": "Full Garuga X: Earplug + Sharpening Skill Inc + Status Attack Up.",
+    "skills": [
+      "HearProtct",
+      "SwdShrpner",
+      "Spc Attack"
+    ],
+    "notes": [
+      "Full Garuga X naturally gives Earplug, Sharpening Skill Inc, and Status Atk Up. One Quick Fix Jewel keeps Rec Speed -11 below activation.",
+      "Eight spare slots. Five Earplug Jewels make this HGE, but they are village-gated.",
+      "Available from HR8 and Village 10*."
+    ],
+    "weaponNote": "Status weapons, Hammer, Hunting Horn, and Long Sword. Earplug is the comfort; HGE needs the village jewel path.",
+    "picks": {
+      "head": "head:yian-garuga-helm-x",
+      "body": "body:yian-garuga-mail-x",
+      "arms": "arms:garuga-vambraces-x",
+      "waist": "waist:garuga-tasset-x",
+      "legs": "legs:garuga-greaves-x"
+    },
+    "decoIds": [
+      "deco:quick-fix-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 8,
+    "unlockVillage": 10
+  },
+  {
+    "id": "mhfu-g-gunner-garuga",
+    "rank": "g",
+    "hunter": "gunner",
+    "style": "comfort",
+    "name": "Garuga X gunner earplug",
+    "summary": "Full Garuga X gunner: Earplug + Razor Coating + Status Attack Up.",
+    "skills": [
+      "HearProtct",
+      "RazorCtAdd",
+      "Spc Attack"
+    ],
+    "notes": [
+      "Full Garuga X gunner naturally gives Earplug, Razor Coating Add, and Status Atk Up. One Quick Fix Jewel cancels Rec Speed -11.",
+      "Eight spare slots. Five Earplug Jewels make this HGE, but they are village-gated.",
+      "Available from HR8 and Village 10*."
+    ],
+    "weaponNote": "Status LBG and bow. Earplug protects reload and charge windows.",
+    "picks": {
+      "head": "head:yian-garuga-cap-x",
+      "body": "body:yian-garuga-vest-x",
+      "arms": "arms:garuga-guards-x",
+      "waist": "waist:garuga-coat-x",
+      "legs": "legs:garuga-leggings-x"
+    },
+    "decoIds": [
+      "deco:quick-fix-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 8,
+    "unlockVillage": 10
+  },
+  {
+    "id": "mhfu-high-blade-garuga-hge",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "Garuga S HGE",
+    "summary": "Garuga S with High Grade Earplug from five Earplug Jewels.",
+    "skills": [
+      "HearProtct",
+      "Poison"
+    ],
+    "notes": [
+      "Five Earplug Jewels turn the set's native Earplug into HGE; one Gathering Jewel keeps Gathering -10 below activation.",
+      "Village-only jewel path: Earplug Jewels need Village 4*+. The HR8 version stays at Earplug.",
+      "Two spare slots. HGE covers every roar in high rank."
+    ],
+    "weaponNote": "Hammer, Hunting Horn, Great Sword, Long Sword. The village-side roar-proof Garuga.",
+    "picks": {
+      "head": "head:garuga-helm-s",
+      "body": "body:yian-garuga-mail-s",
+      "arms": "arms:garuga-vambraces-s",
+      "waist": "waist:garuga-tasset-s",
+      "legs": "legs:garuga-greaves-s"
+    },
+    "decoIds": [
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:gathering-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 0,
+    "unlockVillage": 8
+  },
+  {
+    "id": "mhfu-high-gunner-garuga-hge",
+    "rank": "high",
+    "hunter": "gunner",
+    "style": "comfort",
+    "name": "Garuga S gunner HGE",
+    "summary": "Garuga S gunner with High Grade Earplug from five Earplug Jewels.",
+    "skills": [
+      "HearProtct",
+      "PoisnCtAdd"
+    ],
+    "notes": [
+      "Five Earplug Jewels turn native Earplug into HGE; one Gathering Jewel cancels Gathering -10.",
+      "Village-only jewel path: Earplug Jewels need Village 4*+. The HR8 version stays at Earplug.",
+      "Two spare slots."
+    ],
+    "weaponNote": "Status LBG and bow. HGE protects the longest reloads and charges.",
+    "picks": {
+      "head": "head:garuga-cap-s",
+      "body": "body:yian-garuga-vest-s",
+      "arms": "arms:garuga-guards-s",
+      "waist": "waist:garuga-coat-s",
+      "legs": "legs:garuga-leggings-s"
+    },
+    "decoIds": [
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:gathering-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 0,
+    "unlockVillage": 8
+  },
+  {
+    "id": "mhfu-g-blade-garuga-hge",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "Garuga X HGE",
+    "summary": "Garuga X with High Grade Earplug, Razor Sharp, and Status Attack Up.",
+    "skills": [
+      "HearProtct",
+      "SwdShrpner",
+      "Spc Attack"
+    ],
+    "notes": [
+      "Five Earplug Jewels turn native Earplug into HGE; one Quick Fix Jewel keeps Rec Speed -11 below activation.",
+      "Village-only jewel path: Earplug Jewels need Village 4*+. The HR8 version stays at Earplug.",
+      "Three spare slots."
+    ],
+    "weaponNote": "Status weapons, Hammer, HH, and LS. The village-side HGE Garuga.",
+    "picks": {
+      "head": "head:yian-garuga-helm-x",
+      "body": "body:yian-garuga-mail-x",
+      "arms": "arms:garuga-vambraces-x",
+      "waist": "waist:garuga-tasset-x",
+      "legs": "legs:garuga-greaves-x"
+    },
+    "decoIds": [
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:quick-fix-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 0,
+    "unlockVillage": 10
+  },
+  {
+    "id": "mhfu-g-gunner-garuga-hge",
+    "rank": "g",
+    "hunter": "gunner",
+    "style": "comfort",
+    "name": "Garuga X gunner HGE",
+    "summary": "Garuga X gunner with HGE, Razor Coating, and Status Attack Up.",
+    "skills": [
+      "HearProtct",
+      "RazorCtAdd",
+      "Spc Attack"
+    ],
+    "notes": [
+      "Five Earplug Jewels turn native Earplug into HGE; one Quick Fix Jewel cancels Rec Speed -11.",
+      "Village-only jewel path: Earplug Jewels need Village 4*+. The HR8 version stays at Earplug.",
+      "Three spare slots."
+    ],
+    "weaponNote": "Status LBG and bow. The village-side HGE Garuga.",
+    "picks": {
+      "head": "head:yian-garuga-cap-x",
+      "body": "body:yian-garuga-vest-x",
+      "arms": "arms:garuga-guards-x",
+      "waist": "waist:garuga-coat-x",
+      "legs": "legs:garuga-leggings-x"
+    },
+    "decoIds": [
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:quick-fix-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 0,
+    "unlockVillage": 10
+  },
+  {
+    "id": "mhfu-counter-g-wind",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "G High Wind Res",
+    "summary": "High Wind Res 19: cancels large wind pressure from Rathalos, Diablos, Tigrex, Lao, and Fatalis.",
+    "skills": [
+      "WindPress"
+    ],
+    "notes": [
+      "Six spare slots. Add damage or another counter skill.",
+      "High Wind Res does not stop Dragon Wind from Kushala, Chameleos, Lunastra, or Teostra."
+    ],
+    "picks": {
+      "head": "head:white-fatalis-head-z",
+      "body": "body:diablo-mail-x",
+      "arms": "arms:black-belt-braces-x",
+      "waist": "waist:diablo-coil-x",
+      "legs": "legs:black-belt-greaves-x"
+    },
+    "decoIds": [],
+    "weaponSlots": 0,
+    "unlockHr": 9,
+    "unlockVillage": 10,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-g-dragon-wind",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "G Dragon Wind Breaker",
+    "summary": "Dragon Wind Breaker 24: cancels Kushala, Chameleos, Lunastra, and Teostra wind auras.",
+    "skills": [
+      "WindPress"
+    ],
+    "notes": [
+      "One Solid Rock Jewel finishes Dragon Wind Breaker; three spare slots.",
+      "Use this for elder dragon wind, not ordinary high wind."
+    ],
+    "picks": {
+      "head": "head:white-fatalis-head-z",
+      "body": "body:diablo-mail-x",
+      "arms": "arms:black-belt-braces-x",
+      "waist": "waist:diablo-coil-x",
+      "legs": "legs:black-belt-greaves-x"
+    },
+    "decoIds": [
+      "deco:solid-rock-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 9,
+    "unlockVillage": 10,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-g-quake",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "G Quake Res",
+    "summary": "Quake Res 16: stops tremors from Diablos, Tigrex, Akantor, Ukanlos, Rajang, Lavasioth, and Shen Gaoren.",
+    "skills": [
+      "Quake Res"
+    ],
+    "notes": [
+      "Six spare slots. Add damage or a status counter.",
+      "Quake Res does not stop roars or wind pressure."
+    ],
+    "picks": {
+      "head": "head:white-fatalis-head-z",
+      "body": "body:true-indra-vest",
+      "arms": "arms:black-belt-braces-x",
+      "waist": "waist:blango-tasset-x",
+      "legs": "legs:black-belt-greaves-x"
+    },
+    "decoIds": [],
+    "weaponSlots": 0,
+    "unlockHr": 9,
+    "unlockVillage": 10,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-g-hge-quake",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "G HGE + Quake",
+    "summary": "High Grade Earplug + Quake Res: the Diablos, Tigrex, Rajang, and Akantor shell.",
+    "skills": [
+      "HearProtct",
+      "Quake Res"
+    ],
+    "notes": [
+      "Covers large roars and tremors. Three spare slots.",
+      "Cannot also fit High Wind Res; use the HGE + Wind card for wind-heavy fights."
+    ],
+    "picks": {
+      "head": "head:true-mizuha-cap",
+      "body": "body:true-indra-vest",
+      "arms": "arms:black-belt-braces-x",
+      "waist": "waist:true-mizuha-sash",
+      "legs": "legs:rathalossoulgreavesz"
+    },
+    "decoIds": [
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:tectonic-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 0,
+    "unlockVillage": 10,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-g-hge-wind",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "G HGE + High Wind",
+    "summary": "High Grade Earplug + High Wind Res: roars and large wind pressure together.",
+    "skills": [
+      "HearProtct",
+      "WindPress"
+    ],
+    "notes": [
+      "One spare slot. Use for Rathalos, Rathian, Lao, Fatalis, and wind-heavy Diablos/Tigrex.",
+      "Cannot also fit Quake Res; use the HGE + Quake card for tremor-heavy fights."
+    ],
+    "picks": {
+      "head": "head:true-mizuha-cap",
+      "body": "body:diablo-mail-x",
+      "arms": "arms:black-belt-braces-x",
+      "waist": "waist:true-mizuha-sash",
+      "legs": "legs:rathalossoulgreavesz"
+    },
+    "decoIds": [
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:heavymetal-jewel",
+      "deco:heavymetal-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 0,
+    "unlockVillage": 10,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-g-hge-dragon-wind",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "G HGE + Dragon Wind",
+    "summary": "High Grade Earplug + Dragon Wind Breaker: the elder dragon aura shell.",
+    "skills": [
+      "HearProtct",
+      "WindPress"
+    ],
+    "notes": [
+      "Covers roars and Dragon Wind for Kushala, Chameleos, Lunastra, and Teostra.",
+      "No spare slots; this is a dedicated aura counter."
+    ],
+    "picks": {
+      "head": "head:true-mizuha-cap",
+      "body": "body:diablo-mail-x",
+      "arms": "arms:rthlos-soul-braces-z",
+      "waist": "waist:true-mizuha-sash",
+      "legs": "legs:rathalossoulgreavesz"
+    },
+    "decoIds": [
+      "deco:solid-rock-jewel",
+      "deco:heavymetal-jewel",
+      "deco:heavymetal-jewel",
+      "deco:heavymetal-jewel",
+      "deco:paperweightjewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 9,
+    "unlockVillage": 10,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-g-hge-poison",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "G HGE + Poison",
+    "summary": "High Grade Earplug + Poison Negated: the Rathian/Rathalos counter.",
+    "skills": [
+      "HearProtct",
+      "Poison"
+    ],
+    "notes": [
+      "Covers roars and poison. No spare slots.",
+      "For Gold Rathian and Silver Rathalos this also covers their HGE roar."
+    ],
+    "picks": {
+      "head": "head:diablo-helm-z",
+      "body": "body:diablo-mail-z",
+      "arms": "arms:black-belt-braces-x",
+      "waist": "waist:true-mizuha-sash",
+      "legs": "legs:rathalossoulgreavesz"
+    },
+    "decoIds": [
+      "deco:earplug-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 0,
+    "unlockVillage": 10,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-g-poison",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "G Poison Negated",
+    "summary": "Poison Negated 16: the Gypceros and Iodrome counter.",
+    "skills": [
+      "Poison"
+    ],
+    "notes": [
+      "Four spare slots. Add damage or another status counter.",
+      "Carving Iron Man is incidental; ignore it if you do not need it."
+    ],
+    "picks": {
+      "head": "head:white-fatalis-head-z",
+      "body": "body:gypceros-mail-x",
+      "arms": "arms:gypceros-vambraces-x",
+      "waist": "waist:true-indra-wrap",
+      "legs": "legs:black-belt-greaves-x"
+    },
+    "decoIds": [
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 9,
+    "unlockVillage": 10,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-g-sleep",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "G Sleep Negated",
+    "summary": "Sleep Negated 16: the Hypnocatrice counter.",
+    "skills": [
+      "Sleep"
+    ],
+    "notes": [
+      "Ten spare slots. Add damage or another counter skill.",
+      "Sleep Negated is enough; you do not need full status immunity."
+    ],
+    "picks": {
+      "head": "head:white-fatalis-head-z",
+      "body": "body:hypnoc-mail-x",
+      "arms": "arms:hypnoc-vambraces-x",
+      "waist": "waist:hypnoc-tasset-x",
+      "legs": "legs:hypnoc-greaves-x"
+    },
+    "decoIds": [
+      "deco:jolt-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 9,
+    "unlockVillage": 10,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-g-paralysis",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "G Paralysis Negated",
+    "summary": "Paralysis Negated 16: the Gendrome and Vespoid Queen counter.",
+    "skills": [
+      "Paralysis"
+    ],
+    "notes": [
+      "Eight spare slots. Add damage or another counter skill.",
+      "Useful for any fight where paralysis chains into a cart."
+    ],
+    "picks": {
+      "head": "head:white-fatalis-head-z",
+      "body": "body:khezu-mail-x",
+      "arms": "arms:trueguardnsprtbraces",
+      "waist": "waist:true-guardnspritcoil",
+      "legs": "legs:trueguardnspritboots"
+    },
+    "decoIds": [
+      "deco:petrification-jewel",
+      "deco:petrification-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 9,
+    "unlockVillage": 10,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-g-stun",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "G Faint Negated",
+    "summary": "Faint Negated 15: stops stun from repeated hits.",
+    "skills": [
+      "Faint"
+    ],
+    "notes": [
+      "Ten spare slots. Add damage or another counter skill.",
+      "Use it on Gypceros, Khezu, Tigrex, Nargacuga, Rajang, and Garuga if stun is the problem."
+    ],
+    "picks": {
+      "head": "head:white-fatalis-head-z",
+      "body": "body:gypceros-mail-z",
+      "arms": "arms:gypceros-vambraces-z",
+      "waist": "waist:blango-tasset-z",
+      "legs": "legs:blango-greaves-z"
+    },
+    "decoIds": [
+      "deco:vigilance-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 9,
+    "unlockVillage": 10,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-high-wind",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "High High Wind Res",
+    "summary": "High Wind Res 18: cancels large wind pressure at high rank.",
+    "skills": [
+      "WindPress"
+    ],
+    "notes": [
+      "Supreme Mizuha pieces supply WindPress without jewels. Six spare slots.",
+      "Does not stop Dragon Wind from elder dragons."
+    ],
+    "picks": {
+      "head": "head:diablo-helm-s",
+      "body": "body:suprememizuha-guards",
+      "arms": "arms:suprememizuhasleeves",
+      "waist": "waist:supreme-mizuha-sash",
+      "legs": "legs:suprememizuhalegwrap"
+    },
+    "decoIds": [],
+    "weaponSlots": 0,
+    "unlockHr": 6,
+    "unlockVillage": 9,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-high-dragon-wind",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "High Dragon Wind Breaker",
+    "summary": "Dragon Wind Breaker 21: cancels elder dragon wind auras at high rank.",
+    "skills": [
+      "WindPress"
+    ],
+    "notes": [
+      "One HeavyMetal Jewel finishes Dragon Wind Breaker. Four spare slots.",
+      "Use for Kushala, Chameleos, Lunastra, and Teostra."
+    ],
+    "picks": {
+      "head": "head:diablo-helm-s",
+      "body": "body:suprememizuha-guards",
+      "arms": "arms:suprememizuhasleeves",
+      "waist": "waist:supreme-mizuha-sash",
+      "legs": "legs:suprememizuhalegwrap"
+    },
+    "decoIds": [
+      "deco:heavymetal-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 6,
+    "unlockVillage": 9,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-high-quake",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "High Quake Res",
+    "summary": "Quake Res + Guard +1: the high-rank tremor shell.",
+    "skills": [
+      "Quake Res",
+      "Guard"
+    ],
+    "notes": [
+      "One Tectonic Jewel finishes Quake Res. Five spare slots.",
+      "Guard +1 is incidental; it helps lance/gunlance but is not required."
+    ],
+    "picks": {
+      "head": "head:conga-helm-u",
+      "body": "body:ultimate-indra-vest",
+      "arms": "arms:ultimateindragloves",
+      "waist": "waist:ultimate-indra-wrap",
+      "legs": "legs:ultimateindralggings"
+    },
+    "decoIds": [
+      "deco:tectonic-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 6,
+    "unlockVillage": 9,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-high-hge-quake",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "High HGE + Quake",
+    "summary": "High Grade Earplug + Quake Res at high rank.",
+    "skills": [
+      "HearProtct",
+      "Quake Res"
+    ],
+    "notes": [
+      "Three Tectonic and one Anchor Jewel finish Quake Res.",
+      "Village-side Earplug Jewels; hub players need village 4★+ for the jewels."
+    ],
+    "picks": {
+      "head": "head:rathalos-soul-helm-u",
+      "body": "body:rathalos-soul-mail-u",
+      "arms": "arms:tigrex-vambraces-s",
+      "waist": "waist:rathalos-soul-coil-u",
+      "legs": "legs:ioprey-greaves-s"
+    },
+    "decoIds": [
+      "deco:tectonic-jewel",
+      "deco:tectonic-jewel",
+      "deco:tectonic-jewel",
+      "deco:anchor-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 6,
+    "unlockVillage": 9,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-high-hge-wind",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "High HGE + High Wind",
+    "summary": "High Grade Earplug + High Wind Res at high rank.",
+    "skills": [
+      "HearProtct",
+      "WindPress"
+    ],
+    "notes": [
+      "Four Earplug Jewels finish HGE; three spare slots.",
+      "Village-side Earplug Jewels; this is the high-rank Rathalos/Rathian/Lao counter."
+    ],
+    "picks": {
+      "head": "head:rathalos-soul-helm-u",
+      "body": "body:suprememizuha-guards",
+      "arms": "arms:suprememizuhasleeves",
+      "waist": "waist:supreme-mizuha-sash",
+      "legs": "legs:suprememizuhalegwrap"
+    },
+    "decoIds": [
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 0,
+    "unlockVillage": 9,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-high-hge-dragon-wind",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "High HGE + Dragon Wind",
+    "summary": "High Grade Earplug + Dragon Wind Breaker at high rank.",
+    "skills": [
+      "HearProtct",
+      "WindPress"
+    ],
+    "notes": [
+      "Four Earplug, one HeavyMetal, and one Paperweight Jewel. No spare slots.",
+      "Dedicated elder dragon aura counter."
+    ],
+    "picks": {
+      "head": "head:rathalos-soul-helm-u",
+      "body": "body:suprememizuha-guards",
+      "arms": "arms:suprememizuhasleeves",
+      "waist": "waist:supreme-mizuha-sash",
+      "legs": "legs:suprememizuhalegwrap"
+    },
+    "decoIds": [
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:earplug-jewel",
+      "deco:heavymetal-jewel",
+      "deco:paperweightjewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 0,
+    "unlockVillage": 9,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-high-hge-poison",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "High HGE + Poison",
+    "summary": "High Grade Earplug + Poison Negated at high rank.",
+    "skills": [
+      "HearProtct",
+      "Poison"
+    ],
+    "notes": [
+      "Six Anti-Toxin Jewels finish Poison Negated; no spare slots.",
+      "Covers Rathian/Rathalos roars and poison in one high-rank shell."
+    ],
+    "picks": {
+      "head": "head:rathalos-soul-helm-u",
+      "body": "body:rathalos-soul-mail-u",
+      "arms": "arms:garuga-vambraces-s",
+      "waist": "waist:hornet-tasset-u",
+      "legs": "legs:ioprey-greaves-s"
+    },
+    "decoIds": [
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 8,
+    "unlockVillage": 10,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-high-poison",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "High Poison Negated",
+    "summary": "Poison Negated 15: the high-rank Gypceros/Iodrome counter.",
+    "skills": [
+      "Poison"
+    ],
+    "notes": [
+      "No jewels needed; eight spare slots.",
+      "Add damage or another status counter."
+    ],
+    "picks": {
+      "head": "head:rathian-helm-s",
+      "body": "body:ioprey-mail-s",
+      "arms": "arms:garuga-vambraces-s",
+      "waist": "waist:gypceros-tasset-s",
+      "legs": "legs:garuga-greaves-s"
+    },
+    "decoIds": [],
+    "weaponSlots": 0,
+    "unlockHr": 8,
+    "unlockVillage": 9,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-high-sleep",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "High Sleep Negated",
+    "summary": "Sleep Negated 20: the high-rank Hypnocatrice counter.",
+    "skills": [
+      "Sleep"
+    ],
+    "notes": [
+      "No jewels needed; seven spare slots.",
+      "Sleep Negated is enough; you do not need full status immunity."
+    ],
+    "picks": {
+      "head": "head:hypnoc-helm-s",
+      "body": "body:vespoid-mail-u",
+      "arms": "arms:hypnoc-vambraces-s",
+      "waist": "waist:vespoid-tasset-u",
+      "legs": "legs:hypnoc-greaves-s"
+    },
+    "decoIds": [],
+    "weaponSlots": 0,
+    "unlockHr": 7,
+    "unlockVillage": 7,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-high-paralysis",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "High Paralysis Negated",
+    "summary": "Paralysis Negated 16: the high-rank Gendrome/Vespoid Queen counter.",
+    "skills": [
+      "Paralysis"
+    ],
+    "notes": [
+      "Three Petrification Jewels; eight spare slots.",
+      "Useful when paralysis chains into a cart."
+    ],
+    "picks": {
+      "head": "head:conga-helm-u",
+      "body": "body:genprey-mail-s",
+      "arms": "arms:genprey-vambraces-s",
+      "waist": "waist:genprey-tasset-s",
+      "legs": "legs:genprey-greaves-s"
+    },
+    "decoIds": [
+      "deco:petrification-jewel",
+      "deco:petrification-jewel",
+      "deco:petrification-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 7,
+    "unlockVillage": 10,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-high-stun",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "High Faint Negated",
+    "summary": "Faint Negated 20: stops stun from repeated hits at high rank.",
+    "skills": [
+      "Faint"
+    ],
+    "notes": [
+      "One Vigilance Jewel; six spare slots.",
+      "Use it on Gypceros, Khezu, Tigrex, Nargacuga, Rajang, and Garuga if stun is the problem."
+    ],
+    "picks": {
+      "head": "head:gypceros-helm-u",
+      "body": "body:velociprey-mail-s",
+      "arms": "arms:gypceros-vambraces-u",
+      "waist": "waist:velociprey-tasset-s",
+      "legs": "legs:gypceros-greaves-u"
+    },
+    "decoIds": [
+      "deco:vigilance-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 8,
+    "unlockVillage": 10,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-high-hge-wind-hub",
+    "rank": "high",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "HR HGE + High Wind",
+    "summary": "HR-legal HGE + High Wind Res using a Silencer Jewel instead of village-gated Earplug Jewels.",
+    "skills": [
+      "HearProtct",
+      "WindPress"
+    ],
+    "notes": [
+      "Silencer + HeavyMetal Jewels finish both skills; three spare slots.",
+      "Available from HR6. This is the hub-side Rathalos/Rathian/Diablos/Tigrex wind counter."
+    ],
+    "picks": {
+      "head": "head:blango-cap-u",
+      "body": "body:suprememizuha-guards",
+      "arms": "arms:suprememizuhasleeves",
+      "waist": "waist:rathalos-soul-coil-u",
+      "legs": "legs:suprememizuhalegwrap"
+    },
+    "decoIds": [
+      "deco:silencer-jewel",
+      "deco:heavymetal-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 6,
+    "unlockVillage": 9,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-g-hge-quake-hub",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "G HR HGE + Quake",
+    "summary": "G-rank HR-legal HGE + Quake Res using a Silencer Jewel.",
+    "skills": [
+      "HearProtct",
+      "Quake Res"
+    ],
+    "notes": [
+      "Silencer + Tectonic Jewels; three spare slots.",
+      "Hub HR8+. Covers Diablos, Tigrex, Rajang, and Akantor roars + tremors."
+    ],
+    "picks": {
+      "head": "head:true-mizuha-cap",
+      "body": "body:true-indra-vest",
+      "arms": "arms:black-belt-braces-x",
+      "waist": "waist:khezu-tasset-z",
+      "legs": "legs:rathalossoulgreavesz"
+    },
+    "decoIds": [
+      "deco:silencer-jewel",
+      "deco:tectonic-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 9,
+    "unlockVillage": 10,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-g-hge-wind-hub",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "G HR HGE + High Wind",
+    "summary": "G-rank HR-legal HGE + High Wind Res using a Silencer Jewel.",
+    "skills": [
+      "HearProtct",
+      "WindPress"
+    ],
+    "notes": [
+      "Silencer + two HeavyMetal Jewels; one spare slot.",
+      "Hub HR8+. Covers Rathalos, Rathian, Lao, Fatalis, and wind-heavy Diablos/Tigrex."
+    ],
+    "picks": {
+      "head": "head:true-mizuha-cap",
+      "body": "body:diablo-mail-x",
+      "arms": "arms:black-belt-braces-x",
+      "waist": "waist:khezu-tasset-z",
+      "legs": "legs:rathalossoulgreavesz"
+    },
+    "decoIds": [
+      "deco:silencer-jewel",
+      "deco:heavymetal-jewel",
+      "deco:heavymetal-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 9,
+    "unlockVillage": 10,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-g-hge-poison-hub",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "G HR HGE + Poison",
+    "summary": "G-rank HR-legal HGE + Poison Negated.",
+    "skills": [
+      "HearProtct",
+      "Poison"
+    ],
+    "notes": [
+      "Eight Anti-Toxin Jewels; no spare slots.",
+      "Hub HR9. Covers Gold Rathian and Silver Rathalos roars + poison."
+    ],
+    "picks": {
+      "head": "head:true-mizuha-cap",
+      "body": "body:diablo-mail-z",
+      "arms": "arms:black-belt-braces-x",
+      "waist": "waist:true-mizuha-sash",
+      "legs": "legs:rathalossoulgreavesz"
+    },
+    "decoIds": [
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel",
+      "deco:anti-toxin-jewel"
+    ],
+    "weaponSlots": 0,
+    "unlockHr": 9,
+    "unlockVillage": 10,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  },
+  {
+    "id": "mhfu-counter-g-hge",
+    "rank": "g",
+    "hunter": "blade",
+    "style": "comfort",
+    "name": "G HR HGE",
+    "summary": "G-rank HR-legal High Grade Earplug with twelve free slots.",
+    "skills": [
+      "HearProtct"
+    ],
+    "notes": [
+      "No jewels needed. Native HGE from the Rathalos Soul / Diablo Z shell.",
+      "Hub HR9. Use it as a base and add damage or another counter skill."
+    ],
+    "picks": {
+      "head": "head:diablo-helm-z",
+      "body": "body:diablo-mail-z",
+      "arms": "arms:rthlos-soul-braces-z",
+      "waist": "waist:true-mizuha-sash",
+      "legs": "legs:rathalossoulgreavesz"
+    },
+    "decoIds": [],
+    "weaponSlots": 0,
+    "unlockHr": 9,
+    "unlockVillage": 10,
+    "weaponNote": "Counter set for the listed large-monster effects."
+  }
+]

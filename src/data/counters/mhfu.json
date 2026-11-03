@@ -1,0 +1,691 @@
+{
+  "monsters": [
+    {
+      "name": "King Shakalaka",
+      "type": "Lynian",
+      "effects": [],
+      "counters": []
+    },
+    {
+      "name": "Vespoid Queen",
+      "type": "Neopteron",
+      "effects": [
+        "paralysis"
+      ],
+      "counters": [
+        "paralysis"
+      ]
+    },
+    {
+      "name": "Giadrome",
+      "type": "Bird Wyvern",
+      "effects": [],
+      "counters": []
+    },
+    {
+      "name": "Velocidrome",
+      "type": "Bird Wyvern",
+      "effects": [],
+      "counters": []
+    },
+    {
+      "name": "Gendrome",
+      "type": "Bird Wyvern",
+      "effects": [
+        "paralysis"
+      ],
+      "counters": [
+        "paralysis"
+      ]
+    },
+    {
+      "name": "Iodrome",
+      "type": "Bird Wyvern",
+      "effects": [
+        "poison"
+      ],
+      "counters": [
+        "poison"
+      ]
+    },
+    {
+      "name": "Yian Kut-Ku",
+      "type": "Bird Wyvern",
+      "effects": [],
+      "counters": []
+    },
+    {
+      "name": "Blue Yian Kut-Ku",
+      "type": "Bird Wyvern",
+      "effects": [],
+      "counters": []
+    },
+    {
+      "name": "Yian Garuga",
+      "type": "Bird Wyvern",
+      "effects": [
+        "roar-earplug",
+        "stun"
+      ],
+      "counters": [
+        "earplug",
+        "stun"
+      ]
+    },
+    {
+      "name": "Scarred Yian Garuga",
+      "type": "Bird Wyvern",
+      "effects": [
+        "roar-earplug",
+        "stun"
+      ],
+      "counters": [
+        "earplug",
+        "stun"
+      ]
+    },
+    {
+      "name": "Gypceros",
+      "type": "Bird Wyvern",
+      "effects": [
+        "poison",
+        "stun"
+      ],
+      "counters": [
+        "poison",
+        "stun"
+      ],
+      "note": "Poison and stun are separate cards; use both if the fight is going badly."
+    },
+    {
+      "name": "Purple Gypceros",
+      "type": "Bird Wyvern",
+      "effects": [
+        "poison",
+        "stun"
+      ],
+      "counters": [
+        "poison",
+        "stun"
+      ],
+      "note": "Poison and stun are separate cards; use both if the fight is going badly."
+    },
+    {
+      "name": "Hypnocatrice",
+      "type": "Bird Wyvern",
+      "effects": [
+        "sleep"
+      ],
+      "counters": [
+        "sleep"
+      ]
+    },
+    {
+      "name": "Pink Rathian",
+      "type": "Flying Wyvern",
+      "effects": [
+        "roar-earplug",
+        "wind-high",
+        "poison"
+      ],
+      "counters": [
+        "hge-wind",
+        "hge-poison"
+      ],
+      "note": "HGE + Wind and HGE + Poison are separate cards; poison can also be avoided by positioning."
+    },
+    {
+      "name": "Rathian",
+      "type": "Flying Wyvern",
+      "effects": [
+        "roar-earplug",
+        "wind-high",
+        "poison"
+      ],
+      "counters": [
+        "hge-wind",
+        "hge-poison"
+      ],
+      "note": "HGE + Wind and HGE + Poison are separate cards; poison can also be avoided by positioning."
+    },
+    {
+      "name": "Gold Rathian",
+      "type": "Flying Wyvern",
+      "effects": [
+        "roar-hge",
+        "wind-high",
+        "poison"
+      ],
+      "counters": [
+        "hge-wind",
+        "hge-poison"
+      ],
+      "note": "HGE + Wind and HGE + Poison are separate cards; Gold Rathian needs HGE for the roar."
+    },
+    {
+      "name": "Rathalos",
+      "type": "Flying Wyvern",
+      "effects": [
+        "roar-earplug",
+        "wind-high",
+        "poison"
+      ],
+      "counters": [
+        "hge-wind",
+        "hge-poison"
+      ],
+      "note": "HGE + Wind and HGE + Poison are separate cards; poison can also be avoided by positioning."
+    },
+    {
+      "name": "Azure Rathalos",
+      "type": "Flying Wyvern",
+      "effects": [
+        "roar-earplug",
+        "wind-high",
+        "poison"
+      ],
+      "counters": [
+        "hge-wind",
+        "hge-poison"
+      ],
+      "note": "HGE + Wind and HGE + Poison are separate cards; poison can also be avoided by positioning."
+    },
+    {
+      "name": "Silver Rathalos",
+      "type": "Flying Wyvern",
+      "effects": [
+        "roar-hge",
+        "wind-high",
+        "poison"
+      ],
+      "counters": [
+        "hge-wind",
+        "hge-poison"
+      ],
+      "note": "HGE + Wind and HGE + Poison are separate cards; Silver Rathalos needs HGE for the roar."
+    },
+    {
+      "name": "Khezu",
+      "type": "Flying Wyvern",
+      "effects": [
+        "roar-hge",
+        "wind-high",
+        "stun"
+      ],
+      "counters": [
+        "hge-wind",
+        "stun"
+      ]
+    },
+    {
+      "name": "Red Khezu",
+      "type": "Flying Wyvern",
+      "effects": [
+        "roar-hge",
+        "wind-high",
+        "stun"
+      ],
+      "counters": [
+        "hge-wind",
+        "stun"
+      ]
+    },
+    {
+      "name": "Basarios",
+      "type": "Flying Wyvern",
+      "effects": [
+        "roar-hge",
+        "wind-high"
+      ],
+      "counters": [
+        "hge-wind"
+      ]
+    },
+    {
+      "name": "Gravios",
+      "type": "Flying Wyvern",
+      "effects": [
+        "roar-hge",
+        "wind-high",
+        "quake"
+      ],
+      "counters": [
+        "hge-quake",
+        "hge-wind"
+      ],
+      "note": "Cannot fit HGE + High Wind + Quake in one set; pick the card for the attack giving you trouble."
+    },
+    {
+      "name": "Black Gravios",
+      "type": "Flying Wyvern",
+      "effects": [
+        "roar-hge",
+        "wind-high",
+        "quake"
+      ],
+      "counters": [
+        "hge-quake",
+        "hge-wind"
+      ],
+      "note": "Cannot fit HGE + High Wind + Quake in one set; pick the card for the attack giving you trouble."
+    },
+    {
+      "name": "Monoblos",
+      "type": "Flying Wyvern",
+      "effects": [
+        "roar-hge",
+        "wind-high",
+        "quake"
+      ],
+      "counters": [
+        "hge-quake",
+        "hge-wind"
+      ],
+      "note": "Cannot fit HGE + High Wind + Quake in one set; pick the card for the attack giving you trouble."
+    },
+    {
+      "name": "White Monoblos",
+      "type": "Flying Wyvern",
+      "effects": [
+        "roar-hge",
+        "wind-high",
+        "quake"
+      ],
+      "counters": [
+        "hge-quake",
+        "hge-wind"
+      ],
+      "note": "Cannot fit HGE + High Wind + Quake in one set; pick the card for the attack giving you trouble."
+    },
+    {
+      "name": "Diablos",
+      "type": "Flying Wyvern",
+      "effects": [
+        "roar-hge",
+        "wind-high",
+        "quake"
+      ],
+      "counters": [
+        "hge-quake",
+        "hge-wind"
+      ],
+      "note": "Cannot fit HGE + High Wind + Quake in one set; pick the card for the attack giving you trouble."
+    },
+    {
+      "name": "Black Diablos",
+      "type": "Flying Wyvern",
+      "effects": [
+        "roar-hge",
+        "wind-high",
+        "quake"
+      ],
+      "counters": [
+        "hge-quake",
+        "hge-wind"
+      ],
+      "note": "Cannot fit HGE + High Wind + Quake in one set; pick the card for the attack giving you trouble."
+    },
+    {
+      "name": "Tigrex",
+      "type": "Flying Wyvern",
+      "effects": [
+        "roar-hge",
+        "wind-high",
+        "quake",
+        "stun"
+      ],
+      "counters": [
+        "hge-quake",
+        "hge-wind",
+        "stun"
+      ],
+      "note": "Cannot fit HGE + High Wind + Quake in one set; pick the card for the attack giving you trouble. Roar knockback/damage is not prevented."
+    },
+    {
+      "name": "Nargacuga",
+      "type": "Flying Wyvern",
+      "effects": [
+        "wind-high",
+        "stun"
+      ],
+      "counters": [
+        "wind",
+        "stun"
+      ]
+    },
+    {
+      "name": "Akantor",
+      "type": "Flying Wyvern",
+      "effects": [
+        "roar-hge",
+        "quake"
+      ],
+      "counters": [
+        "hge-quake"
+      ],
+      "note": "Roar knockback/damage is not prevented by Earplugs or HGE."
+    },
+    {
+      "name": "Ukanlos",
+      "type": "Flying Wyvern",
+      "effects": [
+        "roar-hge",
+        "quake"
+      ],
+      "counters": [
+        "hge-quake"
+      ],
+      "note": "Roar knockback/damage is not prevented by Earplugs or HGE."
+    },
+    {
+      "name": "Cephalos",
+      "type": "Piscine Wyvern",
+      "effects": [],
+      "counters": []
+    },
+    {
+      "name": "Cephadrome",
+      "type": "Piscine Wyvern",
+      "effects": [],
+      "counters": []
+    },
+    {
+      "name": "Plesioth",
+      "type": "Piscine Wyvern",
+      "effects": [],
+      "counters": []
+    },
+    {
+      "name": "Green Plesioth",
+      "type": "Piscine Wyvern",
+      "effects": [],
+      "counters": []
+    },
+    {
+      "name": "Lavasioth",
+      "type": "Piscine Wyvern",
+      "effects": [
+        "quake"
+      ],
+      "counters": [
+        "quake"
+      ]
+    },
+    {
+      "name": "Daimyo Hermitaur",
+      "type": "Carapaceon",
+      "effects": [
+        "wind-high"
+      ],
+      "counters": [
+        "wind"
+      ]
+    },
+    {
+      "name": "Plum D.Hermitaur",
+      "type": "Carapaceon",
+      "effects": [
+        "wind-high"
+      ],
+      "counters": [
+        "wind"
+      ]
+    },
+    {
+      "name": "Shogun Ceanataur",
+      "type": "Carapaceon",
+      "effects": [
+        "wind-high"
+      ],
+      "counters": [
+        "wind"
+      ]
+    },
+    {
+      "name": "Terra S.Ceanataur",
+      "type": "Carapaceon",
+      "effects": [
+        "wind-high"
+      ],
+      "counters": [
+        "wind"
+      ]
+    },
+    {
+      "name": "Shen Gaoren",
+      "type": "Carapaceon",
+      "effects": [
+        "wind-high",
+        "quake"
+      ],
+      "counters": [
+        "wind",
+        "quake"
+      ],
+      "note": "Wind and Quake are separate cards; use the one matching the attack."
+    },
+    {
+      "name": "Bulldrome",
+      "type": "Pelagus",
+      "effects": [],
+      "counters": []
+    },
+    {
+      "name": "Congalala",
+      "type": "Pelagus",
+      "effects": [
+        "roar-earplug",
+        "quake"
+      ],
+      "counters": [
+        "hge-quake"
+      ]
+    },
+    {
+      "name": "Emerald Congalala",
+      "type": "Pelagus",
+      "effects": [
+        "roar-earplug",
+        "quake"
+      ],
+      "counters": [
+        "hge-quake"
+      ]
+    },
+    {
+      "name": "Blangonga",
+      "type": "Pelagus",
+      "effects": [
+        "roar-earplug",
+        "quake"
+      ],
+      "counters": [
+        "hge-quake"
+      ]
+    },
+    {
+      "name": "Copper Blangonga",
+      "type": "Pelagus",
+      "effects": [
+        "roar-earplug",
+        "quake"
+      ],
+      "counters": [
+        "hge-quake"
+      ]
+    },
+    {
+      "name": "Rajang",
+      "type": "Pelagus",
+      "effects": [
+        "roar-earplug",
+        "quake",
+        "stun"
+      ],
+      "counters": [
+        "hge-quake",
+        "stun"
+      ],
+      "note": "Roar knockback/damage is not prevented by Earplugs or HGE."
+    },
+    {
+      "name": "Furious Rajang",
+      "type": "Pelagus",
+      "effects": [
+        "roar-earplug",
+        "quake",
+        "stun"
+      ],
+      "counters": [
+        "hge-quake",
+        "stun"
+      ],
+      "note": "Roar knockback/damage is not prevented by Earplugs or HGE."
+    },
+    {
+      "name": "Kirin",
+      "type": "Elder Dragon",
+      "effects": [],
+      "counters": []
+    },
+    {
+      "name": "Kushala Daora",
+      "type": "Elder Dragon",
+      "effects": [
+        "roar-earplug",
+        "wind-dragon"
+      ],
+      "counters": [
+        "hge-dragon-wind"
+      ],
+      "countersHigh": [
+        "dragon-wind",
+        "earplug"
+      ],
+      "note": "High rank uses Dragon Wind + Earplug as separate cards; G rank fits HGE + Dragon Wind in one set."
+    },
+    {
+      "name": "Rusted Kushala Daora",
+      "type": "Elder Dragon",
+      "effects": [
+        "roar-earplug",
+        "wind-dragon"
+      ],
+      "counters": [
+        "hge-dragon-wind"
+      ],
+      "countersHigh": [
+        "dragon-wind",
+        "earplug"
+      ],
+      "note": "High rank uses Dragon Wind + Earplug as separate cards; G rank fits HGE + Dragon Wind in one set."
+    },
+    {
+      "name": "Chameleos",
+      "type": "Elder Dragon",
+      "effects": [
+        "wind-dragon"
+      ],
+      "counters": [
+        "hge-dragon-wind"
+      ],
+      "countersHigh": [
+        "dragon-wind"
+      ],
+      "note": "High rank uses the Dragon Wind card; G rank fits HGE + Dragon Wind."
+    },
+    {
+      "name": "Lunastra",
+      "type": "Elder Dragon",
+      "effects": [
+        "roar-earplug",
+        "wind-dragon"
+      ],
+      "counters": [
+        "hge-dragon-wind"
+      ],
+      "countersHigh": [
+        "dragon-wind",
+        "earplug"
+      ],
+      "note": "High rank uses Dragon Wind + Earplug as separate cards; G rank fits HGE + Dragon Wind in one set."
+    },
+    {
+      "name": "Teostra",
+      "type": "Elder Dragon",
+      "effects": [
+        "roar-earplug",
+        "wind-dragon"
+      ],
+      "counters": [
+        "hge-dragon-wind"
+      ],
+      "countersHigh": [
+        "dragon-wind",
+        "earplug"
+      ],
+      "note": "High rank uses Dragon Wind + Earplug as separate cards; G rank fits HGE + Dragon Wind in one set."
+    },
+    {
+      "name": "Lao-Shan Lung",
+      "type": "Elder Dragon",
+      "effects": [
+        "roar-hge",
+        "wind-high"
+      ],
+      "counters": [
+        "hge-wind"
+      ]
+    },
+    {
+      "name": "Ashen Lao-Shan Lung",
+      "type": "Elder Dragon",
+      "effects": [
+        "roar-hge",
+        "wind-high"
+      ],
+      "counters": [
+        "hge-wind"
+      ]
+    },
+    {
+      "name": "Yama Tsukami",
+      "type": "Elder Dragon",
+      "effects": [],
+      "counters": []
+    },
+    {
+      "name": "Fatalis",
+      "type": "Elder Dragon",
+      "effects": [
+        "roar-hge",
+        "wind-high"
+      ],
+      "counters": [
+        "hge-wind"
+      ]
+    },
+    {
+      "name": "Crimson Fatalis",
+      "type": "Elder Dragon",
+      "effects": [
+        "roar-hge",
+        "wind-high"
+      ],
+      "counters": [
+        "hge-wind"
+      ]
+    },
+    {
+      "name": "White Fatalis",
+      "type": "Elder Dragon",
+      "effects": [
+        "roar-hge",
+        "wind-high"
+      ],
+      "counters": [
+        "hge-wind"
+      ]
+    }
+  ]
+}

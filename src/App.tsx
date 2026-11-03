@@ -4,6 +4,8 @@ import Builder from "./components/Builder";
 import Weapons from "./components/Weapons";
 import WeaponCompare from "./components/WeaponCompare";
 import MonsterMatchups from "./components/MonsterMatchups";
+import Progressions from "./components/Progressions";
+import Counters from "./components/Counters";
 import Sets from "./components/Sets";
 import Charms from "./components/Charms";
 import { GameProvider } from "./lib/game";
@@ -22,7 +24,7 @@ import { loadCharms, persistCharms } from "./lib/charms";
 import { parseShareToken, resolveSharedSet } from "./lib/share";
 import "./styles.css";
 
-type Tab = "solver" | "builder" | "sets" | "weapons" | "compare" | "monsters" | "charms";
+type Tab = "solver" | "builder" | "sets" | "weapons" | "compare" | "monsters" | "progressions" | "counters" | "charms";
 
 type IncomingSet = {
   game: Game;
@@ -58,6 +60,7 @@ export default function App() {
   const [seedName, setSeedName] = useState(incoming?.name ?? "");
   const [seedKey, setSeedKey] = useState(0);
   const [weaponFocus, setWeaponFocus] = useState<{ name: string; key: number } | null>(null);
+  const [solverSeed, setSolverSeed] = useState<{ skills: { ability: string; points: number }[]; note: string; key: number } | null>(null);
   const [savedByGame, setSavedByGame] = useState<Record<Game, SavedSet[]>>(() => ({
     mhfu: loadSavedSets(GAMES.mhfu.storageKey),
     mh3u: loadSavedSets(GAMES.mh3u.storageKey),
@@ -98,6 +101,7 @@ export default function App() {
     setSeed(null);
     setSeedName("");
     setWeaponFocus(null);
+    setSolverSeed(null);
   };
 
   const openSelection = (sel: SetSelection, name = "") => {
@@ -105,6 +109,11 @@ export default function App() {
     setSeedName(name);
     setSeedKey((k) => k + 1);
     setTab("builder");
+  };
+
+  const openSolverWithSkills = (skills: { ability: string; points: number }[], note: string) => {
+    setSolverSeed({ skills, note, key: Date.now() });
+    setTab("solver");
   };
 
   const openWeapon = (name: string) => {
@@ -144,6 +153,12 @@ export default function App() {
             <button className={tab === "solver" ? "active" : ""} onClick={() => setTab("solver")}>Solver</button>
             <button className={tab === "builder" ? "active" : ""} onClick={() => setTab("builder")}>Builder</button>
             <button className={tab === "sets" ? "active" : ""} onClick={() => setTab("sets")}>Sets{saved.length ? ` (${saved.length})` : ""}</button>
+            {game === "mhfu" && (
+              <button className={tab === "progressions" ? "active" : ""} onClick={() => setTab("progressions")}>Progressions</button>
+            )}
+            {game === "mhfu" && (
+              <button className={tab === "counters" ? "active" : ""} onClick={() => setTab("counters")}>Counters</button>
+            )}
             <button className={tab === "weapons" ? "active" : ""} onClick={() => { setWeaponFocus(null); setTab("weapons"); }}>Weapons</button>
             <button className={tab === "compare" ? "active" : ""} onClick={() => setTab("compare")}>Compare</button>
             <button className={tab === "monsters" ? "active" : ""} onClick={() => setTab("monsters")}>Monsters</button>
@@ -156,7 +171,9 @@ export default function App() {
         <main>
           {tab === "solver" && (
             <Solver
-              key={game}
+              key={`${game}-${solverSeed?.key ?? "default"}`}
+              initialSkills={solverSeed?.skills}
+              initialNote={solverSeed?.note}
               charms={charms}
               onOpen={(r) => openSelection(selectionFromResult(r))}
               onSave={saveResult}
@@ -180,6 +197,12 @@ export default function App() {
               onDelete={(id) => updateSaved((old) => old.filter((s) => s.id !== id))}
               onRename={(id, name) => updateSaved((old) => old.map((s) => (s.id === id ? { ...s, name } : s)))}
             />
+          )}
+          {tab === "progressions" && game === "mhfu" && (
+            <Progressions key={game} onOpen={openSelection} />
+          )}
+          {tab === "counters" && game === "mhfu" && (
+            <Counters key={game} onOpen={openSelection} onSolve={openSolverWithSkills} />
           )}
           {tab === "weapons" && (
             <Weapons
