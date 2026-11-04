@@ -1,0 +1,290 @@
+Decoration,Slot Size,Skill Name,Value,Negative Skill,Negative Value,,
+Antidote Jewel 1,1,Poison,2,Stun,-1,,
+Antidote Jewel 2,2,Poison,5,Stun,-1,,
+Paralysis Jwl 1,1,Paralysis,2,Poison,-1,,
+Paralysis Jwl 2,2,Paralysis,5,Poison,-1,,
+Pep Jewel 1,1,Sleep,2,Mud/Snow,-1,,
+Pep Jewel 2,2,Sleep,5,Mud/Snow,-1,,
+Steadfast Jwl 1,1,Stun,2,Paralysis,-1,,
+Standfast Jwl 1,1,Stun,2,None,,,
+Tracker Jewel 1,1,Mud/Snow,2,Sleep,-1,,
+Trekker Jewel 1,1,Mud/Snow,3,None,,,
+Ninja Jewel 1,1,Sense,3,None,,,
+Vitality Jewel 1,1,Health,3,None,,,
+Recovery Jewel 1,1,Rec Speed,2,Eating,-1,,
+Recovery Jewel 2,2,Rec Speed,5,Eating,-1,,
+Razor Jewel 1,1,Sharpness,2,Handicraft,-1,,
+Razor Jewel 3,2,Sharpness,4,None,,,
+Handicraft Jwl 2,1,Handicraft,2,Sharpness,-1,,
+Handicraft Jwl 3,2,Handicraft,4,Sharpness,-1,,
+Artisan Jewel 3,2,Handicraft,4,None,,,
+Fencer Jewel 1,1,Fencing,1,None,,,
+Fencer Jewel 3,3,Fencing,5,None,,,
+Expert Jewel 1,1,Expert,2,Dragon Res,-1,,
+Expert Jewel 2,2,Expert,5,Dragon Res,-1,,
+Expert Jewel 3,3,Expert,7,Dragon Res,-1,,
+Grinder Jewel 1,1,Sharpener,3,None,,,
+Ironwall Jewel 1,1,Guard,2,Constitutn,-1,,
+Ironwall Jewel 2,2,Guard,5,Constitutn,-1,,
+Shield Jewel 1,1,Guard Up,2,Stamina,-1,,
+Shield Jewel 2,2,Guard Up,5,Stamina,-1,,
+Quickload Jwl 1,1,Reload Spd,2,None,,,
+Quickload Jwl 2,2,Reload Spd,5,None,,,
+Absorber Jewel 1,1,Recoil,2,None,,,
+Absorber Jewel 3,3,Recoil,7,None,,,
+Forceshot Jwl 1,1,Normal Up,2,None,,,
+Forceshot Jwl 3,3,Normal Up,7,None,,,
+Pierce Jewel 1,1,Pierce Up,2,None,,,
+Pierce Jewel 3,3,Pierce Up,7,None,,,
+Pellet Jewel 1,1,Pellet Up,2,None,,,
+Pellet Jewel 3,3,Pellet Up,7,None,,,
+ShotPlus Jewel 1,1,Normal S+,3,None,,,
+ShotPlus Jewel 2,3,Normal S+,10,None,,,
+PiercePlus Jwl 1,1,Pierce S+,3,None,,,
+PelletPlus Jwl 1,1,Pellet S+,3,None,,,
+CragPlus Jewel 1,1,Crag S+,3,None,,,
+ClustPlus Jwl 1,1,Clust S+,3,None,,,
+SlicePlus Jwl 1,1,Slicing S+,3,None,,,
+BlastPlus Jwl 1,1,Blast S+,3,None,,,
+Disabler Jewel 1,1,Status,2,Elemental,-1,,
+Disabler Jewel 2,2,Status,5,Elemental,-1,,
+Element Jewel 1,1,Elemental,2,Status,-1,,
+Element Jewel 3,3,Elemental,7,Status,-2,,
+Bombardier Jwl 1,1,Bomb Boost,3,None,,,
+Hungerless Jwl 1,1,Hunger,3,None,,,
+Metabolism Jwl 1,1,Gluttony,3,None,,,
+Attack Jewel 1,1,Attack,2,Defense,-2,,
+Attack Jewel 2,2,Attack,5,Defense,-3,,
+Attack Jewel 3,3,Attack,7,Defense,-4,,
+Defense Jewel 1,1,Defense,2,None,,,
+Defense Jewel 2,2,Defense,5,None,,,
+Defense Jewel 3,3,Defense,7,None,,,
+Protection Jwl 1,1,Protection,2,None,,,
+Asylum Jewel 1,2,Protection,5,None,,,
+Earplug Jewel 1,1,Hearing,2,Protection,-1,,
+Earplug Jewel 3,3,Hearing,7,Protection,-2,,
+Alarm Jewel 1,1,Anti-Theft,3,None,,,
+Friendship Jwl 1,1,Wide-Range,2,Sense,-1,,
+Friendship Jwl 2,2,Wide-Range,5,Sense,-1,,
+Transportr Jwl 1,1,Transportr,3,None,,,
+Fire Res Jewel 1,1,Fire Res,3,Water Res,-1,,
+Nul-Fire Jewel 1,1,Fire Res,3,None,,,
+Water Res Jwl 1,1,Water Res,3,ThunderRes,-1,,
+Nul-Water Jwl 1,1,Water Res,3,None,,,
+Ice Res Jewel 1,1,Ice Res,3,Fire Res,-1,,
+Nul-Ice Jewel 1,1,Ice Res,3,None,,,
+ThunderRes Jwl 1,1,ThunderRes,3,Ice Res,-1,,
+Nul-Thundr Jwl 1,1,ThunderRes,3,None,,,
+Dragon Res Jwl 1,1,Dragon Res,3,Poison,-1,,
+Nul-Dragon Jwl 1,1,Dragon Res,3,None,,,
+Heat Res Jewel 1,1,Heat Res,3,None,,,
+Cold Res Jewel 1,1,Cold Res,3,None,,,
+Wind Res Jewel 1,1,Wind Res,2,Fate,-1,,
+Wind Res Jewel 2,2,Wind Res,5,Fate,-1,,
+Gathering Jwl 1,1,Gathering,3,None,,,
+Spree Jewel 1,1,Spd Gather,3,None,,,
+Blessing Jewel 1,1,Whim,3,None,,,
+Fate Jewel 1,1,Fate,2,Whim,-1,,
+Fate Jewel 3,3,Fate,7,Whim,-2,,
+Psychic Jewel 1,1,Psychic,3,None,,,
+Medicine Jewel 1,1,Rec Level,2,Rec Speed,-1,,
+Medicine Jewel 2,2,Rec Level,5,Rec Speed,-1,,
+Professor Jwl 1,1,Combo Rate,3,None,,,
+Factory Jewel 1,1,Combo Plus,3,None,,,
+Evasion Jewel 1,1,Evasion,2,Health,-1,,
+Evasion Jewel 2,2,Evasion,5,Health,-1,,
+Potential Jwl 1,1,Potential,2,Protection,-1,,
+Potential Jwl 2,2,Potential,5,Protection,-1,,
+Enduring Jewel 1,1,LastingPwr,3,None,,,
+Sprinter Jewel 1,1,Stamina,2,Hunger,-1,,
+Sprinter Jewel 3,3,Stamina,7,Hunger,-2,,
+Capacity Jewel 2,2,Loading,3,Reload Spd,-1,,
+Capacity Jewel 3,3,Loading,5,None,,,
+Laden Jewel 3,3,Loading,4,None,,,
+Sniper Jewel 1,1,Precision,3,None,,,
+Gobbler Jewel 1,1,Eating,2,Rec Level,-1,,
+Gobbler Jewel 3,3,Eating,7,Rec Level,-2,,
+Carver Jewel 1,1,Carving,2,Fate,-1,,
+Carver Jewel 3,3,Carving,7,Fate,-2,,
+Footing Jewel 1,1,Tremor Res,2,Sleep,-1,,
+Tectonic Jewel 1,2,Tremor Res,5,None,,,
+Jumping Jewel 1,1,Evade Dist,2,Health,-1,,
+Jumping Jewel 2,2,Evade Dist,5,Health,-1,,
+Draw Jewel 1,1,Crit Draw,2,Expert,-1,,
+Draw Jewel 2,2,Crit Draw,5,Expert,-1,,
+Trapmaster Jwl 1,1,SpeedSetup,3,None,,,
+Physique Jewel 1,1,Constitutn,2,Stamina,-1,,
+Physique Jewel 2,2,Constitutn,5,Stamina,-1,,
+Capture Jewel 1,1,Tranquilzr,2,Fate,-1,,
+Capture Jewel 3,3,Tranquilzr,7,Fate,-2,,
+Perception Jwl 1,1,Perception,3,None,,,
+Charger Jewel 1,1,FastCharge,2,Constitutn,-1,,
+Charger Jewel 3,3,FastCharge,7,Constitutn,-2,,
+Gambit Jewel 1,1,PunishDraw,2,None,,,
+Gambit Jewel 3,3,PunishDraw,7,None,,,
+Resistor Jewel 1,1,Blight Res,2,Health,-1,,
+Resistor Jewel 3,3,Blight Res,7,Health,-2,,
+Release Jewel 2,2,FreeElemnt,3,Status,-1,,
+Catalyst Jewel 3,3,FreeElemnt,5,Status,-2,,
+TrueCatalystJwl 3,3,FreeElemnt,5,None,,,
+Fortitude Jwl 1,1,Survivor,2,Rec Level,-1,,
+Fortitude Jwl 2,2,Survivor,5,Rec Level,-1,,
+Salvo Jewel 1,1,Rapid Fire,2,None,,,
+Salvo Jewel 3,3,Rapid Fire,7,None,,,
+Torchlight Jwl 1,1,Flame Aura,3,None,,,
+Def Lock Jewel 1,1,Def Lock,3,None,,,
+Blaze Jewel 1,1,Fire Atk,2,Water Atk,-1,,
+Blaze Jewel 2,2,Fire Atk,5,Water Atk,-1,,
+Stream Jewel 1,1,Water Atk,2,ThunderAtk,-1,,
+Stream Jewel 2,2,Water Atk,5,ThunderAtk,-1,,
+Bolt Jewel 1,1,ThunderAtk,2,Ice Atk,-1,,
+Bolt Jewel 2,2,ThunderAtk,5,Ice Atk,-1,,
+Frost Jewel 1,1,Ice Atk,2,Fire Atk,-1,,
+Frost Jewel 2,2,Ice Atk,5,Fire Atk,-1,,
+Dragon Jewel 1,1,Dragon Atk,2,Status,-1,,
+Dragon Jewel 2,2,Dragon Atk,5,Status,-1,,
+Tenderizer Jwl 1,1,Tenderizer,2,Health,-2,,
+Tenderizer Jwl 3,3,Tenderizer,7,Health,-4,,
+Destroyer Jwl 1,1,Destroyer,2,None,,,
+Destroyer Jwl 3,3,Destroyer,7,None,,,
+Throttle Jewel 1,1,Gloves Off,2,Sense,-1,,
+Throttle Jewel 2,2,Gloves Off,5,Sense,-1,,
+KO Jewel 1,1,KO,2,None,,,
+KO Jewel 2,2,KO,5,None,,,
+Drain Jewel 1,1,Stam Drain,2,Stamina,-1,,
+Drain Jewel 2,2,Stam Drain,5,Stamina,-1,,
+Sonorous Jewel 1,1,Maestro,3,None,,,
+Artillery Jwl 1,1,Artillery,3,None,,,
+Sheath Jewel 1,1,Sheathing,2,None,,,
+Sheath Jewel 2,2,Sheathing,5,None,,,
+Refresh Jewel 1,1,Stam Recov,2,Evasion,-1,,
+Refresh Jewel 2,2,Stam Recov,5,Evasion,-1,,
+Ranger Jewel 1,1,Ranger,3,None,,,
+Paracoat Jewel 1,1,Para C+,2,Attack,-1,,
+Paracoat Jewel 2,2,Para C+,5,Attack,-1,,
+Sleepcoat Jwl 1,2,Sleep C+,5,None,,,
+Poisoncoat Jwl 1,2,Poison C+,5,None,,,
+Powercoat Jwl 1,1,Power C+,2,Expert,-1,,
+Powercoat Jwl 2,2,Power C+,5,Expert,-1,,
+Rangecoat Jwl 1,2,C.Range C+,5,None,,,
+Blastcoat Jwl 1,2,Blast C+,5,None,,,
+Draincoat Jwl 1,2,Exhaust C+,5,None,,,
+Guts Jewel 1,1,Guts,2,Combo Rate,-1,,
+Guts Jewel 2,2,Guts,5,Combo Rate,-1,,
+Meateater Jwl 1,1,Carnivore,2,Hunger,-1,,
+Meatlover Jwl 1,1,Carnivore,5,None,,,
+Honeybee Jewel 1,1,Honey,2,Whim,-1,,
+Queenbee Jewel 1,2,Honey,5,None,,,
+Biology Jewel 1,1,Biology,2,Sense,-1,,
+Microbio Jewel 1,2,Biology,5,None,,,
+Spirit Jewel 1,1,Spirit,2,Guard,-1,,
+Spirit Jewel 2,2,Spirit,5,Guard,-1,,
+Flawless Jewel 1,1,Unscathed,2,Rec Speed,-1,,
+Flawless Jewel 2,2,Unscathed,5,Rec Speed,-1,,
+Steady Jewel 1,1,Unshakable,2,Defense,-1,,
+Steady Jewel 3,3,Unshakable,7,Defense,-2,,
+Player Jewel 1,1,TeamPlayer,2,LastingPwr,-1,,
+Morale Jewel 1,1,TeamPlayer,3,None,,,
+Leader Jewel 1,1,TeamLeader,2,Gathering,-1,,
+Leader Jewel 2,1,TeamLeader,3,Gathering,-1,,
+Charmer Jewel 1,1,Charmer,2,None,,,
+Honed Jwl 1,1,Edgemaster,2,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Honed Jwl 2,2,Edgemaster,5,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Honed Jwl 3,3,Edgemaster,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Honed Jwl 3,3,Edgemaster,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Calm Jwl 1,1,SteadyHand,2,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Calm Jwl 2,2,SteadyHand,5,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Calm Jwl 3,3,SteadyHand,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Calm Jwl 3,3,SteadyHand,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Hale Jwl 1,1,Status Res,2,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Hale Jwl 2,2,Status Res,5,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Hale Jwl 3,3,Status Res,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Hale Jwl 3,3,Status Res,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Ire Jwl 1,1,Fury,2,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Ire Jwl 2,2,Fury,5,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Ire Jwl 3,3,Fury,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Ire Jwl 3,3,Fury,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Nimble Jwl 1,1,Nimbleness,2,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Nimble Jwl 1,1,Nimbleness,3,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Nimble Jwl 2,2,Nimbleness,5,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Nimble Jwl 3,3,Nimbleness,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Nimble Jwl 3,3,Nimbleness,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Hardy Jwl 1,1,Resilience,2,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Hardy Jwl 1,1,Resilience,3,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Hardy Jwl 2,2,Resilience,5,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Hardy Jwl 3,3,Resilience,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Hardy Jwl 3,3,Resilience,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Withdrawn Jwl 1,1,Readiness,2,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Withdrawn Jwl 3,3,Readiness,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Impactful Jwl 1,1,Brutality,2,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Impactful Jwl 3,3,Brutality,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Intense Jwl 2,2,Ferocity,4,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Intense Jwl 3,3,Ferocity,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Aegis Jwl 2,2,Stalwart,4,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Aegis Jwl 3,3,Stalwart,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Tactful Jwl 2,2,Prudence,4,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Tactful Jwl 3,3,Prudence,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Broad Jwl 2,2,Amplify,4,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Broad Jwl 3,3,Amplify,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Trove Jwl 1,1,Hoarding,2,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Trove Jwl 1,1,Hoarding,3,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Trove Jwl 2,2,Hoarding,5,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Trove Jwl 2,2,Hoarding,5,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Trove Jwl 3,3,Hoarding,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Avid Jwl 1,1,Avarice,2,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Avid Jwl 1,1,Avarice,3,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Avid Jwl 2,2,Avarice,5,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Avid Jwl 2,2,Avarice,5,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Avid Jwl 3,3,Avarice,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+CritElementJwl 1,1,CritElemnt,2,Attack,-1,,
+CritElementJwl 2,2,CritElemnt,5,Attack,-1,,
+Crit Status Jwl 1,1,CritStatus,2,Attack,-1,,
+Crit Status Jwl 2,2,CritStatus,5,Attack,-1,,
+Precise Jewel 1,1,Dead Eye,2,Loading,-1,,
+Precise Jewel 2,2,Dead Eye,5,Loading,-1,,
+Fungiform Jewel 1,1,Mycology,3,Carnivore,-1,,
+Satiated Jewel 1,1,LightEater,3,Whim,-1,,
+Staunch Jewel 1,1,Bleeding,3,None,,,
+Clean Jewel 1,1,Sticky Res,3,None,,,
+Rodeo Jewel 1,1,Mounting,3,None,,,
+Sane Jewel 1,1,Frenzy Res,2,Evasion,-1,,
+Sane Jewel 3,3,Frenzy Res,7,Evasion,-2,,
+Cutting Jwl 1,1,Edge Lore,2,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Cutting Jwl 2,2,Edge Lore,5,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Cutting Jwl 3,3,Edge Lore,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+TrueCuttingJwl 3,3,Edge Lore,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Arcane Jwl 1,1,Arcana,2,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Arcane Jwl 2,2,Arcana,5,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Arcane Jwl 3,3,Arcana,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Arcane Jwl 3,3,Arcana,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Brawn Jwl 1,1,Brawn,2,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Brawn Jwl 2,2,Brawn,5,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Brawn Jwl 3,3,Brawn,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Brawn Jwl 3,3,Brawn,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Supplicant Jwl 1,1,Prayer,2,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Supplicant Jwl 2,2,Prayer,5,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Supplicant Jwl 3,3,Prayer,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Furtive Jwl 1,1,Covert,2,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Furtive Jwl 2,2,Covert,5,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Furtive Jwl 3,3,Covert,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+TrueFurtiveJwl 3,3,Covert,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Honed Jwl 2,2,Edgemaster,4,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+UltimateHonedJwl3,3,Edgemaster,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Calm Jwl 2,2,SteadyHand,4,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+UltimateCalmJwl 3,3,SteadyHand,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Hale Jwl 2,2,Status Res,4,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+UltimateHaleJwl 3,3,Status Res,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Ire Jwl 2,2,Fury,4,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+UltimateIreJwl 3,3,Fury,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Withdrawn Jwl 2,2,Readiness,4,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+TrueWithdrawnJwl3,3,Readiness,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+Impactful Jwl 2,2,Brutality,4,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+TrueImpactfulJwl3,3,Brutality,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+TrueIntenseJwl 2,2,Ferocity,4,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+TrueIntenseJwl 3,3,Ferocity,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Aegis Jwl 2,2,Stalwart,4,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Aegis Jwl 3,3,Stalwart,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+TrueTactfulJwl 2,2,Prudence,4,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+TrueTactfulJwl 3,3,Prudence,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Broad Jwl 2,2,Amplify,4,None,,,RELIC DECOS APPEAR ON RELIC ARMOR
+True Broad Jwl 3,3,Amplify,7,None,,,RELIC DECOS APPEAR ON RELIC ARMOR

@@ -566,9 +566,9 @@ export default function Solver({
             </label>
           )}
           {data.charmSupport && charmMode === "owned" && (
-            <label>{data.id === "mh4u" ? "Charm type" : "Charm table"}
+            <label>{data.id === "mh4u" || data.id === "mh4u+" ? "Charm type" : "Charm table"}
               <select value={charmTable} onChange={(e) => setCharmTable(Number(e.target.value))}>
-                <option value={0}>{data.id === "mh4u" ? "All types" : "All tables"}</option>
+                <option value={0}>{data.id === "mh4u" || data.id === "mh4u+" ? "All types" : "All tables"}</option>
                 {data.charmTables.map((t) => (
                   <option key={t.value} value={t.value}>{t.label}</option>
                 ))}
@@ -584,7 +584,7 @@ export default function Solver({
               <option value="cost">Lowest cost</option>
             </select>
           </label>
-          <label title="0 ignores this source">{data.id === "mh3u" ? "Port ★" : data.id === "mh4u" ? "Hub ★" : "HR"}
+          <label title="0 ignores this source">{data.id === "mh3u" ? "Port ★" : data.id === "mh4u" || data.id === "mh4u+" ? "Hub ★" : "HR"}
             <input type="number" min={0} max={data.maxHub} value={hr} onChange={(e) => setHr(Number(e.target.value))} />
           </label>
           <label title="0 ignores this source">{data.id === "mhfu" ? "Elder" : "Village ★"}

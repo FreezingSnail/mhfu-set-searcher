@@ -1,10 +1,10 @@
 # Monster Hunter Set Searcher
 
-A small, offline-friendly web tool for **Monster Hunter Freedom Unite**, **Monster Hunter 3 Ultimate**, and **Monster Hunter 4 Ultimate**:
+A small, offline-friendly web tool for **Monster Hunter Freedom Unite**, **Monster Hunter 3 Ultimate**, **Monster Hunter 4 Ultimate**, and **MH4U+**:
 
 **Live:** https://freezingsnail.github.io/mhfu-set-searcher/
 
-Switch games from the MHFU / MH3U / MH4U control in the header (or open `#mhfu`, `#mh3u`, or `#mh4u` directly). Each game has its own saved sets and, where supported, its own charm list.
+Switch games from the MHFU / MH3U / MH4U / MH4U+ control in the header (or open `#mhfu`, `#mh3u`, `#mh4u`, or `#mh4u+` directly). Each game has its own saved sets and, where supported, its own charm list.
 
 ## MHFU
 
@@ -38,11 +38,15 @@ Same solver, builder, sets, charms, and weapon-tree bones, with MH4U's 14 weapon
 - **Weapons** — Great Sword through Charge Blade, Insect Glaive, bowguns, and Bow. Details cover Charge Blade phials, Insect Glaive kinsects, Gunlance shelling, Hunting Horn notes/songs, bow arc shots/coatings, and bowgun deviation/rapid fire/crouching fire.
 - **Compare / Monsters** — blademaster-only damage comparison and hitzone matchups for MH4U, including Charge Blade and Insect Glaive, with the MH4U sharpness table, class coefficients, per-weapon meta presets, and monster hitzones.
 
-MHFU, MH3U, and MH4U saved sets and charm lists live under separate local-storage keys, so switching games never mixes them.
+## MH4U+
+
+MH4U armor, weapons, skills, charms, and monsters with the 4U+ jewel changes from the vendored decoration CSV. Jewel values, slots, and relic-skill jewels are replaced; everything else uses the MH4U data set. Saved sets and charms use their own local-storage keys.
+
+MHFU, MH3U, MH4U, and MH4U+ saved sets and charm lists live under separate local-storage keys, so switching games never mixes them.
 
 ## Sharing sets
 
-Save a set, open **Sets**, and press **Share** to copy a link. The armor, jewels, weapon slots, and (for MH3U/MH4U) charm are encoded in the URL, so opening the link switches to the right game and loads the set in the Builder. Links are self-contained; nothing is uploaded. A shared charm is added to the recipient's charm list so the build retains its skills.
+Save a set, open **Sets**, and press **Share** to copy a link. The armor, jewels, weapon slots, and (for MH3U/MH4U/MH4U+) charm are encoded in the URL, so opening the link switches to the right game and loads the set in the Builder. Links are self-contained; nothing is uploaded. A shared charm is added to the recipient's charm list so the build retains its skills.
 
 No backend. Static Vite + React app.
 
@@ -50,7 +54,7 @@ No backend. Static Vite + React app.
 
 ```bash
 npm install
-npm run data   # regenerate src/data/, src/data/mh3u/, and src/data/mh4u/ from vendor/
+npm run data   # regenerate src/data/, src/data/mh3u/, src/data/mh4u/, and src/data/mh4u-plus/ from vendor/
 npm run dev
 ```
 
@@ -78,12 +82,14 @@ Vendored snapshots, pinned under `vendor/`:
 | [ArmoredRaven17/mh3u-collection-tracker](https://github.com/ArmoredRaven17/mh3u-collection-tracker) | MH3U weapon trees/stats, English armor + weapon materials | MIT code; game-derived data © Capcom |
 | [AthenaADP/MH4U-ASS](https://github.com/AthenaADP/MH4U-ASS) | MH4U armor, jewels, skills, charm generation maxima | MIT |
 | [ArmoredRaven17/mh4u-collection-tracker](https://github.com/ArmoredRaven17/mh4u-collection-tracker) | MH4U weapon trees/stats, English armor + weapon materials | MIT code; game-derived data © Capcom |
+| `vendor/4U+ Weapons_Item Changes - Deco Changes.csv` | MH4U+ jewel slots, skills, and values | game-derived data © Capcom |
 
 `npm run data` normalizes them into `src/data/`:
 
 - MHFU: 2,081 armor pieces, 168 jewels, 1,500 weapons, 103 skill trees
 - MH3U: 1,651 armor pieces, 196 jewels, 1,395 weapons, 123 skill trees, 115 charm skill maxima
 - MH4U: 3,103 armor pieces, 202 jewels, 2,308 weapons, 144 skill trees, 135 charm skill maxima
+- MH4U+: MH4U armor, weapons, and skills with 289 4U+ jewels
 
 MH3U and MH4U materials for a small number of DLC/collaboration pieces are absent from the tracker source and are left empty. Jewels have no cost/material data in either source.
 
@@ -107,7 +113,7 @@ Exhaustive searches are partitioned by head armor across a worker pool (up to 6 
 
 Charms are treated as an optional sixth equipment piece: owned charms add their skills and slots, and the best-charm mode adds the maximum single-skill roll plus 0–3 slots for each target skill. The solver does not assume two-skill best charms, because the legal pair/value combinations depend on the charm table.
 
-MH4U composite skills (Honed Blade, Rock Steady, etc.) appear as the active tier of their own skill tree. The solver searches that tree directly; it does not automatically satisfy component-skill targets from a composite skill.
+MH4U and MH4U+ composite skills (Honed Blade, Rock Steady, etc.) appear as the active tier of their own skill tree. The solver searches that tree directly; it does not automatically satisfy component-skill targets from a composite skill.
 
 ## Attribution
 

@@ -1,4 +1,4 @@
-export type Game = "mhfu" | "mh3u" | "mh4u";
+export type Game = "mhfu" | "mh3u" | "mh4u" | "mh4u+";
 
 export type Part = "head" | "body" | "arms" | "waist" | "legs";
 

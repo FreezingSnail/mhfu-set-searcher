@@ -15,6 +15,8 @@ import mh4uSkillJson from "../data/mh4u/skills.json";
 import mh4uWeaponJson from "../data/mh4u/weapons.json";
 import mh4uMetaJson from "../data/mh4u/meta.json";
 import mh4uCharmMaxJson from "../data/mh4u/charm-max.json";
+import mh4uPlusDecoJson from "../data/mh4u-plus/decorations.json";
+import mh4uPlusMetaJson from "../data/mh4u-plus/meta.json";
 import type {
   Armor,
   Deco,
@@ -262,4 +264,45 @@ export const MH4U: GameData = makeGame({
   skillRank: skillRankMh4u,
 });
 
-export const GAMES: Record<Game, GameData> = { mhfu: MHFU, mh3u: MH3U, mh4u: MH4U };
+export const MH4U_PLUS: GameData = makeGame({
+  id: "mh4u+",
+  label: "MH4U+",
+  title: "MH4U+ Set Searcher",
+  blurb: "MH4U armor and weapons with 4U+ jewel changes",
+  storageKey: "mh4u-plus-saved-sets",
+  torsoSkill: "Torso Up",
+  charmSupport: true,
+  charmStorageKey: "mh4u-plus-charms",
+  availability: "or",
+  maxHub: 12,
+  maxVillage: 10,
+  charmTables: [
+    { value: 1, label: "Mystery" },
+    { value: 2, label: "Shining" },
+    { value: 3, label: "Ancient" },
+    { value: 4, label: "Enduring" },
+    { value: 5, label: "Graven" },
+    { value: 6, label: "Distorted" },
+  ],
+  armor: mh4uArmorJson as unknown as Armor[],
+  decos: mh4uPlusDecoJson as unknown as Deco[],
+  weapons: mh4uWeaponJson as unknown as Weapon[],
+  skills: (mh4uSkillJson as unknown as SkillTree[]).filter((s) => s.tiers.length),
+  meta: mh4uPlusMetaJson as Meta,
+  parts: PARTS,
+  partLabel: PART_LABEL,
+  resLabel: RES_LABEL,
+  typeLabel: MH4U_TYPE_LABEL,
+  weaponTypes: Object.keys(MH4U_TYPE_LABEL),
+  rangedTypes: new Set(RANGED),
+  charmMax: mh4uCharmMaxJson as Record<string, number>,
+  skillMeta: skillMetaMh4u,
+  skillRank: skillRankMh4u,
+});
+
+export const GAMES: Record<Game, GameData> = {
+  mhfu: MHFU,
+  mh3u: MH3U,
+  mh4u: MH4U,
+  "mh4u+": MH4U_PLUS,
+};

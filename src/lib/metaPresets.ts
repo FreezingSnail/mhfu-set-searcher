@@ -56,4 +56,5 @@ export const META_PRESETS_BY_GAME: Record<Game, Record<string, MetaPreset>> = {
   mhfu: META_PRESETS,
   mh3u: META_PRESETS_MH3U,
   mh4u: META_PRESETS_MH4U,
+  "mh4u+": META_PRESETS_MH4U,
 };

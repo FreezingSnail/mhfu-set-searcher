@@ -116,8 +116,14 @@ export const MH4U_DAMAGE_PROFILE = defineProfile(
   ["dual-blades", "switch-axe"],
 );
 
+export const MH4U_PLUS_DAMAGE_PROFILE: DamageProfile = {
+  ...MH4U_DAMAGE_PROFILE,
+  id: "mh4u+",
+};
+
 export const DAMAGE_PROFILES: Record<Game, DamageProfile> = {
   mhfu: MHFU_DAMAGE_PROFILE,
   mh3u: MH3U_DAMAGE_PROFILE,
   mh4u: MH4U_DAMAGE_PROFILE,
+  "mh4u+": MH4U_PLUS_DAMAGE_PROFILE,
 };

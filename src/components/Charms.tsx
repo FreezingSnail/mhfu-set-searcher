@@ -58,7 +58,7 @@ export default function Charms({ charms, onChange }: Props) {
               {[0, 1, 2, 3].map((n) => <option key={n} value={n}>{n}</option>)}
             </select>
           </label>
-          <label>{data.id === "mh4u" ? "Charm type" : "Table"}
+          <label>{data.id === "mh4u" || data.id === "mh4u+" ? "Charm type" : "Table"}
             <select value={table} onChange={(e) => setTable(Number(e.target.value))}>
               <option value={0}>Any / unknown</option>
               {data.charmTables.map((t) => (
@@ -99,7 +99,7 @@ export default function Charms({ charms, onChange }: Props) {
       <section className="panel">
         <div className="row wrap">
           <strong>My charms ({charms.length})</strong>
-          <label>{data.id === "mh4u" ? "Filter type" : "Filter table"}
+          <label>{data.id === "mh4u" || data.id === "mh4u+" ? "Filter type" : "Filter table"}
             <select value={filter} onChange={(e) => setFilter(Number(e.target.value))}>
               <option value={0}>All</option>
               {data.charmTables.map((t) => (
@@ -123,7 +123,7 @@ export default function Charms({ charms, onChange }: Props) {
                     <span key={a} className={"badge " + (p < 0 ? "bad" : "")}>{a} <span className="dim">({p > 0 ? "+" : ""}{p})</span></span>
                   )) : <span className="dim">slot charm</span>}
                 </div>
-                <span className="dim small">{c.table ? data.charmTables.find((t) => t.value === c.table)?.label ?? `Type ${c.table}` : data.id === "mh4u" ? "Any type" : "Any table"}</span>
+                <span className="dim small">{c.table ? data.charmTables.find((t) => t.value === c.table)?.label ?? `Type ${c.table}` : data.id === "mh4u" || data.id === "mh4u+" ? "Any type" : "Any table"}</span>
                 <button className="ghost" onClick={() => onChange(charms.filter((x) => x.id !== c.id))}>Delete</button>
               </div>
             ))}

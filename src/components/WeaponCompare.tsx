@@ -586,7 +586,7 @@ export default function WeaponCompare({
                 dummy 45/25 hitzones. Compare within a type; click bars to add up to {MAX_COMPARE}{" "}
                 weapons. Base clears skills; Meta applies the standard endgame skill package for
                 the selected type.{" "}
-                {game === "mh4u"
+                {game === "mh4u" || game === "mh4u+"
                   ? "Crit Draw adds +100% affinity on draw attacks, so negative weapon affinity still applies."
                   : "Crit Draw guarantees a critical hit on draw attacks."}{" "}
                 Crit Eye adds flat affinity for sustained weapons such as Long

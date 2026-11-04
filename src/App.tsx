@@ -35,7 +35,7 @@ type IncomingSet = {
 
 const hashGame = (): Game => {
   const hash = window.location.hash.replace("#", "");
-  return hash === "mh3u" || hash === "mh4u" ? hash : "mhfu";
+  return hash === "mh3u" || hash === "mh4u" || hash === "mh4u+" ? hash : "mhfu";
 };
 
 const readSharedLink = (): IncomingSet | null => {
@@ -65,11 +65,13 @@ export default function App() {
     mhfu: loadSavedSets(GAMES.mhfu.storageKey),
     mh3u: loadSavedSets(GAMES.mh3u.storageKey),
     mh4u: loadSavedSets(GAMES.mh4u.storageKey),
+    "mh4u+": loadSavedSets(GAMES["mh4u+"].storageKey),
   }));
   const [charmsByGame, setCharmsByGame] = useState<Record<Game, Charm[]>>(() => ({
     mhfu: incoming?.game === "mhfu" ? incoming.charms : [],
     mh3u: incoming?.game === "mh3u" ? incoming.charms : loadCharms("mh3u-charms"),
     mh4u: incoming?.game === "mh4u" ? incoming.charms : loadCharms("mh4u-charms"),
+    "mh4u+": incoming?.game === "mh4u+" ? incoming.charms : loadCharms("mh4u-plus-charms"),
   }));
 
   const data = GAMES[game];
@@ -79,6 +81,7 @@ export default function App() {
   useEffect(() => {
     persistCharms("mh3u-charms", charmsByGame.mh3u);
     persistCharms("mh4u-charms", charmsByGame.mh4u);
+    persistCharms("mh4u-plus-charms", charmsByGame["mh4u+"]);
   }, [charmsByGame]);
 
   useEffect(() => {
@@ -142,6 +145,7 @@ export default function App() {
               <button className={game === "mhfu" ? "active" : ""} onClick={() => switchGame("mhfu")}>MHFU</button>
               <button className={game === "mh3u" ? "active" : ""} onClick={() => switchGame("mh3u")}>MH3U</button>
               <button className={game === "mh4u" ? "active" : ""} onClick={() => switchGame("mh4u")}>MH4U</button>
+              <button className={game === "mh4u+" ? "active" : ""} onClick={() => switchGame("mh4u+")}>MH4U+</button>
             </div>
             <h1>{data.title}</h1>
             <p className="dim small">
@@ -233,6 +237,12 @@ export default function App() {
               Data:{" "}
               <a href="https://github.com/AthenaADP/MH3U-ASS" target="_blank" rel="noreferrer">Athena's ASS MH3U</a> (MIT) and{" "}
               <a href="https://github.com/ArmoredRaven17/mh3u-collection-tracker" target="_blank" rel="noreferrer">MH3U Collection Tracker</a>. Game data © Capcom.
+            </>
+          ) : game === "mh4u+" ? (
+            <>
+              Data:{" "}
+              <a href="https://github.com/AthenaADP/MH4U-ASS" target="_blank" rel="noreferrer">Athena's ASS MH4U</a> (MIT),{" "}
+              <a href="https://github.com/ArmoredRaven17/mh4u-collection-tracker" target="_blank" rel="noreferrer">MH4U Collection Tracker</a>, and 4U+ jewel changes. Game data © Capcom.
             </>
           ) : (
             <>

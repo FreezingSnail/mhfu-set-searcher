@@ -4,6 +4,7 @@ import {
   DAMAGE_PROFILES,
   MH3U_DAMAGE_PROFILE,
   MH4U_DAMAGE_PROFILE,
+  MH4U_PLUS_DAMAGE_PROFILE,
   MHFU_DAMAGE_PROFILE,
 } from "./damageProfiles.ts";
 import {
@@ -280,10 +281,11 @@ test("conditional DB/SA modifiers are baseline 1.0 unless explicitly enabled", (
   assert.equal(round(saPower.effectiveRaw), 316.8);
 });
 
-test("game profile registry covers all three games", () => {
+test("game profile registry covers all four games", () => {
   assert.equal(DAMAGE_PROFILES.mhfu, MHFU_DAMAGE_PROFILE);
   assert.equal(DAMAGE_PROFILES.mh3u, MH3U_DAMAGE_PROFILE);
   assert.equal(DAMAGE_PROFILES.mh4u, MH4U_DAMAGE_PROFILE);
+  assert.equal(DAMAGE_PROFILES["mh4u+"], MH4U_PLUS_DAMAGE_PROFILE);
 });
 
 test("MH3U and MH4U meta registries cover their blademaster types", () => {

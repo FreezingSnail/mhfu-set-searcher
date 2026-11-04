@@ -3,7 +3,7 @@ import type { SetSelection } from "./build";
 import type { Charm, Game } from "./types";
 
 const PARTS = ["head", "body", "arms", "waist", "legs"] as const;
-const GAME_IDS: readonly Game[] = ["mhfu", "mh3u", "mh4u"];
+const GAME_IDS: readonly Game[] = ["mhfu", "mh3u", "mh4u", "mh4u+"];
 const MAX_TOKEN_LENGTH = 20_000;
 const MAX_NAME_LENGTH = 80;
 const MAX_ID_LENGTH = 120;

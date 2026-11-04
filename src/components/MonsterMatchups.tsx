@@ -30,6 +30,7 @@ const MONSTERS_BY_GAME: Record<Game, Monster[]> = {
   mhfu: sortMonsters(monstersMhfuJson as unknown as Monster[]),
   mh3u: sortMonsters(monstersMh3uJson as unknown as Monster[]),
   mh4u: sortMonsters(monstersMh4uJson as unknown as Monster[]),
+  "mh4u+": sortMonsters(monstersMh4uJson as unknown as Monster[]),
 };
 
 const EMPTY_MONSTER: Monster = { name: "—", type: "Unknown", parts: [] };
