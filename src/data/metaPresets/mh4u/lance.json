@@ -2,7 +2,7 @@
   "type": "lance",
   "label": "Lance",
   "metaLabel": "Honed Blade / Challenger +2 / Evasion +3",
-  "note": "MH4U endgame Lance is primarily an evade-lance build: Honed Blade (Attack Up (L) + Sharpness +1), Challenger +2 (+25 true raw and +20% affinity while the monster is enraged), and Evasion +3, with Razor Sharp as the usual fourth skill when slots allow; fitting all four is unrealistic without a god charm or relic gear. The guard alternative runs Honed Blade, Razor Sharp, Guard +2, and Weakness Exploit. This preset captures only Honed Blade's permanent +20 true raw and Sharpness +1; Challenger +2's conditional buff, Evasion +3, Razor Sharp, Guard +2, Guard Up, Weakness Exploit, Evade Extender, and Critical Eye are unmodeled, and Element Atk Up is not assumed. The shared sharpness table uses MHFU multipliers; MH4U uses 1.05 green / 1.20 blue / 1.32 white / 1.45 purple, so absolute scores are not comparable across games.",
+  "note": "MH4U endgame Lance is primarily an evade-lance build: Honed Blade (Attack Up (L) + Sharpness +1), Challenger +2 (+25 true raw and +20% affinity while the monster is enraged), and Evasion +3, with Razor Sharp as the usual fourth skill when slots allow; fitting all four is unrealistic without a god charm or relic gear. The guard alternative runs Honed Blade, Razor Sharp, Guard +2, and Weakness Exploit. This preset captures only Honed Blade's permanent +20 true raw and Sharpness +1; Challenger +2's conditional buff, Evasion +3, Razor Sharp, Guard +2, Guard Up, Weakness Exploit, Evade Extender, and Critical Eye are unmodeled, and Element Atk Up is not assumed. Sharpness uses MH4U's 1.05 green / 1.20 blue / 1.32 white / 1.45 purple table.",
   "skills": {
     "sharpness": "best",
     "critDraw": false,

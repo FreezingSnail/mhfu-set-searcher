@@ -6,8 +6,11 @@ import { META_PRESETS_BY_GAME } from "../lib/metaPresets";
 import { DAMAGE_PROFILES } from "../lib/damageProfiles";
 import {
   DEFAULT_STRENGTH_OPTIONS,
+  ELEMENT_ORDER,
   isObtainableWeapon,
   scoreEndTreeG,
+  weaponElements,
+  weaponMatchesElement,
   type SharpnessMode,
   type WeaponScore,
   median,
@@ -29,37 +32,27 @@ const SHARP_OPTIONS: { value: SharpnessMode; label: string }[] = [
   { value: "plus", label: "Sharpness +1" },
 ];
 
-const ATTACK_UP_OPTIONS = [
-  { value: 0, label: "None" },
-  { value: 10, label: "Attack Up S (+10)" },
-  { value: 15, label: "Attack Up M (+15)" },
-  { value: 20, label: "Attack Up L (+20)" },
-];
+const ATTACK_UP_TIERS = ["S", "M", "L", "XL"];
 
-const ATTACK_UP_XL_OPTIONS = [
-  ...ATTACK_UP_OPTIONS,
-  { value: 25, label: "Attack Up XL (+25 true raw)" },
-];
+function skillOptions(values: readonly number[], format: (value: number, index: number) => string) {
+  return [
+    { value: 0, label: "None" },
+    ...values.map((value, index) => ({ value, label: format(value, index) })),
+  ];
+}
 
-const CRIT_EYE_OPTIONS = [
-  { value: 0, label: "None" },
-  { value: 10, label: "Crit Eye +1 (+10%)" },
-  { value: 20, label: "Crit Eye +2 (+20%)" },
-  { value: 30, label: "Crit Eye +3 (+30%)" },
-];
-
-const CRIT_EYE_OPTIONS_MH4U = [
-  { value: 0, label: "None" },
-  { value: 10, label: "Crit Eye +1 (+10%)" },
-  { value: 15, label: "Crit Eye +2 (+15%)" },
-  { value: 20, label: "Crit Eye +3 (+20%)" },
-];
-
-const HH_SONG_OPTIONS = [
-  { value: 1, label: "None" },
-  { value: 1.15, label: "Attack Up L (1.15x)" },
-  { value: 1.2, label: "Attack Up L + encore (1.2x)" },
-];
+function huntingHornSongOptions(values: readonly number[]) {
+  return [
+    { value: 1, label: "None" },
+    ...values.map((value, index) => ({
+      value,
+      label:
+        index === 0
+          ? `Attack Up L (${value}x)`
+          : `Attack Up L + encore (${value}x)`,
+    })),
+  ];
+}
 
 const NOTE_CLASS: Record<string, string> = {
   White: "white",
@@ -201,7 +194,7 @@ function StrengthChart({
             `Score ${fmt(row.score)} · raw ${fmt(row.rawDamage)} · element ${fmt(row.elementDamage)}`,
             `Attack ${row.weapon.attack} → true raw ${fmt(row.trueRaw)}${row.attackUp ? ` (+${row.attackUp} Attack Up)` : ""}`,
             row.critDraw
-              ? "Crit Draw: 1.25x raw on draw attacks (affinity ignored)"
+              ? `Crit Draw: ${fmt(row.critExpected, 3)}x raw on draw attacks`
               : `Crit ${row.critChance >= 0 ? "+" : ""}${row.critChance}%${row.affinityBonus ? ` + Crit Eye ${row.affinityBonus}%` : ""} → ${row.effectiveCritChance >= 0 ? "+" : ""}${row.effectiveCritChance}% → ${fmt(row.critExpected, 3)}x raw`,
             `Sharpness ${row.sharpnessBase.name} → +1 ${row.sharpnessPlus.name}`,
             row.bow
@@ -399,8 +392,15 @@ export default function WeaponCompare({
     game === "mhfu"
       ? data.weaponTypes
       : data.weaponTypes.filter((value) => !data.rangedTypes.has(value));
-  const attackUpOptions = game === "mh4u" ? ATTACK_UP_XL_OPTIONS : ATTACK_UP_OPTIONS;
-  const critEyeOptions = game === "mh4u" ? CRIT_EYE_OPTIONS_MH4U : CRIT_EYE_OPTIONS;
+  const attackUpOptions = skillOptions(profile.skills.attackUp, (value, index) =>
+    `Attack Up ${ATTACK_UP_TIERS[index]} (+${value})`,
+  );
+  const critEyeOptions = skillOptions(profile.skills.critEye, (value, index) =>
+    `Crit Eye +${index + 1} (+${value}%)`,
+  );
+  const songOptions = huntingHornSongOptions(
+    profile.skills.huntingHornAttackUp,
+  );
   const elementUpOptions = [
     { value: 1, label: "None" },
     {
@@ -409,6 +409,7 @@ export default function WeaponCompare({
     },
   ];
   const [type, setType] = useState("great-sword");
+  const [elementFilter, setElementFilter] = useState("all");
   const [sharpness, setSharpness] = useState<SharpnessMode>("best");
   const [sort, setSort] = useState<Sort>("score");
   const [limit, setLimit] = useState<Limit>("all");
@@ -470,21 +471,35 @@ export default function WeaponCompare({
     () => allScores.filter((row) => row.weapon.type === type),
     [allScores, type],
   );
+  const elementOptions = useMemo(() => {
+    const present = new Set<string>();
+    for (const row of typeRows) {
+      for (const name of weaponElements(row.weapon)) present.add(name);
+    }
+    return ELEMENT_ORDER.filter((name) => present.has(name));
+  }, [typeRows]);
+  const elementRows = useMemo(
+    () =>
+      elementFilter === "all"
+        ? typeRows
+        : typeRows.filter((row) => weaponMatchesElement(row.weapon, elementFilter)),
+    [typeRows, elementFilter],
+  );
   const defaultSelectedNames = useMemo(
     () =>
-      [...typeRows]
+      [...elementRows]
         .sort((a, b) => b.score - a.score)
         .slice(0, 3)
         .map((row) => row.weapon.name),
-    [typeRows],
+    [elementRows],
   );
   const selectedNames = selected ?? defaultSelectedNames;
 
   const visibleRows = useMemo(() => {
     const q = query.trim().toLowerCase();
     const filtered = q
-      ? typeRows.filter((row) => row.weapon.name.toLowerCase().includes(q))
-      : typeRows;
+      ? elementRows.filter((row) => row.weapon.name.toLowerCase().includes(q))
+      : elementRows;
     const sorted = [...filtered];
     if (sort === "name") {
       sorted.sort((a, b) => a.weapon.name.localeCompare(b.weapon.name));
@@ -494,7 +509,7 @@ export default function WeaponCompare({
       sorted.sort((a, b) => b.score - a.score);
     }
     return limit === "all" ? sorted : sorted.slice(0, Number(limit));
-  }, [typeRows, query, sort, limit]);
+  }, [elementRows, query, sort, limit]);
 
   const selectedRows = useMemo(
     () =>
@@ -504,7 +519,13 @@ export default function WeaponCompare({
     [selectedNames, typeRows],
   );
   const selectedSet = useMemo(() => new Set(selectedNames), [selectedNames]);
-  const scores = typeRows.map((row) => row.score);
+  const scores = elementRows.map((row) => row.score);
+  const elementFilterLabel =
+    elementFilter === "all"
+      ? "All elements"
+      : elementFilter === "none"
+        ? "No element / status"
+        : elementFilter;
 
   const toggle = (name: string) => {
     setSelected((old) => {
@@ -556,24 +577,29 @@ export default function WeaponCompare({
                 skills; Meta applies the standard endgame skill package for the selected type.
                 Crit Draw models MHP2G draw attacks: 100% crit and negative affinity ignored on that
                 hit. Crit Eye adds flat affinity for sustained weapons such as Long Sword. Hunting
-                Horn shows note colours and can apply the Attack Up L / encore song.
+                Horn shows note colours and can apply the Attack Up L / encore song. The Element
+                filter narrows the chart to one element or status type, or to raw weapons.
               </p>
             ) : (
               <p className="dim small">
                 {data.label} end-tree G-rank blademaster weapons. Melee uses 100 MV against the
                 dummy 45/25 hitzones. Compare within a type; click bars to add up to {MAX_COMPARE}{" "}
                 weapons. Base clears skills; Meta applies the standard endgame skill package for
-                the selected type. Crit Draw models draw attacks: 100% crit and negative affinity
-                ignored on that hit. Crit Eye adds flat affinity for sustained weapons such as Long
+                the selected type.{" "}
+                {game === "mh4u"
+                  ? "Crit Draw adds +100% affinity on draw attacks, so negative weapon affinity still applies."
+                  : "Crit Draw guarantees a critical hit on draw attacks."}{" "}
+                Crit Eye adds flat affinity for sustained weapons such as Long
                 Sword. Hunting Horn shows note colours and can apply the Attack Up L / encore song.
                 Hidden elements and hidden status only contribute when Awaken is enabled; Meta
                 presets include Awaken when the target set uses it. Ranged weapons are excluded
-                because ranged damage is not modeled for this game.
+                because ranged damage is not modeled for this game. The Element filter narrows the
+                chart to one element or status type, or to raw weapons.
               </p>
             )}
           </div>
           <div className="compare-cards">
-            <div><span className="dim small">Weapons</span><strong>{typeRows.length}</strong></div>
+            <div><span className="dim small">Weapons</span><strong>{elementRows.length}</strong></div>
             <div><span className="dim small">Median</span><strong>{fmt(median(scores))}</strong></div>
             <div><span className="dim small">p10 / p90</span><strong>{fmt(percentile(scores, 0.1))} / {fmt(percentile(scores, 0.9))}</strong></div>
           </div>
@@ -585,11 +611,28 @@ export default function WeaponCompare({
               value={type}
               onChange={(event) => {
                 setType(event.target.value);
+                setElementFilter("all");
                 setSelected(null);
               }}
             >
               {weaponTypes.map((value) => (
                 <option key={value} value={value}>{data.typeLabel[value]}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Element
+            <select
+              value={elementFilter}
+              onChange={(event) => {
+                setElementFilter(event.target.value);
+                setSelected(null);
+              }}
+            >
+              <option value="all">All elements</option>
+              <option value="none">No element / status</option>
+              {elementOptions.map((name) => (
+                <option key={name} value={name}>{name}</option>
               ))}
             </select>
           </label>
@@ -643,7 +686,7 @@ export default function WeaponCompare({
             <label>
               HH song
               <select value={songAttackUp} onChange={(event) => setSongAttackUp(Number(event.target.value))}>
-                {HH_SONG_OPTIONS.map((option) => (
+                {songOptions.map((option) => (
                   <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
               </select>
@@ -742,7 +785,13 @@ export default function WeaponCompare({
 
       <section className="panel">
         <div className="compare-chart-head">
-          <h3>{data.typeLabel[type]} <span className="dim small">{typeRows.length} end-tree G weapons</span></h3>
+          <h3>
+            {data.typeLabel[type]}{" "}
+            <span className="dim small">
+              {elementRows.length} end-tree G weapons
+              {elementFilter !== "all" ? ` · ${elementFilterLabel}` : ""}
+            </span>
+          </h3>
           <div className="row">
             <span className="dim small">{selectedRows.length}/{MAX_COMPARE} selected</span>
             <button className="ghost" type="button" onClick={resetSelection}>Reset</button>

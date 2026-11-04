@@ -1,7 +1,8 @@
 import type { Weapon } from "./types";
 import {
+  canonicalElement,
   scoreWeapon,
-  type StrengthOptions,
+  type StrengthOptionsInput,
   type WeaponScore,
 } from "./weaponStrength.ts";
 
@@ -79,7 +80,7 @@ export function rawHitzone(part: MonsterPart, type: DamageType) {
 }
 
 export function elementHitzone(part: MonsterPart, element: string) {
-  const key = ELEMENT_KEY[element];
+  const key = ELEMENT_KEY[canonicalElement(element)];
   return key ? Number(part[key] ?? 0) : 0;
 }
 
@@ -182,7 +183,7 @@ export function scoreWeaponAgainstMonster(
   weapon: Weapon,
   monster: Monster,
   part: MonsterPart | undefined,
-  options: Partial<StrengthOptions> = {},
+  options: StrengthOptionsInput,
 ): MonsterWeaponScore {
   const damageType = damageTypeFor(weapon);
   const monsterPart = part ?? bestPartFor(monster, damageType);
@@ -201,7 +202,7 @@ export function scoreWeaponAgainstMonsterAuto(
   weapon: Weapon,
   monster: Monster,
   state: MatchupState,
-  options: Partial<StrengthOptions> = {},
+  options: StrengthOptionsInput,
 ): MonsterWeaponScore {
   const parts = eligibleParts(monster, state);
   let best = scoreWeaponAgainstMonster(weapon, monster, parts[0], options);
@@ -216,7 +217,7 @@ export function scoreWeaponsAgainstMonster(
   weapons: Weapon[],
   monster: Monster,
   part: MonsterPart | undefined,
-  options: Partial<StrengthOptions> = {},
+  options: StrengthOptionsInput,
   state: MatchupState = "practical",
 ): MonsterWeaponScore[] {
   return weapons.map((weapon) =>

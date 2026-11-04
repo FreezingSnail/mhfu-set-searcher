@@ -1,33 +1,43 @@
 import type { Weapon } from "./types";
 import {
-  MHFU_DAMAGE_PROFILE,
   type DamageProfile,
   type SharpnessDefinition,
 } from "./damageProfiles.ts";
 
-/** MHFU defaults retained for backwards compatibility. */
-export const CLASS_COEFFICIENT: Record<string, number> =
-  MHFU_DAMAGE_PROFILE.coefficients;
-export const CLASS_RAW_MODIFIER: Record<string, number> =
-  MHFU_DAMAGE_PROFILE.rawModifiers;
-
-const BOW_CHARGE_RAW = [0.4, 1.0, 1.5, 1.7];
-const BOW_CHARGE_ELEMENT = [0.5, 0.75, 1.0, 1.125];
-const BOW_MOTION: Record<string, number[]> = {
-  Rapid: [12, 16, 19, 21, 22],
-  Scatter: [13, 16, 23, 24, 26],
-  Pierce: [18, 24, 30, 30, 30],
-};
-const BOW_ELEMENT_HITS: Record<string, number[]> = {
-  Rapid: [1, 2, 3, 4, 4],
-  Scatter: [3, 3, 5, 5, 5],
-  Pierce: [3, 4, 5, 5, 5],
-};
-
-/** MHFU defaults retained for backwards compatibility. */
-export const SHARPNESS = MHFU_DAMAGE_PROFILE.sharpness;
-
 export const STATUS_ELEMENTS = new Set(["Poison", "Paralysis", "Sleep", "Slime", "Blast"]);
+
+/** Display and filter order for elemental and status damage types. */
+export const ELEMENT_ORDER = [
+  "Fire",
+  "Water",
+  "Thunder",
+  "Ice",
+  "Dragon",
+  "Poison",
+  "Paralysis",
+  "Sleep",
+  "Slime",
+  "Blast",
+] as const;
+
+/** Weapons data mixes cases (for example `fire`); filter against canonical names. */
+export function canonicalElement(name: string) {
+  const normalized = name.trim().toLowerCase();
+  return ELEMENT_ORDER.find((element) => element.toLowerCase() === normalized) ?? name;
+}
+
+export function weaponElements(weapon: Pick<Weapon, "elements">): string[] {
+  return [...new Set((weapon.elements ?? []).map(([name]) => canonicalElement(name)))];
+}
+
+/** `all` matches every weapon; `none` matches weapons without element or status. */
+export function weaponMatchesElement(weapon: Pick<Weapon, "elements">, filter: string) {
+  if (filter === "all") return true;
+  const elements = weaponElements(weapon);
+  if (filter === "none") return elements.length === 0;
+  return elements.includes(canonicalElement(filter));
+}
+
 export type SharpnessMode = "base" | "plus" | "best";
 
 export type StrengthOptions = {
@@ -47,7 +57,7 @@ export type StrengthOptions = {
   demonMode: boolean;
   /** Switch Axe sword mode with a Power Phial: enables the conditional 1.2x raw. */
   powerPhial: boolean;
-  /** MHP2G Crit Draw: draw attacks always crit, ignoring weapon affinity. */
+  /** Apply the profile's Crit Draw model to draw attacks. */
   critDraw: boolean;
   /** Flat true raw from Attack Up skills. */
   attackUp: number;
@@ -63,8 +73,10 @@ export type StrengthOptions = {
   bowCriticalDistance: boolean;
 };
 
-export const DEFAULT_STRENGTH_OPTIONS: StrengthOptions = {
-  profile: MHFU_DAMAGE_PROFILE,
+export type StrengthOptionsInput = Partial<StrengthOptions> &
+  Pick<StrengthOptions, "profile">;
+
+export const DEFAULT_STRENGTH_OPTIONS: Omit<StrengthOptions, "profile"> = {
   motionValue: 100,
   rawHitzone: 45,
   elementHitzone: 25,
@@ -138,8 +150,8 @@ export type WeaponScore = {
 /** Sharpness arrays are positional from red, with trailing zero colours omitted. */
 export function sharpnessTier(
   weapon: Weapon,
-  plus = false,
-  sharpnessTable: readonly SharpnessDefinition[] = SHARPNESS,
+  plus: boolean,
+  sharpnessTable: readonly SharpnessDefinition[],
 ): SharpnessTier {
   const values = plus ? weapon.sharpnessPlus : weapon.sharpness;
   if (!values?.length) {
@@ -162,10 +174,9 @@ export function sharpnessTier(
   };
 }
 
-function sharpnessAffinityBonus(tier: SharpnessTier) {
-  if (tier.index >= 5) return 10;
-  if (tier.index === 4) return 5;
-  return 0;
+function sharpnessAffinityBonus(tier: SharpnessTier, profile: DamageProfile) {
+  if (tier.index < 0) return 0;
+  return profile.sharpnessAffinity[tier.index] ?? 0;
 }
 
 function bestSharpness(
@@ -192,21 +203,39 @@ function rawClassModifier(
   return 1;
 }
 
+function expectedCritMultiplier(chance: number, profile: DamageProfile) {
+  const clamped = Math.max(-100, Math.min(100, chance));
+  if (clamped >= 0) {
+    return 1 + (clamped / 100) * (profile.criticalMultiplier - 1);
+  }
+  return 1 + (clamped / 100) * (1 - profile.negativeCriticalMultiplier);
+}
+
 /** Expected damage per hit against the configured hitzones. */
-export function scoreWeapon(weapon: Weapon, options: Partial<StrengthOptions> = {}): WeaponScore {
-  const opts = { ...DEFAULT_STRENGTH_OPTIONS, ...options };
+export function scoreWeapon(weapon: Weapon, options: StrengthOptionsInput): WeaponScore {
+  const opts: StrengthOptions = { ...DEFAULT_STRENGTH_OPTIONS, ...options };
   const profile = opts.profile;
   const coefficient = profile.coefficients[weapon.type] ?? 1;
   const trueRaw = weapon.attack / coefficient;
   const critChance = weapon.affinity ?? 0;
   const sharpnessBase = sharpnessTier(weapon, false, profile.sharpness);
   const sharpnessUsed = bestSharpness(weapon, opts.sharpness, profile.sharpness);
-  const baseAffinity = critChance - (critChance > 0 ? sharpnessAffinityBonus(sharpnessBase) : 0);
+  const baseAffinity =
+    critChance - (critChance > 0 ? sharpnessAffinityBonus(sharpnessBase, profile) : 0);
   const affinityBeforeSharpness = baseAffinity + opts.affinityBonus;
   const affinityAfterSharpness =
-    affinityBeforeSharpness > 0 ? affinityBeforeSharpness + sharpnessAffinityBonus(sharpnessUsed) : affinityBeforeSharpness;
+    affinityBeforeSharpness > 0
+      ? affinityBeforeSharpness + sharpnessAffinityBonus(sharpnessUsed, profile)
+      : affinityBeforeSharpness;
   const effectiveCritChance = Math.max(-100, Math.min(100, affinityAfterSharpness));
-  const critExpected = opts.critDraw ? 1.25 : 1 + (effectiveCritChance / 100) * 0.25;
+  const critExpected = opts.critDraw
+    ? profile.critDraw.mode === "guaranteed"
+      ? profile.criticalMultiplier
+      : expectedCritMultiplier(
+          effectiveCritChance + profile.critDraw.amount,
+          profile,
+        )
+    : expectedCritMultiplier(effectiveCritChance, profile);
   const rawModifier = opts.classModifiers
     ? rawClassModifier(profile, weapon.type, opts)
     : 1;
@@ -227,14 +256,15 @@ export function scoreWeapon(weapon: Weapon, options: Partial<StrengthOptions> = 
     const shot = shots[charge - 1] ?? shots[shots.length - 1];
     const shotName = shot?.name ?? "Rapid";
     const shotLevel = shot?.level ?? 1;
-    const rawCharge = BOW_CHARGE_RAW[charge - 1] ?? 1;
-    const elementCharge = BOW_CHARGE_ELEMENT[charge - 1] ?? 1;
-    const rawMotion = BOW_MOTION[shotName]?.[shotLevel - 1] ?? 100;
-    const elementHits = BOW_ELEMENT_HITS[shotName]?.[shotLevel - 1] ?? 1;
+    const bowCalc = profile.bow;
+    const rawCharge = bowCalc.chargeRaw[charge - 1] ?? 1;
+    const elementCharge = bowCalc.chargeElement[charge - 1] ?? 1;
+    const rawMotion = bowCalc.motion[shotName]?.[shotLevel - 1] ?? 100;
+    const elementHits = bowCalc.elementHits[shotName]?.[shotLevel - 1] ?? 1;
     const powerCoating =
       opts.bowPowerCoating && (weapon.coatings ?? []).includes("Power");
-    const powerMultiplier = powerCoating ? 1.5 : 1;
-    const rangeMultiplier = opts.bowCriticalDistance ? 1.5 : 1;
+    const powerMultiplier = powerCoating ? bowCalc.powerCoating : 1;
+    const rangeMultiplier = opts.bowCriticalDistance ? bowCalc.criticalDistance : 1;
     rawDamage =
       effectiveRaw *
       rawCharge *
@@ -340,7 +370,7 @@ export function isObtainableWeapon(weapon: Weapon) {
 
 export function scoreEndTreeG(
   weapons: Weapon[],
-  options: Partial<StrengthOptions> = {},
+  options: StrengthOptionsInput,
 ): WeaponScore[] {
   return weapons.filter(isEndTreeG).map((weapon) => scoreWeapon(weapon, options));
 }

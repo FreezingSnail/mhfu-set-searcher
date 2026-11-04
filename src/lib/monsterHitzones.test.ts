@@ -15,10 +15,17 @@ import {
 import {
   MH3U_DAMAGE_PROFILE,
   MH4U_DAMAGE_PROFILE,
+  MHFU_DAMAGE_PROFILE,
 } from "./damageProfiles.ts";
+import { DEFAULT_STRENGTH_OPTIONS } from "./weaponStrength.ts";
 import mh3uMonstersJson from "../data/monsters-mh3u.json" with { type: "json" };
 import mh4uMonstersJson from "../data/monsters-mh4u.json" with { type: "json" };
 import type { Weapon } from "./types.ts";
+
+const MHFU_OPTIONS = {
+  ...DEFAULT_STRENGTH_OPTIONS,
+  profile: MHFU_DAMAGE_PROFILE,
+};
 
 const monster: Monster = {
   name: "Test Monster",
@@ -76,12 +83,25 @@ test("best part follows the weapon damage type", () => {
   assert.equal(elementHitzone(monster.parts[0], "Thunder"), 30);
 });
 
+test("element hitzones accept mixed-case element names", () => {
+  assert.equal(elementHitzone(monster.parts[0], "thunder"), 30);
+  assert.equal(elementHitzone(monster.parts[0], "fire"), 0);
+
+  const row = scoreWeaponAgainstMonster(
+    weapon({ elements: [["fire", 300]] }),
+    monster,
+    monster.parts.find((part) => part.part === "body"),
+    { ...MHFU_OPTIONS, sharpness: "base", rawHitzone: 0, classModifiers: false },
+  );
+  assert.equal(row.elementDamage, 30 * 1.125 * 0.1);
+});
+
 test("monster scoring uses raw and element hitzones from the target part", () => {
   const row = scoreWeaponAgainstMonster(
     weapon({ elements: [["Thunder", 300]] }),
     monster,
     monster.parts.find((part) => part.part === "body"),
-    { sharpness: "base", rawHitzone: 100, elementHitzone: 100, classModifiers: false },
+    { ...MHFU_OPTIONS, sharpness: "base", rawHitzone: 100, elementHitzone: 100, classModifiers: false },
   );
   assert.equal(row.damageType, "slash");
   assert.equal(row.monsterPart.part, "body");
@@ -90,7 +110,7 @@ test("monster scoring uses raw and element hitzones from the target part", () =>
 });
 
 test("auto target picks the best raw part for the weapon", () => {
-  const row = scoreWeaponAgainstMonster(weapon(), monster, undefined);
+  const row = scoreWeaponAgainstMonster(weapon(), monster, undefined, MHFU_OPTIONS);
   assert.equal(row.monsterPart.part, "head");
   assert.equal(row.score, 200 * 1.5 * 0.75);
 });
@@ -107,7 +127,7 @@ test("practical state excludes late and conditional parts", () => {
   assert.equal(eligibleParts(withLate, "practical").some((part) => part.part === "stomach-post-break"), false);
   assert.equal(eligibleParts(withLate, "practical").some((part) => part.part === "head-guard"), false);
   assert.equal(eligibleParts(withLate, "all").some((part) => part.part === "stomach-post-break"), true);
-  const row = scoreWeaponAgainstMonsterAuto(weapon(), withLate, "practical");
+  const row = scoreWeaponAgainstMonsterAuto(weapon(), withLate, "practical", MHFU_OPTIONS);
   assert.equal(row.monsterPart.part, "head");
 });
 
@@ -123,7 +143,7 @@ test("auto part scoring considers elemental hitzones", () => {
     weapon({ elements: [["Water", 300]] }),
     elemental,
     "practical",
-    { sharpness: "base", rawHitzone: 100, elementHitzone: 100, classModifiers: false },
+    { ...MHFU_OPTIONS, sharpness: "base", rawHitzone: 100, elementHitzone: 100, classModifiers: false },
   );
   assert.equal(row.monsterPart.part, "water-part");
 });

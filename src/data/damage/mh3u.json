@@ -26,7 +26,32 @@
     { "name": "White", "raw": 1.32, "element": 1.125 },
     { "name": "Purple", "raw": 1.44, "element": 1.2 }
   ],
+  "sharpnessAffinity": [0, 0, 0, 0, 0, 0, 0],
   "elementAttackUp": 1.2,
+  "criticalMultiplier": 1.25,
+  "negativeCriticalMultiplier": 0.75,
+  "critDraw": { "mode": "guaranteed" },
+  "skills": {
+    "attackUp": [10, 15, 20],
+    "critEye": [10, 20, 30],
+    "huntingHornAttackUp": [1.15, 1.2]
+  },
+  "bow": {
+    "chargeRaw": [0.4, 1.0, 1.5, 1.7],
+    "chargeElement": [0.5, 0.75, 1.0, 1.125],
+    "motion": {
+      "Rapid": [12, 16, 19, 21, 22],
+      "Spread": [13, 16, 23, 24, 26],
+      "Pierce": [18, 24, 30, 30, 30]
+    },
+    "elementHits": {
+      "Rapid": [1, 2, 3, 4, 4],
+      "Spread": [3, 3, 5, 5, 5],
+      "Pierce": [3, 4, 5, 5, 5]
+    },
+    "powerCoating": 1.5,
+    "criticalDistance": 1.5
+  },
   "notes": "MH3U/MH3G blademaster constants. Coefficients divide displayed raw: hunting horn and switch axe are 4.6 in MH3U, not MHFU's 5.2, and long sword is 3.3, not 4.8. The sharpness table is fixed: green 1.05/1.00, blue 1.20/1.0625, white 1.32/1.125, purple 1.44/1.20; the MHFU values 1.125/1.25/1.30/1.50 do not apply. Some English tables round elemental blue/white to 1.06/1.13; the exact MH3U values are 1.0625/1.125. Sharpness +1 extends the gauge by one colour step and can reveal purple, but it does not change these multipliers. MH3U has no Sharpness +2 skill, so there is no second sharpness table. rawModifiers are class/mode corrections, not unconditional class-wide multipliers: SnS blade attacks always get 1.06 (SnS and DB elemental attacks also get a 0.70x modifier in MH3U); dual blades get 1.15 only in Demon Mode; switch axe gets 1.20 only in sword mode with a Power Phial (Element Phial is 1.25x elemental, not raw); gunlance has no melee raw penalty in MH3U because the old 0.97x gunlance correction was removed from MHP3 onward, so it is 1.0. If the damage model cannot represent modes/phials, DB and SA should be treated as 1.0 rather than applying these conditional bonuses to every hit. Element Atk Up is 1.2x in MH3U; it does not stack with a specific Element Atk +2 (both are 1.2x). Purple is given as 1.44 by the MH3G wiki and calculator; a few later-game or secondary tables show 1.45, which is the MH4/MH4U value, not MH3U.",
   "sources": [
     "https://w.atwiki.jp/mh3g/pages/536.html",

@@ -1,4 +1,5 @@
 import type { Game } from "./types.ts";
+import mhfuJson from "../data/damage/mhfu.json" with { type: "json" };
 import mh3uJson from "../data/damage/mh3u.json" with { type: "json" };
 import mh4uJson from "../data/damage/mh4u.json" with { type: "json" };
 
@@ -6,6 +7,32 @@ export type SharpnessDefinition = {
   name: string;
   raw: number;
   element: number;
+};
+
+export type CritDrawModel =
+  | { mode: "guaranteed" }
+  | { mode: "affinity"; amount: number };
+
+export type BowCalculation = {
+  /** Raw charge multipliers for charge levels 1-4. */
+  chargeRaw: readonly number[];
+  /** Elemental charge multipliers for charge levels 1-4. */
+  chargeElement: readonly number[];
+  /** Total motion value per shot level (1-5), keyed by shot name. */
+  motion: Record<string, readonly number[]>;
+  /** Elemental hit count per shot level (1-5), keyed by shot name. */
+  elementHits: Record<string, readonly number[]>;
+  powerCoating: number;
+  criticalDistance: number;
+};
+
+export type SkillCalculations = {
+  /** Flat true raw values for Attack Up S/M/L/XL. */
+  attackUp: readonly number[];
+  /** Flat affinity values for Crit Eye +1/+2/+3. */
+  critEye: readonly number[];
+  /** Multipliers for Hunting Horn Attack Up L and its encore. */
+  huntingHornAttackUp: readonly number[];
 };
 
 export type DamageProfile = {
@@ -17,7 +44,14 @@ export type DamageProfile = {
   /** Weapon types whose raw modifier only applies in a specific mode/phial state. */
   conditionalRawModifiers: ReadonlySet<string>;
   sharpness: readonly SharpnessDefinition[];
+  /** Bonus affinity granted by each sharpness tier, in tier order. */
+  sharpnessAffinity: readonly number[];
   elementAttackUp: number;
+  criticalMultiplier: number;
+  negativeCriticalMultiplier: number;
+  critDraw: CritDrawModel;
+  skills: SkillCalculations;
+  bow: BowCalculation;
   notes: string;
   sources: readonly string[];
 };
@@ -27,7 +61,13 @@ type RawDamageProfile = {
   coefficients: Record<string, number>;
   rawModifiers: Record<string, number>;
   sharpness: SharpnessDefinition[];
+  sharpnessAffinity: number[];
   elementAttackUp: number;
+  criticalMultiplier: number;
+  negativeCriticalMultiplier: number;
+  critDraw: CritDrawModel;
+  skills: SkillCalculations;
+  bow: BowCalculation;
   notes: string;
   sources: string[];
 };
@@ -42,48 +82,21 @@ function defineProfile(
     rawModifiers: raw.rawModifiers,
     conditionalRawModifiers: new Set(conditionalRawModifiers),
     sharpness: raw.sharpness,
+    sharpnessAffinity: raw.sharpnessAffinity,
     elementAttackUp: raw.elementAttackUp,
+    criticalMultiplier: raw.criticalMultiplier,
+    negativeCriticalMultiplier: raw.negativeCriticalMultiplier,
+    critDraw: raw.critDraw,
+    skills: raw.skills,
+    bow: raw.bow,
     notes: raw.notes,
     sources: raw.sources,
   };
 }
 
-/** MHFU/MHP2G values retained as the default for the original compare page. */
-export const MHFU_DAMAGE_PROFILE: DamageProfile = {
-  id: "mhfu",
-  coefficients: {
-    "great-sword": 4.8,
-    "long-sword": 4.8,
-    "sword-and-shield": 1.4,
-    "dual-blades": 1.4,
-    hammer: 5.2,
-    "hunting-horn": 5.2,
-    lance: 2.3,
-    gunlance: 2.3,
-    "light-bowgun": 1.2,
-    "heavy-bowgun": 1.2,
-    bow: 1.2,
-  },
-  rawModifiers: {
-    "sword-and-shield": 1.12,
-    gunlance: 0.97,
-    "light-bowgun": 1.15,
-    "heavy-bowgun": 1.15,
-  },
-  conditionalRawModifiers: new Set(),
-  sharpness: [
-    { name: "Red", raw: 0.5, element: 0.25 },
-    { name: "Orange", raw: 0.75, element: 0.5 },
-    { name: "Yellow", raw: 1, element: 0.75 },
-    { name: "Green", raw: 1.125, element: 1 },
-    { name: "Blue", raw: 1.25, element: 1.0625 },
-    { name: "White", raw: 1.3, element: 1.125 },
-    { name: "Purple", raw: 1.5, element: 1.2 },
-  ],
-  elementAttackUp: 1.2,
-  notes: "MHFU/MHP2G blademaster defaults used by the original compare page.",
-  sources: [],
-};
+export const MHFU_DAMAGE_PROFILE = defineProfile(
+  mhfuJson as unknown as RawDamageProfile,
+);
 
 /**
  * MH3U: DB Demon Mode (1.15x) and SA sword-mode Power Phial (1.2x) are

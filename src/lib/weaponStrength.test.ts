@@ -2,13 +2,20 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
   DEFAULT_STRENGTH_OPTIONS,
-  SHARPNESS,
   isEndTreeG,
   isObtainableWeapon,
   scoreWeapon,
   sharpnessTier,
+  weaponElements,
+  weaponMatchesElement,
 } from "./weaponStrength.ts";
+import { MHFU_DAMAGE_PROFILE } from "./damageProfiles.ts";
 import type { Weapon } from "./types.ts";
+
+const MHFU_OPTIONS = {
+  ...DEFAULT_STRENGTH_OPTIONS,
+  profile: MHFU_DAMAGE_PROFILE,
+};
 
 const weapon = (over: Partial<Weapon> = {}): Weapon => ({
   id: "test",
@@ -34,23 +41,23 @@ const weapon = (over: Partial<Weapon> = {}): Weapon => ({
 });
 
 test("MHFU sharpness table", () => {
-  assert.deepEqual(SHARPNESS.map((tier) => tier.name), [
+  assert.deepEqual(MHFU_DAMAGE_PROFILE.sharpness.map((tier) => tier.name), [
     "Red", "Orange", "Yellow", "Green", "Blue", "White", "Purple",
   ]);
-  assert.equal(SHARPNESS[5].raw, 1.3);
-  assert.equal(SHARPNESS[5].element, 1.125);
-  assert.equal(SHARPNESS[6].raw, 1.5);
-  assert.equal(SHARPNESS[6].element, 1.2);
+  assert.equal(MHFU_DAMAGE_PROFILE.sharpness[5].raw, 1.3);
+  assert.equal(MHFU_DAMAGE_PROFILE.sharpness[5].element, 1.125);
+  assert.equal(MHFU_DAMAGE_PROFILE.sharpness[6].raw, 1.5);
+  assert.equal(MHFU_DAMAGE_PROFILE.sharpness[6].element, 1.2);
 });
 
 test("sharpness tier uses the highest non-zero colour", () => {
-  assert.equal(sharpnessTier(weapon()).name, "White");
-  assert.equal(sharpnessTier(weapon(), true).name, "Purple");
+  assert.equal(sharpnessTier(weapon(), false, MHFU_DAMAGE_PROFILE.sharpness).name, "White");
+  assert.equal(sharpnessTier(weapon(), true, MHFU_DAMAGE_PROFILE.sharpness).name, "Purple");
 });
 
 test("raw uses class coefficient, sharpness, and expected crit", () => {
   const row = scoreWeapon(weapon(), {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     sharpness: "base",
     rawHitzone: 100,
     classModifiers: false,
@@ -64,13 +71,13 @@ test("raw uses class coefficient, sharpness, and expected crit", () => {
 
 test("affinity crit chance is included as expected raw", () => {
   const positive = scoreWeapon(weapon({ affinity: 20 }), {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     sharpness: "base",
     rawHitzone: 100,
     classModifiers: false,
   });
   const negative = scoreWeapon(weapon({ affinity: -20 }), {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     sharpness: "base",
     rawHitzone: 100,
     classModifiers: false,
@@ -83,13 +90,13 @@ test("affinity crit chance is included as expected raw", () => {
 
 test("100% and -100% affinity use full crit and bad-crit multipliers", () => {
   const positive = scoreWeapon(weapon({ affinity: 100 }), {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     sharpness: "base",
     rawHitzone: 100,
     classModifiers: false,
   });
   const negative = scoreWeapon(weapon({ affinity: -100 }), {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     sharpness: "base",
     rawHitzone: 100,
     classModifiers: false,
@@ -100,7 +107,7 @@ test("100% and -100% affinity use full crit and bad-crit multipliers", () => {
 
 test("Crit Draw forces a crit and ignores negative affinity on draw attacks", () => {
   const row = scoreWeapon(weapon({ affinity: -15 }), {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     sharpness: "base",
     rawHitzone: 100,
     classModifiers: false,
@@ -113,14 +120,14 @@ test("Crit Draw forces a crit and ignores negative affinity on draw attacks", ()
 
 test("Crit Eye adds affinity before the expected crit calculation", () => {
   const negative = scoreWeapon(weapon({ affinity: -20 }), {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     sharpness: "base",
     rawHitzone: 100,
     classModifiers: false,
     affinityBonus: 30,
   });
   const positive = scoreWeapon(weapon({ affinity: 20 }), {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     sharpness: "base",
     rawHitzone: 100,
     classModifiers: false,
@@ -134,7 +141,7 @@ test("Crit Eye adds affinity before the expected crit calculation", () => {
 
 test("Hunting Horn Attack Up song multiplies raw", () => {
   const row = scoreWeapon(weapon({ type: "hunting-horn", attack: 1040 }), {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     sharpness: "base",
     rawHitzone: 100,
     classModifiers: false,
@@ -147,7 +154,7 @@ test("Hunting Horn Attack Up song multiplies raw", () => {
 
 test("Attack Up adds flat true raw before sharpness and crit", () => {
   const row = scoreWeapon(weapon(), {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     sharpness: "base",
     rawHitzone: 100,
     classModifiers: false,
@@ -170,7 +177,7 @@ test("bow element uses charge, shot hit count, and elemental hitzone", () => {
       coatings: ["Power"],
     }),
     {
-      ...DEFAULT_STRENGTH_OPTIONS,
+      ...MHFU_OPTIONS,
       sharpness: "base",
       rawHitzone: 100,
       elementHitzone: 100,
@@ -200,7 +207,7 @@ test("bow element ignores Power Coating and critical distance", () => {
       coatings: ["Power"],
     }),
     {
-      ...DEFAULT_STRENGTH_OPTIONS,
+      ...MHFU_OPTIONS,
       sharpness: "base",
       rawHitzone: 100,
       elementHitzone: 100,
@@ -218,7 +225,7 @@ test("element uses displayed / 10 and sharpness element modifier", () => {
   const row = scoreWeapon(
     weapon({ type: "sword-and-shield", attack: 280, elements: [["Fire", 300]] }),
     {
-      ...DEFAULT_STRENGTH_OPTIONS,
+      ...MHFU_OPTIONS,
       sharpness: "base",
       rawHitzone: 0,
       elementHitzone: 100,
@@ -232,7 +239,7 @@ test("element uses displayed / 10 and sharpness element modifier", () => {
 
 test("status is separate from damage", () => {
   const row = scoreWeapon(weapon({ elements: [["Poison", 400]] }), {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     sharpness: "base",
     rawHitzone: 0,
     elementHitzone: 100,
@@ -251,7 +258,7 @@ test("hidden element only counts when Awaken is enabled", () => {
     awaken: true,
   });
   const options = {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     sharpness: "base" as const,
     rawHitzone: 0,
     elementHitzone: 100,
@@ -271,7 +278,7 @@ test("hidden element only counts when Awaken is enabled", () => {
 test("hidden status only counts when Awaken is enabled", () => {
   const hidden = weapon({ elements: [["Slime", 400]], awaken: true });
   const options = {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     sharpness: "base" as const,
     rawHitzone: 0,
     classModifiers: false,
@@ -282,7 +289,7 @@ test("hidden status only counts when Awaken is enabled", () => {
 
 test("sharpness plus falls back to base when missing", () => {
   const row = scoreWeapon(weapon({ sharpnessPlus: [] }), {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     sharpness: "plus",
     rawHitzone: 100,
     classModifiers: false,
@@ -293,13 +300,32 @@ test("sharpness plus falls back to base when missing", () => {
 
 test("non-numeric coating markers do not produce NaN", () => {
   const row = scoreWeapon(weapon({ type: "bow", elements: [["Paralysis", "Add" as unknown as number]] }), {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     sharpness: "base",
     rawHitzone: 0,
   });
   assert.equal(Number.isFinite(row.score), true);
   assert.equal(row.elementDamage, 0);
   assert.equal(row.status, 0);
+});
+
+test("element filter normalises names and separates raw, element, and status", () => {
+  const fire = weapon({ elements: [["fire", 220]] });
+  const mixed = weapon({ elements: [["Thunder", 300], ["Poison", 200]] });
+  const raw = weapon({ elements: [] });
+
+  assert.deepEqual(weaponElements(fire), ["Fire"]);
+  assert.deepEqual(weaponElements(mixed), ["Thunder", "Poison"]);
+
+  assert.equal(weaponMatchesElement(fire, "all"), true);
+  assert.equal(weaponMatchesElement(fire, "Fire"), true);
+  assert.equal(weaponMatchesElement(fire, "fire"), true);
+  assert.equal(weaponMatchesElement(fire, "Ice"), false);
+  assert.equal(weaponMatchesElement(mixed, "Poison"), true);
+  assert.equal(weaponMatchesElement(mixed, "Thunder"), true);
+  assert.equal(weaponMatchesElement(raw, "none"), true);
+  assert.equal(weaponMatchesElement(fire, "none"), false);
+  assert.equal(weaponMatchesElement(raw, "Fire"), false);
 });
 
 test("end-tree G filter excludes upgrades and other ranks", () => {

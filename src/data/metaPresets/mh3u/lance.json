@@ -2,7 +2,7 @@
   "type": "lance",
   "label": "Lance",
   "metaLabel": "Honed Blade / Razor Sharp / Guard +2",
-  "note": "MH3U G-rank guard Lance runs Honed Blade (Attack Up (L) + Sharpness +1), Razor Sharp, and Guard +2; the standard one-slot template fits all three, while zero-slot lances drop to Guard +1 and add Stamina Recovery Up. Guard +2 is the counter-lance priority; Evasion +2 (often with Evade Extender) is the hop-lance alternative. Honed Blade is represented by its components (+20 true raw, best sharpness); Razor Sharp, Guard +2, Guard Boost, Evasion +2, Evade Extender, and Element Atk Up are not modeled. The shared sharpness table uses MHFU multipliers; MH3U uses 1.05 green / 1.20 blue / 1.32 white / 1.44 purple, so absolute scores are not comparable across games.",
+  "note": "MH3U G-rank guard Lance runs Honed Blade (Attack Up (L) + Sharpness +1), Razor Sharp, and Guard +2; the standard one-slot template fits all three, while zero-slot lances drop to Guard +1 and add Stamina Recovery Up. Guard +2 is the counter-lance priority; Evasion +2 (often with Evade Extender) is the hop-lance alternative. Honed Blade is represented by its components (+20 true raw, best sharpness); Razor Sharp, Guard +2, Guard Boost, Evasion +2, Evade Extender, and Element Atk Up are not modeled. Sharpness uses MH3U's 1.05 green / 1.20 blue / 1.32 white / 1.44 purple table.",
   "skills": {
     "sharpness": "best",
     "critDraw": false,

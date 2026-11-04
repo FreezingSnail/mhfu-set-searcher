@@ -28,7 +28,32 @@
     { "name": "White", "raw": 1.32, "element": 1.125 },
     { "name": "Purple", "raw": 1.45, "element": 1.2 }
   ],
+  "sharpnessAffinity": [0, 0, 0, 0, 0, 0, 0],
   "elementAttackUp": 1.1,
+  "criticalMultiplier": 1.25,
+  "negativeCriticalMultiplier": 0.75,
+  "critDraw": { "mode": "affinity", "amount": 100 },
+  "skills": {
+    "attackUp": [10, 15, 20, 25],
+    "critEye": [10, 15, 20],
+    "huntingHornAttackUp": [1.15, 1.2]
+  },
+  "bow": {
+    "chargeRaw": [0.4, 1.0, 1.5, 1.7],
+    "chargeElement": [0.7, 0.85, 1.0, 1.125],
+    "motion": {
+      "Rapid": [12, 16, 19, 21, 22],
+      "Spread": [13, 16, 23, 24, 26],
+      "Pierce": [18, 24, 30, 30, 30]
+    },
+    "elementHits": {
+      "Rapid": [1, 2, 3, 4, 4],
+      "Spread": [3, 3, 5, 5, 5],
+      "Pierce": [3, 4, 5, 5, 5]
+    },
+    "powerCoating": 1.5,
+    "criticalDistance": 1.5
+  },
   "notes": "MH4U blademaster constants. True raw = displayed attack / coefficient. rawModifiers are conditional peak multipliers, not always-on: SnS 1.06 applies to sword attacks (shield attacks excluded); DB 1.15 applies only in Demon Mode (1.0 otherwise); SA 1.2 applies only to sword-mode attacks with a Power Phial (1.0 in axe mode and for other phials); MH4U Gunlance has no class-wide 0.97 raw modifier (that is MHFU/MHP2G) and is 1.0, with only action modifiers: full burst 1.1 Normal / 0.9 Spread, charged shell 1.2 Normal+Long / 1.45 Spread, and Long Wyvern Fire 1.2. Sharpness+1 is Handicraft +10; MH4U has no Sharpness+2 (it appears from Generations/GenU onward). Honed Blade (Edgemaster +10) grants Sharpness+1 plus Attack Up (L), i.e. +20 true raw. Purple is 1.45 raw / 1.20 element and white is 1.32 / 1.125; Sharpness+1 is what normally unlocks purple on G-rank weapons. Element Atk Up is 1.1x all five elements. Single-element +1/+2/+3 are 1.05x+40, 1.10x+60, and 1.15x+90; stacked with Element Atk Up they become 1.15x+40, 1.20x+60, and 1.20x+90. Displayed element is divided by 10. Long Sword spirit-gauge, Charge Blade red-shield axe mode, and Insect Glaive extract bonuses are state-specific and are not permanent class constants. Elemental hitzones and quest-wide defense are separate.",
   "sources": [
     "https://kiranico.com/en/mh4u/wiki/weapons",

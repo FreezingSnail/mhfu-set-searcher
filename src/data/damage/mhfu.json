@@ -1,0 +1,59 @@
+{
+  "game": "mhfu",
+  "coefficients": {
+    "great-sword": 4.8,
+    "long-sword": 4.8,
+    "sword-and-shield": 1.4,
+    "dual-blades": 1.4,
+    "hammer": 5.2,
+    "hunting-horn": 5.2,
+    "lance": 2.3,
+    "gunlance": 2.3,
+    "light-bowgun": 1.2,
+    "heavy-bowgun": 1.2,
+    "bow": 1.2
+  },
+  "rawModifiers": {
+    "sword-and-shield": 1.12,
+    "gunlance": 0.97,
+    "light-bowgun": 1.15,
+    "heavy-bowgun": 1.15
+  },
+  "sharpness": [
+    { "name": "Red", "raw": 0.5, "element": 0.25 },
+    { "name": "Orange", "raw": 0.75, "element": 0.5 },
+    { "name": "Yellow", "raw": 1.0, "element": 0.75 },
+    { "name": "Green", "raw": 1.125, "element": 1.0 },
+    { "name": "Blue", "raw": 1.25, "element": 1.0625 },
+    { "name": "White", "raw": 1.3, "element": 1.125 },
+    { "name": "Purple", "raw": 1.5, "element": 1.2 }
+  ],
+  "sharpnessAffinity": [0, 0, 0, 0, 5, 10, 10],
+  "elementAttackUp": 1.2,
+  "criticalMultiplier": 1.25,
+  "negativeCriticalMultiplier": 0.75,
+  "critDraw": { "mode": "guaranteed" },
+  "skills": {
+    "attackUp": [10, 15, 20],
+    "critEye": [10, 20, 30],
+    "huntingHornAttackUp": [1.2, 1.25]
+  },
+  "bow": {
+    "chargeRaw": [0.4, 1.0, 1.5, 1.7],
+    "chargeElement": [0.5, 0.75, 1.0, 1.125],
+    "motion": {
+      "Rapid": [12, 16, 19, 21, 22],
+      "Scatter": [13, 16, 23, 24, 26],
+      "Pierce": [18, 24, 30, 30, 30]
+    },
+    "elementHits": {
+      "Rapid": [1, 2, 3, 4, 4],
+      "Scatter": [3, 3, 5, 5, 5],
+      "Pierce": [3, 4, 5, 5, 5]
+    },
+    "powerCoating": 1.5,
+    "criticalDistance": 1.5
+  },
+  "notes": "MHFU/MHP2G blademaster constants. Blue sharpness grants +5% affinity and white/purple +10% when Crit Eye is active. Crit Draw guarantees a critical hit on draw attacks. Hunting Horn Attack Up L is 1.2x and its encore is 1.25x. Bow uses Scatter shot names and the MHFU charge tables.",
+  "sources": []
+}

@@ -15,6 +15,11 @@ import { META_PRESETS_MH3U } from "./metaPresetsMh3u.ts";
 import { META_PRESETS_MH4U } from "./metaPresetsMh4u.ts";
 import type { Weapon } from "./types.ts";
 
+const MHFU_OPTIONS = {
+  ...DEFAULT_STRENGTH_OPTIONS,
+  profile: MHFU_DAMAGE_PROFILE,
+};
+
 const MH3U_BLADEMASTER = [
   "great-sword",
   "long-sword",
@@ -91,9 +96,121 @@ test("MH4U purple and element attack up values", () => {
   assert.equal(MHFU_DAMAGE_PROFILE.elementAttackUp, 1.2);
 });
 
+test("sharpness affinity bonus is game specific", () => {
+  assert.deepEqual(MHFU_DAMAGE_PROFILE.sharpnessAffinity, [0, 0, 0, 0, 5, 10, 10]);
+  assert.deepEqual(MH3U_DAMAGE_PROFILE.sharpnessAffinity, [0, 0, 0, 0, 0, 0, 0]);
+  assert.deepEqual(MH4U_DAMAGE_PROFILE.sharpnessAffinity, [0, 0, 0, 0, 0, 0, 0]);
+
+  const options = {
+    ...MHFU_OPTIONS,
+    sharpness: "base" as const,
+    rawHitzone: 100,
+    classModifiers: false,
+    affinityBonus: 30,
+  };
+  assert.equal(
+    scoreWeapon(weapon(), { ...options, profile: MHFU_DAMAGE_PROFILE }).effectiveCritChance,
+    40,
+  );
+  assert.equal(
+    scoreWeapon(weapon(), { ...options, profile: MH3U_DAMAGE_PROFILE }).effectiveCritChance,
+    30,
+  );
+  assert.equal(
+    scoreWeapon(weapon(), { ...options, profile: MH4U_DAMAGE_PROFILE }).effectiveCritChance,
+    30,
+  );
+});
+
+test("crit draw uses each game's model", () => {
+  const options = {
+    ...MHFU_OPTIONS,
+    sharpness: "base" as const,
+    rawHitzone: 100,
+    classModifiers: false,
+    critDraw: true,
+  };
+  const negative = weapon({ affinity: -20 });
+
+  assert.equal(
+    scoreWeapon(negative, { ...options, profile: MHFU_DAMAGE_PROFILE }).critExpected,
+    1.25,
+  );
+  assert.equal(
+    scoreWeapon(negative, { ...options, profile: MH3U_DAMAGE_PROFILE }).critExpected,
+    1.25,
+  );
+  // MH4U adds +100% affinity instead of guaranteeing a critical hit.
+  assert.equal(
+    scoreWeapon(negative, { ...options, profile: MH4U_DAMAGE_PROFILE }).critExpected,
+    1.2,
+  );
+});
+
+test("skill values are game specific", () => {
+  assert.deepEqual(MHFU_DAMAGE_PROFILE.skills, {
+    attackUp: [10, 15, 20],
+    critEye: [10, 20, 30],
+    huntingHornAttackUp: [1.2, 1.25],
+  });
+  assert.deepEqual(MH3U_DAMAGE_PROFILE.skills, {
+    attackUp: [10, 15, 20],
+    critEye: [10, 20, 30],
+    huntingHornAttackUp: [1.15, 1.2],
+  });
+  assert.deepEqual(MH4U_DAMAGE_PROFILE.skills, {
+    attackUp: [10, 15, 20, 25],
+    critEye: [10, 15, 20],
+    huntingHornAttackUp: [1.15, 1.2],
+  });
+});
+
+test("bow shot tables use each game's shot names", () => {
+  assert.ok(MHFU_DAMAGE_PROFILE.bow.motion.Scatter);
+  assert.ok(MH3U_DAMAGE_PROFILE.bow.motion.Spread);
+  assert.ok(MH4U_DAMAGE_PROFILE.bow.motion.Spread);
+  assert.equal(MH3U_DAMAGE_PROFILE.bow.motion.Scatter, undefined);
+});
+
+test("bow charge element multipliers are game specific", () => {
+  const bow = weapon({
+    type: "bow",
+    attack: 240,
+    elements: [["Fire", 300]],
+    sharpness: [],
+    sharpnessPlus: [],
+    shots: [{ name: "Rapid", level: 3 }],
+    coatings: ["Power"],
+  });
+  const options = {
+    ...MHFU_OPTIONS,
+    sharpness: "base" as const,
+    rawHitzone: 0,
+    elementHitzone: 100,
+    classModifiers: false,
+    bowCharge: 2,
+    bowPowerCoating: false,
+    bowCriticalDistance: false,
+  };
+
+  assert.equal(
+    scoreWeapon(bow, { ...options, profile: MHFU_DAMAGE_PROFILE }).elementDamage,
+    67.5,
+  );
+  assert.equal(
+    scoreWeapon(bow, { ...options, profile: MH3U_DAMAGE_PROFILE }).elementDamage,
+    67.5,
+  );
+  // MH4U charge 2 is 0.85x element rather than 0.75x.
+  assert.equal(
+    scoreWeapon(bow, { ...options, profile: MH4U_DAMAGE_PROFILE }).elementDamage,
+    76.5,
+  );
+});
+
 test("profile scoring uses the game coefficient and sharpness table", () => {
   const row = scoreWeapon(weapon({ type: "long-sword", attack: 660 }), {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     profile: MH3U_DAMAGE_PROFILE,
     sharpness: "base",
     rawHitzone: 100,
@@ -109,7 +226,7 @@ test("profile scoring uses the game coefficient and sharpness table", () => {
 
 test("MH4U SnS always-on raw modifier applies on the profile table", () => {
   const base = scoreWeapon(weapon({ type: "sword-and-shield", attack: 280 }), {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     profile: MH4U_DAMAGE_PROFILE,
     sharpness: "base",
     rawHitzone: 100,
@@ -118,7 +235,7 @@ test("MH4U SnS always-on raw modifier applies on the profile table", () => {
   assert.equal(round(base.effectiveRaw), 279.84);
 
   const purple = scoreWeapon(weapon({ type: "sword-and-shield", attack: 280 }), {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     profile: MH4U_DAMAGE_PROFILE,
     sharpness: "best",
     rawHitzone: 100,
@@ -130,13 +247,13 @@ test("MH4U SnS always-on raw modifier applies on the profile table", () => {
 test("conditional DB/SA modifiers are baseline 1.0 unless explicitly enabled", () => {
   const db = weapon({ type: "dual-blades", attack: 280 });
   const dbBase = scoreWeapon(db, {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     profile: MH3U_DAMAGE_PROFILE,
     sharpness: "base",
     rawHitzone: 100,
   });
   const dbDemon = scoreWeapon(db, {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     profile: MH3U_DAMAGE_PROFILE,
     sharpness: "base",
     rawHitzone: 100,
@@ -147,13 +264,13 @@ test("conditional DB/SA modifiers are baseline 1.0 unless explicitly enabled", (
 
   const sa = weapon({ type: "switch-axe", attack: 1080 });
   const saBase = scoreWeapon(sa, {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     profile: MH4U_DAMAGE_PROFILE,
     sharpness: "base",
     rawHitzone: 100,
   });
   const saPower = scoreWeapon(sa, {
-    ...DEFAULT_STRENGTH_OPTIONS,
+    ...MHFU_OPTIONS,
     profile: MH4U_DAMAGE_PROFILE,
     sharpness: "base",
     rawHitzone: 100,
