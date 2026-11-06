@@ -219,6 +219,12 @@ export function weaponTrueRaw(
   return weapon.attack / (profile.coefficients[weapon.type] ?? 1);
 }
 
+/** Game-displayed element / 10 = true element. Non-numeric markers pass through. */
+export function trueElementValue(displayed: number | string) {
+  const numeric = Number(displayed);
+  return Number.isFinite(numeric) ? numeric / 10 : displayed;
+}
+
 /** Expected damage per hit against the configured hitzones. */
 export function scoreWeapon(weapon: Weapon, options: StrengthOptionsInput): WeaponScore {
   const opts: StrengthOptions = { ...DEFAULT_STRENGTH_OPTIONS, ...options };

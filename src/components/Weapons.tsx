@@ -1,7 +1,7 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { useGame } from "../lib/gameContext";
 import { DAMAGE_PROFILES, type DamageProfile } from "../lib/damageProfiles";
-import { weaponTrueRaw } from "../lib/weaponStrength";
+import { trueElementValue, weaponTrueRaw } from "../lib/weaponStrength";
 import type { AmmoGroup, Weapon } from "../lib/types";
 
 const SHARP_COLORS = ["#c0392b", "#d35400", "#d4ac0d", "#27ae60", "#2980b9", "#ecf0f1", "#8e44ad"];
@@ -65,7 +65,10 @@ function weaponSearchText(
     `raw ${trueRawLabel(w, profile)}`,
     `affinity ${w.affinity}`,
     `slots ${w.slots}`,
-    ...w.elements.flatMap(([name, attack]) => [name, `${name} ${attack}`]),
+    ...w.elements.flatMap(([name, attack]) => {
+      const value = trueElementValue(attack);
+      return [name, `${name} ${value}`];
+    }),
   ];
   for (const ammo of w.ammo ?? []) {
     if (!ammo.caps.some((cap) => cap > 0)) continue;
@@ -120,15 +123,18 @@ function Elements({ weapon, values = false }: { weapon: Weapon; values?: boolean
   if (!weapon.elements.length) return null;
   return (
     <span className="elements">
-      {weapon.elements.map(([name, attack]) => (
-        <span
-          key={name}
-          className={`elem-tag ${ELEMENT_CLASS[name] ?? name.toLowerCase()}`}
-          title={`${name} ${attack}`}
-        >
-          {name}{values ? ` ${attack}` : ""}
-        </span>
-      ))}
+      {weapon.elements.map(([name, attack]) => {
+        const value = trueElementValue(attack);
+        return (
+          <span
+            key={name}
+            className={`elem-tag ${ELEMENT_CLASS[name] ?? name.toLowerCase()}`}
+            title={`${name} ${value}`}
+          >
+            {name}{values ? ` ${value}` : ""}
+          </span>
+        );
+      })}
       {weapon.awaken && <span className="dim small" title="Needs Awaken skill"> (awaken)</span>}
     </span>
   );

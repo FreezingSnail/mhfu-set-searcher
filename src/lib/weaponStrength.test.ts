@@ -7,6 +7,7 @@ import {
   isObtainableWeapon,
   scoreWeapon,
   sharpnessTier,
+  trueElementValue,
   weaponElements,
   weaponMatchesElement,
 } from "./weaponStrength.ts";
@@ -308,6 +309,12 @@ test("non-numeric coating markers do not produce NaN", () => {
   assert.equal(Number.isFinite(row.score), true);
   assert.equal(row.elementDamage, 0);
   assert.equal(row.status, 0);
+});
+
+test("true element divides displayed values and preserves markers", () => {
+  assert.equal(trueElementValue(220), 22);
+  assert.equal(trueElementValue(10), 1);
+  assert.equal(trueElementValue("Add"), "Add");
 });
 
 test("element filter normalises names and separates raw, element, and status", () => {

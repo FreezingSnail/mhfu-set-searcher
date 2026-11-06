@@ -10,6 +10,7 @@ import {
   isObtainableWeapon,
   scoreEndTreeG,
   scoreEndTreeHr,
+  trueElementValue,
   weaponElements,
   weaponMatchesElement,
   type SharpnessMode,
@@ -81,7 +82,7 @@ function truncate(text: string, length = 30) {
 
 function elementLabel(row: WeaponScore) {
   const parts = [...row.elementParts, ...row.statusParts].map(
-    (part) => `${part.name} ${part.displayed}`,
+    (part) => `${part.name} ${trueElementValue(part.displayed)}`,
   );
   if (parts.length) return parts.join(" / ");
   return row.weapon.awaken ? "Hidden (Awaken off)" : "—";

@@ -222,7 +222,7 @@ for (const file of fs.readdirSync(path.join(vendor, "blacksmith/weapons"))) {
       name: w.name,
       type: w.type,
       order: weaponOrder.get(w.type)?.get(w.name) ?? 9999,
-      rank: w.rarity <= 3 ? "lr" : w.rarity <= 7 ? "hr" : "gr",
+      rank: w.rarity <= 4 ? "lr" : w.rarity <= 8 ? "hr" : "gr",
       attack: w.attack,
       affinity: Number(String(w.affinity ?? "0").replace("%", "")) || 0,
       slots: w.slots,
