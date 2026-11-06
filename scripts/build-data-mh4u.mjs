@@ -83,7 +83,7 @@ const PARTS = { head: "head", body: "body", arms: "arms", waist: "waist", legs: 
 const TRACKER_PART = { head: "head", body: "chest", arms: "arms", waist: "waist", legs: "legs" };
 const SEX = { 0: "both", 1: "male", 2: "female" };
 const HUNTER = { 0: "both", 1: "blade", 2: "gunner" };
-const rankOf = (rarity) => (rarity <= 3 ? "low-rank" : rarity <= 6 ? "high-rank" : "g-rank");
+const rankOf = (rarity) => (rarity <= 3 ? "low-rank" : rarity <= 7 ? "high-rank" : "g-rank");
 
 const trackerArmor = new Map();
 for (const [file, trackerPart] of Object.entries(TRACKER_PART)) {
@@ -236,7 +236,7 @@ for (const [key, type] of Object.entries(TYPE)) {
       name,
       type,
       order: order.get(id) ?? 9999,
-      rank: s.rar <= 3 ? "lr" : s.rar <= 6 ? "hr" : "gr",
+      rank: s.rar <= 3 ? "lr" : s.rar <= 7 ? "hr" : "gr",
       attack: s.atk ?? 0,
       affinity: s.aff ?? 0,
       slots: s.slots ?? 0,
