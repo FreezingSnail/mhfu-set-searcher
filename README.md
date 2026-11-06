@@ -93,6 +93,8 @@ Vendored snapshots, pinned under `vendor/`:
 
 MH3U and MH4U materials for a small number of DLC/collaboration pieces are absent from the tracker source and are left empty. Jewels have no cost/material data in either source.
 
+All weapon attack values shown in the app are true raw (displayed attack ÷ the game's class coefficient), never bloated display numbers.
+
 The MHFU counter matrix in `src/data/counters/mhfu.json` maps each large monster to documented HGE / Earplug, wind, quake, and status requirements. `scripts/build-counters.mjs` regenerates it from the source list.
 
 Monster, quest, and item databases are intentionally out of scope.

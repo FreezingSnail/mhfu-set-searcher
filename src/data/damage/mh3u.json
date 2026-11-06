@@ -9,7 +9,10 @@
     "hunting-horn": 4.6,
     "lance": 2.3,
     "gunlance": 2.3,
-    "switch-axe": 4.6
+    "switch-axe": 4.6,
+    "light-bowgun": 1.2,
+    "heavy-bowgun": 1.2,
+    "bow": 1.2
   },
   "rawModifiers": {
     "sword-and-shield": 1.06,

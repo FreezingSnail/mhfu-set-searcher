@@ -11,6 +11,7 @@ import {
   DEFAULT_STRENGTH_OPTIONS,
   scoreWeapon,
   sharpnessTier,
+  weaponTrueRaw,
 } from "./weaponStrength.ts";
 import { META_PRESETS_MH3U } from "./metaPresetsMh3u.ts";
 import { META_PRESETS_MH4U } from "./metaPresetsMh4u.ts";
@@ -73,6 +74,22 @@ test("MH3U and MH4U coefficient tables", () => {
   assert.equal(MH4U_DAMAGE_PROFILE.coefficients["charge-blade"], 3.6);
   assert.equal(MH4U_DAMAGE_PROFILE.coefficients["insect-glaive"], 3.1);
   assert.equal(MH4U_DAMAGE_PROFILE.coefficients["hunting-horn"], 5.2);
+});
+
+test("every game profile converts ranged displayed attack", () => {
+  for (const profile of Object.values(DAMAGE_PROFILES)) {
+    for (const type of ["light-bowgun", "heavy-bowgun", "bow"]) {
+      assert.equal(profile.coefficients[type], 1.2);
+    }
+  }
+});
+
+test("weaponTrueRaw removes bloated attack for every game", () => {
+  assert.equal(round(weaponTrueRaw({ attack: 960, type: "great-sword" }, MHFU_DAMAGE_PROFILE)), 200);
+  assert.equal(round(weaponTrueRaw({ attack: 1150, type: "switch-axe" }, MH3U_DAMAGE_PROFILE)), 250);
+  assert.equal(round(weaponTrueRaw({ attack: 1566, type: "switch-axe" }, MH4U_DAMAGE_PROFILE)), 290);
+  assert.equal(round(weaponTrueRaw({ attack: 390, type: "light-bowgun" }, MH4U_PLUS_DAMAGE_PROFILE)), 325);
+  assert.equal(round(weaponTrueRaw({ attack: 96, type: "bow" }, MHFU_DAMAGE_PROFILE)), 80);
 });
 
 test("MH3U sharpness values differ from MHFU", () => {

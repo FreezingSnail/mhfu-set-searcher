@@ -1,5 +1,7 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { useGame } from "../lib/gameContext";
+import { DAMAGE_PROFILES, type DamageProfile } from "../lib/damageProfiles";
+import { weaponTrueRaw } from "../lib/weaponStrength";
 import type { AmmoGroup, Weapon } from "../lib/types";
 
 const SHARP_COLORS = ["#c0392b", "#d35400", "#d4ac0d", "#27ae60", "#2980b9", "#ecf0f1", "#8e44ad"];
@@ -40,19 +42,27 @@ const rapidFiresElement = (w: Weapon, element: string) =>
   (w.rapidFire ?? []).some((rapid) => AMMO_ELEMENT[rapid.replace(/\s+Lv\d+$/i, "")] === element);
 const prettyCase = (s?: string | null) =>
   s ? s.replace(/([a-z])([A-Z])/g, "$1 $2") : "—";
+const trueRawLabel = (weapon: Weapon, profile: DamageProfile) => {
+  const value = Math.round(weaponTrueRaw(weapon, profile) * 10) / 10;
+  return Number.isInteger(value) ? String(value) : value.toFixed(1);
+};
 const bonusLabel = (bonus: string) =>
   /^\+?\d+$/.test(bonus) ? `Defense ${bonus.startsWith("+") ? bonus : `+${bonus}`}` : `Bonus: ${bonus}`;
 const matchesWord = (text: string, word: string) =>
   word.length === 1 ? text.split(" ").includes(word) : text.includes(word);
 
 /* Full text index so ammo, coatings, recoil, reload and charge levels are searchable. */
-function weaponSearchText(w: Weapon, typeLabel: Record<string, string>) {
+function weaponSearchText(
+  w: Weapon,
+  typeLabel: Record<string, string>,
+  profile: DamageProfile,
+) {
   const parts: (string | null | undefined)[] = [
     w.name,
     typeLabel[w.type],
     w.rank === "lr" ? "low rank" : w.rank === "hr" ? "high rank" : "g rank",
     `rarity ${w.rarity}`,
-    `attack ${w.attack}`,
+    `raw ${trueRawLabel(w, profile)}`,
     `affinity ${w.affinity}`,
     `slots ${w.slots}`,
     ...w.elements.flatMap(([name, attack]) => [name, `${name} ${attack}`]),
@@ -290,7 +300,8 @@ function Tree({
   onSelect: (w: Weapon) => void;
   matches: Set<string>;
 }) {
-  const { data } = useGame();
+  const { game, data } = useGame();
+  const profile = DAMAGE_PROFILES[game];
   const names = new Set(weapons.map((w) => w.name));
   const children = new Map<string, Weapon[]>();
   for (const w of weapons) {
@@ -341,7 +352,7 @@ function Tree({
               {w.name}
             </button>
             <Elements weapon={w} />
-            <span className="dim small"> · {w.attack} atk · r{w.rarity}</span>
+            <span className="dim small"> · {trueRawLabel(w, profile)} raw · r{w.rarity}</span>
             <WeaponMeta weapon={w} />
           </summary>
           {(children.get(w.name) ?? []).map((c) => render(c))}
@@ -362,7 +373,8 @@ export function WeaponDetail({
   onSelect: (w: Weapon) => void;
   compact?: boolean;
 }) {
-  const { data } = useGame();
+  const { game, data } = useGame();
+  const profile = DAMAGE_PROFILES[game];
   const chain: Weapon[] = [];
   let cur = weapon;
   while (cur.improveFrom.length) {
@@ -376,7 +388,7 @@ export function WeaponDetail({
       <h3>{weapon.name}</h3>
       <p className="dim small"><Rank rank={weapon.rank} /> {data.typeLabel[weapon.type]} · rarity {weapon.rarity}</p>
       <div className="stat-row">
-        <span><strong>{weapon.attack}</strong> attack</span>
+        <span><strong>{trueRawLabel(weapon, profile)}</strong> raw</span>
         <span><strong>{weapon.affinity > 0 ? "+" : ""}{weapon.affinity}%</strong> affinity</span>
         <span><strong>{weapon.slots}</strong> slots</span>
       </div>
@@ -454,7 +466,8 @@ export function WeaponDetail({
 }
 
 export default function Weapons({ focusWeapon = null }: { focusWeapon?: string | null }) {
-  const { data } = useGame();
+  const { game, data } = useGame();
+  const profile = DAMAGE_PROFILES[game];
   const focus = focusWeapon ? data.weaponByName.get(focusWeapon) : undefined;
   const elementNames = useMemo(() => {
     const preferred = ["Fire", "Water", "Thunder", "Ice", "Dragon", "Poison", "Paralysis", "Sleep", "Slime", "Blast"];
@@ -494,8 +507,8 @@ export default function Weapons({ focusWeapon = null }: { focusWeapon?: string |
   const q = query.trim().toLowerCase();
   const queryWords = useMemo(() => q.split(/\s+/).filter(Boolean), [q]);
   const searchIndex = useMemo(
-    () => new Map(data.weapons.map((w) => [w.name, weaponSearchText(w, data.typeLabel)])),
-    [data],
+    () => new Map(data.weapons.map((w) => [w.name, weaponSearchText(w, data.typeLabel, profile)])),
+    [data, profile],
   );
 
   const filterMatch = useCallback((w: Weapon) => {

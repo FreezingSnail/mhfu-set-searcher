@@ -3,6 +3,7 @@ import { test } from "node:test";
 import {
   DEFAULT_STRENGTH_OPTIONS,
   isEndTreeG,
+  isEndTreeHr,
   isObtainableWeapon,
   scoreWeapon,
   sharpnessTier,
@@ -332,6 +333,22 @@ test("end-tree G filter excludes upgrades and other ranks", () => {
   assert.equal(isEndTreeG(weapon()), true);
   assert.equal(isEndTreeG(weapon({ improveTo: ["Next"] })), false);
   assert.equal(isEndTreeG(weapon({ rank: "hr" })), false);
+});
+
+test("end-tree HR filter keeps HR caps and excludes HR upgrade steps", () => {
+  const hrCap = weapon({ name: "HR Cap", rank: "hr" });
+  const hrMid = weapon({ name: "HR Mid", rank: "hr", improveTo: ["HR Cap"] });
+  const gNext = weapon({ name: "G Next" });
+  const byName = new Map([
+    [hrCap.name, hrCap],
+    [hrMid.name, hrMid],
+    [gNext.name, gNext],
+  ]);
+
+  assert.equal(isEndTreeHr(hrCap, byName), true);
+  assert.equal(isEndTreeHr(hrMid, byName), false);
+  assert.equal(isEndTreeHr(weapon({ rank: "hr", improveTo: ["G Next"] }), byName), true);
+  assert.equal(isEndTreeHr(weapon({ rank: "gr" }), byName), false);
 });
 
 test("placeholder and no-path weapons are hidden, but tree-linked material-less weapons are not", () => {

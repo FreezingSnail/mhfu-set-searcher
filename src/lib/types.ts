@@ -64,6 +64,7 @@ export type Weapon = {
   type: string;
   order: number;
   rank: "lr" | "hr" | "gr";
+  /** Game-displayed (bloated) attack; divide by the profile coefficient for true raw. */
   attack: number;
   affinity: number;
   slots: number;

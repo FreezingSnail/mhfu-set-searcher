@@ -11,7 +11,10 @@
     "gunlance": 2.3,
     "switch-axe": 5.4,
     "charge-blade": 3.6,
-    "insect-glaive": 3.1
+    "insect-glaive": 3.1,
+    "light-bowgun": 1.2,
+    "heavy-bowgun": 1.2,
+    "bow": 1.2
   },
   "rawModifiers": {
     "sword-and-shield": 1.06,

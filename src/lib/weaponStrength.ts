@@ -211,12 +211,20 @@ function expectedCritMultiplier(chance: number, profile: DamageProfile) {
   return 1 + (clamped / 100) * (1 - profile.negativeCriticalMultiplier);
 }
 
+/** Displayed attack / class coefficient = true raw. */
+export function weaponTrueRaw(
+  weapon: Pick<Weapon, "attack" | "type">,
+  profile: Pick<DamageProfile, "coefficients">,
+) {
+  return weapon.attack / (profile.coefficients[weapon.type] ?? 1);
+}
+
 /** Expected damage per hit against the configured hitzones. */
 export function scoreWeapon(weapon: Weapon, options: StrengthOptionsInput): WeaponScore {
   const opts: StrengthOptions = { ...DEFAULT_STRENGTH_OPTIONS, ...options };
   const profile = opts.profile;
   const coefficient = profile.coefficients[weapon.type] ?? 1;
-  const trueRaw = weapon.attack / coefficient;
+  const trueRaw = weaponTrueRaw(weapon, profile);
   const critChance = weapon.affinity ?? 0;
   const sharpnessBase = sharpnessTier(weapon, false, profile.sharpness);
   const sharpnessUsed = bestSharpness(weapon, opts.sharpness, profile.sharpness);
@@ -373,6 +381,31 @@ export function scoreEndTreeG(
   options: StrengthOptionsInput,
 ): WeaponScore[] {
   return weapons.filter(isEndTreeG).map((weapon) => scoreWeapon(weapon, options));
+}
+
+/**
+ * Best weapons available at high rank: HR weapons whose remaining upgrades are
+ * all G rank. HR-to-HR upgrade steps are excluded, mirroring the G end-tree rule.
+ */
+export function isEndTreeHr(
+  weapon: Weapon,
+  weaponByName: ReadonlyMap<string, Pick<Weapon, "rank">>,
+) {
+  if (weapon.rank !== "hr") return false;
+  return !weapon.improveTo.some((name) => {
+    const rank = weaponByName.get(name)?.rank;
+    return rank === "lr" || rank === "hr";
+  });
+}
+
+export function scoreEndTreeHr(
+  weapons: Weapon[],
+  weaponByName: ReadonlyMap<string, Pick<Weapon, "rank">>,
+  options: StrengthOptionsInput,
+): WeaponScore[] {
+  return weapons
+    .filter((weapon) => isEndTreeHr(weapon, weaponByName))
+    .map((weapon) => scoreWeapon(weapon, options));
 }
 
 export function median(values: number[]): number {

@@ -9,6 +9,7 @@ import {
   ELEMENT_ORDER,
   isObtainableWeapon,
   scoreEndTreeG,
+  scoreEndTreeHr,
   weaponElements,
   weaponMatchesElement,
   type SharpnessMode,
@@ -66,8 +67,9 @@ const NOTE_CLASS: Record<string, string> = {
   Cyan: "cyan",
 };
 
-type Sort = "score" | "attack" | "name";
+type Sort = "score" | "raw" | "name";
 type Limit = "all" | "25" | "10";
+type CompareRank = "g" | "hr";
 type Tip = { x: number; y: number; text: string };
 
 const fmt = (value: number, digits = 1) =>
@@ -192,7 +194,7 @@ function StrengthChart({
           const tipText = [
             row.weapon.name,
             `Score ${fmt(row.score)} · raw ${fmt(row.rawDamage)} · element ${fmt(row.elementDamage)}`,
-            `Attack ${row.weapon.attack} → true raw ${fmt(row.trueRaw)}${row.attackUp ? ` (+${row.attackUp} Attack Up)` : ""}`,
+            `True raw ${fmt(row.trueRaw)}${row.attackUp ? ` (+${row.attackUp} Attack Up)` : ""}`,
             row.critDraw
               ? `Crit Draw: ${fmt(row.critExpected, 3)}x raw on draw attacks`
               : `Crit ${row.critChance >= 0 ? "+" : ""}${row.critChance}%${row.affinityBonus ? ` + Crit Eye ${row.affinityBonus}%` : ""} → ${row.effectiveCritChance >= 0 ? "+" : ""}${row.effectiveCritChance}% → ${fmt(row.critExpected, 3)}x raw`,
@@ -303,7 +305,6 @@ function CompareTable({
     { label: "Raw damage", value: (row) => fmt(row.rawDamage) },
     { label: "Element damage", value: (row) => fmt(row.elementDamage) },
     { label: "Status", value: (row) => (row.status > 0 ? fmt(row.status) : "—") },
-    { label: "Displayed attack", value: (row) => String(row.weapon.attack) },
     { label: "True raw", value: (row) => fmt(row.trueRaw) },
     {
       label: "Crit chance",
@@ -409,6 +410,7 @@ export default function WeaponCompare({
     },
   ];
   const [type, setType] = useState("great-sword");
+  const [rankScope, setRankScope] = useState<CompareRank>("g");
   const [elementFilter, setElementFilter] = useState("all");
   const [sharpness, setSharpness] = useState<SharpnessMode>("best");
   const [sort, setSort] = useState<Sort>("score");
@@ -461,11 +463,14 @@ export default function WeaponCompare({
   );
 
   const allScores = useMemo(
-    () =>
-      scoreEndTreeG(data.weapons, options).filter(
-        (row) => includeUnavailable || isObtainableWeapon(row.weapon),
-      ),
-    [data.weapons, options, includeUnavailable],
+    () => {
+      const rows =
+        game === "mhfu" && rankScope === "hr"
+          ? scoreEndTreeHr(data.weapons, data.weaponByName, options)
+          : scoreEndTreeG(data.weapons, options);
+      return rows.filter((row) => includeUnavailable || isObtainableWeapon(row.weapon));
+    },
+    [game, data.weapons, data.weaponByName, options, rankScope, includeUnavailable],
   );
   const typeRows = useMemo(
     () => allScores.filter((row) => row.weapon.type === type),
@@ -503,8 +508,8 @@ export default function WeaponCompare({
     const sorted = [...filtered];
     if (sort === "name") {
       sorted.sort((a, b) => a.weapon.name.localeCompare(b.weapon.name));
-    } else if (sort === "attack") {
-      sorted.sort((a, b) => b.weapon.attack - a.weapon.attack);
+    } else if (sort === "raw") {
+      sorted.sort((a, b) => b.trueRaw - a.trueRaw);
     } else {
       sorted.sort((a, b) => b.score - a.score);
     }
@@ -526,6 +531,8 @@ export default function WeaponCompare({
       : elementFilter === "none"
         ? "No element / status"
         : elementFilter;
+  const rankLabel =
+    game === "mhfu" && rankScope === "hr" ? "end-tree HR" : "end-tree G";
 
   const toggle = (name: string) => {
     setSelected((old) => {
@@ -570,15 +577,16 @@ export default function WeaponCompare({
             <h2>Weapon Comparison</h2>
             {game === "mhfu" ? (
               <p className="dim small">
-                MHFU end-tree G-rank weapons. Melee and bowguns use 100 MV against the dummy
-                45/25 hitzones; Bow uses the selected charge's real motion values and elemental
-                hit count. Compare within a type; click bars to add up to {MAX_COMPARE} weapons.
-                Base clears
-                skills; Meta applies the standard endgame skill package for the selected type.
-                Crit Draw models MHP2G draw attacks: 100% crit and negative affinity ignored on that
-                hit. Crit Eye adds flat affinity for sustained weapons such as Long Sword. Hunting
-                Horn shows note colours and can apply the Attack Up L / encore song. The Element
-                filter narrows the chart to one element or status type, or to raw weapons.
+                MHFU weapons. Rank switches between end-tree G-rank and end-tree high-rank
+                weapons; high rank lists the best weapons available before G rank. Melee and
+                bowguns use 100 MV against the dummy 45/25 hitzones; Bow uses the selected
+                charge&apos;s real motion values and elemental hit count. Compare within a type;
+                click bars to add up to {MAX_COMPARE} weapons. Base clears skills; Meta applies
+                the standard endgame skill package for the selected type. Crit Draw models MHP2G
+                draw attacks: 100% crit and negative affinity ignored on that hit. Crit Eye adds
+                flat affinity for sustained weapons such as Long Sword. Hunting Horn shows note
+                colours and can apply the Attack Up L / encore song. The Element filter narrows
+                the chart to one element or status type, or to raw weapons.
               </p>
             ) : (
               <p className="dim small">
@@ -620,6 +628,22 @@ export default function WeaponCompare({
               ))}
             </select>
           </label>
+          {game === "mhfu" && (
+            <label>
+              Rank
+              <select
+                value={rankScope}
+                onChange={(event) => {
+                  setRankScope(event.target.value as CompareRank);
+                  setElementFilter("all");
+                  setSelected(null);
+                }}
+              >
+                <option value="g">G rank only</option>
+                <option value="hr">HR only</option>
+              </select>
+            </label>
+          )}
           <label>
             Element
             <select
@@ -734,7 +758,7 @@ export default function WeaponCompare({
             Sort
             <select value={sort} onChange={(event) => setSort(event.target.value as Sort)}>
               <option value="score">Score</option>
-              <option value="attack">Displayed attack</option>
+              <option value="raw">True raw</option>
               <option value="name">Name</option>
             </select>
           </label>
@@ -788,7 +812,7 @@ export default function WeaponCompare({
           <h3>
             {data.typeLabel[type]}{" "}
             <span className="dim small">
-              {elementRows.length} end-tree G weapons
+              {elementRows.length} {rankLabel} weapons
               {elementFilter !== "all" ? ` · ${elementFilterLabel}` : ""}
             </span>
           </h3>
